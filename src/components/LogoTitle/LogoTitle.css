@@ -1,0 +1,10 @@
+.logo-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title {
+    width: 50px;
+    height: auto;
+}
