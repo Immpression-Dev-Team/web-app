@@ -57,6 +57,12 @@ export default function Navbar() {
                             <button onClick={() => navigate("/signup")} className="nav-item">
                                 📝 Sign Up
                             </button>
+                            <button onClick={() => navigate("/about")} className="nav-item">
+                                ℹ️ About Us
+                            </button>
+                            <button onClick={() => navigate("/contact")} className="nav-item">
+                                📞 Contact Us
+                            </button>
                         </>
                     )}
                 </div>

@@ -17,7 +17,7 @@ const AppContent = () => {
 
     return (
         <>
-            {userData && <Navbar />}
+            <Navbar />
             <Routes>
                 {userData ? userStackScreen() : guestStackScreen()}
             </Routes>
