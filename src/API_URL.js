@@ -1,5 +1,8 @@
-const API_URL = import.meta.env.ENV === "prod" ? "https://immpression.com/api" : "http://localhost:4000";
+import dotenv from "dotenv";
+dotenv.config();
 
-console.log(API_URL);
+const { ENV } = process.env;
+
+const API_URL = ENV === "prod" ? "https://immpression.com/api" : "http://localhost:4000";
 
 export { API_URL };

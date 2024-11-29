@@ -1,34 +1,21 @@
-import React, { useEffect, useState } from "react";
-import NavBar from "../Navbar/Navbar.jsx";
+import React, { useState } from "react";
 import { useAuth } from "../../state/AuthProvider.jsx";
 import { handleSignup } from "../../utils/handleSignup";
 import logoImage from "../../assets/Logo_T.png";
 import headerImage from "../../assets/headers/Immpression_multi.png";
-import backgroundImage from "../../assets/backgrounds/babyBlue.png";
 import "./SignUp.css";
+import useLoadingAnimation from "../loadingAnimation.js";
 
 const SignUp = () => {
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    const [ellipsis, setEllipsis] = useState("");
     const [error, setError] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
     const { login } = useAuth();
 
-    // Animate loading state
-    useEffect(() => {
-        if (isLoading) {
-            const intervalId = setInterval(() => {
-                setEllipsis((prev) => (prev.length < 3 ? prev + "." : ""));
-            }, 500);
-
-            return () => clearInterval(intervalId);
-        } else {
-            setEllipsis("");
-        }
-    }, [isLoading]);
+    const ellipsis = useLoadingAnimation();
 
     const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
 
@@ -62,7 +49,7 @@ const SignUp = () => {
             // Check login result after successful signup
             if (loginResult.success) {
                 setTimeout(() => {
-                    window.location.href = "/account-type";
+                    window.location.href = "/accountType";
                 }, 2000);
             } else {
                 setError("Login failed after successful signup.");
@@ -77,9 +64,7 @@ const SignUp = () => {
     return (
         <div
             className="signup-background"
-            style={{ backgroundImage: `url(${backgroundImage})` }}
         >
-            <NavBar />
             <div className="signup-container">
                 <form className="signup-form" onSubmit={handleSubmit}>
                     <div className="signup-header">
@@ -132,7 +117,7 @@ const SignUp = () => {
                         className="back-button"
                         onClick={() => (window.location.href = "/login")}
                     >
-                        Back to Login
+                        <span className="italic-links">Already have an account?</span>
                     </button>
                 </form>
             </div>

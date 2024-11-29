@@ -1,10 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Routes } from "react-router-dom";
 import { AuthProvider, useAuth } from "./state/AuthProvider.jsx";
-import { guestStackScreen } from "./utils/helpers.jsx";
+import { userStackScreen, guestStackScreen } from "./utils/helpers.jsx";
+import Navbar from "./components/Navbar/Navbar.jsx";
 
 const AppContent = () => {
-    const { loading } = useAuth();
+    const { userData, loading } = useAuth();
 
     if (loading) {
         return (
@@ -15,9 +16,12 @@ const AppContent = () => {
     }
 
     return (
-        <Routes>
-            {guestStackScreen()}
-        </Routes>
+        <>
+            {userData && <Navbar />}
+            <Routes>
+                {userData ? userStackScreen() : guestStackScreen()}
+            </Routes>
+        </>
     );
 };
 

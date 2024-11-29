@@ -9,7 +9,6 @@ export const handleSignup = async (name, email, password) => {
             password,
         });
 
-        // Check for success in the response
         if (response.data.success) {
             return { success: true, message: "Signup successful!" };
         } else {
@@ -19,7 +18,6 @@ export const handleSignup = async (name, email, password) => {
             };
         }
     } catch (err) {
-        // Improved error message handling
         const errorMessage =
             err.response?.data?.error ||
             err.message ||

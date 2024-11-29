@@ -23,21 +23,21 @@ export const AuthProvider = ({ children }) => {
         loadUserData();
     }, []);
 
-    // Modified login function to return a response with success and userData
     const login = (data) => {
         try {
             localStorage.setItem('userResponse', JSON.stringify(data));
             setUserData(data);
-            return { success: true };  // Return success if login is successful
+            return { success: true };
         } catch (error) {
             console.error('Error during login', error);
-            return { success: false, error: 'Login failed due to an internal error.' };  // Return failure if something goes wrong
+            return { success: false, error: 'Login failed due to an internal error.' };
         }
     };
 
     const logout = () => {
         localStorage.removeItem('userResponse');
         setUserData(null);
+        window.location.href = "/login";
     };
 
     const token = userData ? userData.token : null;

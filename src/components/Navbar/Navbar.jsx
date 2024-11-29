@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 import LogoTitle from "../LogoTitle/LogoTitle.jsx";
 import headerImage from "../../assets/headers/Immpression_multi.png";
 import "./Navbar.css";
+import { useAuth } from "../../state/AuthProvider.jsx";
 
 export default function Navbar() {
     const navigate = useNavigate();
     const [showNavItems, setShowNavItems] = useState(false);
+    const { userData, logout } = useAuth();
 
     const handleToggleNavItems = () => {
         setShowNavItems(!showNavItems);
@@ -14,6 +16,11 @@ export default function Navbar() {
 
     const refreshApp = () => {
         navigate("/");
+    };
+
+    const handleLogoutClick = () => {
+        logout();
+        navigate("/login");
     };
 
     return (
@@ -29,12 +36,29 @@ export default function Navbar() {
             </div>
             {showNavItems && (
                 <div className="nav-items-container">
-                    <button onClick={() => navigate("/statistics")} className="nav-item">
-                        📊
-                    </button>
-                    <button onClick={() => navigate("/settings")} className="nav-item">
-                        ⚙️
-                    </button>
+                    {userData ? (
+                        <>
+                            {/* Render these items if the user is logged in */}
+                            <button onClick={() => navigate("/statistics")} className="nav-item">
+                                📊 Statistics
+                            </button>
+                            <button onClick={() => navigate("/settings")} className="nav-item">
+                                ⚙️ Settings
+                            </button>
+                            <button onClick={handleLogoutClick} className="nav-item">
+                                🚪 Logout
+                            </button>
+                        </>
+                    ) : (
+                        <>
+                            <button onClick={() => navigate("/login")} className="nav-item">
+                                🔐 Login
+                            </button>
+                            <button onClick={() => navigate("/signup")} className="nav-item">
+                                📝 Sign Up
+                            </button>
+                        </>
+                    )}
                 </div>
             )}
         </div>

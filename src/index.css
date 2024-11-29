@@ -1,0 +1,13 @@
+body {
+    background: url('./assets/backgrounds/babyBlue.png') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.italic-links {
+    font-style: italic;
+}

@@ -1,54 +1,64 @@
-// import SettingsScreen from '../screens/Settings';
-// import StatisticsScreen from '../screens/Statistics';
-// import Profile from '../screens/Profile';
+import SettingsScreen from './components/Settings/Settings.jsx';
+import StatisticsScreen from './components/Statistics/Statistics.jsx';
+import Profile from './components/Profile/Profile.jsx';
 import SignUp from './components/SignUp/SignUp.jsx';
-// import PasswordReset from '../components/PasswordReset';
-// import Login from '../components/Login';
-// import AccountTypeScreen from '../components/AccountType';
+import PasswordReset from './components/PasswordReset/PasswordReset.jsx';
+import Login from './components/Login/Login.jsx';
+import AccountTypeScreen from './components/AccountType/AccountType.jsx';
+import Home from './components/Home/Home.jsx';
 
-// export const UserNavigation = [
-//     {
-//         name: 'Statistics',
-//         component: StatisticsScreen,
-//     },
-//     {
-//         name: 'Profile',
-//         component: Profile,
-//     },
-//     {
-//         name: 'Settings',
-//         component: SettingsScreen,
-//     },
-//     {
-//         name: 'SignUp',
-//         component: SignUp,
-//     },
-//     {
-//         name: 'PasswordReset',
-//         component: PasswordReset,
-//     },
-//     {
-//         name: 'AccountType',
-//         component: AccountTypeScreen,
-//     },
-// ];
+export const UserNavigation = [
+    {
+        name: 'Home',
+        path: '/',
+        component: Home,
+    },
+    {
+        name: 'Statistics',
+        path: '/statistics',
+        component: StatisticsScreen,
+    },
+    {
+        name: 'Profile',
+        path: '/profile',
+        component: Profile,
+    },
+    {
+        name: 'Settings',
+        path: '/settings',
+        component: SettingsScreen,
+    },
+    {
+        name: 'PasswordReset',
+        path: '/passwordReset',
+        component: PasswordReset,
+    },
+    {
+        name: 'AccountType',
+        path: '/accountType',
+        component: AccountTypeScreen,
+    },
+];
 
 export const GuestNavigation = [
-    // {
-    //     name: 'Login',
-    //     component: Login,
-    // },
+    {
+        name: 'Login',
+        path: '/login',
+        component: Login,
+    },
     {
         name: 'SignUp',
-        path: '/sign-up',
+        path: '/signUp',
         component: SignUp,
     },
-    // {
-    //     name: 'PasswordReset',
-    //     component: PasswordReset,
-    // },
-    // {
-    //     name: 'AccountType',
-    //     component: AccountTypeScreen,
-    // },
+    {
+        name: 'PasswordReset',
+        path: '/passwordReset',
+        component: PasswordReset,
+    },
+    {
+        name: 'AccountType',
+        path: '/accountType',
+        component: AccountTypeScreen,
+    },
 ];
