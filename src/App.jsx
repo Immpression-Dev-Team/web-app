@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes } from "react-router-dom";
 import { AuthProvider, useAuth } from "./state/AuthProvider.jsx";
 import { userStackScreen, guestStackScreen } from "./utils/helpers.jsx";
 import Navbar from "./components/Navbar/Navbar.jsx";
+import Footer from "./components/Footer/Footer.jsx";
 
 const AppContent = () => {
     const { userData, loading } = useAuth();
@@ -18,9 +19,10 @@ const AppContent = () => {
     return (
         <>
             <Navbar />
-            <Routes>
-                {userData ? userStackScreen() : guestStackScreen()}
-            </Routes>
+            <div className="content">
+                <Routes>{userData ? userStackScreen() : guestStackScreen()}</Routes>
+            </div>
+            <Footer />
         </>
     );
 };
