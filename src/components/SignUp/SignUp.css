@@ -18,8 +18,8 @@
     background: rgba(255, 255, 255, 0.9);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-    width: 90%; /* Responsive width */
-    max-width: 400px; /* Limit max width */
+    width: 90%;
+    max-width: 400px;
     text-align: center;
 }
 
@@ -30,7 +30,7 @@
 }
 
 form.signup-form {
-    width: 100%; /* Ensure form takes full width */
+    width: 100%;
 }
 
 .signup-header {
