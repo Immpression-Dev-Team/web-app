@@ -22,7 +22,7 @@ const AppContent = () => {
             <div className="content">
                 <Routes>{userData ? userStackScreen() : guestStackScreen()}</Routes>
             </div>
-            <Footer />
+            <Footer/>
         </>
     );
 };

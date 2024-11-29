@@ -6,6 +6,7 @@ import PasswordReset from './components/PasswordReset/PasswordReset.jsx';
 import Login from './components/Login/Login.jsx';
 import AccountTypeScreen from './components/AccountType/AccountType.jsx';
 import Home from './components/Home/Home.jsx';
+import PrivacyPolicyScreen from './components/PrivacyPolicy/PrivacyPolicy.jsx';
 
 export const UserNavigation = [
     {
@@ -61,4 +62,9 @@ export const GuestNavigation = [
         path: '/accountType',
         component: AccountTypeScreen,
     },
+    {
+        name: 'PrivacyPolicy',
+        path: '/privacy-policy',
+        component: PrivacyPolicyScreen,
+    }
 ];
