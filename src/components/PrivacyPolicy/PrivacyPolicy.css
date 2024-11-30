@@ -1,0 +1,6 @@
+.privacy-policy-container {
+    padding: 2rem;
+    max-height: 80vh;
+    overflow-y: auto;
+    font-family: Arial, sans-serif;
+}
