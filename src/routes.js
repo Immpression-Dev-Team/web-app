@@ -64,7 +64,7 @@ export const GuestNavigation = [
     },
     {
         name: 'PrivacyPolicy',
-        path: '/privacy-policy',
+        path: '/privacyPolicy',
         component: PrivacyPolicyScreen,
-    }
+    },
 ];
