@@ -1,5 +1,5 @@
 # Use an official Node.js image as the base image
-FROM node:18-alpine3.20
+FROM node:18
 
 # Set the working directory in the container
 WORKDIR /app
@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . .
 
 # Update and install dependencies
-RUN npm install
+RUN npm ci --platform=linux
 
 # Expose port 3000 to the outside
 EXPOSE 3000
