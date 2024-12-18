@@ -17,6 +17,8 @@
     "react-router-dom": "^7.0.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
     "@eslint/js": "^9.16.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
@@ -26,6 +28,20 @@
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.14",
     "globals": "^15.13.0",
+    "husky": "^9.1.7",
     "vite": "^6.0.1"
-  }
+  },
+  "description": "Frontend Web Application for Immpression project",
+  "main": "eslint.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Immpression-Dev-Team/web-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Immpression-Dev-Team/web-app/issues"
+  },
+  "homepage": "https://github.com/Immpression-Dev-Team/web-app#readme"
 }
