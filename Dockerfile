@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . .
 
 # Update and install dependencies
-RUN npm ci --platform=linux
+RUN npm install
 
 # Expose port 3000 to the outside
 EXPOSE 3000
