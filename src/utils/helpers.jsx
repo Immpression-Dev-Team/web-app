@@ -3,35 +3,19 @@ import { Route } from 'react-router-dom';
 import { UserNavigation, GuestNavigation } from '../routes.js';
 
 export const userStackScreen = () => {
-    return UserNavigation.map((navigation) => {
-        if (typeof navigation.component !== 'function') {
-            console.error(`Component for ${navigation.name} is not valid.`);
-            return null;
-        }
+    console.log("User Routes: ", UserNavigation); // Debug log
 
-        return (
-            <Route
-                key={navigation.name}
-                path={navigation.path}
-                element={React.createElement(navigation.component)}
-            />
-        );
+    return UserNavigation.map((navigation) => {
+        console.log(`Registering Route: ${navigation.path}`); // Debug log
+        return <Route key={navigation.name} path={navigation.path} element={navigation.element} />;
     });
 };
 
 export const guestStackScreen = () => {
-    return GuestNavigation.map((navigation) => {
-        if (typeof navigation.component !== 'function') {
-            console.error(`Component for ${navigation.name} is not valid.`);
-            return null;
-        }
+    console.log("Guest Routes: ", GuestNavigation); // Debug log
 
-        return (
-            <Route
-                key={navigation.name}
-                path={navigation.path}
-                element={React.createElement(navigation.component)}
-            />
-        );
+    return GuestNavigation.map((navigation) => {
+        console.log(`Registering Route: ${navigation.path}`); // Debug log
+        return <Route key={navigation.name} path={navigation.path} element={navigation.element} />;
     });
 };

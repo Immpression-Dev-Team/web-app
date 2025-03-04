@@ -6,65 +6,88 @@ import PasswordReset from './components/PasswordReset/PasswordReset.jsx';
 import Login from './components/Login/Login.jsx';
 import AccountTypeScreen from './components/AccountType/AccountType.jsx';
 import Home from './components/Home/Home.jsx';
-import PrivacyPolicyScreen from './components/PrivacyPolicy/PrivacyPolicy.jsx';
+import PolicyPage from './components/PolicyPage/PolicyPage.jsx';
+import LandingPage from './components/LandingPage/LandingPage.jsx';
+import React from "react";
+
+// Function-based approach to return JSX elements
+const createElement = (Component) => React.createElement(Component);
 
 export const UserNavigation = [
     {
+        name: 'LandingPage',
+        path: '/',
+        element: createElement(LandingPage),
+    },
+    {
         name: 'Home',
         path: '/',
-        component: Home,
+        element: createElement(Home),
     },
     {
         name: 'Statistics',
         path: '/statistics',
-        component: StatisticsScreen,
+        element: createElement(StatisticsScreen),
     },
     {
         name: 'Profile',
         path: '/profile',
-        component: Profile,
+        element: createElement(Profile),
     },
     {
         name: 'Settings',
         path: '/settings',
-        component: SettingsScreen,
+        element: createElement(SettingsScreen),
     },
     {
-        name: 'PasswordReset',
+        name: 'Password Reset',
         path: '/passwordReset',
-        component: PasswordReset,
+        element: createElement(PasswordReset),
     },
     {
-        name: 'AccountType',
+        name: 'Account Type',
         path: '/accountType',
-        component: AccountTypeScreen,
+        element: createElement(AccountTypeScreen),
     },
 ];
 
 export const GuestNavigation = [
     {
+        name: 'LandingPage',
+        path: '/',
+        element: createElement(LandingPage),
+    },
+    {
+        name: 'Home',
+        path: '/#',
+        element: createElement(Home),
+    },
+    {
         name: 'Login',
         path: '/login',
-        component: Login,
+        element: createElement(Login),
     },
     {
-        name: 'SignUp',
+        name: 'Sign Up',
         path: '/signUp',
-        component: SignUp,
+        element: createElement(SignUp),
     },
     {
-        name: 'PasswordReset',
+        name: 'Password Reset',
         path: '/passwordReset',
-        component: PasswordReset,
+        element: createElement(PasswordReset),
     },
     {
-        name: 'AccountType',
+        name: 'Account Type',
         path: '/accountType',
-        component: AccountTypeScreen,
+        element: createElement(AccountTypeScreen),
     },
     {
-        name: 'PrivacyPolicy',
-        path: '/privacyPolicy',
-        component: PrivacyPolicyScreen,
+        name: 'Policy Page',
+        path: '/policyPage',
+        element: createElement(PolicyPage),
     },
 ];
+
+console.log("📌 User Navigation Routes:", UserNavigation);
+console.log("📌 Guest Navigation Routes:", GuestNavigation);

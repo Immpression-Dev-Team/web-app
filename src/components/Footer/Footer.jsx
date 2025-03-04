@@ -9,7 +9,7 @@ const Footer = () => {
         <footer className="footer">
             <div>
                 <button
-                    onClick={() => navigate("/privacyPolicy")}
+                    onClick={() => navigate("/policyPage")}
                     className="footer-link"
                 >
                     Privacy Policy

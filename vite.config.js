@@ -8,8 +8,9 @@ dotenv.config()
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: process.env.VITE_WEB_PORT || '3000',
+    port: '3000',
     host: true,
     strictPort: true,
-  }
+  },
+  base: '/',
 })
