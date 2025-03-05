@@ -3,17 +3,14 @@ import { createContext, useContext, useState, useEffect } from 'react';
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-    console.log("🔄 AuthProvider is initializing...");
 
     const [userData, setUserData] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        console.log("⏳ Loading user data from localStorage...");
         try {
             const savedUserData = localStorage.getItem('userResponse');
             if (savedUserData) {
-                console.log("✅ Found user data:", savedUserData);
                 setUserData(JSON.parse(savedUserData));
             } else {
                 console.log("⚠️ No user data found.");
@@ -25,8 +22,6 @@ export function AuthProvider({ children }) {
             setLoading(false);
         }
     }, []);
-
-    console.log("📌 AuthProvider State:", { userData, loading });
 
     const login = (data) => {
         console.log("🔑 Logging in user:", data);
@@ -57,6 +52,5 @@ export function AuthProvider({ children }) {
 }
 
 export function useAuth() {
-    console.log("🧩 useAuth() is called...");
     return useContext(AuthContext);
 }

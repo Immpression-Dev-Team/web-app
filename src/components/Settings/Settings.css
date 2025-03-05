@@ -10,8 +10,8 @@
 }
 
 .delete-account-button {
-    background-color: #ff4d4d;
-    color: white;
+    background-color: var(--error-red);
+    color: var(--primary-white);
     border: none;
     padding: 0.8rem 1.5rem;
     font-size: 1rem;
@@ -21,7 +21,7 @@
 }
 
 .delete-account-button:hover {
-    background-color: #e60000;
+    background-color: var(--error-red);
 }
 
 /* New styles for the modal */
@@ -39,13 +39,13 @@
 }
 
 .modal {
-    background-color: white;
+    background-color: var(--error-red);
     padding: 2rem;
     border-radius: 8px;
     text-align: center;
     width: 90%;
     max-width: 400px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
 
 .modal h2 {
@@ -54,7 +54,7 @@
 }
 
 .warning-text {
-    color: #d9534f;
+    color: var(--error-red);
     font-weight: bold;
     margin-bottom: 1rem;
 }
@@ -63,13 +63,13 @@
     width: 100%;
     padding: 0.5rem;
     margin-top: 0.5rem;
-    border: 1px solid #ccc;
+    border: 1px solid var(--primary-white);
     border-radius: 5px;
     font-size: 1rem;
 }
 
 .error-text {
-    color: #d9534f;
+    color: var(--error-red);
     font-size: 0.9rem;
     margin-top: 0.5rem;
 }
@@ -91,19 +91,19 @@
 }
 
 .cancel-button {
-    background-color: #ccc;
-    color: #333;
+    background-color: var(--primary-light-blue);
+    color: var(--primary-black);
 }
 
 .cancel-button:hover {
-    background-color: #999;
+    background-color: var(--primary-dark-blue);
 }
 
 .confirm-button {
-    background-color: #ff4d4d;
-    color: white;
+    background-color: var(--error-red);
+    color: var(--primary-white);
 }
 
 .confirm-button:hover {
-    background-color: #e60000;
+    background-color: var(--error-red);
 }

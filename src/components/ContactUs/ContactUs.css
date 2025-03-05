@@ -4,34 +4,34 @@
     align-items: center;
     gap: 2rem;
     padding: 2rem;
-    color: white;
+    color: var(--primary-white);
     min-height: 100vh;
 }
 
 .contact-section {
-    background: black;
+    background: var(--primary-black);
     padding: 2rem;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--primary-box-shadow);
     width: 90%;
     max-width: 800px;
     text-align: center;
 }
 
 .contact-section h2 {
-    color: #4781FF;
+    color: var(--primary-light-blue);
     margin-bottom: 1rem;
 }
 
 .contact-section a {
-    color: #4781FF;
+    color: var(--primary-light-blue);
     text-decoration: none;
     font-weight: bold;
     transition: color 0.3s;
 }
 
 .contact-section a:hover {
-    color: #072973;
+    color: var(--primary-dark-blue);
 }
 
 .map-container {
@@ -52,7 +52,7 @@
 
 .team-member {
     display: inline-block;
-    background: #1a1a1a;
+    background: var(--primary-black);
     padding: 1rem;
     border-radius: 10px;
     text-align: center;

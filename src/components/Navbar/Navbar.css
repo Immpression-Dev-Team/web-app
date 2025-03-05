@@ -1,6 +1,6 @@
 .navbar-container {
     width: 100%;
-    background: linear-gradient(to right, #072973, #4781FF);
+    background: var(--primary-white);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -23,7 +23,7 @@
 .logo {
     width: 100px;
     height: auto;
-    margin-right: 10px;
+    margin-left: 10px;
 }
 
 /* Hamburger and Close Icons */
@@ -31,13 +31,14 @@
     background: none;
     border: none;
     cursor: pointer;
-    color: white;
+    color: var(--primary-black);
     font-size: 24px;
     transition: transform 0.3s ease-in-out;
+    padding: 2px;
 }
 
 .menu-button:hover {
-    color: black;
+    color: var(--primary-light-blue);
 }
 
 /* Simple hamburger icon using CSS */
@@ -57,9 +58,9 @@
     position: absolute;
     top: 70px;
     right: 20px;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(245, 245, 245, .9);
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--primary-box-shadow);
     padding: 15px;
     width: 240px;
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
@@ -75,7 +76,7 @@
 .nav-item {
     text-decoration: none;
     font-size: 18px;
-    color: #072973;
+    color: var(--primary-black);
     padding: 12px;
     transition: background 0.3s, color 0.3s;
     border-radius: 6px;
@@ -84,6 +85,5 @@
 }
 
 .nav-item:hover {
-    background: #4781FF;
-    color: white;
+    background: var(--primary-light-blue);
 }

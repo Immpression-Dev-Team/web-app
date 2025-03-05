@@ -4,7 +4,6 @@ import Profile from './components/Profile/Profile.jsx';
 import SignUp from './components/SignUp/SignUp.jsx';
 import PasswordReset from './components/PasswordReset/PasswordReset.jsx';
 import Login from './components/Login/Login.jsx';
-import AccountTypeScreen from './components/AccountType/AccountType.jsx';
 import Home from './components/Home/Home.jsx';
 import PolicyPage from './components/PolicyPage/PolicyPage.jsx';
 import LandingPage from './components/LandingPage/LandingPage.jsx';
@@ -42,11 +41,6 @@ const createElement = (Component) => React.createElement(Component);
 //         element: createElement(PasswordReset),
 //     },
 //     {
-//         name: 'Account Type',
-//         path: '/accountType',
-//         element: createElement(AccountTypeScreen),
-//     },
-//     {
 //         name: "About Us",
 //         path: '/about',
 //         element: createElement(AboutUs)
@@ -69,21 +63,16 @@ export const GuestNavigation = [
     //     path: '/login',
     //     element: createElement(Login),
     // },
-    {
-        name: 'Sign Up',
-        path: '/signUp',
-        element: createElement(SignUp),
-    },
+    // {
+    //     name: 'Sign Up',
+    //     path: '/signUp',
+    //     element: createElement(SignUp),
+    // },
     // {
     //     name: 'Password Reset',
     //     path: '/passwordReset',
     //     element: createElement(PasswordReset),
     // },
-    {
-        name: 'Account Type',
-        path: '/accountType',
-        element: createElement(AccountTypeScreen),
-    },
     {
         name: 'Policy Page',
         path: '/policyPage',
@@ -100,5 +89,3 @@ export const GuestNavigation = [
         element: createElement(ContactUs)
     }
 ];
-
-console.log("📌 Guest Navigation Routes:", GuestNavigation);

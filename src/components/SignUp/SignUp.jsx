@@ -3,7 +3,6 @@ import { handleSignup } from "../../utils/handleSignup";
 import logoImage from "../../assets/Logo_T.png";
 import "./SignUp.css";
 import useLoadingAnimation from "../loadingAnimation.js";
-import { Link } from "react-router-dom";
 import {useState} from "react";
 
 const SignUp = () => {
@@ -46,7 +45,7 @@ const SignUp = () => {
 
             if (loginResult.success) {
                 setTimeout(() => {
-                    window.location.href = "/accountType";
+                    window.location.href = "/";
                 }, 2000);
             } else {
                 setError("Login failed after successful signup.");

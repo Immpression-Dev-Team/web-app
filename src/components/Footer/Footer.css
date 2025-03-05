@@ -1,7 +1,7 @@
 .footer-link {
     background: none;
     border: none;
-    color: #007bff;
+    color: var(--primary-black);
     text-decoration: underline;
     cursor: pointer;
     margin: 0 1rem;
@@ -9,20 +9,18 @@
 }
 
 .footer-link:hover {
-    color: #0056b3;
+    color: var(--primary-dark-blue);
 }
 
 .footer-text {
     margin-top: 0.5rem;
-    color: #777;
     font-size: 0.9rem;
 }
 .footer {
-    background: linear-gradient(to right, #072973, #4781FF);
+    background: var(--primary-white);
     padding: 1.5rem;
     text-align: center;
     width: 100%;
-    color: white;
     border-top: 2px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -34,18 +32,18 @@
 }
 
 .footer-link {
-    color: white;
+    color: var(--primary-black);
     text-decoration: none;
     font-size: 1rem;
     transition: color 0.3s ease-in-out;
 }
 
 .footer-link:hover {
-    color: black;
+    color: var(--primary-light-blue);
 }
 
 .footer-text {
     font-size: 0.9rem;
     opacity: 0.8;
-    color: black;
+    color: var(--primary-black);
 }

@@ -3,14 +3,14 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    color: white;
+    color: var(--primary-white);
 }
 
 .signup-form {
-    background: black;
+    background: var(--primary-black);
     padding: 2rem;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--primary-box-shadow);
     text-align: center;
     width: 90%;
     max-width: 400px;
@@ -45,14 +45,14 @@ input {
     border: none;
     border-radius: 5px;
     font-size: 1rem;
-    color: black;
+    color: var(--primary-black);
 }
 
 .signup-button {
     width: 100%;
     padding: 12px;
-    background: #4781FF;
-    color: white;
+    background: var(--primary-light-blue);
+    color: var(--primary-white);
     border: none;
     border-radius: 5px;
     font-size: 1.2rem;
@@ -62,8 +62,8 @@ input {
 }
 
 .signup-button:hover {
-    background: #072973;
-    color: #4781FF;
+    background: var(--primary-dark-blue);
+    color: var(--primary-light-blue);
 }
 
 .signup-links {
@@ -74,16 +74,16 @@ input {
 }
 
 .signup-links a {
-    color: white;
+    color: var(--primary-white);
     text-decoration: none;
     transition: color 0.3s;
 }
 
 .signup-links a:hover {
-    color: #4781FF;
+    color: var(--primary-light-blue);
 }
 
 .error-text {
-    color: #ff6666;
+    color: var(--error-red);
     font-size: 0.9rem;
 }

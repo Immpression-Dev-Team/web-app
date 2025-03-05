@@ -1,4 +1,3 @@
-import React from "react";
 import "./LogoTitle.css";
 import logoImage from "../../assets/Logo_T.png";
 

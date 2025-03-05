@@ -4,16 +4,16 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Calibri', sans-serif;
+  font-family: var(--primary-font), sans-serif;
 }
 
 html, body {
   width: 100%;
   height: 100%;
   overflow-x: hidden;
-  background: linear-gradient(to right, #4781FF, #072973);
+  background: linear-gradient(to right, var(--primary-light-blue), var(--primary-dark-blue));
 }
 
 .slogan {
-  font-family: 'Kanit', sans-serif;
+  font-family: var(--slogan-font), sans-serif;
 }

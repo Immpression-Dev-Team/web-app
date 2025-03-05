@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    color: white;
+    color: var(--primary-white);
     padding: 2rem;
 }
 
@@ -20,7 +20,7 @@
 }
 
 .about-us-content h1, h2, h3 {
-    color: #4781FF;
+    color: var(--primary-light-blue);
 }
 
 .about-us-content p {

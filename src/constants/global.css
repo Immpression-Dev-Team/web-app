@@ -1,0 +1,11 @@
+:root {
+    --primary-dark-blue: #072973;
+    --primary-light-blue: #4781FF;
+    --error-red: #ff6666;
+    --primary-white: whitesmoke;
+    --primary-black: black;
+    --primary-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    --success-text-color: #5cb85c;
+    --slogan-font: 'Kanit';
+    --primary-font: 'Calibri';
+}

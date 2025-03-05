@@ -1,0 +1,49 @@
+.not-found-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: var(--primary-black);
+    color: var(--primary-white);
+    text-align: center;
+}
+
+@keyframes policeLights {
+    0% { text-shadow: 0 0 20px red; }
+    50% { text-shadow: 0 0 50px blue; }
+    100% { text-shadow: 0 0 20px red; }
+}
+
+.not-found-title {
+    font-size: 6rem;
+    margin-bottom: 1rem;
+    color: var(--primary-dark-blue);
+    animation: policeLights 0.8s infinite alternate;
+}
+
+.not-found-text {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+}
+
+.not-found-button {
+    margin-top: 20px;
+}
+
+.home-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.2rem;
+    background: var(--primary-light-blue);
+    color: var(--primary-white);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background 0.3s, transform 0.3s;
+    display: inline-block;
+}
+
+.home-button:hover {
+    background: var(--primary-dark-blue);
+    transform: scale(1.1);
+}
