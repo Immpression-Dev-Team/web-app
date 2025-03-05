@@ -10,7 +10,7 @@ const LandingPage = () => {
                 <p>OWN A PERSONAL GALLERY IN YOUR POCKET</p>
                 <div className="button-group">
                     <Link to="/signup" className="auth-button">SIGN UP</Link>
-                    <Link to="/login" className="auth-button">LOGIN</Link>
+                    {/*<Link to="/login" className="auth-button">LOGIN</Link>*/}
                 </div>
             </div>
             <div className="image-section">

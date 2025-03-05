@@ -1,10 +1,10 @@
-import React, { useState } from "react";
 import { useAuth } from "../../state/AuthProvider.jsx";
 import { handleSignup } from "../../utils/handleSignup";
 import logoImage from "../../assets/Logo_T.png";
-import headerImage from "../../assets/headers/Immpression_multi.png";
 import "./SignUp.css";
 import useLoadingAnimation from "../loadingAnimation.js";
+import { Link } from "react-router-dom";
+import {useState} from "react";
 
 const SignUp = () => {
     const [email, setEmail] = useState("");
@@ -40,13 +40,10 @@ const SignUp = () => {
         setIsLoading(true);
         const result = await handleSignup(name, email, password);
 
-        console.log(result);
-
         if (result && result.success) {
             setSuccessMessage(result.message);
             const loginResult = await login({ email, password });
 
-            // Check login result after successful signup
             if (loginResult.success) {
                 setTimeout(() => {
                     window.location.href = "/accountType";
@@ -62,65 +59,43 @@ const SignUp = () => {
     };
 
     return (
-        <div
-            className="signup-background"
-        >
-            <div className="signup-container">
-                <form className="signup-form" onSubmit={handleSubmit}>
-                    <div className="signup-header">
-                        <img src={logoImage} alt="Logo" className="signup-logo" />
-                        <img src={headerImage} alt="Header" className="signup-header-image" />
-                    </div>
-                    <div className="signup-input-group">
-                        <div className="input-wrapper">
-                            <i className="fas fa-user input-icon"></i>
-                            <input
-                                type="text"
-                                placeholder="Username"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                                className="signup-input"
-                            />
-                        </div>
-                        <div className="input-wrapper">
-                            <i className="fas fa-envelope input-icon"></i>
-                            <input
-                                type="email"
-                                placeholder="Email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                className="signup-input"
-                            />
-                        </div>
-                        <div className="input-wrapper">
-                            <i className="fas fa-lock input-icon"></i>
-                            <input
-                                type="password"
-                                placeholder="Password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                className="signup-input"
-                            />
-                        </div>
-                    </div>
-                    {error && <p className="error-text">{error}</p>}
-                    {successMessage && <p className="success-text">{successMessage}</p>}
-                    <button
-                        type="submit"
-                        className="signup-button"
-                        disabled={isLoading}
-                    >
-                        {isLoading ? `Signing Up${ellipsis}` : "Sign Up"}
-                    </button>
-                    <button
-                        type="button"
-                        className="back-button"
-                        onClick={() => (window.location.href = "/login")}
-                    >
-                        <span className="italic-links">Already have an account?</span>
-                    </button>
-                </form>
-            </div>
+        <div className="login-container">
+            <form className="login-form" onSubmit={handleSubmit}>
+                <img src={logoImage} alt="Logo" className="login-logo"/>
+                <h2>Create an Account</h2>
+                <p>Join Immpression today</p>
+                <div className="input-group">
+                    <input
+                        type="text"
+                        placeholder="Username"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        required
+                    />
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                </div>
+                {error && <p className="error-text">{error}</p>}
+                {successMessage && <p className="success-text">{successMessage}</p>}
+                <button type="submit" className="login-button" disabled={isLoading}>
+                    {isLoading ? `Signing Up${ellipsis}` : "Sign Up"}
+                </button>
+                <div className="login-links">
+                    {/*<Link to="/login">Already have an account? Log in</Link>*/}
+                </div>
+            </form>
         </div>
     );
 };

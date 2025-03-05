@@ -1,27 +1,15 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import "./Footer.css"
+import { Link } from "react-router-dom";
+import "./Footer.css";
 
 const Footer = () => {
-    const navigate = useNavigate();
-
     return (
         <footer className="footer">
-            <div>
-                <button
-                    onClick={() => navigate("/policyPage")}
-                    className="footer-link"
-                >
-                    Privacy Policy
-                </button>
-                <button
-                    onClick={() => navigate("/contact")}
-                    className="footer-link"
-                >
-                    Contact Us
-                </button>
+            <div className="footer-links">
+                <Link to="/policyPage" className="footer-link">Privacy Policy</Link>
+                <Link to="/contact" className="footer-link">Contact Us</Link>
             </div>
-            <div style={{ marginTop: "0.5rem", color: "#777" }}>
+            <div className="footer-text">
                 &copy; {new Date().getFullYear()} Immpression. All rights reserved.
             </div>
         </footer>

@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import LogoTitle from "../LogoTitle/LogoTitle.jsx";
 import headerImage from "../../assets/headers/Immpression_multi.png";
 import "./Navbar.css";
 import { useAuth } from "../../state/AuthProvider.jsx";
+import {useState} from "react";
 
 export default function Navbar() {
-    const navigate = useNavigate();
     const [showNavItems, setShowNavItems] = useState(false);
     const { userData, logout } = useAuth();
 
@@ -14,59 +13,33 @@ export default function Navbar() {
         setShowNavItems(!showNavItems);
     };
 
-    const refreshApp = () => {
-        navigate("/");
-    };
-
-    const handleLogoutClick = () => {
-        logout();
-        navigate("/login");
-    };
-
     return (
         <div className="navbar-container">
             <div className="navbar">
-                <button onClick={refreshApp} className="logo-and-title">
+                <Link to="/" className="logo-and-title">
                     <img src={headerImage} alt="Logo" className="logo" />
                     <LogoTitle />
-                </button>
+                </Link>
                 <button onClick={handleToggleNavItems} className="menu-button">
-                    {showNavItems ? "✖" : "☰"}
+                    <span className={showNavItems ? "close-icon" : "hamburger-icon"}></span>
                 </button>
             </div>
-            {showNavItems && (
-                <div className="nav-items-container">
-                    {userData ? (
-                        <>
-                            {/* Render these items if the user is logged in */}
-                            <button onClick={() => navigate("/statistics")} className="nav-item">
-                                📊 Statistics
-                            </button>
-                            <button onClick={() => navigate("/settings")} className="nav-item">
-                                ⚙️ Settings
-                            </button>
-                            <button onClick={handleLogoutClick} className="nav-item">
-                                🚪 Logout
-                            </button>
-                        </>
-                    ) : (
-                        <>
-                            <button onClick={() => navigate("/login")} className="nav-item">
-                                🔐 Login
-                            </button>
-                            <button onClick={() => navigate("/signup")} className="nav-item">
-                                📝 Sign Up
-                            </button>
-                            <button onClick={() => navigate("/about")} className="nav-item">
-                                ℹ️ About Us
-                            </button>
-                            <button onClick={() => navigate("/contact")} className="nav-item">
-                                📞 Contact Us
-                            </button>
-                        </>
-                    )}
-                </div>
-            )}
+            <div className={`nav-items-container ${showNavItems ? "show" : ""}`}>
+                {userData ? (
+                    <>
+                        <Link to="/statistics" className="nav-item">Statistics</Link>
+                        <Link to="/settings" className="nav-item">Settings</Link>
+                        <button onClick={logout} className="nav-item">Logout</button>
+                    </>
+                ) : (
+                    <>
+                        {/*<Link to="/login" className="nav-item">Login</Link>*/}
+                        <Link to="/signup" className="nav-item">Sign Up</Link>
+                        <Link to="/about" className="nav-item">About Us</Link>
+                        <Link to="/contact" className="nav-item">Contact Us</Link>
+                    </>
+                )}
+            </div>
         </div>
     );
 }

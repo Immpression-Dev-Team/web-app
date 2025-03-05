@@ -1,4 +1,4 @@
-.policy-container {
+.about-us-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,7 +7,7 @@
     padding: 2rem;
 }
 
-.policy-content {
+.about-us-content {
     background: rgba(0, 0, 0, 0.85);
     padding: 2rem;
     border-radius: 10px;
@@ -19,25 +19,11 @@
     backdrop-filter: blur(10px);
 }
 
-.policy-content h1, h2, h3 {
+.about-us-content h1, h2, h3 {
     color: #4781FF;
 }
 
-.policy-date {
-    font-style: italic;
-    opacity: 0.8;
-    margin-bottom: 1rem;
-}
-
-.policy-content p, .policy-content ul {
+.about-us-content p {
     margin-bottom: 1rem;
     line-height: 1.6;
-}
-
-.policy-content ul {
-    padding-left: 1.5rem;
-}
-
-.policy-content li {
-    margin-bottom: 0.5rem;
 }
