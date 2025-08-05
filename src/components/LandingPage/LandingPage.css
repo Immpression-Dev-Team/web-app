@@ -53,6 +53,10 @@
     font-weight: bold;
 }
 
+.pledge-button:hover {
+    background: var(--primary-white);
+    color: var(--primary-dark-blue);
+}
 
 .signUp-button {
     border: 2px solid white;
