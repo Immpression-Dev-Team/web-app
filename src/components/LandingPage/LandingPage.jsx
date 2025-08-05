@@ -19,7 +19,7 @@ const LandingPage = () => {
     return (
         <div className="landing-container">
             <div className="text-section">
-                <h1 className="slogan">BRING YOUR ART TO THE 21ST CENTURY</h1>
+                <h1 className="slogan">BRING YOUR ART TO THE 21ST CENTURY</h1> {/*we'll be updating*/}
                 <p>OWN A PERSONAL GALLERY IN YOUR POCKET</p>
                 <div className="button-group">
                     <a href={appStoreLink} target="_blank" rel="noopener noreferrer" className="auth-button">
