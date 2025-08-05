@@ -23,7 +23,7 @@ const LandingPage = () => {
                 <p>OWN A PERSONAL GALLERY IN YOUR POCKET</p>
                 <div className="button-group">
                     <a href={appStoreLink} target="_blank" rel="noopener noreferrer" className="auth-button">
-                        {appStoreLink === "#" ? "Available on iOS & Android" : "Download the App"}
+                        {appStoreLink === "#" ? "SIGN UP" : "Download the App"}
                     </a>
                     {/*<Link to="/signup" className="auth-button">SIGN UP</Link>*/}
                     {/*<Link to="/login" className="auth-button">LOGIN</Link>*/}

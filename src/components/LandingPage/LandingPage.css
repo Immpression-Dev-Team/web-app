@@ -30,14 +30,15 @@
 
 .auth-button {
     border: 2px solid white;
-    padding: 1rem 2rem;
-    border-radius: 9999px;
-    font-size: 1.25rem;
+    padding: 1rem 4.5rem;
+    border-radius: 9px;
+    font-size: 1.85rem;
     background: transparent;
     color: var(--primary-white);
     cursor: pointer;
     transition: background 0.3s, color 0.3s;
     text-decoration: none;
+    font-weight: bold;
 }
 
 .auth-button:hover {
