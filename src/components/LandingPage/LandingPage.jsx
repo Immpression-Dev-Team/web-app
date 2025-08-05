@@ -3,28 +3,39 @@ import "./LandingPage.css";
 import { useEffect, useState } from "react";
 
 const LandingPage = () => {
-    const [appStoreLink, setAppStoreLink] = useState("#");
+    const [signUpLink, setSignUpLink] = useState("/signup");
+    const [kickStarterlink, setKickStarterLink] = useState("/kickstarterlink");
 
     useEffect(() => {
         const userAgent = navigator.userAgent || navigator.vendor || window.opera;
         if (/android/i.test(userAgent)) {
-            setAppStoreLink("https://play.google.com/store/apps/details?id=com.immpression");
+            setSignUpLink("https://forms.gle/ogAzLMj9ac92qWYJ8");
+            setKickStarterLink("http://kck.st/44T1jbU");
         } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-            setAppStoreLink("https://apps.apple.com/us/app/immpression/id123456789");
+            setSignUpLink("https://forms.gle/ogAzLMj9ac92qWYJ8");
+            setKickStarterLink("http://kck.st/44T1jbU");
         } else {
-            setAppStoreLink("#");
+            setSignUpLink("https://forms.gle/ogAzLMj9ac92qWYJ8");
+            setKickStarterLink("http://kck.st/44T1jbU");
         }
     }, []);
 
     return (
+        <motion.div
+            className="landing-container"
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8 }}
+        >
+
         <div className="landing-container">
             <div className="text-section">
-                <h1 className="slogan">BRING YOUR ART TO THE 21ST CENTURY</h1> {/*we'll be updating*/}
-                <p>OWN A PERSONAL GALLERY IN YOUR POCKET</p>
+                <h1 className="kickStarterLabel">IMMPRESSION IS LIVE ON</h1> {/*we'll be updating*/}
+                 <img className="kickStarterLogo" src="../src/assets/kickstarter_logo.png" alt="Kickstarter Logo"/>
+                <p>Bring your art to life, Own your gallery.</p><p>Sell to the world.</p>
                 <div className="button-group">
-                    <a href={appStoreLink} target="_blank" rel="noopener noreferrer" className="auth-button">
-                        {appStoreLink === "#" ? "SIGN UP" : "Download the App"}
-                    </a>
+                    <a href={kickStarterlink} target="_blank" rel="noopener noreferrer" className="pledge-button">PLEDGE</a>
+                    <a href={signUpLink} target="_blank" rel="noopener noreferrer" className="signUp-button">SIGN UP</a>
                     {/*<Link to="/signup" className="auth-button">SIGN UP</Link>*/}
                     {/*<Link to="/login" className="auth-button">LOGIN</Link>*/}
                 </div>
@@ -56,6 +67,7 @@ const LandingPage = () => {
                 />
             </div>
         </div>
+        </motion.div>
     );
 };
 
