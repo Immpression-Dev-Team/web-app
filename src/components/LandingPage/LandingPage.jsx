@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import "./LandingPage.css";
 import { useEffect, useState } from "react";
+import KickstarterWidget from "../KickstarterWidget/KickstarterWidget";
 
 const LandingPage = () => {
     const [signUpLink, setSignUpLink] = useState("/signup");
@@ -39,7 +40,11 @@ const LandingPage = () => {
                     {/*<Link to="/signup" className="auth-button">SIGN UP</Link>*/}
                     {/*<Link to="/login" className="auth-button">LOGIN</Link>*/}
                 </div>
-            </div>
+                <div className="kickstarter-landingPage"> {/*Still working on it*/}
+                    <KickstarterWidget></KickstarterWidget>
+                </div>
+            
+            </div>  
             <div className="image-section">
                 <motion.img
                     src="/Immpression_UI_3.png"

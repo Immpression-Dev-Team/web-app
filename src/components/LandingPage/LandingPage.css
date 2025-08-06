@@ -31,9 +31,6 @@
     line-height: 1.2;
 }
 
-
-
-
 .button-group {
     margin-top: 1.5rem;
     display: flex;
@@ -74,6 +71,12 @@
 .signUp-button:hover {
     background: var(--primary-white);
     color: var(--primary-dark-blue);
+}   
+
+.kickstarter-landingPage{
+    text-align: center;
+    background-color: white;
+    border-radius: 3rem;
 }
 
 .image-section {
