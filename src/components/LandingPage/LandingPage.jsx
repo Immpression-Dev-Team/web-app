@@ -31,7 +31,7 @@ const LandingPage = () => {
         <div className="landing-container">
             <div className="text-section">
                 <h1 className="kickStarterLabel">IMMPRESSION IS LIVE ON</h1> {/*we'll be updating*/}
-                 <img className="kickStarterLogo" src="../src/assets/kickstarter_logo.svg" alt="Kickstarter Logo"/>
+                 <img className="kickStarterLogo" src="/kickstarter_logo.svg" alt="Kickstarter Logo"/>
                 <p>Bring your art to life, Own your gallery.</p><p>Sell to the world.</p>
                 <div className="button-group">
                     <a href={kickStarterlink} target="_blank" rel="noopener noreferrer" className="pledge-button">PLEDGE</a>
