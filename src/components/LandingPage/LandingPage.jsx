@@ -21,53 +21,122 @@ const LandingPage = () => {
     }, []);
 
     return (
-        <motion.div
-            className="landing-container"
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8 }}
-        >
+        <div className="landing-wrapper">
+            {/* Hero Section */}
+            <motion.section 
+                className="hero-section"
+                initial={{ y: 50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.8 }}
+            >
+                <div className="hero-content">
+                    <div className="hero-left">
+                        <motion.div 
+                            className="badge"
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ delay: 0.2, duration: 0.6 }}
+                        >
+                            <span className="badge-text">NOW LIVE ON</span>
+                            <img className="kickstarter-badge" src="/kickstarter_logo.svg" alt="Kickstarter"/>
+                        </motion.div>
+                        
+                        <motion.h1 
+                            className="hero-title"
+                            initial={{ y: 30, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ delay: 0.4, duration: 0.8 }}
+                        >
+                            Transform Your Art Into a<br className="desktop-break" />
+                            <span className="gradient-text gradient-bold">Global Gallery</span>
+                        </motion.h1>
+                        
+                        <motion.p 
+                            className="hero-subtitle"
+                            initial={{ y: 20, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ delay: 0.6, duration: 0.8 }}
+                        >
+                            Create, showcase, and sell your artwork to collectors worldwide. 
+                            Join the revolution that&apos;s putting artists in control of their digital galleries.
+                        </motion.p>
 
-        <div className="landing-container">
-            <div className="text-section">
-                <h1 className="kickStarterLabel">IMMPRESSION IS LIVE ON</h1> {/*we'll be updating*/}
-                 <img className="kickStarterLogo" src="/kickstarter_logo.svg" alt="Kickstarter Logo"/>
-                <p>Bring your art to life, Own your gallery.</p><p>Sell to the world.</p>
-                <div className="button-group">
-                    <a href={kickStarterlink} target="_blank" rel="noopener noreferrer" className="pledge-button">PLEDGE</a>
-                    <a href={signUpLink} target="_blank" rel="noopener noreferrer" className="signUp-button">SIGN UP</a>
-                    {/*<Link to="/signup" className="auth-button">SIGN UP</Link>*/}
-                    {/*<Link to="/login" className="auth-button">LOGIN</Link>*/}
+                        <motion.div 
+                            className="hero-stats"
+                            initial={{ y: 20, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ delay: 0.8, duration: 0.8 }}
+                        >
+                            <div className="stat-item">
+                                <span className="stat-number">10k+</span>
+                                <span className="stat-label">Artists</span>
+                            </div>
+                            <div className="stat-item">
+                                <span className="stat-number">50k+</span>
+                                <span className="stat-label">Artworks</span>
+                            </div>
+                            <div className="stat-item">
+                                <span className="stat-number">$2M+</span>
+                                <span className="stat-label">Sales</span>
+                            </div>
+                        </motion.div>
+                        
+                        <motion.div 
+                            className="cta-buttons"
+                            initial={{ y: 30, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ delay: 1, duration: 0.8 }}
+                        >
+                            <a href={kickStarterlink} target="_blank" rel="noopener noreferrer" className="btn-primary">
+                                <span>🚀 Back Our Project</span>
+                            </a>
+                            <a href={signUpLink} target="_blank" rel="noopener noreferrer" className="btn-secondary">
+                                <span>Join Waitlist</span>
+                            </a>
+                        </motion.div>
+                    </div>
+
+                    <div className="hero-right">
+                        <div className="app-preview">
+                            <motion.div 
+                                className="preview-container"
+                                initial={{ x: 100, opacity: 0 }}
+                                animate={{ x: 0, opacity: 1 }}
+                                transition={{ delay: 0.5, duration: 1 }}
+                            >
+                                <div className="phone-mockup">
+                                    <motion.img
+                                        src="/Immpression_UI_1.png"
+                                        alt="Immpression App - Main Screen"
+                                        className="main-screen"
+                                        initial={{ y: 20, opacity: 0 }}
+                                        animate={{ y: 0, opacity: 1 }}
+                                        transition={{ delay: 0.8, duration: 0.8 }}
+                                    />
+                                </div>
+                                <motion.img
+                                    src="/Immpression_UI_2.png"
+                                    alt="Immpression App - Gallery View"
+                                    className="floating-screen left"
+                                    initial={{ x: -30, y: 20, opacity: 0, rotate: -10 }}
+                                    animate={{ x: 0, y: 0, opacity: 0.9, rotate: -5 }}
+                                    transition={{ delay: 1.2, duration: 0.8 }}
+                                />
+                                <motion.img
+                                    src="/Immpression_UI_3.png"
+                                    alt="Immpression App - Artist Profile"
+                                    className="floating-screen right"
+                                    initial={{ x: 30, y: -20, opacity: 0, rotate: 10 }}
+                                    animate={{ x: 0, y: 0, opacity: 0.9, rotate: 5 }}
+                                    transition={{ delay: 1.4, duration: 0.8 }}
+                                />
+                            </motion.div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div className="image-section">
-                <motion.img
-                    src="/Immpression_UI_3.png"
-                    alt="Mobile App Left"
-                    className="mobile-image"
-                    initial={{ x: 50, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 0.8 }}
-                />
-                <motion.img
-                    src="/Immpression_UI_1.png"
-                    alt="Mobile App Center"
-                    className="mobile-image"
-                    initial={{ x: 50, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 0.8 }}
-                />
-                <motion.img
-                    src="/Immpression_UI_2.png"
-                    alt="Mobile App Right"
-                    className="mobile-image mobile-image-offset"
-                    initial={{ x: 100, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 0.8 }}
-                />
-            </div>
+            </motion.section>
+
         </div>
-        </motion.div>
     );
 };
 
