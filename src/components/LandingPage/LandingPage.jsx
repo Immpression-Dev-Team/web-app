@@ -8,17 +8,39 @@ const LandingPage = () => {
 
     useEffect(() => {
         const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-        if (/android/i.test(userAgent)) {
-            setSignUpLink("https://forms.gle/ogAzLMj9ac92qWYJ8");
-            setKickStarterLink("http://kck.st/44T1jbU");
-        } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-            setSignUpLink("https://forms.gle/ogAzLMj9ac92qWYJ8");
-            setKickStarterLink("http://kck.st/44T1jbU");
-        } else {
-            setSignUpLink("https://forms.gle/ogAzLMj9ac92qWYJ8");
-            setKickStarterLink("http://kck.st/44T1jbU");
-        }
-    }, []);
+
+        const adjustFontSize = () => {
+            const isMobileViewport = window.innerWidth <= 768;
+
+            if (/android/i.test(userAgent)) {
+                setSignUpLink("https://forms.gle/ogAzLMj9ac92qWYJ8");
+                setKickStarterLink("http://kck.st/44T1jbU");
+                document.querySelectorAll('.gradient-text').forEach(el => {
+                    el.style.fontSize = '2rem';
+                });
+            } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                setSignUpLink("https://forms.gle/ogAzLMj9ac92qWYJ8");
+                setKickStarterLink("http://kck.st/44T1jbU");
+                document.querySelectorAll('.gradient-text').forEach(el => {
+                    el.style.fontSize = '2rem';
+                });
+            } else if (isMobileViewport) {
+                document.querySelectorAll('.gradient-text').forEach(el => {
+                    el.style.fontSize = '2rem';
+                });
+            } else {
+                document.querySelectorAll('.gradient-text').forEach(el => {
+                    el.style.fontSize = '3rem';
+                });
+            }
+        };
+
+    adjustFontSize();
+    window.addEventListener('resize', adjustFontSize);
+
+    return () => window.removeEventListener('resize', adjustFontSize);
+}, []);
+
 
     return (
         <div className="landing-wrapper">
@@ -37,7 +59,7 @@ const LandingPage = () => {
                             animate={{ scale: 1, opacity: 1 }}
                             transition={{ delay: 0.2, duration: 0.6 }}
                         >
-                            <span className="badge-text">NOW LIVE ON</span>
+                            <span className="badge-text">NOW LIVE ON MY</span>
                             <img className="kickstarter-badge" src="/kickstarter_logo.svg" alt="Kickstarter"/>
                         </motion.div>
                         
@@ -48,7 +70,7 @@ const LandingPage = () => {
                             transition={{ delay: 0.4, duration: 0.8 }}
                         >
                             Transform Your Art Into a<br className="desktop-break" />
-                            <span className="gradient-text gradient-bold">Global Gallery</span>
+                            <p><span className="gradient-text gradient-bold">Global Gallery</span></p>
                         </motion.h1>
                         
                         <motion.p 

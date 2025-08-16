@@ -91,6 +91,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  font-size: 5rem;
 }
 
 .gradient-bold {
@@ -209,6 +210,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  max-width: 900px;
 }
 
 .phone-mockup {
@@ -217,7 +219,7 @@
 }
 
 .main-screen {
-  width: 280px;
+  width: 290px;
   height: auto;
   border-radius: 25px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -228,9 +230,8 @@
   position: absolute;
   width: 200px;
   height: auto;
-  border-radius: 20px;
-  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0px;
+  border: 9px solid rgba(255, 255, 255, 0);
   transition: all 0.3s ease;
 }
 
