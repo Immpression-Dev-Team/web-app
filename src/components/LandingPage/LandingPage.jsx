@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 const LandingPage = () => {
     const [signUpLink, setSignUpLink] = useState("/signup");
-    const [kickStarterlink, setKickStarterLink] = useState("/kickstarterlink");
+    const [kickStarterlink, setKickStarterLink] = useState("https://www.kickstarter.com/projects/132225890/immpression-presents-the-digital-gallery-movement?ref=discovery&term=immpression&total_hits=247&category_id=332");
 
     useEffect(() => {
         const userAgent = navigator.userAgent || navigator.vendor || window.opera;
@@ -14,13 +14,13 @@ const LandingPage = () => {
 
             if (/android/i.test(userAgent)) {
                 setSignUpLink("https://forms.gle/ogAzLMj9ac92qWYJ8");
-                setKickStarterLink("http://kck.st/44T1jbU");
+                setKickStarterLink("https://www.kickstarter.com/projects/132225890/immpression-presents-the-digital-gallery-movement?ref=discovery&term=immpression&total_hits=247&category_id=332");
                 document.querySelectorAll('.gradient-text').forEach(el => {
                     el.style.fontSize = '2rem';
                 });
             } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
                 setSignUpLink("https://forms.gle/ogAzLMj9ac92qWYJ8");
-                setKickStarterLink("http://kck.st/44T1jbU");
+                setKickStarterLink("https://www.kickstarter.com/projects/132225890/immpression-presents-the-digital-gallery-movement?ref=discovery&term=immpression&total_hits=247&category_id=332");
                 document.querySelectorAll('.gradient-text').forEach(el => {
                     el.style.fontSize = '2rem';
                 });
@@ -59,7 +59,7 @@ const LandingPage = () => {
                             animate={{ scale: 1, opacity: 1 }}
                             transition={{ delay: 0.2, duration: 0.6 }}
                         >
-                            <span className="badge-text">NOW LIVE ON MY</span>
+                            <span className="badge-text">NOW LIVE ON</span>
                             <img className="kickstarter-badge" src="/kickstarter_logo.svg" alt="Kickstarter"/>
                         </motion.div>
                         
