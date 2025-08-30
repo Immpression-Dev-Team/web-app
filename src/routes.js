@@ -9,6 +9,7 @@ import PolicyPage from './components/PolicyPage/PolicyPage.jsx';
 import LandingPage from './components/LandingPage/LandingPage.jsx';
 import AboutUs from './components/AboutUs/AboutUs.jsx';
 import ContactUs from './components/ContactUs/ContactUs.jsx';
+import ThankYou from './components/ThankYou/ThankYou.jsx';
 import React from "react";
 
 // Function-based approach to return JSX elements
@@ -87,5 +88,10 @@ export const GuestNavigation = [
         name: "Contact Us",
         path: '/contact',
         element: createElement(ContactUs)
-    }
+    },
+    {
+        name: "Thank You",
+        path: "/thank-you",
+        element: createElement(ThankYou),
+    },
 ];
