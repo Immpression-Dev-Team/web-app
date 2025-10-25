@@ -1491,17 +1491,15 @@
   }
 }
 
-/* Google Play Button Styles */
-.btn-google-play {
-  display: inline-flex;
+.cta-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
-  padding: 0;
-  border: none;
-  background: transparent;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
+}
+
+.btn-google-play {
+  justify-content: flex-start;
 }
 
 .btn-google-play:hover {
@@ -1511,6 +1509,7 @@
 .google-play-img {
   height: 60px;
   width: auto;
+  border-radius: 10px;
 }
 
 /* Update CTA buttons to wrap properly */

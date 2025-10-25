@@ -8,7 +8,7 @@ const AboutUs = () => {
                 
                 <div className="about-intro">
                     <p>
-                        Immpression is more than just a marketplace butit is a vibrant ecosystem where art transcends 
+                        Immpression is more than just a marketplace, it is a vibrant ecosystem where art transcends 
                         boundaries and connects creators with collectors across the globe. We believe that every 
                         artist deserves a platform to shine, and every art enthusiast should have access to unique, 
                         authentic pieces from talented creators worldwide.
