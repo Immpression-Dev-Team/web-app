@@ -172,6 +172,20 @@ const LandingPage = () => {
                 <span>{donating ? "Starting..." : "🚀 Back Our Project"}</span>
               </button>
 
+              {/* Google Play Button */}
+              <a
+                href="https://play.google.com/store/apps/details?id=com.yourapp.immpression"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-google-play"
+              >
+                <img 
+                  src="/google-play-badge.png" 
+                  alt="Get it on Google Play"
+                  className="google-play-img"
+                />
+              </a>
+
               {/* Keep waitlist as-is */}
               <a
                 href={signUpLink}
@@ -181,12 +195,6 @@ const LandingPage = () => {
               >
                 <span>Join Waitlist</span>
               </a>
-
-              {/* Optional: keep Kickstarter as a tertiary link
-              <a href={kickStarterlink} target="_blank" rel="noopener noreferrer" className="btn-secondary">
-                <span>View Kickstarter</span>
-              </a>
-              */}
             </motion.div>
           </div>
 
