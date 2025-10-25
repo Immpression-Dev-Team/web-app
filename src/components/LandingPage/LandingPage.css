@@ -1490,3 +1490,44 @@
     font-size: 0.8rem;
   }
 }
+
+.cta-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.btn-google-play {
+  justify-content: flex-start;
+}
+
+.btn-google-play:hover {
+  transform: translateY(-3px);
+}
+
+.google-play-img {
+  height: 60px;
+  width: auto;
+  border-radius: 10px;
+}
+
+/* Update CTA buttons to wrap properly */
+.cta-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .google-play-img {
+    height: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .google-play-img {
+    height: 45px;
+  }
+}
