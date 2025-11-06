@@ -5,7 +5,9 @@
       "Bash(npm run lint)",
       "Bash(npm run lint:*)",
       "Bash(npm run build:*)",
-      "Bash(npx vite:*)"
+      "Bash(npx vite:*)",
+      "Bash(npm install:*)",
+      "Bash(npm uninstall:*)"
     ],
     "defaultMode": "acceptEdits"
   }

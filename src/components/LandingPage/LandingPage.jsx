@@ -2,7 +2,8 @@ import { motion } from "framer-motion";
 import "./LandingPage.css";
 import { useEffect, useState } from "react";
 import { API_URL } from "../../API_URL";
-import GooglePlay from '../../assets/headers/GooglePlay.png'
+import GooglePlay from '../../assets/headers/GooglePlay.png';
+import IphoneModel from './IphoneModel';
 
 const LandingPage = () => {
   const [signUpLink, setSignUpLink] = useState("/signup");
@@ -200,41 +201,7 @@ const LandingPage = () => {
           </div>
 
           <div className="hero-right">
-            <div className="app-preview">
-              <motion.div
-                className="preview-container"
-                initial={{ x: 100, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.5, duration: 1 }}
-              >
-                <div className="phone-mockup">
-                  <motion.img
-                    src="/Immpression_UI_1.png"
-                    alt="Immpression App - Main Screen"
-                    className="main-screen"
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.8, duration: 0.8 }}
-                  />
-                </div>
-                <motion.img
-                  src="/Immpression_UI_2.png"
-                  alt="Immpression App - Gallery View"
-                  className="floating-screen left"
-                  initial={{ x: -30, y: 20, opacity: 0, rotate: -10 }}
-                  animate={{ x: 0, y: 0, opacity: 0.9, rotate: -5 }}
-                  transition={{ delay: 1.2, duration: 0.8 }}
-                />
-                <motion.img
-                  src="/Immpression_UI_3.png"
-                  alt="Immpression App - Artist Profile"
-                  className="floating-screen right"
-                  initial={{ x: 30, y: -20, opacity: 0, rotate: 10 }}
-                  animate={{ x: 0, y: 0, opacity: 0.9, rotate: 5 }}
-                  transition={{ delay: 1.4, duration: 0.8 }}
-                />
-              </motion.div>
-            </div>
+            <IphoneModel />
           </div>
         </div>
       </motion.section>

@@ -199,6 +199,19 @@
   position: relative;
 }
 
+/* 3D iPhone Model Canvas */
+.iphone-canvas-container {
+  width: 100%;
+  max-width: 600px;
+  height: 600px;
+  position: relative;
+}
+
+.iphone-canvas-container canvas {
+  border-radius: 20px;
+  background: transparent !important;
+}
+
 .app-preview {
   position: relative;
   width: 100%;
@@ -950,9 +963,14 @@
     min-height: 100vh;
     overflow-x: hidden;
   }
-  
+
   .hero-content {
     gap: 2rem;
+  }
+
+  .iphone-canvas-container {
+    height: 450px;
+    max-width: 400px;
   }
   
   .hero-title {
@@ -1166,7 +1184,12 @@
     padding: 7rem 1rem 1.5rem;
     overflow-x: hidden;
   }
-  
+
+  .iphone-canvas-container {
+    height: 350px;
+    max-width: 300px;
+  }
+
   .hero-title {
     font-size: 1.5rem;
     line-height: 1.05;
@@ -1259,7 +1282,12 @@
     padding: 7rem 0.75rem 1rem;
     overflow-x: hidden;
   }
-  
+
+  .iphone-canvas-container {
+    height: 300px;
+    max-width: 250px;
+  }
+
   .hero-title {
     font-size: 1.3rem;
     margin-bottom: 0.5rem;
