@@ -1,21 +1,22 @@
 import { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { useGLTF, Environment, PerspectiveCamera } from '@react-three/drei';
+import { useGLTF, Environment, PerspectiveCamera, useTexture } from '@react-three/drei';
 import { motion } from 'framer-motion';
 
 function IphoneScene() {
-  const modelRef = useRef();
+  const groupRef = useRef();
   const { scene } = useGLTF('/models/iphone_16.glb');
+  const logoTexture = useTexture('/Logo_T.png');
 
-  // Animate the iPhone in a slanted oval 2D pattern
+  // Animate the entire group (phone + screen) in a slanted oval 2D pattern
   useFrame((state) => {
-    if (modelRef.current) {
+    if (groupRef.current) {
       const time = state.clock.elapsedTime;
       // Create a slanted oval motion (very subtle)
       // Horizontal movement (X-axis)
-      modelRef.current.position.x = Math.sin(time * 0.5) * 0.3;
+      groupRef.current.position.x = Math.sin(time * 0.5) * 0.3;
       // Vertical movement (Y-axis) - smaller amplitude for slanted oval
-      modelRef.current.position.y = Math.cos(time * 0.5) * 0.2;
+      groupRef.current.position.y = Math.cos(time * 0.5) * 0.2;
       // Keep phone facing forward (no rotation)
     }
   });
@@ -34,14 +35,25 @@ function IphoneScene() {
       {/* Environment for reflections */}
       <Environment preset="studio" />
 
-      {/* The iPhone model */}
-      <primitive
-        ref={modelRef}
-        object={scene}
-        scale={0.8}
-        position={[0, 0, 0]}
-        rotation={[0, -0.3, 0]}
-      />
+      {/* Group containing phone and screen - they move together */}
+      <group ref={groupRef} rotation={[0, -0.3, 0]}>
+        {/* The iPhone model */}
+        <primitive
+          object={scene}
+          scale={0.8}
+          position={[0, 0, 0]}
+        />
+
+        {/* Screen with logo - positioned on top of phone screen */}
+        <mesh position={[-1.95, 4.3, 0.5]}>
+          <planeGeometry args={[0.8, 0.8]} />
+          <meshBasicMaterial
+            map={logoTexture}
+            transparent={true}
+            side={2}
+          />
+        </mesh>
+      </group>
     </>
   );
 }
