@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 
 function IphoneScene() {
   const groupRef = useRef();
+  const secondPhoneRef = useRef();
   const { scene } = useGLTF('/models/iphone_16.glb');
   const logoTexture = useTexture('/Logo_T.png');
 
@@ -18,6 +19,13 @@ function IphoneScene() {
       // Vertical movement (Y-axis) - smaller amplitude for slanted oval
       groupRef.current.position.y = Math.cos(time * 0.5) * 0.2;
       // Keep phone facing forward (no rotation)
+    }
+    // Second phone animation - more random motion
+    if (secondPhoneRef.current) {
+      const time = state.clock.elapsedTime;
+      // Different frequencies and combined sine waves for randomness
+      secondPhoneRef.current.position.x = -2.8 + Math.sin(time * 0.7) * 0.25 + Math.cos(time * 0.3) * 0.15;
+      secondPhoneRef.current.position.y = Math.cos(time * 0.6) * 0.25 + Math.sin(time * 0.4) * 0.1;
     }
   });
 
@@ -34,6 +42,15 @@ function IphoneScene() {
 
       {/* Environment for reflections */}
       <Environment preset="studio" />
+
+      {/* Second phone - behind and to the left */}
+      <primitive
+        ref={secondPhoneRef}
+        object={scene.clone()}
+        scale={0.8}
+        position={[-2.8, 0, -1]}
+        rotation={[0, -0.3, 0]}
+      />
 
       {/* Group containing phone and screen - they move together */}
       <group ref={groupRef} rotation={[0, -0.3, 0]}>
