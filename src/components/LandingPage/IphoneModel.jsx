@@ -7,6 +7,7 @@ function IphoneScene() {
   const groupRef = useRef();
   const secondPhoneRef = useRef();
   const { scene } = useGLTF('/models/iphone_16.glb');
+  const { scene: infinixScene } = useGLTF('/models/Infinix_Hot_12.glb');
   const logoTexture = useTexture('/Logo_T.png');
 
   // Animate the entire group (phone + screen) in a slanted oval 2D pattern
@@ -25,7 +26,7 @@ function IphoneScene() {
       const time = state.clock.elapsedTime;
       // Different frequencies and combined sine waves for randomness
       secondPhoneRef.current.position.x = -2.8 + Math.sin(time * 0.7) * 0.25 + Math.cos(time * 0.3) * 0.15;
-      secondPhoneRef.current.position.y = Math.cos(time * 0.6) * 0.25 + Math.sin(time * 0.4) * 0.1;
+      secondPhoneRef.current.position.y = -5 + Math.cos(time * 0.6) * 0.25 + Math.sin(time * 0.4) * 0.1;
     }
   });
 
@@ -43,12 +44,12 @@ function IphoneScene() {
       {/* Environment for reflections */}
       <Environment preset="studio" />
 
-      {/* Second phone - behind and to the left */}
+      {/* Second phone (Infinix) - behind and to the left */}
       <primitive
         ref={secondPhoneRef}
-        object={scene.clone()}
-        scale={0.8}
-        position={[-2.8, 0, -1]}
+        object={infinixScene}
+        scale={60}
+        position={[-2.8, -5, -1]}
         rotation={[0, -0.3, 0]}
       />
 
