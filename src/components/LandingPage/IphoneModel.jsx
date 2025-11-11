@@ -1,7 +1,9 @@
-import { useRef } from 'react';
+import { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, Environment, PerspectiveCamera, useTexture } from '@react-three/drei';
 import { motion } from 'framer-motion';
+import * as THREE from 'three';
+import ImmpressionGooglePlay from '../../assets/backgrounds/ImmpressionGooglePlay.png'
 
 function IphoneScene() {
   const groupRef = useRef();
@@ -9,22 +11,43 @@ function IphoneScene() {
   const { scene } = useGLTF('/models/iphone_16.glb');
   const { scene: infinixScene } = useGLTF('/models/Infinix_Hot_12.glb');
   const logoTexture = useTexture('/Logo_T.png');
+  const googlePlayTexture = useTexture(ImmpressionGooglePlay);
+  // For planes (not GLTF UVs), keep default orientation so it's not upside down
+  googlePlayTexture.flipY = true;
+  if (googlePlayTexture.colorSpace !== THREE.SRGBColorSpace) {
+    googlePlayTexture.colorSpace = THREE.SRGBColorSpace;
+  }
+  googlePlayTexture.needsUpdate = true;
+
+  // Depth-only prepass for iPhone to ensure it occludes the image plane
+  const iphoneDepth = useMemo(() => {
+    const clone = scene.clone(true);
+    clone.traverse((node) => {
+      if (node.isMesh) {
+        const mat = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking });
+        mat.depthWrite = true;
+        mat.depthTest = true;
+        mat.transparent = false;
+        // Don't write to color buffer, only depth
+        mat.colorWrite = false;
+        node.material = mat;
+      }
+    });
+    return clone;
+  }, [scene]);
+
+  // Remove black spaces by stretching vertically to fill the screen height
+  // while keeping full width (no left/right crop). This matches a CSS 'fill' behavior.
 
   // Animate the entire group (phone + screen) in a slanted oval 2D pattern
   useFrame((state) => {
     if (groupRef.current) {
       const time = state.clock.elapsedTime;
-      // Create a slanted oval motion (very subtle)
-      // Horizontal movement (X-axis)
       groupRef.current.position.x = Math.sin(time * 0.5) * 0.3;
-      // Vertical movement (Y-axis) - smaller amplitude for slanted oval
       groupRef.current.position.y = Math.cos(time * 0.5) * 0.2;
-      // Keep phone facing forward (no rotation)
     }
-    // Second phone animation - more random motion
     if (secondPhoneRef.current) {
       const time = state.clock.elapsedTime;
-      // Different frequencies and combined sine waves for randomness
       secondPhoneRef.current.position.x = -2.8 + Math.sin(time * 0.7) * 0.25 + Math.cos(time * 0.3) * 0.15;
       secondPhoneRef.current.position.y = -5 + Math.cos(time * 0.6) * 0.25 + Math.sin(time * 0.4) * 0.1;
     }
@@ -44,22 +67,47 @@ function IphoneScene() {
       {/* Environment for reflections */}
       <Environment preset="studio" />
 
-      {/* Second phone (Infinix) - behind and to the left */}
-      <primitive
-        ref={secondPhoneRef}
-        object={infinixScene}
-        scale={60}
-        position={[-2.8, -5, -1]}
-        rotation={[0, -0.3, 0]}
-      />
+      {/* Second phone (Infinix) with Google Play image - behind and to the left */}
+      <group ref={secondPhoneRef} position={[-2.8, -5, -1]} rotation={[0, -0.3, 0]}>
+        {/* Left phone (Infinix) model */}
+        <primitive
+          object={infinixScene.clone()}
+          scale={60}
+          position={[0, 0, 0]}
+        />
 
-      {/* Group containing phone and screen - they move together */}
+        {/* Image plane: full screen size, stretched to fill height (no bars, no side crop) */}
+        <mesh position={[0, 5.05, 0.3]} renderOrder={1}>
+          <planeGeometry args={[3.2, 9]} />
+          <meshBasicMaterial
+            map={googlePlayTexture}
+            transparent={false}
+            depthWrite={false}
+            depthTest={true}
+            polygonOffset={true}
+            polygonOffsetFactor={1}
+            polygonOffsetUnits={1}
+            side={THREE.FrontSide}
+          />
+        </mesh>
+      </group>
+
+      {/* Group containing iPhone and screen - they move together */}
       <group ref={groupRef} rotation={[0, -0.3, 0]}>
-        {/* The iPhone model */}
+        {/* iPhone depth prepass (writes only depth) */}
+        <primitive
+          object={iphoneDepth}
+          scale={0.8}
+          position={[0, 0, 0]}
+          renderOrder={0}
+        />
+
+        {/* The iPhone model (visible pass) */}
         <primitive
           object={scene}
           scale={0.8}
           position={[0, 0, 0]}
+          renderOrder={2}
         />
 
         {/* Screen with logo - positioned on top of phone screen */}
@@ -68,7 +116,7 @@ function IphoneScene() {
           <meshBasicMaterial
             map={logoTexture}
             transparent={true}
-            side={2}
+            side={THREE.DoubleSide}
           />
         </mesh>
       </group>
