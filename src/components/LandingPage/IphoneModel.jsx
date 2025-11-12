@@ -19,6 +19,55 @@ function IphoneScene() {
   }
   googlePlayTexture.needsUpdate = true;
 
+  // Create a CanvasTexture that contains the image without cropping (contain)
+  const containedGooglePlayTexture = useMemo(() => {
+    const img = googlePlayTexture?.image;
+    if (!img || !img.width || !img.height) return null;
+
+    // Use a pixel canvas matching the screen aspect (4.1 x 9.2)
+    const screenW = 410;
+    const screenH = Math.round(screenW * (9.2 / 4.1));
+    const canvas = document.createElement('canvas');
+    canvas.width = screenW;
+    canvas.height = screenH;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return null;
+
+    // Rounded rect clip so corners are rounded
+    const radiusPx = Math.round(0.45 * (screenW / 4.1));
+    const r = Math.max(2, Math.min(radiusPx, Math.floor(Math.min(screenW, screenH) / 8)));
+    const path = new Path2D();
+    const x = 0, y = 0, w = screenW, h = screenH;
+    path.moveTo(x + r, y);
+    path.lineTo(x + w - r, y);
+    path.quadraticCurveTo(x + w, y, x + w, y + r);
+    path.lineTo(x + w, y + h - r);
+    path.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    path.lineTo(x + r, y + h);
+    path.quadraticCurveTo(x, y + h, x, y + h - r);
+    path.lineTo(x, y + r);
+    path.quadraticCurveTo(x, y, x + r, y);
+    ctx.clearRect(0, 0, screenW, screenH);
+    ctx.save();
+    ctx.clip(path);
+
+    const iw = img.width;
+    const ih = img.height;
+    const scale = Math.min(screenW / iw, screenH / ih); // contain
+    const dw = iw * scale;
+    const dh = ih * scale;
+    const dx = (screenW - dw) / 2;
+    const dy = (screenH - dh) / 2;
+    ctx.drawImage(img, dx, dy, dw, dh);
+    ctx.restore();
+
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.flipY = true;
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.needsUpdate = true;
+    return tex;
+  }, [googlePlayTexture?.image]);
+
   // Depth-only prepass for iPhone to ensure it occludes the image plane
   const iphoneDepth = useMemo(() => {
     const clone = scene.clone(true);
@@ -76,12 +125,12 @@ function IphoneScene() {
           position={[0, 0, 0]}
         />
 
-        {/* Image plane: full screen size, stretched to fill height (no bars, no side crop) */}
-        <mesh position={[0, 5.05, 0.3]} renderOrder={1}>
-          <planeGeometry args={[3.2, 9]} />
+        {/* Image plane: contain-fit inside rounded-corner mask */}
+        <mesh position={[0, 5.3, 0.3]} renderOrder={1}>
+          <planeGeometry args={[4.1, 9.3]} />
           <meshBasicMaterial
-            map={googlePlayTexture}
-            transparent={false}
+            map={containedGooglePlayTexture || googlePlayTexture}
+            transparent={true}
             depthWrite={false}
             depthTest={true}
             polygonOffset={true}
