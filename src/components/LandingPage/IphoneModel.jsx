@@ -126,8 +126,8 @@ function IphoneScene() {
         />
 
         {/* Image plane: contain-fit inside rounded-corner mask */}
-        <mesh position={[0, 5.3, 0.3]} renderOrder={1}>
-          <planeGeometry args={[4.1, 9.3]} />
+        <mesh position={[0, 5.2, 0.3]} renderOrder={1}>
+          <planeGeometry args={[4.15, 9.82]} />
           <meshBasicMaterial
             map={containedGooglePlayTexture || googlePlayTexture}
             transparent={true}
@@ -182,7 +182,7 @@ const IphoneModel = () => {
       transition={{ delay: 0.5, duration: 1 }}
     >
       <Canvas
-        style={{ width: '100%', height: '600px' }}
+        style={{ width: '100%', height: '100%' }}
         gl={{ antialias: true, alpha: true }}
       >
         <IphoneScene />
