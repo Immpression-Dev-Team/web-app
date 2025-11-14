@@ -92,13 +92,18 @@ function IphoneScene() {
   useFrame((state) => {
     if (groupRef.current) {
       const time = state.clock.elapsedTime;
-      groupRef.current.position.x = Math.sin(time * 0.5) * 0.3;
-      groupRef.current.position.y = Math.cos(time * 0.5) * 0.2;
+      groupRef.current.position.x = 0.7 + Math.sin(time * 0.4) * 0.1;
+      groupRef.current.position.y = Math.cos(time * 0.5) * 0.18;
+      groupRef.current.position.z = 0.35;
     }
     if (secondPhoneRef.current) {
       const time = state.clock.elapsedTime;
-      secondPhoneRef.current.position.x = -2.8 + Math.sin(time * 0.7) * 0.25 + Math.cos(time * 0.3) * 0.15;
-      secondPhoneRef.current.position.y = -5 + Math.cos(time * 0.6) * 0.25 + Math.sin(time * 0.4) * 0.1;
+      const baseX = -3.9;
+      const baseY = -5;
+      const baseZ = -3.4;
+      secondPhoneRef.current.position.x = baseX + Math.sin(time * 0.5) * 0.12;
+      secondPhoneRef.current.position.y = baseY + Math.cos(time * 0.45) * 0.18;
+      secondPhoneRef.current.position.z = baseZ + Math.sin(time * 0.35) * 0.04;
     }
   });
 
@@ -117,7 +122,7 @@ function IphoneScene() {
       <Environment preset="studio" />
 
       {/* Second phone (Infinix) with Google Play image - behind and to the left */}
-      <group ref={secondPhoneRef} position={[-2.8, -5, -1]} rotation={[0, -0.3, 0]}>
+      <group ref={secondPhoneRef} position={[-3.9, -5, -3.4]} rotation={[0, -0.25, 0]}>
         {/* Left phone (Infinix) model */}
         <primitive
           object={infinixScene.clone()}
@@ -126,7 +131,7 @@ function IphoneScene() {
         />
 
         {/* Image plane: contain-fit inside rounded-corner mask */}
-        <mesh position={[0, 5.2, 0.3]} renderOrder={1}>
+        <mesh position={[0, 5.2, 0.3]} renderOrder={3}>
           <planeGeometry args={[4.15, 9.82]} />
           <meshBasicMaterial
             map={containedGooglePlayTexture || googlePlayTexture}
