@@ -76,7 +76,7 @@ export const GuestNavigation = [
     // },
     {
         name: 'Policy Page',
-        path: '/policyPage',
+        path: '/policy',
         element: createElement(PolicyPage),
     },
     {
