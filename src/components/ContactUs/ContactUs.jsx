@@ -2,58 +2,58 @@ import "./ContactUs.css";
 
 const ContactUs = () => {
     return (
-        <div className="contact-container">
-            {/* Company Info Section */}
-            <div className="contact-section">
-                <h2>Contact Us</h2>
-                <p><strong>Phone:</strong> <a href="tel:+11234567890">(123) 456-7890</a></p>
-                <p><strong>Email:</strong> <a href="mailto:contact@immpression.com">contact@immpression.com</a></p>
+        <div className="contact-page">
+            {/* Hero Section */}
+            <div className="contact-hero">
+                <h1>Contact Us</h1>
+                <p>We'd love to hear from you. Reach out to us through any of the following channels.</p>
             </div>
 
-            {/* Address & Map Section */}
-            <div className="contact-section">
-                <h2>Our Location</h2>
-                <p>
-                    <a
-                        href="https://www.google.com/maps/place/65-30+Kissena+Blvd,+Kew+Gardens+Hills,+NY+11367"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        65-30 Kissena Blvd, Kew Gardens Hills, NY 11367
-                    </a>
-                </p>
-                <div className="map-container">
-                    <iframe
-                        title="Company Location"
-                        width="100%"
-                        height="300"
-                        style={{ border: 0, borderRadius: '8px' }}
-                        loading="lazy"
-                        allowFullScreen
-                        src="https://www.google.com/maps/embed/v1/place?key=YOUR_GOOGLE_MAPS_API_KEY&q=65-30+Kissena+Blvd,+Kew+Gardens+Hills,+NY+11367"
-                    ></iframe>
+            {/* Main Content */}
+            <div className="contact-content">
+                {/* Contact Info Cards */}
+                <div className="contact-info-grid">
+                    <div className="info-card">
+                        <div className="info-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <h3>Email Us</h3>
+                        <a href="mailto:immpression.nyc@gmail.com">immpression.nyc@gmail.com</a>
+                        <p className="info-description">Send us an email anytime</p>
+                    </div>
+
+                    <div className="info-card">
+                        <div className="info-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                            </svg>
+                        </div>
+                        <h3>Call Us</h3>
+                        <a href="tel:+17187814261">+1 (718) 781-4261</a>
+                        <p className="info-description">Mon-Fri from 9am to 6pm</p>
+                    </div>
+
+                    <div className="info-card">
+                        <div className="info-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                        </div>
+                        <h3>Visit Us</h3>
+                        <a
+                            href="https://www.google.com/maps/place/65-30+Kissena+Blvd,+Kew+Gardens+Hills,+NY+11367"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            65-30 Kissena Blvd<br/>Kew Gardens Hills, NY 11367
+                        </a>
+                        <p className="info-description">Come visit our office</p>
+                    </div>
                 </div>
             </div>
-
-            {/*/!* Team Section *!/*/}
-            {/*<div className="contact-section team-section">*/}
-            {/*    <h2>Immpression Team</h2>*/}
-            {/*    <div className="team-list">*/}
-            {/*        /!* Placeholder team members *!/*/}
-            {/*        <div className="team-member">*/}
-            {/*            <img src="/team-member1.jpg" alt="Team Member 1" />*/}
-            {/*            <p>John Doe - CEO</p>*/}
-            {/*        </div>*/}
-            {/*        <div className="team-member">*/}
-            {/*            <img src="/team-member2.jpg" alt="Team Member 2" />*/}
-            {/*            <p>Jane Smith - CTO</p>*/}
-            {/*        </div>*/}
-            {/*        <div className="team-member">*/}
-            {/*            <img src="/team-member3.jpg" alt="Team Member 3" />*/}
-            {/*            <p>Michael Brown - COO</p>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
         </div>
     );
 };
