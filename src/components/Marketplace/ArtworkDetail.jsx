@@ -8,6 +8,7 @@ import googlePlayIcon from "../../assets/headers/GooglePlay.png";
 
 // Extract 24-char MongoDB hex ID from the end of the artwork slug
 const extractId = (artworkSlug = "") => artworkSlug.match(/[a-f0-9]{24}$/)?.[0];
+const slugify = (str) => str.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
 const ArtworkDetail = () => {
   const { artworkSlug } = useParams();
@@ -18,6 +19,7 @@ const ArtworkDetail = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const id = extractId(artworkSlug);
+  const [moreArtworks, setMoreArtworks] = useState([]);
 
   useEffect(() => {
     if (!id) {
@@ -35,6 +37,14 @@ const ArtworkDetail = () => {
         const data = await res.json();
         if (data.success) {
           setArtwork(data.image);
+          // Fetch more artworks from same category
+          const params = new URLSearchParams({ limit: 7, sort: "newest" });
+          if (data.image.category) params.append("category", data.image.category);
+          const moreRes = await fetch(`${API_URL}/marketplace?${params}`);
+          const moreData = await moreRes.json();
+          if (moreData.success) {
+            setMoreArtworks(moreData.images.filter((a) => a._id !== data.image._id).slice(0, 6));
+          }
         } else {
           setError(data.error || "Artwork not found.");
         }
@@ -220,6 +230,42 @@ const ArtworkDetail = () => {
             </div>
           )}
         </motion.div>
+
+        {/* More artwork sidebar */}
+        {moreArtworks.length > 0 && (
+          <motion.div
+            className="artwork-detail-more-col"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.55, delay: 0.2 }}
+          >
+            <span className="artwork-detail-more-label">
+              More {category ? category : "artwork"}
+            </span>
+            <div className="artwork-detail-more-list">
+              {moreArtworks.map((art) => {
+                const artistSlug = slugify(art.artistName || "artist");
+                const artworkSlug = `${slugify(art.name || "artwork")}-${art._id}`;
+                return (
+                  <Link
+                    key={art._id}
+                    to={`/marketplace/${artistSlug}/${artworkSlug}`}
+                    className="artwork-detail-more-card"
+                  >
+                    <div className="artwork-detail-more-img-wrap">
+                      <img src={art.imageLink} alt={art.name} loading="lazy" />
+                    </div>
+                    <div className="artwork-detail-more-info">
+                      <p className="artwork-detail-more-artist">{art.artistName}</p>
+                      <p className="artwork-detail-more-name">{art.name}</p>
+                      <p className="artwork-detail-more-price">${Number(art.price).toLocaleString()}</p>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </motion.div>
+        )}
 
       </div>
     </div>
