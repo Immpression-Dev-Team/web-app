@@ -10,6 +10,8 @@ import LandingPage from './components/LandingPage/LandingPage.jsx';
 import AboutUs from './components/AboutUs/AboutUs.jsx';
 import ContactUs from './components/ContactUs/ContactUs.jsx';
 import ThankYou from './components/ThankYou/ThankYou.jsx';
+import Marketplace from './components/Marketplace/Marketplace.jsx';
+import ArtworkDetail from './components/Marketplace/ArtworkDetail.jsx';
 import React from "react";
 
 // Function-based approach to return JSX elements
@@ -93,5 +95,15 @@ export const GuestNavigation = [
         name: "Thank You",
         path: "/thank-you",
         element: createElement(ThankYou),
+    },
+    {
+        name: "Marketplace",
+        path: "/marketplace",
+        element: createElement(Marketplace),
+    },
+    {
+        name: "Artwork Detail",
+        path: "/marketplace/:artistSlug/:artworkSlug",
+        element: React.createElement(ArtworkDetail),
     },
 ];
