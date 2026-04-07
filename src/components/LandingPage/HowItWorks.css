@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Josefin+Sans:wght@300;400;600&family=Inter:wght@400;500;600&display=swap');
+
+/* How It Works Section */
+.hiw-section {
+  width: 100%;
+  background: linear-gradient(180deg, #040e2e 0%, #060f2a 100%);
+  padding: 6rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hiw-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(71, 239, 172, 0.3), transparent);
+}
+
+.hiw-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header */
+.hiw-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.hiw-eyebrow {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #47EFAC;
+  margin-bottom: 1rem;
+}
+
+.hiw-title {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.05;
+  margin-bottom: 1rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.hiw-title-accent {
+  background: linear-gradient(135deg, #47EFAC 0%, #7eb8ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hiw-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.5);
+  max-width: 400px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Cards */
+.hiw-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.hiw-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  overflow: hidden;
+  cursor: default;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.hiw-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(71, 239, 172, 0.2);
+}
+
+.hiw-card:hover .hiw-card-glow {
+  opacity: 1;
+}
+
+.hiw-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.hiw-step-number {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 300;
+  color: rgba(71, 239, 172, 0.5);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.hiw-icon {
+  width: 52px;
+  height: 52px;
+  background: rgba(71, 239, 172, 0.08);
+  border: 1px solid rgba(71, 239, 172, 0.15);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #47EFAC;
+}
+
+.hiw-card-title {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+  line-height: 1;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.hiw-card-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.7;
+}
+
+.hiw-card-glow {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 80px;
+  background: radial-gradient(ellipse, rgba(71, 239, 172, 0.12) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .hiw-cards {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .hiw-title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .hiw-section {
+    padding: 4rem 1.25rem;
+  }
+
+  .hiw-title {
+    font-size: 2rem;
+  }
+
+  .hiw-header {
+    margin-bottom: 2.5rem;
+  }
+}

@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap');
+
 /* Landing Page Styles */
 .landing-wrapper {
   width: 100%;
   min-height: 100vh;
-  background: linear-gradient(135deg, #072973 0%, #4781FF 100%);
+  background: linear-gradient(150deg, #040e2e 0%, #0a1f5c 40%, #0d2d6e 70%, #0a3060 100%);
   position: relative;
+  overflow: hidden;
 }
 
 .landing-wrapper::before {
@@ -13,11 +16,23 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
-    radial-gradient(circle at 20% 50%, rgba(71, 239, 172, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 40% 80%, rgba(71, 129, 255, 0.1) 0%, transparent 50%);
+  background:
+    radial-gradient(ellipse at 15% 60%, rgba(71, 239, 172, 0.08) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 15%, rgba(100, 140, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 85%, rgba(71, 129, 255, 0.07) 0%, transparent 45%);
   pointer-events: none;
+}
+
+.landing-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.4;
 }
 
 /* Hero Section */
@@ -64,10 +79,12 @@
 }
 
 .badge-text {
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  color: var(--primary-white);
-  letter-spacing: 0.5px;
+  color: #47EFAC;
+  letter-spacing: 1.5px;
+  font-family: 'Inter', sans-serif;
+  text-transform: uppercase;
 }
 
 .kickstarter-badge {
@@ -77,26 +94,26 @@
 
 /* Hero Title */
 .hero-title {
-  font-size: 3rem;
-  font-weight: 800;
-  font-family: 'Kanit', sans-serif;
+  font-size: 5rem;
+  font-weight: 400;
+  font-family: 'Permanent Marker', cursive;
   color: var(--primary-white);
-  line-height: 1.1;
-  margin-bottom: 0.75rem;
-  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
+  letter-spacing: 0.01em;
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #47EFAC 0%, #4781FF 100%);
+  background: linear-gradient(135deg, #47EFAC 0%, #7eb8ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  font-size: 5rem;
+  font-size: inherit;
+  font-family: 'Permanent Marker', cursive;
 }
 
 .gradient-bold {
-  font-weight: 900;
-  font-family: 'Kanit', sans-serif;
+  font-family: 'Permanent Marker', cursive;
 }
 
 /* Desktop line break - show by default */
@@ -107,10 +124,34 @@
 /* Hero Subtitle */
 .hero-subtitle {
   font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.5;
-  margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
   font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  max-width: 520px;
+}
+
+/* Hero Pills */
+.hero-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  padding: 0.5rem 0;
+}
+
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(71, 239, 172, 0.12);
+  border: 1px solid rgba(71, 239, 172, 0.35);
+  color: #47EFAC;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  white-space: nowrap;
 }
 
 /* Hero Stats */
@@ -197,6 +238,19 @@
   justify-content: center;
   align-items: center;
   position: relative;
+}
+
+/* 3D iPhone Model Canvas */
+.iphone-canvas-container {
+  width: 100%;
+  max-width: 600px;
+  height: 600px;
+  position: relative;
+}
+
+.iphone-canvas-container canvas {
+  border-radius: 20px;
+  background: transparent !important;
 }
 
 .app-preview {
@@ -950,9 +1004,14 @@
     min-height: 100vh;
     overflow-x: hidden;
   }
-  
+
   .hero-content {
     gap: 2rem;
+  }
+
+  .iphone-canvas-container {
+    height: 450px;
+    max-width: 400px;
   }
   
   .hero-title {
@@ -1166,7 +1225,12 @@
     padding: 7rem 1rem 1.5rem;
     overflow-x: hidden;
   }
-  
+
+  .iphone-canvas-container {
+    height: 350px;
+    max-width: 300px;
+  }
+
   .hero-title {
     font-size: 1.5rem;
     line-height: 1.05;
@@ -1259,7 +1323,12 @@
     padding: 7rem 0.75rem 1rem;
     overflow-x: hidden;
   }
-  
+
+  .iphone-canvas-container {
+    height: 300px;
+    max-width: 250px;
+  }
+
   .hero-title {
     font-size: 1.3rem;
     margin-bottom: 0.5rem;

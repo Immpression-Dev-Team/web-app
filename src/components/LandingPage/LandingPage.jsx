@@ -2,7 +2,10 @@ import { motion } from "framer-motion";
 import "./LandingPage.css";
 import { useEffect, useState } from "react";
 import { API_URL } from "../../API_URL";
-import GooglePlay from '../../assets/headers/GooglePlay.png'
+import GooglePlay from '../../assets/headers/GooglePlay.png';
+import Apple from '../../assets/headers/Apple.png';
+import IphoneModel from './IphoneModel';
+import HowItWorks from './HowItWorks';
 
 const LandingPage = () => {
   const [signUpLink, setSignUpLink] = useState("/signup");
@@ -104,12 +107,7 @@ const LandingPage = () => {
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.6 }}
             >
-              <span className="badge-text">NOW LIVE ON</span>
-              <img
-                className="kickstarter-badge"
-                src="/kickstarter_logo.svg"
-                alt="Kickstarter"
-              />
+              <span className="badge-text">✦ ART SEARCH ENGINE &amp; MARKETPLACE</span>
             </motion.div>
 
             <motion.h1
@@ -118,12 +116,8 @@ const LandingPage = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.4, duration: 0.8 }}
             >
-              Transform Your Art Into a<br className="desktop-break" />
-              <p>
-                <span className="gradient-text gradient-bold">
-                  Global Gallery
-                </span>
-              </p>
+              Find Art.{" "}
+              <span className="gradient-text gradient-bold">Own It.</span>
             </motion.h1>
 
             <motion.p
@@ -132,29 +126,19 @@ const LandingPage = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.6, duration: 0.8 }}
             >
-              Create, showcase, and sell your artwork to collectors worldwide.
-              Join the revolution that&apos;s putting artists in control of
-              their digital galleries.
+              Search thousands of artworks, discover emerging artists, and buy
+              original pieces directly from creators — all in one place.
             </motion.p>
 
             <motion.div
-              className="hero-stats"
+              className="hero-pills"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.8, duration: 0.8 }}
             >
-              <div className="stat-item">
-                <span className="stat-number">10k+</span>
-                <span className="stat-label">Artists</span>
-              </div>
-              <div className="stat-item">
-                <span className="stat-number">50k+</span>
-                <span className="stat-label">Artworks</span>
-              </div>
-              <div className="stat-item">
-                <span className="stat-number">$2M+</span>
-                <span className="stat-label">Sales</span>
-              </div>
+              <span className="hero-pill">✦ Search Thousands of Artworks</span>
+              <span className="hero-pill">✦ Discover Emerging Artists</span>
+              <span className="hero-pill">✦ Artists Keep 90%</span>
             </motion.div>
 
             <motion.div
@@ -164,25 +148,6 @@ const LandingPage = () => {
               transition={{ delay: 1, duration: 0.8 }}
             >
               {/* Donation: redirect to Stripe Checkout (platform-only) */}
-              <button
-                className="btn-primary"
-                onClick={() => donate(2500)} // default $25; use an amount picker to vary
-                disabled={donating}
-                aria-busy={donating}
-              >
-                <span>{donating ? "Starting..." : "🚀 Back Our Project"}</span>
-              </button>
-
-              {/* Keep waitlist as-is */}
-              <a
-                href={signUpLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-secondary"
-              >
-                <span>Join Waitlist</span>
-              </a>
-
               {/* Google Play Button */}
               <a
                 href="https://play.google.com/store/apps/details?id=com.immpression.artapp"
@@ -190,9 +155,23 @@ const LandingPage = () => {
                 rel="noopener noreferrer"
                 className="btn-google-play"
               >
-                <img 
-                  src={GooglePlay} 
+                <img
+                  src={GooglePlay}
                   alt="Get it on Google Play"
+                  className="google-play-img"
+                />
+              </a>
+
+              {/* Apple App Store Button */}
+              <a
+                href="https://apps.apple.com/app/id6756974604"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-google-play"
+              >
+                <img
+                  src={Apple}
+                  alt="Download on the App Store"
                   className="google-play-img"
                 />
               </a>
@@ -200,44 +179,12 @@ const LandingPage = () => {
           </div>
 
           <div className="hero-right">
-            <div className="app-preview">
-              <motion.div
-                className="preview-container"
-                initial={{ x: 100, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.5, duration: 1 }}
-              >
-                <div className="phone-mockup">
-                  <motion.img
-                    src="/Immpression_UI_1.png"
-                    alt="Immpression App - Main Screen"
-                    className="main-screen"
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.8, duration: 0.8 }}
-                  />
-                </div>
-                <motion.img
-                  src="/Immpression_UI_2.png"
-                  alt="Immpression App - Gallery View"
-                  className="floating-screen left"
-                  initial={{ x: -30, y: 20, opacity: 0, rotate: -10 }}
-                  animate={{ x: 0, y: 0, opacity: 0.9, rotate: -5 }}
-                  transition={{ delay: 1.2, duration: 0.8 }}
-                />
-                <motion.img
-                  src="/Immpression_UI_3.png"
-                  alt="Immpression App - Artist Profile"
-                  className="floating-screen right"
-                  initial={{ x: 30, y: -20, opacity: 0, rotate: 10 }}
-                  animate={{ x: 0, y: 0, opacity: 0.9, rotate: 5 }}
-                  transition={{ delay: 1.4, duration: 0.8 }}
-                />
-              </motion.div>
-            </div>
+            <IphoneModel />
           </div>
         </div>
       </motion.section>
+
+      <HowItWorks />
     </div>
   );
 };
