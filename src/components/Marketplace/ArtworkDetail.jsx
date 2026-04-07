@@ -3,6 +3,8 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import "./ArtworkDetail.css";
 import { API_URL } from "../../API_URL";
+import appleIcon from "../../assets/headers/Apple.png";
+import googlePlayIcon from "../../assets/headers/GooglePlay.png";
 
 // Extract 24-char MongoDB hex ID from the end of the artwork slug
 const extractId = (artworkSlug = "") => artworkSlug.match(/[a-f0-9]{24}$/)?.[0];
@@ -202,6 +204,7 @@ const ArtworkDetail = () => {
                   rel="noopener noreferrer"
                   className="artwork-detail-app-btn"
                 >
+                  <img src={appleIcon} alt="Apple App Store" className="artwork-detail-app-icon" />
                   Download on App Store
                 </a>
                 <a
@@ -210,6 +213,7 @@ const ArtworkDetail = () => {
                   rel="noopener noreferrer"
                   className="artwork-detail-app-btn secondary"
                 >
+                  <img src={googlePlayIcon} alt="Google Play Store" className="artwork-detail-app-icon" />
                   Get on Google Play
                 </a>
               </div>

@@ -264,8 +264,10 @@
 }
 
 .artwork-detail-app-btn {
-  display: block;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
   font-family: 'Josefin Sans', sans-serif;
   font-size: 0.68rem;
   font-weight: 600;
@@ -280,6 +282,14 @@
   border: 1px solid #111;
 }
 
+.artwork-detail-app-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: brightness(0) invert(1);
+}
+
 .artwork-detail-app-btn:hover {
   background: #333;
   border-color: #333;
@@ -291,10 +301,18 @@
   border: 1px solid #ddd;
 }
 
+.artwork-detail-app-btn.secondary .artwork-detail-app-icon {
+  filter: brightness(0) opacity(0.5);
+}
+
 .artwork-detail-app-btn.secondary:hover {
   color: #111;
   border-color: #999;
   background: transparent;
+}
+
+.artwork-detail-app-btn.secondary:hover .artwork-detail-app-icon {
+  filter: brightness(0) opacity(0.85);
 }
 
 /* ─── States ──────────────────────────────────── */
