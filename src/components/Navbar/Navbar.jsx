@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import LogoTitle from "../LogoTitle/LogoTitle.jsx";
-import headerImage from "../../assets/headers/Immpression_multi.png";
+import headerImage from "../../assets/headers/Immpression_white.png";
 import "./Navbar.css";
 import { useAuth } from "../../state/AuthProvider.jsx";
 import { useState, useEffect } from "react";
