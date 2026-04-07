@@ -4,57 +4,88 @@
 .artwork-detail-wrapper {
   width: 100%;
   min-height: 100vh;
-  background: linear-gradient(160deg, #040e2e 0%, #0a1f5c 45%, #060f2a 100%);
-  color: #fff;
-  padding: 7rem 2rem 8rem;
+  background: #ffffff;
+  color: #111;
+  padding: 5.5rem 2rem 6rem;
 }
 
-/* ─── Back link ───────────────────────────────── */
+/* ─── Breadcrumb ──────────────────────────────── */
 .artwork-detail-breadcrumb {
-  max-width: 1100px;
-  margin: 0 auto 2.5rem;
+  max-width: 1180px;
+  margin: 0 auto 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .artwork-detail-back-link {
   font-family: 'Josefin Sans', sans-serif;
-  font-size: 0.72rem;
+  font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.4);
+  color: #aaa;
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .artwork-detail-back-link:hover {
-  color: #47EFAC;
+  color: #111;
+}
+
+.artwork-detail-breadcrumb-sep {
+  font-size: 0.65rem;
+  color: #ddd;
+}
+
+.artwork-detail-breadcrumb-artist {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #bbb;
+}
+
+.artwork-detail-breadcrumb-name {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #666;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 280px;
 }
 
 /* ─── Layout ──────────────────────────────────── */
 .artwork-detail-inner {
-  max-width: 1100px;
+  max-width: 1180px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5rem;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 4rem;
   align-items: start;
 }
 
-/* ─── Image ───────────────────────────────────── */
+/* ─── Image column ────────────────────────────── */
 .artwork-detail-image-col {
   position: sticky;
-  top: 6rem;
+  top: 5rem;
 }
 
 .artwork-detail-image-wrap {
   width: 100%;
-  border-radius: 14px;
+  border-radius: 10px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #f5f5f5;
+  border: 1px solid #ebebeb;
   position: relative;
   opacity: 0;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.45s ease;
 }
 
 .artwork-detail-image-wrap.loaded {
@@ -65,102 +96,102 @@
   width: 100%;
   display: block;
   object-fit: contain;
-  max-height: 70vh;
+  max-height: 72vh;
 }
 
 .artwork-detail-sold-badge {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 0.75rem;
+  right: 0.75rem;
   font-family: 'Josefin Sans', sans-serif;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-weight: 600;
-  letter-spacing: 2.5px;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
-  background: rgba(4, 14, 46, 0.75);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 0.3rem 0.75rem;
-  border-radius: 4px;
+  color: #888;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ddd;
+  padding: 0.25rem 0.65rem;
+  border-radius: 3px;
 }
 
 .artwork-detail-views {
   font-family: 'Inter', sans-serif;
-  font-size: 0.78rem;
-  color: rgba(255, 255, 255, 0.25);
-  margin: 0.75rem 0 0;
+  font-size: 0.72rem;
+  color: #ccc;
+  margin: 0.65rem 0 0;
   text-align: right;
 }
 
-/* ─── Info ────────────────────────────────────── */
+/* ─── Info column ─────────────────────────────── */
 .artwork-detail-info-col {
-  padding-top: 0.5rem;
+  padding-top: 0.25rem;
   display: flex;
   flex-direction: column;
-  gap: 0;
 }
 
 .artwork-detail-category {
   display: inline-block;
   font-family: 'Josefin Sans', sans-serif;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-weight: 600;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: #47EFAC;
-  margin-bottom: 1.1rem;
+  color: #aaa;
+  margin-bottom: 0.9rem;
 }
 
 .artwork-detail-name {
   font-family: 'Inter', sans-serif;
-  font-size: 2.2rem;
+  font-size: 2rem;
   font-weight: 600;
-  color: #fff;
+  color: #111;
   line-height: 1.2;
-  margin: 0 0 0.6rem;
+  margin: 0 0 0.4rem;
   letter-spacing: -0.02em;
 }
 
 .artwork-detail-artist {
   font-family: 'Inter', sans-serif;
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.45);
-  margin: 0 0 2rem;
+  font-size: 0.95rem;
+  color: #888;
+  margin: 0 0 1.75rem;
 }
 
 .artwork-detail-price-row {
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #ebebeb;
 }
 
 .artwork-detail-price {
   font-family: 'Josefin Sans', sans-serif;
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 600;
-  letter-spacing: 1px;
-  color: #fff;
+  letter-spacing: 0.5px;
+  color: #111;
 }
 
 .artwork-detail-sold-tag {
   font-family: 'Josefin Sans', sans-serif;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-weight: 600;
-  letter-spacing: 2.5px;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 0.3rem 0.75rem;
-  border-radius: 4px;
+  color: #aaa;
+  border: 1px solid #ddd;
+  padding: 0.25rem 0.65rem;
+  border-radius: 3px;
 }
 
 /* ─── Sections ────────────────────────────────── */
 .artwork-detail-section {
-  margin-bottom: 2rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.75rem;
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .artwork-detail-section:last-of-type {
@@ -170,18 +201,18 @@
 .artwork-detail-section-label {
   display: block;
   font-family: 'Josefin Sans', sans-serif;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-weight: 600;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.3);
-  margin-bottom: 0.9rem;
+  color: #bbb;
+  margin-bottom: 0.75rem;
 }
 
 .artwork-detail-description {
   font-family: 'Inter', sans-serif;
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.9rem;
+  color: #555;
   line-height: 1.8;
   margin: 0;
 }
@@ -190,7 +221,7 @@
 .artwork-detail-specs {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.6rem;
 }
 
 .artwork-detail-spec {
@@ -201,72 +232,69 @@
 
 .artwork-detail-spec-key {
   font-family: 'Josefin Sans', sans-serif;
-  font-size: 0.7rem;
+  font-size: 0.63rem;
   font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.3);
+  color: #bbb;
 }
 
 .artwork-detail-spec-val {
   font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.88rem;
+  color: #444;
 }
 
 /* ─── CTA ─────────────────────────────────────── */
 .artwork-detail-cta-block {
-  margin-top: 0.5rem;
+  margin-top: 0.25rem;
 }
 
 .artwork-detail-cta-note {
   font-family: 'Inter', sans-serif;
-  font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.3);
-  margin: 0 0 1.25rem;
+  font-size: 0.78rem;
+  color: #bbb;
+  margin: 0 0 1rem;
 }
 
 .artwork-detail-app-links {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.6rem;
 }
 
 .artwork-detail-app-btn {
   display: block;
   text-align: center;
   font-family: 'Josefin Sans', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 2.5px;
   text-transform: uppercase;
   text-decoration: none;
-  padding: 0.9rem 2rem;
-  border-radius: 8px;
-  transition: all 0.25s ease;
-  background: rgba(71, 239, 172, 0.1);
-  color: #47EFAC;
-  border: 1px solid rgba(71, 239, 172, 0.45);
+  padding: 0.85rem 2rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  background: #111;
+  color: #fff;
+  border: 1px solid #111;
 }
 
 .artwork-detail-app-btn:hover {
-  background: rgba(71, 239, 172, 0.16);
-  border-color: #47EFAC;
-  color: #fff;
-  box-shadow: 0 0 24px rgba(71, 239, 172, 0.15);
+  background: #333;
+  border-color: #333;
 }
 
 .artwork-detail-app-btn.secondary {
   background: transparent;
-  color: rgba(255, 255, 255, 0.5);
-  border-color: rgba(255, 255, 255, 0.15);
+  color: #888;
+  border: 1px solid #ddd;
 }
 
 .artwork-detail-app-btn.secondary:hover {
-  color: rgba(255, 255, 255, 0.85);
-  border-color: rgba(255, 255, 255, 0.35);
-  background: rgba(255, 255, 255, 0.05);
-  box-shadow: none;
+  color: #111;
+  border-color: #999;
+  background: transparent;
 }
 
 /* ─── States ──────────────────────────────────── */
@@ -277,15 +305,15 @@
   align-items: center;
   justify-content: center;
   min-height: 60vh;
-  gap: 1.25rem;
+  gap: 1rem;
   text-align: center;
 }
 
 .artwork-detail-spinner {
-  width: 36px;
-  height: 36px;
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  border-top-color: #47EFAC;
+  width: 28px;
+  height: 28px;
+  border: 2px solid #eee;
+  border-top-color: #111;
   border-radius: 50%;
   animation: detail-spin 0.8s linear infinite;
 }
@@ -297,36 +325,35 @@
 .artwork-detail-loading p,
 .artwork-detail-error p {
   font-family: 'Inter', sans-serif;
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.9rem;
+  color: #aaa;
   margin: 0;
 }
 
 .artwork-detail-back-btn {
   font-family: 'Josefin Sans', sans-serif;
-  font-size: 0.72rem;
+  font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 2.5px;
   text-transform: uppercase;
-  color: #47EFAC;
+  color: #111;
   background: transparent;
-  border: 1px solid rgba(71, 239, 172, 0.4);
-  padding: 0.6rem 1.5rem;
-  border-radius: 6px;
+  border: 1px solid #ccc;
+  padding: 0.55rem 1.25rem;
+  border-radius: 4px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: border-color 0.2s ease;
 }
 
 .artwork-detail-back-btn:hover {
-  background: rgba(71, 239, 172, 0.07);
-  border-color: #47EFAC;
+  border-color: #111;
 }
 
 /* ─── Responsive ──────────────────────────────── */
 @media (max-width: 900px) {
   .artwork-detail-inner {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2rem;
   }
 
   .artwork-detail-image-col {
@@ -334,20 +361,20 @@
   }
 
   .artwork-detail-name {
-    font-size: 1.75rem;
+    font-size: 1.6rem;
   }
 }
 
 @media (max-width: 600px) {
   .artwork-detail-wrapper {
-    padding: 6rem 1.25rem 6rem;
+    padding: 5rem 1.25rem 5rem;
   }
 
   .artwork-detail-name {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 
   .artwork-detail-price {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
 }

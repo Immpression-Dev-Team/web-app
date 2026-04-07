@@ -4,18 +4,30 @@ import { motion } from "framer-motion";
 import "./ArtworkDetail.css";
 import { API_URL } from "../../API_URL";
 
+// Extract 24-char MongoDB hex ID from the end of the artwork slug
+const extractId = (artworkSlug = "") => artworkSlug.match(/[a-f0-9]{24}$/)?.[0];
+
 const ArtworkDetail = () => {
-  const { id } = useParams();
+  const { artworkSlug } = useParams();
   const navigate = useNavigate();
   const [artwork, setArtwork] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [imageLoaded, setImageLoaded] = useState(false);
 
+  const id = extractId(artworkSlug);
+
   useEffect(() => {
+    if (!id) {
+      setError("Invalid artwork URL.");
+      setLoading(false);
+      return;
+    }
+
     const fetchArtwork = async () => {
       setLoading(true);
       setError("");
+      setImageLoaded(false);
       try {
         const res = await fetch(`${API_URL}/marketplace/${id}`);
         const data = await res.json();
@@ -81,11 +93,15 @@ const ArtworkDetail = () => {
   return (
     <div className="artwork-detail-wrapper">
 
-      {/* Back nav */}
+      {/* Breadcrumb */}
       <div className="artwork-detail-breadcrumb">
         <Link to="/marketplace" className="artwork-detail-back-link">
-          ← Back to Marketplace
+          ← Marketplace
         </Link>
+        <span className="artwork-detail-breadcrumb-sep">/</span>
+        <span className="artwork-detail-breadcrumb-artist">{artistName}</span>
+        <span className="artwork-detail-breadcrumb-sep">/</span>
+        <span className="artwork-detail-breadcrumb-name">{name}</span>
       </div>
 
       <div className="artwork-detail-inner">
@@ -93,14 +109,14 @@ const ArtworkDetail = () => {
         {/* Image */}
         <motion.div
           className="artwork-detail-image-col"
-          initial={{ opacity: 0, x: -30 }}
+          initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.65 }}
+          transition={{ duration: 0.55 }}
         >
           <div className={`artwork-detail-image-wrap ${imageLoaded ? "loaded" : ""}`}>
             <img
               src={imageLink}
-              alt={name}
+              alt={`${name} by ${artistName}`}
               className="artwork-detail-image"
               onLoad={() => setImageLoaded(true)}
             />
@@ -116,9 +132,9 @@ const ArtworkDetail = () => {
         {/* Info */}
         <motion.div
           className="artwork-detail-info-col"
-          initial={{ opacity: 0, x: 30 }}
+          initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.65, delay: 0.1 }}
+          transition={{ duration: 0.55, delay: 0.08 }}
         >
           {category && (
             <span className="artwork-detail-category">{category}</span>
@@ -177,7 +193,7 @@ const ArtworkDetail = () => {
           {!isSold && (
             <div className="artwork-detail-cta-block">
               <p className="artwork-detail-cta-note">
-                Purchases are made through the Immpression app.
+                Purchase through the Immpression app.
               </p>
               <div className="artwork-detail-app-links">
                 <a
@@ -186,7 +202,7 @@ const ArtworkDetail = () => {
                   rel="noopener noreferrer"
                   className="artwork-detail-app-btn"
                 >
-                  Get on App Store
+                  Download on App Store
                 </a>
                 <a
                   href="https://play.google.com/store/apps/details?id=com.immpression.app"

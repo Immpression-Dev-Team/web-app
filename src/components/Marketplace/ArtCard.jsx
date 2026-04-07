@@ -1,11 +1,17 @@
 import { Link } from "react-router-dom";
 import "./ArtCard.css";
 
+const slugify = (str) =>
+  str.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
 const ArtCard = ({ artwork }) => {
   const { _id, name, artistName, price, imageLink, category, isSigned, isFramed } = artwork;
 
+  const artistSlug = slugify(artistName || "artist");
+  const artworkSlug = `${slugify(name || "artwork")}-${_id}`;
+
   return (
-    <Link to={`/marketplace/${_id}`} className="art-card">
+    <Link to={`/marketplace/${artistSlug}/${artworkSlug}`} className="art-card">
       <div className="art-card-image-wrap">
         <img
           src={imageLink}

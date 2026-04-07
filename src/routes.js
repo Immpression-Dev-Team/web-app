@@ -103,7 +103,7 @@ export const GuestNavigation = [
     },
     {
         name: "Artwork Detail",
-        path: "/marketplace/:id",
+        path: "/marketplace/:artistSlug/:artworkSlug",
         element: React.createElement(ArtworkDetail),
     },
 ];
