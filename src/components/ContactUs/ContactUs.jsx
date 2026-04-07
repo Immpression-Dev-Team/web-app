@@ -1,61 +1,187 @@
+import { useState } from "react";
+import { motion } from "framer-motion";
 import "./ContactUs.css";
+import { API_URL } from "../../API_URL";
+
+const fadeUp = (delay = 0) => ({
+  initial: { y: 30, opacity: 0 },
+  animate: { y: 0, opacity: 1 },
+  transition: { duration: 0.65, delay },
+});
+
+const reasons = [
+  { icon: "🎨", label: "Artists", desc: "Want to list your work on Immpression?" },
+  { icon: "🖼", label: "Collectors", desc: "Looking for help finding or buying art?" },
+  { icon: "🤝", label: "Partnerships", desc: "Interested in working with us?" },
+  { icon: "💬", label: "Feedback", desc: "Have an idea or something to report?" },
+];
 
 const ContactUs = () => {
-    return (
-        <div className="contact-page">
-            {/* Hero Section */}
-            <div className="contact-hero">
-                <h1>Contact Us</h1>
-                <p>We'd love to hear from you. Reach out to us through any of the following channels.</p>
-            </div>
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [submitted, setSubmitted] = useState(false);
+  const [focused, setFocused] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-            {/* Main Content */}
-            <div className="contact-content">
-                {/* Contact Info Cards */}
-                <div className="contact-info-grid">
-                    <div className="info-card">
-                        <div className="info-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                            </svg>
-                        </div>
-                        <h3>Email Us</h3>
-                        <a href="mailto:immpression.nyc@gmail.com">immpression.nyc@gmail.com</a>
-                        <p className="info-description">Send us an email anytime</p>
-                    </div>
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
-                    <div className="info-card">
-                        <div className="info-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                            </svg>
-                        </div>
-                        <h3>Call Us</h3>
-                        <a href="tel:+17187814261">+1 (718) 781-4261</a>
-                        <p className="info-description">Mon-Fri from 9am to 6pm</p>
-                    </div>
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!form.name || !form.email || !form.message) return;
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch(`${API_URL}/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSubmitted(true);
+      } else {
+        setError(data.error || "Something went wrong. Please try again.");
+      }
+    } catch {
+      setError("Could not send message. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-                    <div className="info-card">
-                        <div className="info-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                                <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                            </svg>
-                        </div>
-                        <h3>Visit Us</h3>
-                        <a
-                            href="https://www.google.com/maps/place/65-30+Kissena+Blvd,+Kew+Gardens+Hills,+NY+11367"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            65-30 Kissena Blvd<br/>Kew Gardens Hills, NY 11367
-                        </a>
-                        <p className="info-description">Come visit our office</p>
-                    </div>
-                </div>
-            </div>
+  return (
+    <div className="contact-wrapper">
+
+      {/* Hero */}
+      <section className="contact-hero">
+        <div className="contact-hero-inner">
+          <motion.span className="contact-eyebrow" {...fadeUp(0.1)}>
+            Contact
+          </motion.span>
+          <motion.h1 className="contact-title" {...fadeUp(0.2)}>
+            Let's Talk.
+          </motion.h1>
+          <motion.p className="contact-subtitle" {...fadeUp(0.35)}>
+            Questions, ideas, or just want to connect? We'd love to hear from you.
+          </motion.p>
         </div>
-    );
+      </section>
+
+      {/* Main: Form + Info */}
+      <section className="contact-main">
+        <div className="contact-main-inner">
+
+          {/* Form */}
+          <motion.div
+            className="contact-form-block"
+            initial={{ y: 40, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+          >
+            {submitted ? (
+              <div className="contact-success">
+                <span className="contact-success-icon">✦</span>
+                <h3>Message sent.</h3>
+                <p>We'll get back to you within 24 hours.</p>
+              </div>
+            ) : (
+              <form className="contact-form" onSubmit={handleSubmit} noValidate>
+                <div className={`contact-field ${focused === "name" ? "focused" : ""}`}>
+                  <label htmlFor="name">Name</label>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    placeholder="Your name"
+                    value={form.name}
+                    onChange={handleChange}
+                    onFocus={() => setFocused("name")}
+                    onBlur={() => setFocused("")}
+                    required
+                  />
+                </div>
+
+                <div className={`contact-field ${focused === "email" ? "focused" : ""}`}>
+                  <label htmlFor="email">Email</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="your@email.com"
+                    value={form.email}
+                    onChange={handleChange}
+                    onFocus={() => setFocused("email")}
+                    onBlur={() => setFocused("")}
+                    required
+                  />
+                </div>
+
+                <div className={`contact-field ${focused === "message" ? "focused" : ""}`}>
+                  <label htmlFor="message">Message</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    placeholder="What's on your mind?"
+                    rows={5}
+                    value={form.message}
+                    onChange={handleChange}
+                    onFocus={() => setFocused("message")}
+                    onBlur={() => setFocused("")}
+                    required
+                  />
+                </div>
+
+                {error && <p className="contact-error">{error}</p>}
+                <button type="submit" className="contact-submit" disabled={loading}>
+                  {loading ? "Sending..." : "Send Message"}
+                </button>
+              </form>
+            )}
+          </motion.div>
+
+          {/* Info */}
+          <motion.div
+            className="contact-info-block"
+            initial={{ y: 40, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.7, delay: 0.35 }}
+          >
+            <div className="contact-info-item">
+              <span className="contact-info-label">Email</span>
+              <a href="mailto:immpression.nyc@gmail.com" className="contact-info-value">
+                immpression.nyc@gmail.com
+              </a>
+            </div>
+            <div className="contact-info-item">
+              <span className="contact-info-label">Response Time</span>
+              <span className="contact-info-value">Within 24 hours</span>
+            </div>
+
+            <div className="contact-divider" />
+
+            <span className="contact-eyebrow" style={{ marginBottom: "1.5rem", display: "block" }}>
+              Who should reach out?
+            </span>
+            <div className="contact-reasons">
+              {reasons.map((r) => (
+                <div className="contact-reason" key={r.label}>
+                  <span className="contact-reason-icon">{r.icon}</span>
+                  <div>
+                    <span className="contact-reason-label">{r.label}</span>
+                    <p className="contact-reason-desc">{r.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+        </div>
+      </section>
+
+    </div>
+  );
 };
 
 export default ContactUs;

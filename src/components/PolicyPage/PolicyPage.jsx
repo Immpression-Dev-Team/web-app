@@ -1,236 +1,117 @@
 import "./PolicyPage.css";
 
+const sections = [
+  {
+    title: "1. Introduction",
+    content: `Immpression ("we", "us", or "our") operates a mobile and web platform for discovering, buying, and selling original artwork. This Privacy Policy explains how we collect, use, and protect your personal information when you use our services. By using Immpression, you agree to the practices described in this policy.`,
+  },
+  {
+    title: "2. Information We Collect",
+    items: [
+      { label: "Account Information", text: "When you create an account, we collect your name, email address, and password. If you sign in with Google, we receive your name, email, and profile picture from Google." },
+      { label: "Profile and Content", text: "Artists may upload artwork images, pricing, descriptions, and other listing information. This content is stored and displayed publicly on the platform." },
+      { label: "Transaction Information", text: "When you make or receive a payment, we collect information necessary to process the transaction. Payments are handled by Stripe. We do not store full payment card details." },
+      { label: "Usage Data", text: "We automatically collect information about how you interact with Immpression, including pages viewed, artworks browsed, search queries, and general device and browser information." },
+      { label: "Communications", text: "If you contact us via the contact form or email, we collect the contents of your message and your contact details." },
+    ],
+  },
+  {
+    title: "3. How We Use Your Information",
+    items: [
+      { label: "Platform Operation", text: "To create and manage your account, process transactions, and deliver the core features of Immpression." },
+      { label: "Communication", text: "To send you important account updates, order confirmations, and responses to your support inquiries." },
+      { label: "Improvement", text: "To understand how users interact with the platform and improve features, performance, and design." },
+      { label: "Safety and Compliance", text: "To detect and prevent fraud, abuse, and violations of our terms of service." },
+    ],
+  },
+  {
+    title: "4. Sharing of Information",
+    content: `We do not sell your personal information. We may share your data in the following limited circumstances:`,
+    items: [
+      { label: "Payment Processors", text: "We use Stripe to handle payments. Your payment information is processed directly by Stripe under their privacy policy." },
+      { label: "Service Providers", text: "We may share data with trusted third-party services that help us operate the platform, such as cloud storage, email delivery, and analytics. These providers are contractually required to protect your data." },
+      { label: "Legal Requirements", text: "We may disclose information if required by law or in response to a valid legal request." },
+    ],
+  },
+  {
+    title: "5. Cookies and Tracking",
+    content: `Immpression uses cookies and similar tracking technologies to maintain your session, remember your preferences, and understand platform usage. You can control cookies through your browser settings. Disabling cookies may affect the functionality of certain features.`,
+  },
+  {
+    title: "6. Your Rights",
+    items: [
+      { label: "Access", text: "You may request a copy of the personal data we hold about you." },
+      { label: "Correction", text: "You can update your account information at any time through the app settings." },
+      { label: "Deletion", text: "You may delete your account at any time. Upon deletion, your personal data will be removed from our systems, subject to legal retention requirements." },
+      { label: "Data Portability", text: "You may request a copy of your data in a portable format." },
+    ],
+  },
+  {
+    title: "7. Data Security",
+    content: `We take reasonable technical and organizational measures to protect your data against unauthorized access, loss, or misuse. All data is transmitted over encrypted connections (HTTPS). However, no method of transmission over the internet is 100% secure, and we cannot guarantee absolute security.`,
+  },
+  {
+    title: "8. Children's Privacy",
+    content: `Immpression is not directed at children under the age of 13. We do not knowingly collect personal information from children. If you believe a child has provided us with personal information, please contact us so we can remove it.`,
+  },
+  {
+    title: "9. Changes to This Policy",
+    content: `We may update this Privacy Policy from time to time. When we do, we will update the date at the top of this page. Continued use of Immpression after changes are posted constitutes your acceptance of the updated policy.`,
+  },
+  {
+    title: "10. Contact Us",
+    content: `If you have any questions or concerns about this Privacy Policy, you can reach us at:`,
+    contact: "immpression.nyc@gmail.com",
+  },
+];
+
 const PolicyPage = () => {
-    return (
-        <div className="policy-container">
-            <div className="policy-content">
-                <h1>Privacy Policy</h1>
-                <p className="last-updated">Last Updated: January 1, 2026</p>
+  return (
+    <div className="policy-wrapper">
+      <div className="policy-container">
 
-                <section>
-                    <h2>1. Introduction</h2>
-                    <p>
-                        Welcome to Immpression. This Privacy Policy describes how IMMPRESSION LLC ("we," "us," or "our") collects, uses, and protects your personal information when you use our mobile application and website (collectively, the "Service"). Immpression is a marketplace that connects artists with art buyers, allowing users to create accounts, upload artwork, browse art, and place orders.
-                    </p>
-                    <p>
-                        By using our Service, you agree to the collection and use of information in accordance with this Privacy Policy. If you do not agree with our policies and practices, please do not use our Service.
-                    </p>
-                </section>
-
-                <section>
-                    <h2>2. Information We Collect</h2>
-
-                    <h3>2.1 Personal Information</h3>
-                    <p>We collect the following personal information from you:</p>
-                    <ul>
-                        <li><strong>User Name:</strong> Your display name or account name</li>
-                        <li><strong>Email Address:</strong> Used for account creation, communication, and order confirmations</li>
-                        <li><strong>User ID:</strong> An internal account identifier automatically generated for your account</li>
-                    </ul>
-
-                    <h3>2.2 Content You Provide</h3>
-                    <ul>
-                        <li><strong>Uploaded Photos/Videos:</strong> Artwork and related images you upload to display in the marketplace</li>
-                        <li><strong>Purchase History:</strong> Records of orders placed through your account</li>
-                    </ul>
-
-                    <h3>2.3 Shipping Information</h3>
-                    <p>
-                        When you place an order, you will provide a shipping address at checkout. This information is collected solely for the purpose of fulfilling your order and is not stored permanently in your user profile.
-                    </p>
-
-                    <h3>2.4 Information We Do NOT Collect</h3>
-                    <p>We want to be clear about what we do not collect:</p>
-                    <ul>
-                        <li>Phone numbers</li>
-                        <li>Physical addresses (except shipping addresses provided at checkout for order fulfillment)</li>
-                        <li>Device identifiers or advertising identifiers</li>
-                        <li>Usage analytics (we do not track taps, scrolls, page views, or other behavioral data)</li>
-                        <li>Advertising data</li>
-                        <li>Diagnostic or crash data</li>
-                        <li>Audio recordings</li>
-                        <li>Contents of messages or emails</li>
-                        <li>Location data</li>
-                        <li>Contacts or other device information</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h2>3. Payment Information</h2>
-                    <p>
-                        All payment processing is handled exclusively by Stripe, a third-party payment processor. When you make a purchase:
-                    </p>
-                    <ul>
-                        <li>Payment information (credit card numbers, bank account details, billing addresses) is entered directly into Stripe's secure payment interface</li>
-                        <li>We never receive, access, or store your payment information</li>
-                        <li>Stripe's use of your payment information is governed by their own privacy policy, available at <a href="https://stripe.com/privacy" target="_blank" rel="noopener noreferrer">https://stripe.com/privacy</a></li>
-                        <li>During testing phases, payments may be disabled or processed in Stripe's test mode</li>
-                    </ul>
-                    <p>
-                        We only receive confirmation of successful or failed transactions from Stripe, without any sensitive payment details.
-                    </p>
-                </section>
-
-                <section>
-                    <h2>4. How We Use Your Information</h2>
-                    <p>We use the information we collect solely for the following purposes:</p>
-                    <ul>
-                        <li><strong>Account Management:</strong> Creating and maintaining your user account</li>
-                        <li><strong>Service Functionality:</strong> Enabling you to upload artwork, browse the marketplace, and interact with other users</li>
-                        <li><strong>Order Processing:</strong> Processing and fulfilling your purchases</li>
-                        <li><strong>Communication:</strong> Sending you order confirmations, updates, and responding to your inquiries</li>
-                        <li><strong>Service Improvement:</strong> Improving and maintaining the functionality of our Service</li>
-                    </ul>
-                    <p>
-                        <strong>We do not:</strong>
-                    </p>
-                    <ul>
-                        <li>Use your data for tracking or behavioral analysis</li>
-                        <li>Sell your personal information to third parties</li>
-                        <li>Share your information for advertising purposes</li>
-                        <li>Use your information for any purpose not directly related to providing our Service</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h2>5. Information Sharing and Third Parties</h2>
-
-                    <h3>5.1 Third-Party Service Providers</h3>
-                    <p>We may share your information with the following types of third-party service providers:</p>
-                    <ul>
-                        <li><strong>Payment Processor:</strong> Stripe processes all payments. You provide payment information directly to Stripe, and we do not have access to this information.</li>
-                        <li><strong>Cloud Hosting and Storage Providers:</strong> We use cloud infrastructure providers to host our application and store data (including user accounts and uploaded artwork). These providers may process your data as necessary to operate the Service.</li>
-                    </ul>
-
-                    <h3>5.2 What We Do NOT Use</h3>
-                    <ul>
-                        <li>We do not use advertising networks or analytics SDKs</li>
-                        <li>We do not use tracking pixels or cookies for advertising purposes</li>
-                        <li>We do not share data with data brokers or marketing platforms</li>
-                    </ul>
-
-                    <h3>5.3 Legal Compliance</h3>
-                    <p>
-                        We may disclose your information if required to do so by law or in response to valid requests by public authorities (e.g., a court or government agency), or to protect our rights, property, or safety, or that of our users or the public.
-                    </p>
-                </section>
-
-                <section>
-                    <h2>6. Data Security</h2>
-                    <p>
-                        We implement industry-standard security measures to protect your personal information:
-                    </p>
-                    <ul>
-                        <li>All data transmission occurs over encrypted HTTPS connections</li>
-                        <li>Access to user data is restricted to authorized personnel only</li>
-                        <li>We use secure cloud infrastructure with appropriate safeguards</li>
-                    </ul>
-                    <p>
-                        While we strive to protect your personal information, no method of transmission over the internet or electronic storage is 100% secure. We cannot guarantee absolute security but are committed to protecting your data using reasonable and appropriate measures.
-                    </p>
-                </section>
-
-                <section>
-                    <h2>7. Data Retention</h2>
-                    <p>
-                        We retain your personal information for as long as your account is active or as needed to provide you the Service. If you request account deletion (see Section 8), we will delete or anonymize your personal information, except where we are required to retain it for legal or regulatory purposes.
-                    </p>
-                </section>
-
-                <section>
-                    <h2>8. Your Rights and Choices</h2>
-                    <p>You have the following rights regarding your personal information:</p>
-
-                    <h3>8.1 Account Deletion</h3>
-                    <p>
-                        You may request deletion of your account at any time by contacting us at immpression.nyc@gmail.com. Upon receiving your request, we will delete your account and associated personal information, subject to any legal retention requirements.
-                    </p>
-
-                    <h3>8.2 Data Deletion</h3>
-                    <p>
-                        You may request deletion of specific data associated with your account, including uploaded artwork and purchase history. Contact us at immpression.nyc@gmail.com with your request.
-                    </p>
-
-                    <h3>8.3 Access and Correction</h3>
-                    <p>
-                        You may access and update your account information directly through the Service. For assistance, contact us at immpression.nyc@gmail.com.
-                    </p>
-
-                    <h3>8.4 Privacy Questions</h3>
-                    <p>
-                        If you have questions about this Privacy Policy or our privacy practices, please contact us at immpression.nyc@gmail.com.
-                    </p>
-                </section>
-
-                <section>
-                    <h2>9. Children's Privacy</h2>
-                    <p>
-                        Our Service is not directed to individuals under the age of 13. We do not knowingly collect personal information from children under 13. If we become aware that we have collected personal information from a child under 13 without parental consent, we will take steps to delete that information. If you believe we have collected information from a child under 13, please contact us immediately at immpression.nyc@gmail.com.
-                    </p>
-                </section>
-
-                <section>
-                    <h2>10. International Users and Jurisdiction</h2>
-                    <p>
-                        Our Service is operated in the United States. If you are accessing our Service from outside the United States, please be aware that your information may be transferred to, stored, and processed in the United States where our servers are located and our central database is operated. By using our Service, you consent to the transfer of your information to the United States.
-                    </p>
-                </section>
-
-                <section>
-                    <h2>11. Changes to This Privacy Policy</h2>
-                    <p>
-                        We may update this Privacy Policy from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons. We will notify you of any material changes by posting the new Privacy Policy on this page and updating the "Last Updated" date at the top of this policy.
-                    </p>
-                    <p>
-                        Your continued use of the Service after any changes to this Privacy Policy constitutes your acceptance of the updated policy.
-                    </p>
-                </section>
-
-                <section>
-                    <h2>12. Contact Information</h2>
-                    <p>
-                        If you have any questions, concerns, or requests regarding this Privacy Policy or our privacy practices, please contact us:
-                    </p>
-                    <div className="contact-info">
-                        <p><strong>IMMPRESSION LLC</strong></p>
-                        <p>Email: <a href="mailto:immpression.nyc@gmail.com">immpression.nyc@gmail.com</a></p>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>13. Apple App Store Specific Disclosures</h2>
-                    <p>
-                        In compliance with Apple App Store requirements, we provide the following summary of our data practices:
-                    </p>
-
-                    <h3>Data Linked to You:</h3>
-                    <ul>
-                        <li>Contact Information: Email address</li>
-                        <li>User Content: Photos and videos (artwork uploads)</li>
-                        <li>Identifiers: User ID (internal account identifier)</li>
-                        <li>Purchases: Purchase history</li>
-                    </ul>
-
-                    <h3>Data Not Collected:</h3>
-                    <ul>
-                        <li>Location data</li>
-                        <li>Contacts</li>
-                        <li>Usage data or analytics</li>
-                        <li>Diagnostics or crash data</li>
-                        <li>Advertising data or identifiers</li>
-                        <li>Audio data</li>
-                        <li>Browsing history or search history</li>
-                        <li>Sensitive information</li>
-                    </ul>
-
-                    <h3>Data Use:</h3>
-                    <p>
-                        Data is used only for app functionality and is not used for tracking purposes across apps and websites owned by other companies.
-                    </p>
-                </section>
-            </div>
+        <div className="policy-header">
+          <h1 className="policy-title">Privacy Policy</h1>
+          <p className="policy-date">Last updated: April 7, 2025</p>
+          <p className="policy-intro">
+            This policy explains how Immpression collects, uses, and protects your personal information.
+            We are committed to being transparent about our data practices and respecting your privacy.
+          </p>
         </div>
-    );
+
+        <div className="policy-divider" />
+
+        <div className="policy-body">
+          {sections.map((section) => (
+            <div key={section.title} className="policy-section">
+              <h2 className="policy-section-title">{section.title}</h2>
+
+              {section.content && (
+                <p className="policy-text">{section.content}</p>
+              )}
+
+              {section.items && (
+                <ul className="policy-list">
+                  {section.items.map((item) => (
+                    <li key={item.label} className="policy-list-item">
+                      <strong>{item.label}:</strong> {item.text}
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              {section.contact && (
+                <a href={`mailto:${section.contact}`} className="policy-email">
+                  {section.contact}
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </div>
+  );
 };
 
 export default PolicyPage;
