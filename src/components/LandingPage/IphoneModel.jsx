@@ -4,6 +4,7 @@ import { useGLTF, Environment, PerspectiveCamera, useTexture } from '@react-thre
 import { motion } from 'framer-motion';
 import * as THREE from 'three';
 import ImmpressionGooglePlay from '../../assets/backgrounds/ImmpressionGooglePlay.png'
+import ImmpressionApple from '../../assets/backgrounds/ImmpressionApple.png'
 
 function IphoneScene() {
   const groupRef = useRef();
@@ -12,12 +13,19 @@ function IphoneScene() {
   const { scene: infinixScene } = useGLTF('/models/Infinix_Hot_12.glb');
   const logoTexture = useTexture('/Logo_T.png');
   const googlePlayTexture = useTexture(ImmpressionGooglePlay);
+  const appleTexture = useTexture(ImmpressionApple);
   // For planes (not GLTF UVs), keep default orientation so it's not upside down
   googlePlayTexture.flipY = true;
   if (googlePlayTexture.colorSpace !== THREE.SRGBColorSpace) {
     googlePlayTexture.colorSpace = THREE.SRGBColorSpace;
   }
   googlePlayTexture.needsUpdate = true;
+
+  appleTexture.flipY = true;
+  if (appleTexture.colorSpace !== THREE.SRGBColorSpace) {
+    appleTexture.colorSpace = THREE.SRGBColorSpace;
+  }
+  appleTexture.needsUpdate = true;
 
   // Create a CanvasTexture that contains the image without cropping (contain)
   const containedGooglePlayTexture = useMemo(() => {
@@ -67,6 +75,51 @@ function IphoneScene() {
     tex.needsUpdate = true;
     return tex;
   }, [googlePlayTexture?.image]);
+
+  const containedAppleTexture = useMemo(() => {
+    const img = appleTexture?.image;
+    if (!img || !img.width || !img.height) return null;
+
+    const screenW = 410;
+    const screenH = Math.round(screenW * (9.2 / 4.1));
+    const canvas = document.createElement('canvas');
+    canvas.width = screenW;
+    canvas.height = screenH;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return null;
+
+    const r = Math.round(screenW * 0.25);
+    const path = new Path2D();
+    const x = 0, y = 0, w = screenW, h = screenH;
+    path.moveTo(x + r, y);
+    path.lineTo(x + w - r, y);
+    path.quadraticCurveTo(x + w, y, x + w, y + r);
+    path.lineTo(x + w, y + h - r);
+    path.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    path.lineTo(x + r, y + h);
+    path.quadraticCurveTo(x, y + h, x, y + h - r);
+    path.lineTo(x, y + r);
+    path.quadraticCurveTo(x, y, x + r, y);
+    ctx.clearRect(0, 0, screenW, screenH);
+    ctx.save();
+    ctx.clip(path);
+
+    const iw = img.width;
+    const ih = img.height;
+    const scale = Math.min(screenW / iw, screenH / ih);
+    const dw = iw * scale;
+    const dh = ih * scale;
+    const dx = (screenW - dw) / 2;
+    const dy = (screenH - dh) / 2;
+    ctx.drawImage(img, dx, dy, dw, dh);
+    ctx.restore();
+
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.flipY = true;
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.needsUpdate = true;
+    return tex;
+  }, [appleTexture?.image]);
 
   // Depth-only prepass for iPhone to ensure it occludes the image plane
   const iphoneDepth = useMemo(() => {
@@ -164,13 +217,18 @@ function IphoneScene() {
           renderOrder={2}
         />
 
-        {/* Screen with logo - positioned on top of phone screen */}
-        <mesh position={[-1.95, 4.3, 0.5]}>
-          <planeGeometry args={[0.8, 0.8]} />
+        {/* Screen with Apple app image - positioned on top of phone screen */}
+        <mesh position={[0, 0, 0.51]} renderOrder={3}>
+          <planeGeometry args={[4.9, 11.4]} />
           <meshBasicMaterial
-            map={logoTexture}
+            map={containedAppleTexture || appleTexture}
             transparent={true}
-            side={THREE.DoubleSide}
+            depthWrite={false}
+            depthTest={true}
+            polygonOffset={true}
+            polygonOffsetFactor={1}
+            polygonOffsetUnits={1}
+            side={THREE.FrontSide}
           />
         </mesh>
       </group>

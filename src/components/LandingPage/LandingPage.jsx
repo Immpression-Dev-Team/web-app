@@ -3,6 +3,7 @@ import "./LandingPage.css";
 import { useEffect, useState } from "react";
 import { API_URL } from "../../API_URL";
 import GooglePlay from '../../assets/headers/GooglePlay.png';
+import Apple from '../../assets/headers/Apple.png';
 import IphoneModel from './IphoneModel';
 
 const LandingPage = () => {
@@ -191,9 +192,23 @@ const LandingPage = () => {
                 rel="noopener noreferrer"
                 className="btn-google-play"
               >
-                <img 
-                  src={GooglePlay} 
+                <img
+                  src={GooglePlay}
                   alt="Get it on Google Play"
+                  className="google-play-img"
+                />
+              </a>
+
+              {/* Apple App Store Button */}
+              <a
+                href="https://apps.apple.com/app/id6756974604"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-google-play"
+              >
+                <img
+                  src={Apple}
+                  alt="Download on the App Store"
                   className="google-play-img"
                 />
               </a>
