@@ -150,8 +150,8 @@ const ContactUs = () => {
           >
             <div className="contact-info-item">
               <span className="contact-info-label">Email</span>
-              <a href="mailto:contact@immpression.com" className="contact-info-value">
-                contact@immpression.com
+              <a href="mailto:immpression.nyc@gmail.com" className="contact-info-value">
+                immpression.nyc@gmail.com
               </a>
             </div>
             <div className="contact-info-item">
