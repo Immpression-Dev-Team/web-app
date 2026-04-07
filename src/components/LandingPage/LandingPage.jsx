@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 import "./LandingPage.css";
 import { useEffect, useState } from "react";
 import { API_URL } from "../../API_URL";
@@ -92,6 +93,19 @@ const LandingPage = () => {
 
   return (
     <div className="landing-wrapper">
+      <Helmet>
+        <title>Immpression — Find Art. Own It.</title>
+        <meta name="description" content="Immpression is an art search engine and marketplace for discovering and buying original artwork from emerging artists. Artists keep 90% of every sale." />
+        <link rel="canonical" href="https://www.immpression.art" />
+        <meta property="og:title" content="Immpression — Find Art. Own It." />
+        <meta property="og:description" content="Discover and buy original artwork from emerging artists. Artists keep 90% of every sale." />
+        <meta property="og:url" content="https://www.immpression.art" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Immpression" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Immpression — Find Art. Own It." />
+        <meta name="twitter:description" content="Discover and buy original artwork from emerging artists." />
+      </Helmet>
       {/* Hero Section */}
       <motion.section
         className="hero-section"

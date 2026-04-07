@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 import ArtCard from "./ArtCard.jsx";
 import "./Marketplace.css";
 import { API_URL } from "../../API_URL";
@@ -80,6 +81,17 @@ const Marketplace = () => {
 
   return (
     <div className="marketplace-wrapper">
+
+      <Helmet>
+        <title>Marketplace | Immpression — Buy Original Art</title>
+        <meta name="description" content="Browse and buy original artwork from emerging artists on Immpression. Paintings, photography, sculptures, graffiti and more — all one of a kind." />
+        <link rel="canonical" href="https://www.immpression.art/marketplace" />
+        <meta property="og:title" content="Marketplace | Immpression — Buy Original Art" />
+        <meta property="og:description" content="Browse and buy original artwork from emerging artists on Immpression." />
+        <meta property="og:url" content="https://www.immpression.art/marketplace" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Immpression" />
+      </Helmet>
 
       {/* Hero */}
       <section className="marketplace-hero">

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 import "./ArtworkDetail.css";
 import { API_URL } from "../../API_URL";
 import appleIcon from "../../assets/headers/Apple.png";
@@ -102,8 +103,54 @@ const ArtworkDetail = () => {
     ? new Date(createdAt).toLocaleDateString("en-US", { year: "numeric", month: "long" })
     : null;
 
+  const pageUrl = `https://www.immpression.art/marketplace/${slugify(artistName || "artist")}/${slugify(name || "artwork")}-${artwork._id}`;
+  const metaDescription = description
+    ? `${description.slice(0, 140)}…`
+    : `${name} by ${artistName} — original artwork available on Immpression. $${Number(price).toLocaleString()}.`;
+
   return (
     <div className="artwork-detail-wrapper">
+
+      <Helmet>
+        <title>{name} by {artistName} | Immpression</title>
+        <meta name="description" content={metaDescription} />
+        <link rel="canonical" href={pageUrl} />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="og:product" />
+        <meta property="og:title" content={`${name} by ${artistName}`} />
+        <meta property="og:description" content={metaDescription} />
+        <meta property="og:image" content={imageLink} />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:site_name" content="Immpression" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${name} by ${artistName}`} />
+        <meta name="twitter:description" content={metaDescription} />
+        <meta name="twitter:image" content={imageLink} />
+
+        {/* JSON-LD structured data — Google rich results for products */}
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Product",
+          "name": name,
+          "description": description || metaDescription,
+          "image": imageLink,
+          "url": pageUrl,
+          "brand": { "@type": "Person", "name": artistName },
+          "offers": {
+            "@type": "Offer",
+            "priceCurrency": "USD",
+            "price": Number(price).toFixed(2),
+            "availability": isSold
+              ? "https://schema.org/SoldOut"
+              : "https://schema.org/InStock",
+            "seller": { "@type": "Organization", "name": "Immpression" },
+          },
+          ...(category && { "category": category }),
+        })}</script>
+      </Helmet>
 
       {/* Breadcrumb */}
       <div className="artwork-detail-breadcrumb">
