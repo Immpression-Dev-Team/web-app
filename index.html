@@ -5,7 +5,20 @@
   <link rel="icon" type="image/svg+xml" href="src/assets/Logo_T.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Immpression</title>
-  <!-- Google tag (gtag.js) -->
+
+  <!-- Preconnect so the font server handshake happens as early as possible -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!--
+    Load the hero font (Permanent Marker) with display=block so the browser
+    never shows a fallback — text stays invisible until the font is ready.
+    Inter and Bebas Neue use swap (fine for body/UI, flash is less noticeable).
+  -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=block" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" />
+
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZHH62YMR2Y"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -16,6 +29,6 @@
 </head>
 <body>
   <div id="root"></div>
-  <script type="module" src="src/main.jsx"></script>
+  <script type="module" src="/src/main.jsx"></script>
 </body>
 </html>

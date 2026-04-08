@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap');
+
 
 /* Landing Page Styles */
 .landing-wrapper {
@@ -1598,5 +1598,34 @@
 @media (max-width: 480px) {
   .google-play-img {
     height: 45px;
+  }
+}
+/* ── Phone loader (shown by Suspense while 3D assets fetch) ── */
+.phone-loader {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 350px;
+}
+
+.phone-loader-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(71, 239, 172, 0.2);
+  border-top-color: #47EFAC;
+  border-radius: 50%;
+  animation: phoneSpinnerRotate 0.8s linear infinite;
+}
+
+@keyframes phoneSpinnerRotate {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 480px) {
+  .phone-loader-spinner {
+    width: 38px;
+    height: 38px;
   }
 }
