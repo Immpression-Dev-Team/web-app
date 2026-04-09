@@ -5,7 +5,7 @@
       "destination": "https://immpression-backend.vercel.app/sitemap.xml"
     },
     {
-      "source": "/(.*)",
+      "source": "/((?!app-ads\\.txt).*)",
       "destination": "/index.html"
     }
   ]
