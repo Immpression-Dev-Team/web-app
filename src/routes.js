@@ -10,6 +10,8 @@ import LandingPage from './components/LandingPage/LandingPage.jsx';
 import AboutUs from './components/AboutUs/AboutUs.jsx';
 import ContactUs from './components/ContactUs/ContactUs.jsx';
 import ThankYou from './components/ThankYou/ThankYou.jsx';
+import Explore from './components/Explore/Explore.jsx';
+import PublicArtDetail from './components/PublicArtDetail/PublicArtDetail.jsx';
 import Marketplace from './components/Marketplace/Marketplace.jsx';
 import ArtworkDetail from './components/Marketplace/ArtworkDetail.jsx';
 import React from "react";
@@ -95,6 +97,16 @@ export const GuestNavigation = [
         name: "Thank You",
         path: "/thank-you",
         element: createElement(ThankYou),
+    },
+    {
+        name: "Explore",
+        path: "/explore",
+        element: createElement(Explore),
+    },
+    {
+        name: "PublicArtDetail",
+        path: "/art/:source/:id",
+        element: createElement(PublicArtDetail),
     },
     {
         name: "Marketplace",

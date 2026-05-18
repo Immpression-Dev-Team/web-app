@@ -1,0 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Josefin+Sans:wght@300;400;600&family=Inter:wght@400;500;600&display=swap');
+
+.art-detail-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(160deg, #040e2e 0%, #0a1f5c 45%, #060f2a 100%);
+  color: #fff;
+}
+
+.art-detail-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 7rem 2rem 6rem;
+}
+
+/* ── Back link ────────────────────────────── */
+.art-detail-back {
+  display: inline-block;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.85rem;
+  color: #47EFAC;
+  text-decoration: none;
+  margin-bottom: 2.5rem;
+  transition: opacity 0.2s;
+}
+
+.art-detail-back:hover { opacity: 0.7; }
+
+/* ── Two-column layout ────────────────────── */
+.art-detail-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .art-detail-layout {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+/* ── Image ────────────────────────────────── */
+.art-detail-img-wrap {
+  position: relative;
+  cursor: zoom-in;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.art-detail-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s;
+}
+
+.art-detail-img-wrap:hover .art-detail-img {
+  transform: scale(1.02);
+}
+
+.art-detail-img-hint {
+  position: absolute;
+  bottom: 0.7rem;
+  right: 0.7rem;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.45);
+  background: rgba(0, 0, 0, 0.55);
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.art-detail-no-img {
+  padding: 4rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.28);
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.9rem;
+}
+
+/* ── Lightbox ─────────────────────────────── */
+.art-detail-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.93);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+}
+
+.art-detail-lightbox-img {
+  max-width: 95vw;
+  max-height: 95vh;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.art-detail-lightbox-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.art-detail-lightbox-close:hover { color: #fff; }
+
+/* ── Info column ──────────────────────────── */
+.art-detail-eyebrow {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #47EFAC;
+  margin: 0 0 0.75rem;
+}
+
+.art-detail-title {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 2.4rem;
+  color: #fff;
+  line-height: 1.15;
+  margin: 0 0 0.6rem;
+}
+
+.art-detail-artist {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0 0 2rem;
+  white-space: pre-line;
+}
+
+/* ── Meta table ───────────────────────────── */
+.art-detail-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.art-detail-meta-row {
+  display: flex;
+  gap: 1rem;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.88rem;
+}
+
+.art-detail-meta-label {
+  color: rgba(255, 255, 255, 0.38);
+  min-width: 100px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-top: 0.1rem;
+}
+
+.art-detail-meta-value {
+  color: rgba(255, 255, 255, 0.85);
+  flex: 1;
+  line-height: 1.5;
+}
+
+/* ── Actions ──────────────────────────────── */
+.art-detail-museum-link {
+  display: inline-block;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.88rem;
+  color: #47EFAC;
+  text-decoration: none;
+  border: 1px solid #47EFAC;
+  padding: 0.6rem 1.3rem;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+  margin-bottom: 1.5rem;
+}
+
+.art-detail-museum-link:hover {
+  background: #47EFAC;
+  color: #040e2e;
+}
+
+.art-detail-pd-note {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.3);
+  margin: 0;
+}
+
+/* ── Loading / error states ───────────────── */
+.art-detail-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  gap: 1.5rem;
+  font-family: 'Josefin Sans', sans-serif;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.art-detail-error-msg {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.art-detail-spinner {
+  width: 34px;
+  height: 34px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #47EFAC;
+  border-radius: 50%;
+  animation: detail-spin 0.75s linear infinite;
+}
+
+@keyframes detail-spin {
+  to { transform: rotate(360deg); }
+}
