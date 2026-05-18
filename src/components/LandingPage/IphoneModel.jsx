@@ -1,4 +1,4 @@
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, Suspense, useEffect, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, Environment, PerspectiveCamera, useTexture } from '@react-three/drei';
 import { motion } from 'framer-motion';
@@ -6,15 +6,32 @@ import * as THREE from 'three';
 import ImmpressionGooglePlay from '../../assets/backgrounds/ImmpressionGooglePlay.png'
 import ImmpressionApple from '../../assets/backgrounds/ImmpressionApple.png'
 
-function IphoneScene() {
+/*
+ * Shared mouse ref — lives outside the component so it persists across renders
+ * and is accessible inside the R3F render loop without causing re-renders.
+ * { x, y } are normalized: -1..1 from center of viewport.
+ * isPointer: false on touch-only devices → tracking is disabled entirely.
+ */
+const mouse = { x: 0, y: 0, isPointer: false };
+
+/* Detect pointer device once at module load */
+if (typeof window !== 'undefined') {
+  mouse.isPointer = window.matchMedia('(pointer: fine)').matches;
+}
+
+function IphoneScene({ onReady }) {
   const groupRef = useRef();
   const secondPhoneRef = useRef();
+
+  /* Target rotation for lerping — keeps motion silky */
+  const targetRotation = useRef({ x: 0, y: -0.3 });
+
   const { scene } = useGLTF('/models/iphone_16.glb');
   const { scene: infinixScene } = useGLTF('/models/Infinix_Hot_12.glb');
   const logoTexture = useTexture('/Logo_T.png');
   const googlePlayTexture = useTexture(ImmpressionGooglePlay);
   const appleTexture = useTexture(ImmpressionApple);
-  // For planes (not GLTF UVs), keep default orientation so it's not upside down
+
   googlePlayTexture.flipY = true;
   if (googlePlayTexture.colorSpace !== THREE.SRGBColorSpace) {
     googlePlayTexture.colorSpace = THREE.SRGBColorSpace;
@@ -27,12 +44,10 @@ function IphoneScene() {
   }
   appleTexture.needsUpdate = true;
 
-  // Create a CanvasTexture that contains the image without cropping (contain)
   const containedGooglePlayTexture = useMemo(() => {
     const img = googlePlayTexture?.image;
     if (!img || !img.width || !img.height) return null;
 
-    // Use a pixel canvas matching the screen aspect (4.1 x 9.2)
     const screenW = 410;
     const screenH = Math.round(screenW * (9.2 / 4.1));
     const canvas = document.createElement('canvas');
@@ -41,7 +56,6 @@ function IphoneScene() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return null;
 
-    // Rounded rect clip so corners are rounded
     const radiusPx = Math.round(0.45 * (screenW / 4.1));
     const r = Math.max(2, Math.min(radiusPx, Math.floor(Math.min(screenW, screenH) / 8)));
     const path = new Path2D();
@@ -59,13 +73,10 @@ function IphoneScene() {
     ctx.save();
     ctx.clip(path);
 
-    const iw = img.width;
-    const ih = img.height;
-    const scale = Math.min(screenW / iw, screenH / ih); // contain
-    const dw = iw * scale;
-    const dh = ih * scale;
-    const dx = (screenW - dw) / 2;
-    const dy = (screenH - dh) / 2;
+    const iw = img.width; const ih = img.height;
+    const scale = Math.min(screenW / iw, screenH / ih);
+    const dw = iw * scale; const dh = ih * scale;
+    const dx = (screenW - dw) / 2; const dy = (screenH - dh) / 2;
     ctx.drawImage(img, dx, dy, dw, dh);
     ctx.restore();
 
@@ -104,13 +115,10 @@ function IphoneScene() {
     ctx.save();
     ctx.clip(path);
 
-    const iw = img.width;
-    const ih = img.height;
+    const iw = img.width; const ih = img.height;
     const scale = Math.min(screenW / iw, screenH / ih);
-    const dw = iw * scale;
-    const dh = ih * scale;
-    const dx = (screenW - dw) / 2;
-    const dy = (screenH - dh) / 2;
+    const dw = iw * scale; const dh = ih * scale;
+    const dx = (screenW - dw) / 2; const dy = (screenH - dh) / 2;
     ctx.drawImage(img, dx, dy, dw, dh);
     ctx.restore();
 
@@ -121,7 +129,6 @@ function IphoneScene() {
     return tex;
   }, [appleTexture?.image]);
 
-  // Depth-only prepass for iPhone to ensure it occludes the image plane
   const iphoneDepth = useMemo(() => {
     const clone = scene.clone(true);
     clone.traverse((node) => {
@@ -130,7 +137,6 @@ function IphoneScene() {
         mat.depthWrite = true;
         mat.depthTest = true;
         mat.transparent = false;
-        // Don't write to color buffer, only depth
         mat.colorWrite = false;
         node.material = mat;
       }
@@ -138,22 +144,50 @@ function IphoneScene() {
     return clone;
   }, [scene]);
 
-  // Remove black spaces by stretching vertically to fill the screen height
-  // while keeping full width (no left/right crop). This matches a CSS 'fill' behavior.
-
-  // Animate the entire group (phone + screen) in a slanted oval 2D pattern
   useFrame((state) => {
+    const time = state.clock.elapsedTime;
+
+    /* ── Main iPhone (groupRef) ── */
     if (groupRef.current) {
-      const time = state.clock.elapsedTime;
+      if (mouse.isPointer) {
+        /*
+         * Pointer mode: rotate toward cursor.
+         * Max tilt: ±15° horizontally, ±10° vertically.
+         * Lerp factor 0.05 = smooth lag that feels physical.
+         */
+        targetRotation.current.y = -0.3 + mouse.x * 0.26;  // ~15°
+        targetRotation.current.x = -mouse.y * 0.17;         // ~10°
+
+        groupRef.current.rotation.y +=
+          (targetRotation.current.y - groupRef.current.rotation.y) * 0.05;
+        groupRef.current.rotation.x +=
+          (targetRotation.current.x - groupRef.current.rotation.x) * 0.05;
+      } else {
+        /* Mobile: keep the original idle float rotation */
+        groupRef.current.rotation.y = -0.3;
+        groupRef.current.rotation.x = 0;
+      }
+
+      /* Idle float position stays the same regardless of device */
       groupRef.current.position.x = 0.7 + Math.sin(time * 0.4) * 0.1;
       groupRef.current.position.y = Math.cos(time * 0.5) * 0.18;
       groupRef.current.position.z = 0.35;
     }
+
+    /* ── Second phone (Infinix) — subtle follow, same pointer guard ── */
     if (secondPhoneRef.current) {
-      const time = state.clock.elapsedTime;
-      const baseX = -3.9;
-      const baseY = -5;
-      const baseZ = -3.4;
+      const baseX = -3.9, baseY = -5, baseZ = -3.4;
+
+      if (mouse.isPointer) {
+        secondPhoneRef.current.rotation.y +=
+          (-0.25 + mouse.x * 0.15 - secondPhoneRef.current.rotation.y) * 0.04;
+        secondPhoneRef.current.rotation.x +=
+          (-mouse.y * 0.1 - secondPhoneRef.current.rotation.x) * 0.04;
+      } else {
+        secondPhoneRef.current.rotation.y = -0.25;
+        secondPhoneRef.current.rotation.x = 0;
+      }
+
       secondPhoneRef.current.position.x = baseX + Math.sin(time * 0.5) * 0.12;
       secondPhoneRef.current.position.y = baseY + Math.cos(time * 0.45) * 0.18;
       secondPhoneRef.current.position.z = baseZ + Math.sin(time * 0.35) * 0.04;
@@ -162,28 +196,16 @@ function IphoneScene() {
 
   return (
     <>
-      {/* Camera setup */}
       <PerspectiveCamera makeDefault position={[0, 0, 15]} fov={50} />
-
-      {/* Lighting */}
       <ambientLight intensity={0.5} />
       <directionalLight position={[10, 10, 5]} intensity={1} />
       <directionalLight position={[-10, -10, -5]} intensity={0.5} />
       <spotLight position={[0, 10, 0]} angle={0.3} penumbra={1} intensity={0.5} />
-
-      {/* Environment for reflections */}
       <Environment preset="studio" />
+      <ReadySignal onReady={onReady} />
 
-      {/* Second phone (Infinix) with Google Play image - behind and to the left */}
       <group ref={secondPhoneRef} position={[-3.9, -5, -3.4]} rotation={[0, -0.25, 0]}>
-        {/* Left phone (Infinix) model */}
-        <primitive
-          object={infinixScene.clone()}
-          scale={60}
-          position={[0, 0, 0]}
-        />
-
-        {/* Image plane: contain-fit inside rounded-corner mask */}
+        <primitive object={infinixScene.clone()} scale={60} position={[0, 0, 0]} />
         <mesh position={[0, 5.2, 0.3]} renderOrder={3}>
           <planeGeometry args={[4.15, 9.82]} />
           <meshBasicMaterial
@@ -199,25 +221,9 @@ function IphoneScene() {
         </mesh>
       </group>
 
-      {/* Group containing iPhone and screen - they move together */}
       <group ref={groupRef} rotation={[0, -0.3, 0]}>
-        {/* iPhone depth prepass (writes only depth) */}
-        <primitive
-          object={iphoneDepth}
-          scale={0.8}
-          position={[0, 0, 0]}
-          renderOrder={0}
-        />
-
-        {/* The iPhone model (visible pass) */}
-        <primitive
-          object={scene}
-          scale={0.8}
-          position={[0, 0, 0]}
-          renderOrder={2}
-        />
-
-        {/* Screen with Apple app image - positioned on top of phone screen */}
+        <primitive object={iphoneDepth} scale={0.8} position={[0, 0, 0]} renderOrder={0} />
+        <primitive object={scene} scale={0.8} position={[0, 0, 0]} renderOrder={2} />
         <mesh position={[0, 0, 0.51]} renderOrder={3}>
           <planeGeometry args={[4.9, 11.4]} />
           <meshBasicMaterial
@@ -236,20 +242,75 @@ function IphoneScene() {
   );
 }
 
+
+/*
+ * ReadySignal: a tiny R3F component that lives inside the Canvas.
+ * useFrame runs after the first draw — we call onReady then unsubscribe.
+ */
+const ReadySignal = ({ onReady }) => {
+  const fired = useRef(false);
+  useFrame(() => {
+    if (!fired.current) {
+      fired.current = true;
+      onReady();
+    }
+  });
+  return null;
+};
+
 const IphoneModel = () => {
+  /*
+   * canvasReady: flips to true once IphoneScene signals it has rendered
+   * at least one frame. We use this to crossfade: spinner fades OUT,
+   * canvas fades IN — both happening at the same time via absolute positioning.
+   */
+  const [canvasReady, setCanvasReady] = useState(false);
+
+  useEffect(() => {
+    if (!mouse.isPointer) return;
+    const handleMouseMove = (e) => {
+      mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -((e.clientY / window.innerHeight) * 2 - 1);
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   return (
     <motion.div
       className="iphone-canvas-container"
       initial={{ x: 100, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ delay: 0.5, duration: 1 }}
+      style={{ position: 'relative' }}
     >
-      <Canvas
-        style={{ width: '100%', height: '100%' }}
-        gl={{ antialias: true, alpha: true }}
+      {/* Spinner — fades out once canvas is ready */}
+      <motion.div
+        className="phone-loader"
+        style={{ position: 'absolute', inset: 0 }}
+        animate={{ opacity: canvasReady ? 0 : 1 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        /* hide from pointer events once invisible so it doesn't block canvas */
+        pointerEvents={canvasReady ? 'none' : 'auto'}
       >
-        <IphoneScene />
-      </Canvas>
+        <div className="phone-loader-spinner" />
+      </motion.div>
+
+      {/* Canvas — always mounted, fades in once scene has drawn its first frame */}
+      <motion.div
+        style={{ width: '100%', height: '100%' }}
+        animate={{ opacity: canvasReady ? 1 : 0 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+      >
+        <Canvas
+          style={{ width: '100%', height: '100%' }}
+          gl={{ antialias: true, alpha: true }}
+        >
+          <Suspense fallback={null}>
+            <IphoneScene onReady={() => setCanvasReady(true)} />
+          </Suspense>
+        </Canvas>
+      </motion.div>
     </motion.div>
   );
 };

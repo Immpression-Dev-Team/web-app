@@ -46,10 +46,10 @@ export default function Navbar() {
                     <Link to="/marketplace" className="nav-item">Marketplace</Link>
                     <Link to="/about" className="nav-item">About</Link>
                     <Link to="/contact" className="nav-item">Contact</Link>
-                    <a 
-                        href="https://forms.gle/ogAzLMj9ac92qWYJ8" 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
+                    <a
+                        href="https://forms.gle/ogAzLMj9ac92qWYJ8"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="nav-cta-button"
                     >
                         Join Waitlist

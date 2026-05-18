@@ -1,7 +1,11 @@
 {
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/sitemap.xml",
+      "destination": "https://immpression-backend.vercel.app/sitemap.xml"
+    },
+    {
+      "source": "/((?!app-ads\\.txt).*)",
       "destination": "/index.html"
     }
   ]

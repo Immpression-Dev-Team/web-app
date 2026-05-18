@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 import "./ContactUs.css";
 import { API_URL } from "../../API_URL";
 
@@ -53,6 +54,15 @@ const ContactUs = () => {
 
   return (
     <div className="contact-wrapper">
+      <Helmet>
+        <title>Contact Us | Immpression</title>
+        <meta name="description" content="Get in touch with the Immpression team. Artists, collectors, and partners welcome." />
+        <link rel="canonical" href="https://www.immpression.art/contact" />
+        <meta property="og:title" content="Contact Immpression" />
+        <meta property="og:description" content="Artists, collectors, and partners — we'd love to hear from you." />
+        <meta property="og:url" content="https://www.immpression.art/contact" />
+        <meta property="og:type" content="website" />
+      </Helmet>
 
       {/* Hero */}
       <section className="contact-hero">

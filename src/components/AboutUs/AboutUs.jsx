@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 import "./AboutUs.css";
 import GooglePlay from "../../assets/headers/GooglePlay.png";
 import Apple from "../../assets/headers/Apple.png";
@@ -53,6 +54,15 @@ const differentiators = [
 const AboutUs = () => {
   return (
     <div className="about-wrapper">
+      <Helmet>
+        <title>About Us | Immpression</title>
+        <meta name="description" content="Immpression is an art search engine and marketplace built to give emerging artists real tools to reach real collectors. Art deserves better discovery." />
+        <link rel="canonical" href="https://www.immpression.art/about" />
+        <meta property="og:title" content="About Immpression" />
+        <meta property="og:description" content="Built to give emerging artists real tools to reach real collectors." />
+        <meta property="og:url" content="https://www.immpression.art/about" />
+        <meta property="og:type" content="website" />
+      </Helmet>
 
       {/* Hero */}
       <section className="about-hero">
