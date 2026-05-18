@@ -42,9 +42,10 @@ export default function Navbar() {
                 
                 {/* Desktop Navigation */}
                 <div className="nav-items-desktop">
+                    <Link to="/explore" className="nav-item">Explore</Link>
+                    <Link to="/marketplace" className="nav-item">Marketplace</Link>
                     <Link to="/about" className="nav-item">About</Link>
                     <Link to="/contact" className="nav-item">Contact</Link>
-                    <Link to="/policy" className="nav-item">Policy</Link>
                     <a 
                         href="https://forms.gle/ogAzLMj9ac92qWYJ8" 
                         target="_blank" 
@@ -75,9 +76,10 @@ export default function Navbar() {
                     <button onClick={closeMenu} className="close-button">×</button>
                 </div>
                 <div className="mobile-nav-items">
+                    <Link to="/explore" className="nav-item" onClick={closeMenu}>Explore Art</Link>
+                    <Link to="/marketplace" className="nav-item" onClick={closeMenu}>Marketplace</Link>
                     <Link to="/about" className="nav-item" onClick={closeMenu}>About Us</Link>
                     <Link to="/contact" className="nav-item" onClick={closeMenu}>Contact</Link>
-                    <Link to="/policy" className="nav-item" onClick={closeMenu}>Privacy Policy</Link>
                     <div className="mobile-nav-actions">
                         <a 
                             href="https://forms.gle/ogAzLMj9ac92qWYJ8" 
