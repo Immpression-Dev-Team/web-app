@@ -1,0 +1,197 @@
+.ch-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  max-width: 480px;
+}
+
+/* ── Event title ── */
+.ch-event-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.1;
+  margin-bottom: 0;
+  gap: 0;
+}
+
+.ch-title-drawing {
+  font-family: 'Kanit', sans-serif;
+  font-weight: 800;
+  font-size: 3.8rem;
+  color: white;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  display: block;
+}
+
+.ch-title-competition {
+  font-family: 'Kanit', sans-serif;
+  font-weight: 800;
+  font-size: 2.75rem;
+  color: white;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  display: block;
+}
+
+/* ── GIF ── */
+.ch-gif-outer {
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 20px;
+  padding: 8px 44px 44px 44px;
+  margin-left: -44px;
+  margin-right: -44px;
+  filter:
+    drop-shadow(3px  5px  0px rgba(0, 0, 0, 0.65))
+    drop-shadow(7px  11px 0px rgba(0, 0, 0, 0.50))
+    drop-shadow(14px 20px 0px rgba(0, 0, 0, 0.35))
+    drop-shadow(24px 32px 0px rgba(0, 0, 0, 0.22))
+    drop-shadow(38px 48px 0px rgba(0, 0, 0, 0.12))
+    drop-shadow(0px  28px 45px rgba(71, 239, 172, 0.10));
+}
+
+.ch-gif-wrap {
+  overflow: hidden;
+  clip-path: polygon(2% 1%, 97% 0%, 100% 96%, 1% 100%);
+}
+
+.ch-gif {
+  width: 126%;
+  margin-left: -13%;
+  display: block;
+}
+
+/* ── Cash Prize ── */
+.ch-cash-prize {
+  font-family: 'Kanit', sans-serif;
+  font-weight: 800;
+  font-size: 2.3rem;
+  color: white;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: -50px;
+  margin-bottom: 10px;
+  z-index: 99;
+}
+
+.ch-prize-amount {
+  color: #FFD700;
+  font-family: 'Permanent Marker', cursive;
+}
+
+/* ── Tagline ── */
+.ch-tagline {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.65);
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  max-width: 320px;
+}
+
+/* ── Benefits ── */
+.ch-benefits {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.ch-benefit {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.78);
+  font-family: 'Inter', sans-serif;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 0.3rem 0.85rem;
+  white-space: nowrap;
+}
+
+/* ── CTA ── */
+.ch-cta-wrap {
+  animation: cta-pulse 2.5s ease-in-out infinite;
+}
+
+.ch-cta {
+  position: relative;
+  overflow: hidden;
+  padding: 1.1rem 3rem;
+  background: #ffffff;
+  border: none;
+  clip-path: none;
+  border-radius: 4px;
+  font-family: 'Caveat', cursive;
+  font-weight: 400;
+  font-size: 1.6rem;
+  letter-spacing: 1px;
+  color: #040e2e;
+  cursor: pointer;
+  text-transform: none;
+  min-width: 260px;
+  transition: transform 0.2s ease;
+}
+
+.ch-cta:hover {
+  transform: scale(1.04);
+}
+
+.ch-cta:active {
+  transform: scale(0.98);
+}
+
+.ch-cta-shimmer {
+  position: absolute;
+  top: -50%;
+  left: -80%;
+  width: 55%;
+  height: 200%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.38), transparent);
+  transform: skewX(-15deg);
+  animation: cta-shimmer 2.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.ch-cta-text {
+  position: relative;
+  z-index: 1;
+  font-family: 'Caveat', cursive;
+}
+
+@keyframes cta-shimmer {
+  0%       { left: -80%; }
+  60%, 100% { left: 130%; }
+}
+
+@keyframes cta-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 6px rgba(71, 129, 255, 0.25));
+  }
+  50% {
+    filter: drop-shadow(0 0 10px rgba(71, 129, 255, 0.38));
+  }
+}
+
+/* ── Responsive ── */
+@media (max-width: 1200px) {
+  .ch-gif-wrap {
+    max-width: 340px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ch-root {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+  .ch-gif-wrap {
+    max-width: 300px;
+  }
+}

@@ -68,11 +68,11 @@ export const GuestNavigation = [
     //     path: '/login',
     //     element: createElement(Login),
     // },
-    // {
-    //     name: 'Sign Up',
-    //     path: '/signUp',
-    //     element: createElement(SignUp),
-    // },
+    {
+        name: 'Sign Up',
+        path: '/signUp',
+        element: createElement(SignUp),
+    },
     // {
     //     name: 'Password Reset',
     //     path: '/passwordReset',

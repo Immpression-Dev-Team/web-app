@@ -5,8 +5,9 @@ import { useEffect, useState } from "react";
 import { API_URL } from "../../API_URL";
 import GooglePlay from '../../assets/headers/GooglePlay.png';
 import Apple from '../../assets/headers/Apple.png';
-import IphoneModel from './IphoneModel';
+// import IphoneModel from './IphoneModel';
 import HowItWorks from './HowItWorks';
+import ChallengeSection from './ChallengeSection';
 
 const LandingPage = () => {
   const [signUpLink, setSignUpLink] = useState("/signup");
@@ -168,7 +169,7 @@ const LandingPage = () => {
           </div>
 
           <div className="hero-right">
-            <IphoneModel />
+            <ChallengeSection />
           </div>
         </div>
       </section>
