@@ -46,14 +46,6 @@ export default function Navbar() {
                     <Link to="/marketplace" className="nav-item">Marketplace</Link>
                     <Link to="/about" className="nav-item">About</Link>
                     <Link to="/contact" className="nav-item">Contact</Link>
-                    <a
-                        href="https://forms.gle/ogAzLMj9ac92qWYJ8"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="nav-cta-button"
-                    >
-                        Join Waitlist
-                    </a>
                 </div>
 
                 {/* Mobile Menu Button */}
@@ -81,19 +73,10 @@ export default function Navbar() {
                     <Link to="/about" className="nav-item" onClick={closeMenu}>About Us</Link>
                     <Link to="/contact" className="nav-item" onClick={closeMenu}>Contact</Link>
                     <div className="mobile-nav-actions">
-                        <a 
-                            href="https://forms.gle/ogAzLMj9ac92qWYJ8" 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
-                            className="mobile-cta-button"
-                            onClick={closeMenu}
-                        >
-                            Join Waitlist
-                        </a>
-                        <a 
-                            href="http://kck.st/44T1jbU" 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
+                        <a
+                            href="http://kck.st/44T1jbU"
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="mobile-kickstarter-button"
                             onClick={closeMenu}
                         >
