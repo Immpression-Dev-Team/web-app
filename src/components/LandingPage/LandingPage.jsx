@@ -145,7 +145,7 @@ const LandingPage = () => {
 
             <motion.p className="hero-subtitle" {...fade(0.28)}>
               Search thousands of artworks, discover emerging artists, and buy
-              original pieces directly from creators — all in one place.
+              original pieces directly from creators, all in one place.
             </motion.p>
 
             <motion.form className="hero-search" onSubmit={handleSearch} {...fade(0.36)}>
