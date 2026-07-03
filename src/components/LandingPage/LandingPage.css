@@ -243,6 +243,69 @@
   transform: translateY(-3px);
 }
 
+/* Search bar overlaid on the mosaic */
+.mosaic-search {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 82%;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  background: rgba(4, 14, 46, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  overflow: hidden;
+  box-shadow:
+    0 24px 64px rgba(0, 0, 0, 0.75),
+    0 6px 20px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(0, 0, 0, 0.3);
+  pointer-events: auto;
+}
+
+.mosaic-search-icon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  color: rgba(255, 255, 255, 0.45);
+  margin-left: 1rem;
+}
+
+.mosaic-search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0.95rem 0.75rem;
+  font-size: 0.9rem;
+  font-family: 'Inter', sans-serif;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.mosaic-search-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.mosaic-search-btn {
+  flex-shrink: 0;
+  background: #47EFAC;
+  color: #072973;
+  border: none;
+  padding: 0.95rem 1.4rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  transition: background 0.2s;
+}
+
+.mosaic-search-btn:hover {
+  background: #5ff7b9;
+}
+
 /* Art mosaic panel — full right-half of hero, top-to-bottom */
 .hero-mosaic-panel {
   position: absolute;
