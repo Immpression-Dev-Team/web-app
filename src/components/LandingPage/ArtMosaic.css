@@ -1,0 +1,98 @@
+.art-mosaic {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  height: 100%;
+  min-height: 580px;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+/* fade edges into the hero background */
+.art-mosaic-fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.art-mosaic-fade--top {
+  top: 0;
+  height: 100px;
+  background: linear-gradient(to bottom, #040e2e 0%, transparent 100%);
+}
+
+.art-mosaic-fade--bottom {
+  bottom: 0;
+  height: 100px;
+  background: linear-gradient(to top, #040e2e 0%, transparent 100%);
+}
+
+/* columns */
+.art-mosaic-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  will-change: transform;
+}
+
+.art-mosaic-col--up {
+  animation: mosaicScrollUp 30s linear infinite;
+}
+
+.art-mosaic-col--down {
+  animation: mosaicScrollDown 36s linear infinite;
+}
+
+/* individual image tiles */
+.art-mosaic-item {
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.art-mosaic-item img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* scroll animations — move by 50% so the duplicate seamlessly loops */
+@keyframes mosaicScrollUp {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+@keyframes mosaicScrollDown {
+  0%   { transform: translateY(-50%); }
+  100% { transform: translateY(0); }
+}
+
+/* pause on hover */
+.art-mosaic:hover .art-mosaic-col {
+  animation-play-state: paused;
+}
+
+@media (max-width: 1200px) {
+  .art-mosaic {
+    min-height: 480px;
+  }
+
+  /* hide the third column on smaller desktop */
+  .art-mosaic-col:nth-child(4) {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .art-mosaic {
+    min-height: 320px;
+    border-radius: 12px;
+  }
+}

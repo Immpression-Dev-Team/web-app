@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../API_URL";
 import GooglePlay from '../../assets/headers/GooglePlay.png';
 import Apple from '../../assets/headers/Apple.png';
-import IphoneModel from './IphoneModel';
+// import IphoneModel from './IphoneModel';
+import ArtMosaic from './ArtMosaic';
 import HowItWorks from './HowItWorks';
 
 const LandingPage = () => {
@@ -193,7 +194,7 @@ const LandingPage = () => {
           </div>
 
           <div className="hero-right">
-            <IphoneModel />
+            <ArtMosaic />
           </div>
         </div>
       </section>
