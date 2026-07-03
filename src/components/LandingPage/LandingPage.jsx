@@ -193,9 +193,13 @@ const LandingPage = () => {
             </motion.div>
           </div>
 
-          <div className="hero-right">
-            <ArtMosaic />
-          </div>
+          {/* empty spacer keeps the 2-column grid intact */}
+          <div className="hero-right" />
+        </div>
+
+        {/* mosaic is absolutely positioned so it spans the full hero height */}
+        <div className="hero-mosaic-panel">
+          <ArtMosaic />
         </div>
       </section>
 

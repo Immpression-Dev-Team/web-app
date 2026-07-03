@@ -2,9 +2,8 @@
   position: relative;
   display: flex;
   gap: 10px;
-  height: 600px;
+  height: 100%;
   overflow: hidden;
-  border-radius: 16px;
 }
 
 /* fade edges into the hero background */
@@ -79,19 +78,9 @@
 }
 
 @media (max-width: 1200px) {
-  .art-mosaic {
-    height: 480px;
-  }
-
   /* hide the third column on smaller desktop */
   .art-mosaic-col:nth-child(4) {
     display: none;
   }
 }
 
-@media (max-width: 768px) {
-  .art-mosaic {
-    height: 320px;
-    border-radius: 12px;
-  }
-}

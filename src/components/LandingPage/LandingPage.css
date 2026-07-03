@@ -232,6 +232,27 @@
   transform: translateY(-3px);
 }
 
+/* Art mosaic panel — full right-half of hero, top-to-bottom */
+.hero-mosaic-panel {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-mosaic-panel > * {
+  pointer-events: auto;
+}
+
+/* Keep hero text above the mosaic panel */
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
 /* App Preview Section */
 .hero-right {
   display: flex;
@@ -999,6 +1020,10 @@
 }
 
 @media (max-width: 768px) {
+  .hero-mosaic-panel {
+    display: none;
+  }
+
   .hero-section {
     padding: 8rem 1.5rem 2rem;
     min-height: 100vh;
