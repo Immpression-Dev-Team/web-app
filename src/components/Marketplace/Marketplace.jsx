@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
+import { useSearchParams } from "react-router-dom";
 import ArtCard from "./ArtCard.jsx";
 import "./Marketplace.css";
 import { API_URL } from "../../API_URL";
@@ -25,12 +26,14 @@ const SORT_OPTIONS = [
 ];
 
 const Marketplace = () => {
+  const [searchParams] = useSearchParams();
   const [artworks, setArtworks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState("");
   const [category, setCategory] = useState("All");
   const [sort, setSort] = useState("newest");
+  const [search, setSearch] = useState(() => searchParams.get("q") || "");
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalImages, setTotalImages] = useState(0);
@@ -50,6 +53,7 @@ const Marketplace = () => {
         sort,
       });
       if (category !== "All") params.append("category", category);
+      if (search.trim()) params.append("q", search.trim());
 
       const res = await fetch(`${API_URL}/marketplace?${params}`);
       const data = await res.json();
@@ -69,7 +73,12 @@ const Marketplace = () => {
       setLoading(false);
       setLoadingMore(false);
     }
-  }, [category, sort]);
+  }, [category, sort, search]);
+
+  useEffect(() => {
+    const q = searchParams.get("q") || "";
+    setSearch(q);
+  }, [searchParams]);
 
   useEffect(() => {
     fetchArtworks(1, true);
