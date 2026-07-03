@@ -19,6 +19,9 @@
 .mosaic-tile {
   position: relative;
   overflow: hidden;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.55),
+    0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 /* All images stacked; crossfade via opacity transition */
