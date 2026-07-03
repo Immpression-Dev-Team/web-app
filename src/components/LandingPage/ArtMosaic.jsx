@@ -12,24 +12,34 @@ export default function ArtMosaic() {
         fetch(`${API_URL}/public-art/featured`).then((r) => r.json()),
       ]);
 
-      const mktImages =
+      const mktItems =
         mktRes.status === "fulfilled" && mktRes.value.success
-          ? mktRes.value.images.map((img) => img.imageLink).filter(Boolean)
+          ? mktRes.value.images
+              .filter((img) => img.imageLink)
+              .map((img) => ({
+                src: img.imageLink,
+                title: img.name,
+                price: img.soldStatus === "sold" ? "Sold" : img.price != null ? `$${Number(img.price).toLocaleString()}` : null,
+              }))
           : [];
 
-      const pdImages =
+      const pdItems =
         pdRes.status === "fulfilled" && pdRes.value.success
           ? pdRes.value.data
-              .map((a) => a.thumbnailUrl || a.imageUrl)
-              .filter(Boolean)
+              .filter((a) => a.thumbnailUrl || a.imageUrl)
+              .map((a) => ({
+                src: a.thumbnailUrl || a.imageUrl,
+                title: a.title,
+                price: null,
+              }))
           : [];
 
-      // Interleave marketplace and public domain images
+      // Interleave marketplace and public domain items
       const all = [];
-      const maxLen = Math.max(mktImages.length, pdImages.length);
+      const maxLen = Math.max(mktItems.length, pdItems.length);
       for (let i = 0; i < maxLen; i++) {
-        if (mktImages[i]) all.push(mktImages[i]);
-        if (pdImages[i]) all.push(pdImages[i]);
+        if (mktItems[i]) all.push(mktItems[i]);
+        if (pdItems[i]) all.push(pdItems[i]);
       }
 
       if (all.length === 0) return;
@@ -64,10 +74,13 @@ export default function ArtMosaic() {
           key={colIdx}
           className={`art-mosaic-col art-mosaic-col--${colIdx % 2 === 0 ? "up" : "down"}`}
         >
-          {/* duplicate images for seamless loop */}
-          {[...imgs, ...imgs].map((src, i) => (
+          {[...imgs, ...imgs].map((item, i) => (
             <div key={i} className="art-mosaic-item">
-              <img src={src} alt="" loading="lazy" draggable="false" />
+              <img src={item.src} alt={item.title || ""} loading="lazy" draggable="false" />
+              <div className="art-mosaic-info">
+                {item.title && <p className="art-mosaic-title">{item.title}</p>}
+                {item.price && <p className="art-mosaic-price">{item.price}</p>}
+              </div>
             </div>
           ))}
         </div>

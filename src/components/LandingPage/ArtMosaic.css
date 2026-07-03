@@ -60,6 +60,33 @@
   user-select: none;
 }
 
+/* image label */
+.art-mosaic-info {
+  padding: 0.45rem 0.5rem 0.5rem;
+  background: #040e2e;
+}
+
+.art-mosaic-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+  line-height: 1.3;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.art-mosaic-price {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #47EFAC;
+  margin: 0.15rem 0 0;
+}
+
 /* scroll animations — move by 50% so the duplicate seamlessly loops */
 @keyframes mosaicScrollUp {
   0%   { transform: translateY(0); }
