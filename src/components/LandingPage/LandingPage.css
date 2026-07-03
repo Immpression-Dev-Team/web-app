@@ -236,7 +236,7 @@
 .hero-mosaic-panel {
   position: absolute;
   right: 0;
-  top: calc(64px + 6px);
+  top: 6px;
   bottom: 0;
   width: 50%;
   z-index: 0;
