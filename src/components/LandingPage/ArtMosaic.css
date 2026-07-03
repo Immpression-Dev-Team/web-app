@@ -1,112 +1,68 @@
+/* ── Mosaic grid ── */
 .art-mosaic {
-  position: relative;
-  display: flex;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 3fr 2fr;
+  gap: 6px;
   height: 100%;
-  overflow: hidden;
-}
-
-/* fade edges into the hero background */
-.art-mosaic-fade {
-  position: absolute;
-  left: 0;
-  right: 0;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.art-mosaic-fade--top {
-  top: 0;
-  height: 100px;
-  background: linear-gradient(to bottom, #040e2e 0%, transparent 100%);
-}
-
-.art-mosaic-fade--bottom {
-  bottom: 0;
-  height: 100px;
-  background: linear-gradient(to top, #040e2e 0%, transparent 100%);
-}
-
-/* columns — flex: 1 1 0 forces equal widths regardless of content */
-.art-mosaic-col {
-  flex: 1 1 0;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  will-change: transform;
-}
-
-.art-mosaic-col--up {
-  animation: mosaicScrollUp 30s linear infinite;
-}
-
-.art-mosaic-col--down {
-  animation: mosaicScrollDown 36s linear infinite;
-}
-
-/* individual image tiles */
-.art-mosaic-item {
-  overflow: hidden;
-  flex-shrink: 0;
-  background: rgba(255, 255, 255, 0.04);
-}
-
-.art-mosaic-item img {
   width: 100%;
-  aspect-ratio: 3 / 4;
+}
+
+/* grid placement */
+.mosaic-big     { grid-column: 1 / 3; grid-row: 1 / 2; }
+.mosaic-small-1 { grid-column: 1 / 2; grid-row: 2 / 3; }
+.mosaic-small-2 { grid-column: 2 / 3; grid-row: 2 / 3; }
+.mosaic-right-1 { grid-column: 3 / 4; grid-row: 1 / 2; }
+.mosaic-right-2 { grid-column: 3 / 4; grid-row: 2 / 3; }
+
+/* ── Tile ── */
+.mosaic-tile {
+  position: relative;
+  overflow: hidden;
+}
+
+.mosaic-tile img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   display: block;
   pointer-events: none;
   user-select: none;
 }
 
-/* image label */
-.art-mosaic-info {
-  padding: 0.45rem 0.5rem 0.5rem;
+/* ── Caption overlay ── */
+.mosaic-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5rem 0.6rem 0.55rem;
+  background: linear-gradient(to top, rgba(4, 14, 46, 0.85) 0%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
 }
 
-.art-mosaic-title {
+.mosaic-caption-title {
   font-family: 'Inter', sans-serif;
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.8);
-  margin: 0;
-  line-height: 1.3;
+  color: rgba(255, 255, 255, 0.88);
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.art-mosaic-price {
+.mosaic-caption-price {
   font-family: 'Josefin Sans', sans-serif;
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   font-weight: 600;
   letter-spacing: 1px;
   color: #47EFAC;
-  margin: 0.15rem 0 0;
 }
 
-/* scroll animations — move by 50% so the duplicate seamlessly loops */
-@keyframes mosaicScrollUp {
-  0%   { transform: translateY(0); }
-  100% { transform: translateY(-50%); }
-}
-
-@keyframes mosaicScrollDown {
-  0%   { transform: translateY(-50%); }
-  100% { transform: translateY(0); }
-}
-
-/* pause on hover */
-.art-mosaic:hover .art-mosaic-col {
-  animation-play-state: paused;
-}
-
-@media (max-width: 1200px) {
-  /* hide the third column on smaller desktop */
-  .art-mosaic-col:nth-child(4) {
+@media (max-width: 768px) {
+  .hero-mosaic-panel {
     display: none;
   }
 }
-
