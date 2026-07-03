@@ -1,0 +1,332 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Josefin+Sans:wght@300;400;600&family=Inter:wght@400;500;600&display=swap');
+
+/* ─── Wrapper ─── */
+.search-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  background: #fff;
+  color: #111;
+}
+
+/* ─── Header / search bar ─── */
+.search-header {
+  background: linear-gradient(150deg, #040e2e 0%, #0a1f5c 50%, #0d2d6e 100%);
+  padding: 6rem 2rem 2.5rem;
+}
+
+.search-header-inner {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.search-bar-wrap {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+.search-bar-wrap:focus-within {
+  border-color: rgba(71, 239, 172, 0.55);
+  box-shadow: 0 0 0 3px rgba(71, 239, 172, 0.12);
+}
+
+.search-bar-icon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  color: rgba(255, 255, 255, 0.45);
+  margin-left: 1rem;
+}
+
+.search-bar-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 1rem 0.75rem;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.search-bar-input::placeholder {
+  color: rgba(255, 255, 255, 0.38);
+}
+
+.search-bar-btn {
+  flex-shrink: 0;
+  background: #47EFAC;
+  color: #072973;
+  border: none;
+  padding: 1rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  transition: background 0.2s;
+}
+
+.search-bar-btn:hover {
+  background: #5ff7b9;
+}
+
+.search-meta {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 0.9rem;
+  margin-left: 0.25rem;
+}
+
+/* ─── Results area ─── */
+.search-results {
+  padding: 3rem 2rem 5rem;
+}
+
+.search-results-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* ─── Loading ─── */
+.search-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 5rem 0;
+  color: #888;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+}
+
+.search-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #ebebeb;
+  border-top-color: #111;
+  border-radius: 50%;
+  animation: searchSpin 0.7s linear infinite;
+}
+
+@keyframes searchSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── Empty / error ─── */
+.search-empty {
+  text-align: center;
+  padding: 5rem 0;
+}
+
+.search-empty-title {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 2rem;
+  color: #111;
+  margin-bottom: 0.5rem;
+}
+
+.search-empty-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  color: #888;
+}
+
+.search-error {
+  text-align: center;
+  padding: 3rem 0;
+  font-family: 'Inter', sans-serif;
+  color: #b91c1c;
+}
+
+/* ─── Section ─── */
+.search-section {
+  margin-bottom: 4rem;
+}
+
+.search-section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #ebebeb;
+}
+
+.search-section-title {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: #111;
+  margin: 0 0 0.15rem;
+}
+
+.search-section-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  color: #999;
+  margin: 0;
+}
+
+.search-section-link {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #111;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding-bottom: 1px;
+  border-bottom: 1px solid #111;
+  transition: opacity 0.2s;
+}
+
+.search-section-link:hover {
+  opacity: 0.6;
+}
+
+/* ─── Marketplace grid ─── */
+.search-grid--marketplace {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.25rem;
+}
+
+/* ─── Public domain grid ─── */
+.search-grid--public {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.25rem;
+}
+
+.search-public-card {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid #ebebeb;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.search-public-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
+}
+
+.search-public-img-wrap {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background: #f5f5f5;
+  overflow: hidden;
+}
+
+.search-public-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.45s;
+}
+
+.search-public-card:hover .search-public-img {
+  transform: scale(1.04);
+}
+
+.search-public-info {
+  padding: 0.65rem 0.75rem 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.search-public-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  margin: 0;
+  line-height: 1.35;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.search-public-artist {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #aaa;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.search-public-year {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.58rem;
+  color: #ccc;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .search-header {
+    padding: 5rem 1.5rem 2rem;
+  }
+
+  .search-grid--marketplace,
+  .search-grid--public {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+
+  .search-results {
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .search-section-title {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-header {
+    padding: 5rem 1rem 1.75rem;
+  }
+
+  .search-bar-input {
+    font-size: 0.85rem;
+    padding: 0.8rem 0.6rem;
+  }
+
+  .search-bar-btn {
+    padding: 0.8rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .search-grid--marketplace,
+  .search-grid--public {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .search-results {
+    padding: 1.5rem 1rem 3rem;
+  }
+}

@@ -106,7 +106,7 @@ const LandingPage = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     const q = searchQuery.trim();
-    navigate(q ? `/marketplace?q=${encodeURIComponent(q)}` : "/marketplace");
+    navigate(q ? `/search?q=${encodeURIComponent(q)}` : "/search");
   };
 
   const fade = (delay) => ({

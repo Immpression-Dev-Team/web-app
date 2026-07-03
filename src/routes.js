@@ -14,6 +14,7 @@ import Explore from './components/Explore/Explore.jsx';
 import PublicArtDetail from './components/PublicArtDetail/PublicArtDetail.jsx';
 import Marketplace from './components/Marketplace/Marketplace.jsx';
 import ArtworkDetail from './components/Marketplace/ArtworkDetail.jsx';
+import Search from './components/Search/Search.jsx';
 import React from "react";
 
 // Function-based approach to return JSX elements
@@ -117,5 +118,10 @@ export const GuestNavigation = [
         name: "Artwork Detail",
         path: "/marketplace/:artistSlug/:artworkSlug",
         element: React.createElement(ArtworkDetail),
+    },
+    {
+        name: "Search",
+        path: "/search",
+        element: React.createElement(Search),
     },
 ];
