@@ -27,9 +27,10 @@
   background: linear-gradient(to top, #040e2e 0%, transparent 100%);
 }
 
-/* columns */
+/* columns — flex: 1 1 0 forces equal widths regardless of content */
 .art-mosaic-col {
-  flex: 1;
+  flex: 1 1 0;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -63,7 +64,6 @@
 /* image label */
 .art-mosaic-info {
   padding: 0.45rem 0.5rem 0.5rem;
-  background: #040e2e;
 }
 
 .art-mosaic-title {
