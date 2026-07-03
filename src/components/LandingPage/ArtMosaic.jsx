@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { API_URL } from "../../API_URL";
 import "./ArtMosaic.css";
 
-// How long each tile waits before showing (non-sequential order)
 const FADE_DELAYS = {
   big:    0,
   right1: 180,
@@ -11,7 +11,6 @@ const FADE_DELAYS = {
   small1: 760,
 };
 
-// How often each tile swaps its image (ms) — all different so they don't sync up
 const CYCLE_INTERVALS = {
   big:    6000,
   small1: 4500,
@@ -19,6 +18,15 @@ const CYCLE_INTERVALS = {
   right1: 4000,
   right2: 5200,
 };
+
+function slugify(str) {
+  return str.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
+function parseArtworkId(rawId) {
+  const str = String(rawId);
+  return str.includes(":") ? str.split(":")[1] : str;
+}
 
 export default function ArtMosaic() {
   const [groups, setGroups] = useState(null);
@@ -34,13 +42,8 @@ export default function ArtMosaic() {
         mktRes.status === "fulfilled" && mktRes.value.success
           ? mktRes.value.images.filter((img) => img.imageLink).map((img) => ({
               src: img.imageLink,
-              title: img.name,
-              price:
-                img.soldStatus === "sold"
-                  ? "Sold"
-                  : img.price != null
-                  ? `$${Number(img.price).toLocaleString()}`
-                  : null,
+              alt: img.name || "",
+              href: `/marketplace/${slugify(img.artistName || "artist")}/${slugify(img.name || "artwork")}-${img._id}`,
             }))
           : [];
 
@@ -48,12 +51,11 @@ export default function ArtMosaic() {
         pdRes.status === "fulfilled" && pdRes.value.success
           ? pdRes.value.data.filter((a) => a.thumbnailUrl || a.imageUrl).map((a) => ({
               src: a.thumbnailUrl || a.imageUrl,
-              title: a.title,
-              price: null,
+              alt: a.title || "",
+              href: `/art/${a.source || "met"}/${parseArtworkId(a.id)}`,
             }))
           : [];
 
-      // Interleave marketplace and public domain
       const all = [];
       const maxLen = Math.max(mktItems.length, pdItems.length);
       for (let i = 0; i < maxLen; i++) {
@@ -63,7 +65,6 @@ export default function ArtMosaic() {
 
       if (all.length < 3) return;
 
-      // Distribute across 5 slots — round-robin
       const slots = { big: [], small1: [], small2: [], right1: [], right2: [] };
       const keys = ["big", "small1", "small2", "right1", "right2"];
       all.forEach((item, i) => slots[keys[i % 5]].push(item));
@@ -90,13 +91,11 @@ function Tile({ items, slot }) {
   const [idx, setIdx] = useState(0);
   const [visible, setVisible] = useState(false);
 
-  // Fade in on load with per-slot delay
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), FADE_DELAYS[slot]);
     return () => clearTimeout(t);
   }, [slot]);
 
-  // Cycle to next image on interval
   useEffect(() => {
     if (items.length <= 1) return;
     const iv = setInterval(
@@ -109,31 +108,21 @@ function Tile({ items, slot }) {
   if (!items.length) return null;
 
   return (
-    <div
+    <Link
+      to={items[idx].href}
       className={`mosaic-tile mosaic-${slot}`}
-      style={{ opacity: visible ? 1 : 0, transition: `opacity 0.9s ease` }}
+      style={{ opacity: visible ? 1 : 0, transition: "opacity 0.9s ease" }}
     >
-      {/* Stack all images; only the current one is opaque */}
       {items.map((item, i) => (
         <img
           key={item.src}
           src={item.src}
-          alt={item.title || ""}
+          alt={item.alt}
           className="mosaic-tile-img"
           style={{ opacity: i === idx ? 1 : 0 }}
           draggable="false"
         />
       ))}
-
-      {/* Caption floats above images */}
-      <div className="mosaic-caption">
-        {items[idx]?.title && (
-          <span className="mosaic-caption-title">{items[idx].title}</span>
-        )}
-        {items[idx]?.price && (
-          <span className="mosaic-caption-price">{items[idx].price}</span>
-        )}
-      </div>
-    </div>
+    </Link>
   );
 }
