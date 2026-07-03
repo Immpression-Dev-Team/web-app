@@ -59,6 +59,17 @@
   max-width: 600px;
 }
 
+/* Eyebrow text (replaces badge bubble) */
+.hero-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #47EFAC;
+  letter-spacing: 1.5px;
+  font-family: 'Inter', sans-serif;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
 /* Badge */
 .badge {
   display: inline-flex;

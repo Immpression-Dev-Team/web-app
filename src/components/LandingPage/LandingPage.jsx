@@ -136,9 +136,7 @@ const LandingPage = () => {
         <div className="hero-content">
           <div className="hero-left">
 
-            <motion.div className="badge" {...fade(0.05)}>
-              <span className="badge-text">✦ ART SEARCH ENGINE &amp; MARKETPLACE</span>
-            </motion.div>
+            <motion.p className="hero-eyebrow" {...fade(0.05)}>✦ ART SEARCH ENGINE &amp; MARKETPLACE</motion.p>
 
             <motion.h1 className="hero-title" {...fade(0.15)}>
               Find Art.{" "}
