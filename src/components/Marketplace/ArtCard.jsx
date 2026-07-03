@@ -5,13 +5,13 @@ const slugify = (str) =>
   str.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
 const ArtCard = ({ artwork }) => {
-  const { _id, name, artistName, price, imageLink, category, isSigned, isFramed } = artwork;
+  const { _id, name, artistName, price, imageLink, category, isSigned, isFramed, isSold } = artwork;
 
   const artistSlug = slugify(artistName || "artist");
   const artworkSlug = `${slugify(name || "artwork")}-${_id}`;
 
   return (
-    <Link to={`/marketplace/${artistSlug}/${artworkSlug}`} className="art-card">
+    <Link to={`/marketplace/${artistSlug}/${artworkSlug}`} className={`art-card${isSold ? " art-card--sold" : ""}`}>
       <div className="art-card-image-wrap">
         <img
           src={imageLink}
@@ -19,9 +19,15 @@ const ArtCard = ({ artwork }) => {
           className="art-card-image"
           loading="lazy"
         />
-        <div className="art-card-overlay">
-          <span className="art-card-view-label">View Artwork</span>
-        </div>
+        {isSold ? (
+          <div className="art-card-sold-overlay">
+            <span className="art-card-sold-label">Sold</span>
+          </div>
+        ) : (
+          <div className="art-card-overlay">
+            <span className="art-card-view-label">View Artwork</span>
+          </div>
+        )}
         {category && (
           <span className="art-card-category">{category}</span>
         )}
@@ -37,7 +43,10 @@ const ArtCard = ({ artwork }) => {
           )}
         </div>
         <p className="art-card-name">{name}</p>
-        <span className="art-card-price">${Number(price).toLocaleString()}</span>
+        {isSold
+          ? <span className="art-card-price art-card-price--sold">Sold</span>
+          : <span className="art-card-price">${Number(price).toLocaleString()}</span>
+        }
       </div>
     </Link>
   );

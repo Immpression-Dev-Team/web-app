@@ -34,6 +34,7 @@ const Marketplace = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalImages, setTotalImages] = useState(0);
+  const [soldImages, setSoldImages] = useState(0);
 
   const LIMIT = 24;
 
@@ -57,6 +58,7 @@ const Marketplace = () => {
         setArtworks((prev) => (reset ? data.images : [...prev, ...data.images]));
         setTotalPages(data.totalPages);
         setTotalImages(data.totalImages);
+        setSoldImages(data.soldImages || 0);
         setPage(newPage);
       } else {
         setError("Failed to load artworks.");
@@ -152,7 +154,7 @@ const Marketplace = () => {
         </div>
         {!loading && totalImages > 0 && (
           <p className="marketplace-count">
-            {totalImages} work{totalImages !== 1 ? "s" : ""} available
+            {totalImages - soldImages} available{soldImages > 0 ? ` · ${soldImages} sold` : ""}
           </p>
         )}
       </section>
