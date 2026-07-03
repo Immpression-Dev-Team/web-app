@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import "./LandingPage.css";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../API_URL";
 import GooglePlay from '../../assets/headers/GooglePlay.png';
 import Apple from '../../assets/headers/Apple.png';
@@ -9,6 +10,8 @@ import IphoneModel from './IphoneModel';
 import HowItWorks from './HowItWorks';
 
 const LandingPage = () => {
+  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
   const [signUpLink, setSignUpLink] = useState("/signup");
   const [kickStarterlink, setKickStarterLink] = useState(
     "https://www.kickstarter.com/projects/132225890/immpression-presents-the-digital-gallery-movement?ref=discovery&term=immpression&total_hits=247&category_id=332"
@@ -100,6 +103,12 @@ const LandingPage = () => {
    * `animate` is keyed to fontsReady — nothing moves until fonts are loaded,
    * so the first frame the user ever sees has the correct typeface already in place.
    */
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const q = searchQuery.trim();
+    navigate(q ? `/marketplace?q=${encodeURIComponent(q)}` : "/marketplace");
+  };
+
   const fade = (delay) => ({
     initial: { opacity: 0 },
     animate: { opacity: fontsReady ? 1 : 0 },
@@ -139,6 +148,22 @@ const LandingPage = () => {
               Search thousands of artworks, discover emerging artists, and buy
               original pieces directly from creators — all in one place.
             </motion.p>
+
+            <motion.form className="hero-search" onSubmit={handleSearch} {...fade(0.36)}>
+              <div className="hero-search-inner">
+                <svg className="hero-search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <input
+                  type="text"
+                  className="hero-search-input"
+                  placeholder="Search by artist, style, keyword, or anything..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <button type="submit" className="hero-search-btn">Search</button>
+              </div>
+            </motion.form>
 
             <motion.div className="hero-pills" {...fade(0.4)}>
               <span className="hero-pill">✦ Search Thousands of Artworks</span>
