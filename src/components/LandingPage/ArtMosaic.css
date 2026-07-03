@@ -46,7 +46,6 @@
 
 /* individual image tiles */
 .art-mosaic-item {
-  border-radius: 8px;
   overflow: hidden;
   flex-shrink: 0;
   background: rgba(255, 255, 255, 0.04);
