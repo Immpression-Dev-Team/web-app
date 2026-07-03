@@ -166,12 +166,6 @@ const LandingPage = () => {
               </div>
             </motion.form>
 
-            <motion.div className="hero-pills" {...fade(0.4)}>
-              <span className="hero-pill">✦ Search Thousands of Artworks</span>
-              <span className="hero-pill">✦ Discover Emerging Artists</span>
-              <span className="hero-pill">✦ Artists Keep 90%</span>
-            </motion.div>
-
             <motion.div className="cta-buttons" {...fade(0.52)}>
               <a
                 href="https://play.google.com/store/apps/details?id=com.immpression.artapp"
