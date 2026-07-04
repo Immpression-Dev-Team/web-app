@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef, useCallback } from "react";
+import { Link } from "react-router-dom";
 import { API_URL } from "../../API_URL";
 import "./FeaturedArticles.css";
 
@@ -114,6 +115,9 @@ export default function FeaturedArticles() {
         ) : (
           <div className="fa-grid">{cards}</div>
         )}
+        <div className="fa-footer">
+          <Link to="/press" className="fa-view-all">View all press →</Link>
+        </div>
       </div>
     </section>
   );

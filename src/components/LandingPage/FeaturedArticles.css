@@ -165,6 +165,27 @@
   padding-top: 4px;
 }
 
+/* ── Footer link ── */
+.fa-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.fa-view-all {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 0.95rem;
+  color: #0a0a0a;
+  text-decoration: none;
+  border-bottom: 2px solid #47efac;
+  padding-bottom: 2px;
+  transition: color 0.15s, border-color 0.15s;
+}
+.fa-view-all:hover {
+  color: #072973;
+  border-color: #072973;
+}
+
 /* ── Responsive ── */
 @media (max-width: 900px) {
   .fa-grid { grid-template-columns: repeat(2, 1fr); }
