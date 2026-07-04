@@ -10,7 +10,7 @@
 }
 
 .fa-heading {
-  text-align: center;
+  text-align: left;
   margin-bottom: 48px;
 }
 
@@ -28,7 +28,8 @@
   font-weight: 800;
   color: #0a0a0a;
   margin: 0;
-  letter-spacing: -0.02em;
+  font-family: 'Permanent Marker', cursive;
+  letter-spacing: 0;
 }
 
 /* ── Card grid ── */
@@ -44,7 +45,7 @@
   text-decoration: none;
   color: inherit;
   border: 1px solid #e8e8e8;
-  border-radius: 12px;
+  border-radius: 0;
   overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   background: #fff;
@@ -59,6 +60,7 @@
   width: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
+  border-radius: 0;
   background: #f3f3f3;
 }
 
