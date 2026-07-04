@@ -9,6 +9,7 @@ import Apple from '../../assets/headers/Apple.png';
 // import IphoneModel from './IphoneModel';
 import ArtMosaic from './ArtMosaic';
 import HowItWorks from './HowItWorks';
+import FeaturedArticles from './FeaturedArticles';
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -206,6 +207,7 @@ const LandingPage = () => {
         </div>
       </section>
 
+      <FeaturedArticles />
       <HowItWorks />
     </div>
   );
