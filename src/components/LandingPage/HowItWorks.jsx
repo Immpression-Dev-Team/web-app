@@ -47,10 +47,9 @@ const HowItWorks = () => {
     <section className="hiw-section">
       <div className="hiw-container">
 
-        {/* ── Left: header text only ── */}
-        <div className="hiw-content-col">
+        {/* Col 1 — header text */}
+        <div className="hiw-col hiw-col-text">
           <motion.div
-            className="hiw-header"
             initial={{ y: 30, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
@@ -66,35 +65,34 @@ const HowItWorks = () => {
           </motion.div>
         </div>
 
-        {/* ── Right: phone on top, cards below ── */}
-        <div className="hiw-right-col">
-          <div className="hiw-phone-wrap">
-            <Suspense fallback={null}>
-              <IphoneModel />
-            </Suspense>
-          </div>
+        {/* Col 2 — phone */}
+        <div className="hiw-col hiw-col-phone">
+          <Suspense fallback={null}>
+            <IphoneModel />
+          </Suspense>
+        </div>
 
-          <div className="hiw-cards">
-            {steps.map((step, i) => (
-              <motion.div
-                key={step.number}
-                className="hiw-card"
-                initial={{ y: 30, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.55, delay: i * 0.12 }}
-                whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              >
-                <div className="hiw-card-top">
-                  <span className="hiw-step-number">{step.number}</span>
-                  <div className="hiw-icon">{step.icon}</div>
-                </div>
-                <h3 className="hiw-card-title">{step.title}</h3>
-                <p className="hiw-card-desc">{step.description}</p>
-                <div className="hiw-card-glow" />
-              </motion.div>
-            ))}
-          </div>
+        {/* Col 3 — step cards stacked */}
+        <div className="hiw-col hiw-col-cards">
+          {steps.map((step, i) => (
+            <motion.div
+              key={step.number}
+              className="hiw-card"
+              initial={{ x: 40, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.55, delay: i * 0.12 }}
+              whileHover={{ x: 4, transition: { duration: 0.2 } }}
+            >
+              <div className="hiw-card-top">
+                <span className="hiw-step-number">{step.number}</span>
+                <div className="hiw-icon">{step.icon}</div>
+              </div>
+              <h3 className="hiw-card-title">{step.title}</h3>
+              <p className="hiw-card-desc">{step.description}</p>
+              <div className="hiw-card-glow" />
+            </motion.div>
+          ))}
         </div>
 
       </div>
