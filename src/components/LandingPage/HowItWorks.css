@@ -12,9 +12,7 @@
 .hiw-section::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(71, 239, 172, 0.3), transparent);
 }
@@ -24,28 +22,38 @@
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 3rem;
 }
 
-/* Left: phone */
-.hiw-phone-col {
-  flex: 0 0 42%;
+/* Left: header text, vertically centered in the section */
+.hiw-content-col {
+  flex: 0 0 36%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  align-self: stretch;
 }
 
-/* Right: content */
-.hiw-content-col {
+/* Right: phone + cards stacked */
+.hiw-right-col {
   flex: 1;
-  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.hiw-phone-wrap {
+  width: 100%;
+}
+
+/* Override canvas height to leave room for cards below */
+.hiw-phone-wrap .iphone-canvas-container {
+  height: 420px;
+  max-width: 100%;
 }
 
 /* ── Header ── */
 .hiw-header {
   text-align: left;
-  margin-bottom: 2rem;
 }
 
 .hiw-eyebrow {
@@ -56,16 +64,16 @@
   letter-spacing: 2.5px;
   text-transform: uppercase;
   color: #47EFAC;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
 }
 
 .hiw-title {
   font-family: 'Permanent Marker', cursive;
-  font-size: 2.6rem;
+  font-size: 3rem;
   font-weight: 400;
   color: #ffffff;
-  line-height: 1.15;
-  margin-bottom: 0.75rem;
+  line-height: 1.2;
+  margin-bottom: 1.25rem;
   letter-spacing: 0;
   text-transform: none;
 }
@@ -81,42 +89,41 @@
   font-family: 'Inter', sans-serif;
   font-size: 0.95rem;
   color: rgba(255, 255, 255, 0.5);
-  max-width: 400px;
   line-height: 1.6;
+  max-width: 320px;
 }
 
-/* ── Step cards (stacked column) ── */
+/* ── Step cards (3-col row below phone) ── */
 .hiw-cards {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-top: 1rem;
 }
 
 .hiw-card {
   position: relative;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  padding: 1.5rem 1.75rem;
+  border-radius: 14px;
+  padding: 1.25rem 1rem;
   overflow: hidden;
   cursor: default;
   transition: border-color 0.3s ease, background 0.3s ease;
 }
 
 .hiw-card:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(71, 239, 172, 0.2);
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(71, 239, 172, 0.25);
 }
 
-.hiw-card:hover .hiw-card-glow {
-  opacity: 1;
-}
+.hiw-card:hover .hiw-card-glow { opacity: 1; }
 
 .hiw-card-top {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.6rem;
 }
 
 .hiw-step-number {
@@ -129,33 +136,34 @@
 }
 
 .hiw-icon {
-  width: 44px;
-  height: 44px;
+  width: 36px;
+  height: 36px;
   background: rgba(71, 239, 172, 0.08);
   border: 1px solid rgba(71, 239, 172, 0.15);
-  border-radius: 12px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #47EFAC;
+  flex-shrink: 0;
 }
 
 .hiw-card-title {
   font-family: 'Josefin Sans', sans-serif;
-  font-size: 1.3rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #ffffff;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.35rem;
   line-height: 1;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
   text-transform: uppercase;
 }
 
 .hiw-card-desc {
   font-family: 'Inter', sans-serif;
-  font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.55);
-  line-height: 1.65;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.6;
   margin: 0;
 }
 
@@ -164,9 +172,9 @@
   bottom: -40px;
   left: 50%;
   transform: translateX(-50%);
-  width: 120px;
-  height: 80px;
-  background: radial-gradient(ellipse, rgba(71, 239, 172, 0.12) 0%, transparent 70%);
+  width: 100px;
+  height: 60px;
+  background: radial-gradient(ellipse, rgba(71, 239, 172, 0.1) 0%, transparent 70%);
   opacity: 0;
   transition: opacity 0.4s ease;
   pointer-events: none;
@@ -176,46 +184,38 @@
 @media (max-width: 900px) {
   .hiw-container {
     flex-direction: column;
-    gap: 2.5rem;
+    gap: 2rem;
   }
 
-  .hiw-phone-col {
-    display: none;
+  .hiw-content-col {
+    flex: unset;
+    width: 100%;
+    align-items: flex-start;
   }
 
-  .hiw-header {
-    text-align: center;
-  }
+  .hiw-header { text-align: center; width: 100%; }
+  .hiw-subtitle { margin: 0 auto; }
 
-  .hiw-subtitle {
-    margin: 0 auto;
-  }
+  .hiw-phone-wrap { display: none; }
 
-  .hiw-title {
-    font-size: 2.1rem;
-  }
+  .hiw-right-col { width: 100%; }
 
   .hiw-cards {
+    grid-template-columns: 1fr;
     max-width: 520px;
     margin: 0 auto;
-    width: 100%;
+    gap: 1rem;
   }
+
+  .hiw-card { padding: 1.5rem 1.5rem; }
+  .hiw-card-title { font-size: 1.3rem; }
+  .hiw-card-desc { font-size: 0.875rem; }
+  .hiw-icon { width: 44px; height: 44px; border-radius: 12px; }
+
+  .hiw-title { font-size: 2.1rem; }
 }
 
 @media (max-width: 600px) {
-  .hiw-section {
-    padding: 4rem 1.25rem;
-  }
-
-  .hiw-title {
-    font-size: 1.75rem;
-  }
-
-  .hiw-header {
-    margin-bottom: 1.5rem;
-  }
-
-  .hiw-card {
-    padding: 1.25rem 1.25rem;
-  }
+  .hiw-section { padding: 4rem 1.25rem; }
+  .hiw-title { font-size: 1.75rem; }
 }

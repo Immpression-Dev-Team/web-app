@@ -47,7 +47,7 @@ const HowItWorks = () => {
     <section className="hiw-section">
       <div className="hiw-container">
 
-        {/* ── Left: header + step cards ── */}
+        {/* ── Left: header text only ── */}
         <div className="hiw-content-col">
           <motion.div
             className="hiw-header"
@@ -58,23 +58,32 @@ const HowItWorks = () => {
           >
             <span className="hiw-eyebrow">How It Works</span>
             <h2 className="hiw-title">
-              Search. Discover. <span className="hiw-title-accent">Own.</span>
+              Search.<br />Discover.<br /><span className="hiw-title-accent">Own.</span>
             </h2>
             <p className="hiw-subtitle">
               Everything you need to find and own art — in three steps.
             </p>
           </motion.div>
+        </div>
+
+        {/* ── Right: phone on top, cards below ── */}
+        <div className="hiw-right-col">
+          <div className="hiw-phone-wrap">
+            <Suspense fallback={null}>
+              <IphoneModel />
+            </Suspense>
+          </div>
 
           <div className="hiw-cards">
             {steps.map((step, i) => (
               <motion.div
                 key={step.number}
                 className="hiw-card"
-                initial={{ x: 40, opacity: 0 }}
-                whileInView={{ x: 0, opacity: 1 }}
+                initial={{ y: 30, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.55, delay: i * 0.12 }}
-                whileHover={{ x: 6, transition: { duration: 0.2 } }}
+                whileHover={{ y: -4, transition: { duration: 0.2 } }}
               >
                 <div className="hiw-card-top">
                   <span className="hiw-step-number">{step.number}</span>
@@ -86,13 +95,6 @@ const HowItWorks = () => {
               </motion.div>
             ))}
           </div>
-        </div>
-
-        {/* ── Right: 3D phone ── */}
-        <div className="hiw-phone-col">
-          <Suspense fallback={null}>
-            <IphoneModel />
-          </Suspense>
         </div>
 
       </div>
