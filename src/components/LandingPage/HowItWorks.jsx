@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import { Suspense } from "react";
+import IphoneModel from "./IphoneModel";
 import "./HowItWorks.css";
 
 const steps = [
@@ -44,43 +46,55 @@ const HowItWorks = () => {
   return (
     <section className="hiw-section">
       <div className="hiw-container">
-        <motion.div
-          className="hiw-header"
-          initial={{ y: 30, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-        >
-          <span className="hiw-eyebrow">How It Works</span>
-          <h2 className="hiw-title">
-            Search. Discover. <span className="hiw-title-accent">Own.</span>
-          </h2>
-          <p className="hiw-subtitle">
-            Everything you need to find and own art — in three steps.
-          </p>
-        </motion.div>
 
-        <div className="hiw-cards">
-          {steps.map((step, i) => (
-            <motion.div
-              key={step.number}
-              className="hiw-card"
-              initial={{ y: 40, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.15 }}
-              whileHover={{ y: -6, transition: { duration: 0.2 } }}
-            >
-              <div className="hiw-card-top">
-                <span className="hiw-step-number">{step.number}</span>
-                <div className="hiw-icon">{step.icon}</div>
-              </div>
-              <h3 className="hiw-card-title">{step.title}</h3>
-              <p className="hiw-card-desc">{step.description}</p>
-              <div className="hiw-card-glow" />
-            </motion.div>
-          ))}
+        {/* ── Left: 3D phones ── */}
+        <div className="hiw-phone-col">
+          <Suspense fallback={null}>
+            <IphoneModel />
+          </Suspense>
         </div>
+
+        {/* ── Right: header + step cards ── */}
+        <div className="hiw-content-col">
+          <motion.div
+            className="hiw-header"
+            initial={{ y: 30, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <span className="hiw-eyebrow">How It Works</span>
+            <h2 className="hiw-title">
+              Search. Discover. <span className="hiw-title-accent">Own.</span>
+            </h2>
+            <p className="hiw-subtitle">
+              Everything you need to find and own art — in three steps.
+            </p>
+          </motion.div>
+
+          <div className="hiw-cards">
+            {steps.map((step, i) => (
+              <motion.div
+                key={step.number}
+                className="hiw-card"
+                initial={{ x: 40, opacity: 0 }}
+                whileInView={{ x: 0, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.55, delay: i * 0.12 }}
+                whileHover={{ x: 6, transition: { duration: 0.2 } }}
+              >
+                <div className="hiw-card-top">
+                  <span className="hiw-step-number">{step.number}</span>
+                  <div className="hiw-icon">{step.icon}</div>
+                </div>
+                <h3 className="hiw-card-title">{step.title}</h3>
+                <p className="hiw-card-desc">{step.description}</p>
+                <div className="hiw-card-glow" />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
   );
