@@ -1,11 +1,18 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { API_URL } from "../../API_URL";
 import "./FeaturedArticles.css";
+
+function getStep(track) {
+  const card = track.children[0];
+  if (!card) return 0;
+  return card.offsetWidth + 24;
+}
 
 export default function FeaturedArticles() {
   const [articles, setArticles] = useState([]);
   const trackRef = useRef(null);
   const idxRef = useRef(0);
+  const intervalRef = useRef(null);
 
   useEffect(() => {
     fetch(`${API_URL}/api/articles`)
@@ -14,26 +21,49 @@ export default function FeaturedArticles() {
       .catch(() => {});
   }, []);
 
+  const scrollTo = useCallback((nextIdx) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const step = getStep(track);
+    const maxScroll = track.scrollWidth - track.clientWidth;
+    const pos = nextIdx * step;
+    if (pos > maxScroll) {
+      track.scrollTo({ left: 0, behavior: "smooth" });
+      idxRef.current = 0;
+    } else {
+      track.scrollTo({ left: pos, behavior: "smooth" });
+      idxRef.current = nextIdx;
+    }
+  }, []);
+
+  const startInterval = useCallback(() => {
+    clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
+      scrollTo(idxRef.current + 1);
+    }, 3500);
+  }, [scrollTo]);
+
   useEffect(() => {
     if (articles.length <= 3) return;
-    const iv = setInterval(() => {
-      const track = trackRef.current;
-      if (!track) return;
-      const card = track.children[0];
-      if (!card) return;
-      const step = card.offsetWidth + 24;
-      const maxScroll = track.scrollWidth - track.clientWidth;
-      const nextPos = (idxRef.current + 1) * step;
-      if (nextPos > maxScroll) {
-        track.scrollTo({ left: 0, behavior: "smooth" });
-        idxRef.current = 0;
-      } else {
-        track.scrollTo({ left: nextPos, behavior: "smooth" });
-        idxRef.current += 1;
-      }
-    }, 3500);
-    return () => clearInterval(iv);
-  }, [articles.length]);
+    startInterval();
+    return () => clearInterval(intervalRef.current);
+  }, [articles.length, startInterval]);
+
+  const handlePrev = () => {
+    const track = trackRef.current;
+    if (!track) return;
+    const step = getStep(track);
+    const maxScroll = track.scrollWidth - track.clientWidth;
+    const maxIdx = Math.round(maxScroll / step);
+    const next = idxRef.current <= 0 ? maxIdx : idxRef.current - 1;
+    scrollTo(next);
+    startInterval();
+  };
+
+  const handleNext = () => {
+    scrollTo(idxRef.current + 1);
+    startInterval();
+  };
 
   if (!articles.length) return null;
 
@@ -72,11 +102,45 @@ export default function FeaturedArticles() {
           <h2 className="fa-h2">As Seen In</h2>
         </div>
         {isCarousel ? (
-          <div className="fa-track" ref={trackRef}>{cards}</div>
+          <div className="fa-carousel-wrap">
+            <button className="fa-arrow fa-arrow-prev" onClick={handlePrev} aria-label="Previous">
+              <ArrowLeft />
+            </button>
+            <div className="fa-track" ref={trackRef}>{cards}</div>
+            <button className="fa-arrow fa-arrow-next" onClick={handleNext} aria-label="Next">
+              <ArrowRight />
+            </button>
+          </div>
         ) : (
           <div className="fa-grid">{cards}</div>
         )}
       </div>
     </section>
+  );
+}
+
+function ArrowLeft() {
+  return (
+    <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {/* shaft */}
+      <path d="M42 27 C35 25.5 22 26.8 13 26" stroke="white" strokeWidth="4.5" strokeLinecap="round"/>
+      {/* head */}
+      <path d="M23 16 C18 19 13 23 12 26 C13 29 18 33 23 36" stroke="white" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+      {/* little scratch tick for street feel */}
+      <path d="M38 22 L40 24" stroke="white" strokeWidth="2.5" strokeLinecap="round" opacity="0.5"/>
+    </svg>
+  );
+}
+
+function ArrowRight() {
+  return (
+    <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {/* shaft */}
+      <path d="M10 27 C17 25.5 30 26.8 39 26" stroke="white" strokeWidth="4.5" strokeLinecap="round"/>
+      {/* head */}
+      <path d="M29 16 C34 19 39 23 40 26 C39 29 34 33 29 36" stroke="white" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+      {/* little scratch tick */}
+      <path d="M14 22 L12 24" stroke="white" strokeWidth="2.5" strokeLinecap="round" opacity="0.5"/>
+    </svg>
   );
 }
