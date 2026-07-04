@@ -1,40 +1,124 @@
-@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Josefin+Sans:wght@300;400;600&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Josefin+Sans:wght@300;400;600;700&family=Inter:wght@400;500;600&display=swap');
 
-/* ── Section ── */
+/* ─────────────────────────────────────────
+   Section shell
+───────────────────────────────────────── */
 .hiw-section {
   width: 100%;
-  background: linear-gradient(180deg, #040e2e 0%, #060f2a 100%);
-  padding: 5rem 2rem;
+  background: linear-gradient(160deg, #040e2e 0%, #06102e 60%, #050c26 100%);
+  padding: 6rem 2.5rem;
   position: relative;
   overflow: hidden;
 }
 
+/* Top edge hairline */
 .hiw-section::before {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(71, 239, 172, 0.3), transparent);
+  background: linear-gradient(90deg, transparent 0%, rgba(71,239,172,0.35) 40%, rgba(126,184,255,0.2) 70%, transparent 100%);
 }
 
-/* ── 3-column layout ── */
+/* Ambient glow blob */
+.hiw-bg-glow {
+  position: absolute;
+  top: -120px;
+  right: -80px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(ellipse, rgba(71,239,172,0.04) 0%, transparent 68%);
+  pointer-events: none;
+}
+
+/* ─────────────────────────────────────────
+   3-column grid
+───────────────────────────────────────── */
 .hiw-container {
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
-  gap: 2rem;
+  gap: 2.5rem;
   align-items: center;
 }
 
-/* Col 1: text */
+.hiw-col { min-width: 0; }
+
+/* ─────────────────────────────────────────
+   Col 1 — header text
+───────────────────────────────────────── */
 .hiw-col-text {
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  flex-direction: column;
+  align-self: center;
+  position: relative;
 }
 
-/* Col 2: phone — natural width */
+.hiw-eyebrow {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #47EFAC;
+  margin-bottom: 1.25rem;
+  opacity: 0.9;
+}
+
+.hiw-title {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0 0 0.25rem;
+}
+
+.hiw-title-line {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 3.2rem;
+  font-weight: 400;
+  color: #ffffff;
+  line-height: 1.18;
+  letter-spacing: -0.5px;
+  display: block;
+}
+
+.hiw-title-accent {
+  background: linear-gradient(125deg, #47EFAC 0%, #7eb8ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Paint stroke sits flush below "Own." */
+.hiw-paint-stroke {
+  display: block;
+  width: 180px;
+  height: 18px;
+  margin: 0.1rem 0 1.4rem;
+}
+
+.hiw-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.7;
+  max-width: 270px;
+  margin-bottom: 2rem;
+}
+
+/* Spray cluster — decorative, bottom of text col */
+.hiw-spray {
+  display: block;
+  width: 70px;
+  height: 60px;
+  opacity: 0.8;
+}
+
+/* ─────────────────────────────────────────
+   Col 2 — phone
+───────────────────────────────────────── */
 .hiw-col-phone {
   display: flex;
   align-items: center;
@@ -42,162 +126,136 @@
 }
 
 .hiw-col-phone .iphone-canvas-container {
-  height: 540px;
-  width: 320px;
+  height: 560px;
+  width: 300px;
 }
 
-/* Col 3: cards stacked */
-.hiw-col-cards {
+/* ─────────────────────────────────────────
+   Col 3 — steps (no card boxes)
+───────────────────────────────────────── */
+.hiw-col-steps {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
 }
 
-/* ── Header ── */
-.hiw-eyebrow {
-  display: inline-block;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: #47EFAC;
-  margin-bottom: 1rem;
-}
-
-.hiw-title {
-  font-family: 'Permanent Marker', cursive;
-  font-size: 2.8rem;
-  font-weight: 400;
-  color: #ffffff;
-  line-height: 1.2;
-  margin-bottom: 1.25rem;
-  letter-spacing: 0;
-  text-transform: none;
-}
-
-.hiw-title-accent {
-  background: linear-gradient(135deg, #47EFAC 0%, #7eb8ff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.hiw-subtitle {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.5);
-  line-height: 1.65;
-  max-width: 280px;
-}
-
-/* ── Step cards ── */
-.hiw-card {
+.hiw-step {
   position: relative;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 14px;
-  padding: 1.25rem 1.25rem;
-  overflow: hidden;
-  cursor: default;
-  transition: border-color 0.3s ease, background 0.3s ease;
+  padding: 1.5rem 0 1.5rem 0;
+  overflow: visible;
 }
 
-.hiw-card:hover {
-  background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(71, 239, 172, 0.25);
+/* Giant ghost stencil number — texture layer */
+.hiw-ghost-num {
+  position: absolute;
+  top: 50%;
+  right: -8px;
+  transform: translateY(-50%);
+  font-family: 'Permanent Marker', cursive;
+  font-size: 5.5rem;
+  line-height: 1;
+  color: rgba(255,255,255,0.035);
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -2px;
 }
-.hiw-card:hover .hiw-card-glow { opacity: 1; }
 
-.hiw-card-top {
+.hiw-step-body {
+  position: relative;
+  z-index: 1;
+  padding-left: 0;
+}
+
+.hiw-step-meta {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
+  gap: 10px;
   margin-bottom: 0.6rem;
 }
 
-.hiw-step-number {
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 300;
-  color: rgba(71, 239, 172, 0.5);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
-
-.hiw-icon {
-  width: 36px;
-  height: 36px;
-  background: rgba(71, 239, 172, 0.08);
-  border: 1px solid rgba(71, 239, 172, 0.15);
-  border-radius: 10px;
+/* Teal icon — no box, just the icon on a faint bg */
+.hiw-step-icon {
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #47EFAC;
+  background: rgba(71,239,172,0.07);
+  border: 1px solid rgba(71,239,172,0.18);
+  border-radius: 8px;
   flex-shrink: 0;
 }
 
-.hiw-card-title {
+/* Step number tag: "— 01" style */
+.hiw-step-tag {
   font-family: 'Josefin Sans', sans-serif;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #ffffff;
-  margin-bottom: 0.35rem;
-  line-height: 1;
-  letter-spacing: 2px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 4px;
   text-transform: uppercase;
+  color: rgba(71,239,172,0.45);
 }
 
-.hiw-card-desc {
+.hiw-step-title {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin: 0 0 0.45rem;
+  line-height: 1;
+}
+
+.hiw-step-desc {
   font-family: 'Inter', sans-serif;
-  font-size: 0.78rem;
-  color: rgba(255, 255, 255, 0.5);
-  line-height: 1.6;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.7;
   margin: 0;
+  max-width: 300px;
 }
 
-.hiw-card-glow {
-  position: absolute;
-  bottom: -40px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 60px;
-  background: radial-gradient(ellipse, rgba(71, 239, 172, 0.1) 0%, transparent 70%);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
+/* Hand-drawn wavy divider */
+.hiw-divider {
+  display: block;
+  width: 100%;
+  height: 12px;
 }
 
-/* ── Responsive ── */
-@media (max-width: 900px) {
+/* ─────────────────────────────────────────
+   Responsive
+───────────────────────────────────────── */
+@media (max-width: 960px) {
   .hiw-container {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 2.5rem;
   }
 
   .hiw-col-phone { display: none; }
 
-  .hiw-col-text { justify-content: center; text-align: center; }
-  .hiw-subtitle { margin: 0 auto; }
+  .hiw-col-text {
+    align-items: center;
+    text-align: center;
+  }
+  .hiw-subtitle { margin: 0 auto 1.5rem; }
+  .hiw-paint-stroke { margin-left: auto; margin-right: auto; }
+  .hiw-spray { display: none; }
 
-  .hiw-col-cards {
-    max-width: 520px;
+  .hiw-col-steps {
+    max-width: 500px;
     margin: 0 auto;
     width: 100%;
-    gap: 1rem;
   }
 
-  .hiw-card { padding: 1.5rem; }
-  .hiw-card-title { font-size: 1.2rem; }
-  .hiw-card-desc { font-size: 0.875rem; }
-  .hiw-icon { width: 44px; height: 44px; border-radius: 12px; }
+  .hiw-step-desc { max-width: 100%; }
 
-  .hiw-title { font-size: 2rem; }
+  .hiw-title-line { font-size: 2.4rem; }
 }
 
 @media (max-width: 600px) {
   .hiw-section { padding: 4rem 1.25rem; }
-  .hiw-title { font-size: 1.75rem; }
+  .hiw-title-line { font-size: 2rem; }
+  .hiw-step { padding: 1.25rem 0; }
+  .hiw-ghost-num { font-size: 4rem; }
 }
