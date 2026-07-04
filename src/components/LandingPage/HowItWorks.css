@@ -60,14 +60,14 @@
 }
 
 .hiw-title {
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 2.8rem;
-  font-weight: 600;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 2.6rem;
+  font-weight: 400;
   color: #ffffff;
-  line-height: 1.05;
+  line-height: 1.15;
   margin-bottom: 0.75rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .hiw-title-accent {
@@ -192,7 +192,7 @@
   }
 
   .hiw-title {
-    font-size: 2.4rem;
+    font-size: 2.1rem;
   }
 
   .hiw-cards {
@@ -208,7 +208,7 @@
   }
 
   .hiw-title {
-    font-size: 1.9rem;
+    font-size: 1.75rem;
   }
 
   .hiw-header {

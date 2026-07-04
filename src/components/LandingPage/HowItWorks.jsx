@@ -47,14 +47,7 @@ const HowItWorks = () => {
     <section className="hiw-section">
       <div className="hiw-container">
 
-        {/* ── Left: 3D phones ── */}
-        <div className="hiw-phone-col">
-          <Suspense fallback={null}>
-            <IphoneModel />
-          </Suspense>
-        </div>
-
-        {/* ── Right: header + step cards ── */}
+        {/* ── Left: header + step cards ── */}
         <div className="hiw-content-col">
           <motion.div
             className="hiw-header"
@@ -93,6 +86,13 @@ const HowItWorks = () => {
               </motion.div>
             ))}
           </div>
+        </div>
+
+        {/* ── Right: 3D phone ── */}
+        <div className="hiw-phone-col">
+          <Suspense fallback={null}>
+            <IphoneModel />
+          </Suspense>
         </div>
 
       </div>
