@@ -59,6 +59,17 @@
   max-width: 600px;
 }
 
+/* Eyebrow text (replaces badge bubble) */
+.hero-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #47EFAC;
+  letter-spacing: 1.5px;
+  font-family: 'Inter', sans-serif;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
 /* Badge */
 .badge {
   display: inline-flex;
@@ -230,6 +241,132 @@
   background: rgba(255, 255, 255, 0.2);
   border-color: rgba(255, 255, 255, 0.5);
   transform: translateY(-3px);
+}
+
+/* Search bar overlaid on the mosaic */
+/* Wrapper that centers search + trending together */
+.mosaic-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 82%;
+  z-index: 3;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mosaic-search {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 999px;
+  overflow: hidden;
+  box-shadow:
+    0 32px 80px rgba(0, 0, 0, 0.95),
+    0 12px 32px rgba(0, 0, 0, 0.85),
+    0 4px 12px rgba(0, 0, 0, 0.7);
+}
+
+.mosaic-search-icon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  color: #aaa;
+  margin-left: 1rem;
+}
+
+.mosaic-search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0.95rem 0.75rem;
+  font-size: 0.9rem;
+  font-family: 'Inter', sans-serif;
+  color: #111;
+}
+
+.mosaic-search-input::placeholder {
+  color: #bbb;
+}
+
+.mosaic-search-btn {
+  flex-shrink: 0;
+  background: #072973;
+  color: #fff;
+  border: none;
+  padding: 0.95rem 1.4rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  transition: background 0.2s;
+}
+
+.mosaic-search-btn:hover {
+  background: #0a3a9e;
+}
+
+/* Trending searches */
+.mosaic-trending {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.mosaic-trending-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.55);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.mosaic-trending-tag {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.88);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  backdrop-filter: blur(6px);
+}
+
+.mosaic-trending-tag:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+/* Art mosaic panel — full right-half of hero, top-to-bottom */
+.hero-mosaic-panel {
+  position: absolute;
+  right: 0;
+  top: 6px;
+  bottom: 0;
+  width: 50%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hero-mosaic-panel > * {
+  pointer-events: auto;
+}
+
+/* Keep hero text above the mosaic panel */
+.hero-content {
+  position: relative;
+  z-index: 1;
 }
 
 /* App Preview Section */
@@ -999,6 +1136,10 @@
 }
 
 @media (max-width: 768px) {
+  .hero-mosaic-panel {
+    display: none;
+  }
+
   .hero-section {
     padding: 8rem 1.5rem 2rem;
     min-height: 100vh;

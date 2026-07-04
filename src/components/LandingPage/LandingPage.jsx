@@ -6,8 +6,10 @@ import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../API_URL";
 import GooglePlay from '../../assets/headers/GooglePlay.png';
 import Apple from '../../assets/headers/Apple.png';
-import IphoneModel from './IphoneModel';
+// import IphoneModel from './IphoneModel';
+import ArtMosaic from './ArtMosaic';
 import HowItWorks from './HowItWorks';
+import FeaturedArticles from './FeaturedArticles';
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -135,9 +137,7 @@ const LandingPage = () => {
         <div className="hero-content">
           <div className="hero-left">
 
-            <motion.div className="badge" {...fade(0.05)}>
-              <span className="badge-text">✦ ART SEARCH ENGINE &amp; MARKETPLACE</span>
-            </motion.div>
+            <motion.p className="hero-eyebrow" {...fade(0.05)}>✦ ART SEARCH ENGINE &amp; MARKETPLACE</motion.p>
 
             <motion.h1 className="hero-title" {...fade(0.15)}>
               Find Art.{" "}
@@ -146,30 +146,8 @@ const LandingPage = () => {
 
             <motion.p className="hero-subtitle" {...fade(0.28)}>
               Search thousands of artworks, discover emerging artists, and buy
-              original pieces directly from creators — all in one place.
+              original pieces directly from creators, all in one place.
             </motion.p>
-
-            <motion.form className="hero-search" onSubmit={handleSearch} {...fade(0.36)}>
-              <div className="hero-search-inner">
-                <svg className="hero-search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
-                </svg>
-                <input
-                  type="text"
-                  className="hero-search-input"
-                  placeholder="Search by artist, style, keyword, or anything..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                <button type="submit" className="hero-search-btn">Search</button>
-              </div>
-            </motion.form>
-
-            <motion.div className="hero-pills" {...fade(0.4)}>
-              <span className="hero-pill">✦ Search Thousands of Artworks</span>
-              <span className="hero-pill">✦ Discover Emerging Artists</span>
-              <span className="hero-pill">✦ Artists Keep 90%</span>
-            </motion.div>
 
             <motion.div className="cta-buttons" {...fade(0.52)}>
               <a
@@ -192,12 +170,44 @@ const LandingPage = () => {
             </motion.div>
           </div>
 
-          <div className="hero-right">
-            <IphoneModel />
+          {/* empty spacer keeps the 2-column grid intact */}
+          <div className="hero-right" />
+        </div>
+
+        {/* mosaic is absolutely positioned so it spans the full hero height */}
+        <div className="hero-mosaic-panel">
+          <ArtMosaic />
+          <div className="mosaic-overlay">
+            <form className="mosaic-search" onSubmit={handleSearch}>
+              <svg className="mosaic-search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+              <input
+                type="text"
+                className="mosaic-search-input"
+                placeholder="Search by artist, style, keyword, or anything..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <button type="submit" className="mosaic-search-btn">Search</button>
+            </form>
+            <div className="mosaic-trending">
+              <span className="mosaic-trending-label">Trending</span>
+              {["Abstract", "Portrait", "Van Gogh", "Photography", "Sculpture", "NYC Art"].map((term) => (
+                <button
+                  key={term}
+                  className="mosaic-trending-tag"
+                  onClick={() => navigate(`/search?q=${encodeURIComponent(term)}`)}
+                >
+                  {term}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
+      <FeaturedArticles />
       <HowItWorks />
     </div>
   );
