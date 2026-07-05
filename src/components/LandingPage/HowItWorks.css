@@ -252,39 +252,148 @@
 }
 
 /* ─────────────────────────────────────────
+   Static phone mockup — mobile only
+───────────────────────────────────────── */
+.hiw-phone-static-wrap {
+  display: none; /* hidden on desktop — 3D model shows instead */
+}
+
+.hiw-phone-shell {
+  position: relative;
+  width: 210px;
+  margin: 0 auto;
+  background: #0f0f0f;
+  border-radius: 42px;
+  padding: 13px;
+  box-shadow:
+    0 0 0 1.5px rgba(255,255,255,0.13),
+    0 28px 72px rgba(0,0,0,0.7),
+    inset 0 0 0 1px rgba(255,255,255,0.05);
+}
+
+/* Power button */
+.hiw-phone-shell::before {
+  content: '';
+  position: absolute;
+  right: -3px;
+  top: 90px;
+  width: 3px;
+  height: 52px;
+  background: #222;
+  border-radius: 0 2px 2px 0;
+}
+
+/* Volume buttons */
+.hiw-phone-shell::after {
+  content: '';
+  position: absolute;
+  left: -3px;
+  top: 68px;
+  width: 3px;
+  height: 30px;
+  background: #222;
+  border-radius: 2px 0 0 2px;
+  box-shadow: 0 46px 0 #222;
+}
+
+/* Dynamic Island */
+.hiw-phone-island {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 76px;
+  height: 22px;
+  background: #000;
+  border-radius: 999px;
+  z-index: 2;
+}
+
+.hiw-phone-screen {
+  border-radius: 30px;
+  overflow: hidden;
+  aspect-ratio: 9 / 19.5;
+  background: #000;
+}
+
+.hiw-phone-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+/* Home indicator */
+.hiw-phone-bar {
+  width: 76px;
+  height: 4px;
+  background: rgba(255,255,255,0.22);
+  border-radius: 999px;
+  margin: 10px auto 0;
+}
+
+/* ─────────────────────────────────────────
    Responsive
 ───────────────────────────────────────── */
 @media (max-width: 960px) {
+  .hiw-section { padding: 4rem 1.5rem; }
+
   .hiw-container {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 2rem;
+  }
+
+  /* Reset all explicit column placements so items stack naturally */
+  .hiw-col-text,
+  .hiw-col-phone,
+  .hiw-col-steps {
+    grid-column: auto;
   }
 
   .hiw-col-phone { display: none; }
 
+  .hiw-phone-static-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .hiw-col-text {
+    margin-left: 0;
+    padding-right: 0;
     align-items: center;
     text-align: center;
+    width: 100%;
+    align-self: auto;
   }
+
+  .hiw-section-label { margin-bottom: 1.75rem; }
+
+  .hiw-title-line { font-size: 2.4rem; }
+
   .hiw-subtitle { margin: 0 auto 1.5rem; }
+
   .hiw-paint-stroke { margin-left: auto; margin-right: auto; }
+
   .hiw-spray { display: none; }
 
   .hiw-col-steps {
-    max-width: 500px;
+    max-width: 480px;
     margin: 0 auto;
     width: 100%;
     padding-left: 0;
   }
 
   .hiw-step-desc { max-width: 100%; }
-
-  .hiw-title-line { font-size: 2.4rem; }
 }
 
 @media (max-width: 600px) {
-  .hiw-section { padding: 4rem 1.25rem; }
+  .hiw-section { padding: 3.5rem 1.25rem; }
+  .hiw-section-label { font-size: 1.6rem; margin-bottom: 1.5rem; }
   .hiw-title-line { font-size: 2rem; }
   .hiw-step { padding: 1.25rem 0; }
   .hiw-ghost-num { font-size: 4rem; }
+  .hiw-step-title { font-size: 1rem; letter-spacing: 2px; }
+  .hiw-step-desc { font-size: 0.82rem; }
 }

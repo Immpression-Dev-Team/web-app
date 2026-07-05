@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Suspense } from "react";
 import IphoneModel from "./IphoneModel";
+import ImmpressionHome from "../../assets/backgrounds/ImmpressionHome.png";
 import "./HowItWorks.css";
 
 const steps = [
@@ -124,11 +125,26 @@ const HowItWorks = () => {
           <SprayCluster />
         </motion.div>
 
-        {/* ── Col 2: phone ── */}
+        {/* ── Col 2: 3D phone (desktop only) ── */}
         <div className="hiw-col hiw-col-phone">
           <Suspense fallback={null}>
             <IphoneModel />
           </Suspense>
+        </div>
+
+        {/* ── Static phone mockup (mobile only) ── */}
+        <div className="hiw-phone-static-wrap">
+          <div className="hiw-phone-shell">
+            <div className="hiw-phone-island" aria-hidden="true" />
+            <div className="hiw-phone-screen">
+              <img
+                src={ImmpressionHome}
+                alt="Immpression app screenshot"
+                className="hiw-phone-img"
+              />
+            </div>
+            <div className="hiw-phone-bar" aria-hidden="true" />
+          </div>
         </div>
 
         {/* ── Col 3: steps ── */}
