@@ -18,11 +18,11 @@ const Footer = () => {
                 </div>
 
                 <div className="footer-section">
-                    <h4 className="footer-heading">Product</h4>
+                    <h4 className="footer-heading">Discover</h4>
                     <div className="footer-links">
-                        <Link to="/about" className="footer-link">About Us</Link>
-                        <a href="#" className="footer-link">Features</a>
-                        <a href="#" className="footer-link">Pricing</a>
+                        <Link to="/explore" className="footer-link">Explore Art</Link>
+                        <Link to="/marketplace" className="footer-link">Marketplace</Link>
+                        <Link to="/search" className="footer-link">Art Search</Link>
                     </div>
                 </div>
 
@@ -40,10 +40,9 @@ const Footer = () => {
                 <div className="footer-section">
                     <h4 className="footer-heading">Company</h4>
                     <div className="footer-links">
-                        <Link to="/about" className="footer-link">About</Link>
+                        <Link to="/about" className="footer-link">About Us</Link>
+                        <Link to="/press" className="footer-link">Press</Link>
                         <Link to="/contact" className="footer-link">Contact</Link>
-                        <a href="#" className="footer-link">Careers</a>
-                        <a href="#" className="footer-link">Press</a>
                     </div>
                 </div>
             </div>

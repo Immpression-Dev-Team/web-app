@@ -62,6 +62,12 @@ const ContactUs = () => {
         <meta property="og:description" content="Artists, collectors, and partners — we'd love to hear from you." />
         <meta property="og:url" content="https://www.immpression.art/contact" />
         <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Immpression" />
+        <meta property="og:image" content="https://www.immpression.art/Immpression_UI_1.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Contact Immpression" />
+        <meta name="twitter:description" content="Artists, collectors, and partners — we'd love to hear from you." />
+        <meta name="twitter:image" content="https://www.immpression.art/Immpression_UI_1.png" />
       </Helmet>
 
       {/* Hero */}

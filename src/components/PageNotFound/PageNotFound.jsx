@@ -1,10 +1,15 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 import "./PageNotFound.css";
 
 const PageNotFound = () => {
     return (
         <div className="not-found-container">
+      <Helmet>
+        <title>Page Not Found | Immpression</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
             <motion.h1
                 initial={{ scale: 0.5, opacity: 0 }}
                 animate={{ scale: 1.2, opacity: 1 }}

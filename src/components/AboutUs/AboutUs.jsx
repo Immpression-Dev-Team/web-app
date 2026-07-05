@@ -55,13 +55,19 @@ const AboutUs = () => {
   return (
     <div className="about-wrapper">
       <Helmet>
-        <title>About Us | Immpression</title>
+        <title>About Us | Immpression — Art Search Engine &amp; Marketplace</title>
         <meta name="description" content="Immpression is an art search engine and marketplace built to give emerging artists real tools to reach real collectors. Art deserves better discovery." />
         <link rel="canonical" href="https://www.immpression.art/about" />
-        <meta property="og:title" content="About Immpression" />
-        <meta property="og:description" content="Built to give emerging artists real tools to reach real collectors." />
+        <meta property="og:title" content="About Immpression — Art Search Engine &amp; Marketplace" />
+        <meta property="og:description" content="Built to give emerging artists real tools to reach real collectors. Artists keep 90% of every sale." />
         <meta property="og:url" content="https://www.immpression.art/about" />
         <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Immpression" />
+        <meta property="og:image" content="https://www.immpression.art/Immpression_UI_1.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="About Immpression" />
+        <meta name="twitter:description" content="Built to give emerging artists real tools to reach real collectors." />
+        <meta name="twitter:image" content="https://www.immpression.art/Immpression_UI_1.png" />
       </Helmet>
 
       {/* Hero */}

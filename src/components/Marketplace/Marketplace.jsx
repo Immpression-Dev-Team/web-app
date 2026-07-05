@@ -94,14 +94,19 @@ const Marketplace = () => {
     <div className="marketplace-wrapper">
 
       <Helmet>
-        <title>Marketplace | Immpression — Buy Original Art</title>
+        <title>Buy Original Art | Immpression Marketplace</title>
         <meta name="description" content="Browse and buy original artwork from emerging artists on Immpression. Paintings, photography, sculptures, graffiti and more — all one of a kind." />
         <link rel="canonical" href="https://www.immpression.art/marketplace" />
-        <meta property="og:title" content="Marketplace | Immpression — Buy Original Art" />
-        <meta property="og:description" content="Browse and buy original artwork from emerging artists on Immpression." />
+        <meta property="og:title" content="Buy Original Art | Immpression Marketplace" />
+        <meta property="og:description" content="Browse and buy original artwork from emerging artists. Paintings, photography, sculptures, graffiti and more." />
         <meta property="og:url" content="https://www.immpression.art/marketplace" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Immpression" />
+        <meta property="og:image" content="https://www.immpression.art/Immpression_UI_3.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Buy Original Art | Immpression Marketplace" />
+        <meta name="twitter:description" content="Browse and buy original artwork from emerging artists. Paintings, photography, sculptures, and more." />
+        <meta name="twitter:image" content="https://www.immpression.art/Immpression_UI_3.png" />
       </Helmet>
 
       {/* Hero */}
