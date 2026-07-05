@@ -32,6 +32,36 @@
 }
 
 /* ─────────────────────────────────────────
+   Section heading — full width, above grid
+───────────────────────────────────────── */
+.hiw-section-heading {
+  max-width: 1200px;
+  margin: 0 auto 2.5rem;
+  padding: 0 0.5rem;
+}
+
+.hiw-section-label {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 2rem;
+  color: #ffffff;
+  letter-spacing: 0;
+  display: inline-block;
+  position: relative;
+}
+
+/* Teal underline accent */
+.hiw-section-label::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 60%;
+  height: 3px;
+  background: linear-gradient(90deg, #47efac, transparent);
+  border-radius: 2px;
+}
+
+/* ─────────────────────────────────────────
    3-column grid
 ───────────────────────────────────────── */
 .hiw-container {

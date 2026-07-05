@@ -101,6 +101,17 @@ const HowItWorks = () => {
       {/* Subtle background accent glow */}
       <div className="hiw-bg-glow" aria-hidden="true" />
 
+      {/* Section title — full width, top of section */}
+      <motion.div
+        className="hiw-section-heading"
+        initial={{ opacity: 0, y: -16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
+        <span className="hiw-section-label">How It Works</span>
+      </motion.div>
+
       <div className="hiw-container">
 
         {/* ── Col 1: header text ── */}
@@ -111,7 +122,7 @@ const HowItWorks = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.75 }}
         >
-          <span className="hiw-eyebrow">How It Works</span>
+          <span className="hiw-eyebrow" style={{ display: 'none' }}>How It Works</span>
           <h2 className="hiw-title">
             <span className="hiw-title-line">Search.</span>
             <span className="hiw-title-line">Discover.</span>
