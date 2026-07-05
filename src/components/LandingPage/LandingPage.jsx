@@ -10,6 +10,7 @@ import Apple from '../../assets/headers/Apple.png';
 import ArtMosaic from './ArtMosaic';
 import HowItWorks from './HowItWorks';
 import FeaturedArticles from './FeaturedArticles';
+import MobileLanding from './MobileLanding';
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -218,6 +219,7 @@ const LandingPage = () => {
                 <img src={Apple} alt="Download on the App Store" className="google-play-img" />
               </a>
             </motion.div>
+
           </div>
 
           {/* empty spacer keeps the 2-column grid intact */}
@@ -256,6 +258,12 @@ const LandingPage = () => {
           </div>
         </div>
       </section>
+
+      <MobileLanding
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        onSearch={handleSearch}
+      />
 
       <FeaturedArticles />
       <HowItWorks />

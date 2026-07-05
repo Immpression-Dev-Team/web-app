@@ -1136,6 +1136,11 @@
 }
 
 @media (max-width: 768px) {
+  /* MobileLanding replaces the entire hero section on mobile */
+  .hero-section {
+    display: none;
+  }
+
   .hero-mosaic-panel {
     display: none;
   }
