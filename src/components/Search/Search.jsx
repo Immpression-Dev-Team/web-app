@@ -65,8 +65,10 @@ export default function Search() {
   return (
     <div className="search-wrapper">
       <Helmet>
-        <title>{searchedQ ? `"${searchedQ}" — Search | Immpression` : "Search | Immpression"}</title>
-        <meta name="description" content="Search across original artwork from emerging artists and public domain masterpieces." />
+        <title>{searchedQ ? `"${searchedQ}" — Art Search | Immpression` : "Art Search Engine | Immpression"}</title>
+        <meta name="description" content="Search across original artwork from emerging artists and public domain masterpieces on Immpression's art search engine." />
+        <link rel="canonical" href="https://www.immpression.art/search" />
+        <meta name="robots" content="noindex, follow" />
       </Helmet>
 
       {/* Search header */}

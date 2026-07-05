@@ -85,9 +85,18 @@ export default function Explore() {
     <div className="explore-wrapper">
       <Helmet>
         <title>Explore Public Domain Art | Immpression</title>
-        <meta name="description" content="Browse thousands of public domain masterpieces from the Met Museum and Art Institute of Chicago. Search by artist, style, or movement." />
+        <meta name="description" content="Browse thousands of public domain masterpieces from the Met Museum and Art Institute of Chicago. Search by artist, style, or movement — free to explore." />
+        <link rel="canonical" href="https://www.immpression.art/explore" />
         <meta property="og:title" content="Explore Public Domain Art | Immpression" />
-        <meta property="og:description" content="Browse thousands of public domain masterpieces — Van Gogh, Monet, Rembrandt, and more." />
+        <meta property="og:description" content="Browse thousands of public domain masterpieces — Van Gogh, Monet, Rembrandt, and more. Free to explore." />
+        <meta property="og:url" content="https://www.immpression.art/explore" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Immpression" />
+        <meta property="og:image" content="https://www.immpression.art/Immpression_UI_2.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Explore Public Domain Art | Immpression" />
+        <meta name="twitter:description" content="Browse thousands of public domain masterpieces from the Met Museum and Art Institute of Chicago." />
+        <meta name="twitter:image" content="https://www.immpression.art/Immpression_UI_2.png" />
       </Helmet>
 
       <section className="explore-hero">

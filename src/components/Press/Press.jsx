@@ -18,8 +18,19 @@ export default function Press() {
   return (
     <div className="press-page">
       <Helmet>
-        <title>Press — Immpression</title>
-        <meta name="description" content="Immpression in the press — read our featured articles, guest posts, and media coverage." />
+        <title>Press &amp; Media Coverage | Immpression</title>
+        <meta name="description" content="Immpression in the press — read our featured articles, guest posts, and media coverage of the art search engine and marketplace." />
+        <link rel="canonical" href="https://www.immpression.art/press" />
+        <meta property="og:title" content="Press &amp; Media Coverage | Immpression" />
+        <meta property="og:description" content="Read featured articles, guest posts, and media coverage of Immpression." />
+        <meta property="og:url" content="https://www.immpression.art/press" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Immpression" />
+        <meta property="og:image" content="https://www.immpression.art/Immpression_UI_1.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Press &amp; Media Coverage | Immpression" />
+        <meta name="twitter:description" content="Read featured articles, guest posts, and media coverage of Immpression." />
+        <meta name="twitter:image" content="https://www.immpression.art/Immpression_UI_1.png" />
       </Helmet>
 
       <header className="press-hero">
