@@ -32,14 +32,8 @@
 }
 
 /* ─────────────────────────────────────────
-   Section heading — full width, above grid
+   Section label — top of left column
 ───────────────────────────────────────── */
-.hiw-section-heading {
-  max-width: 1200px;
-  margin: 0 auto 2.5rem;
-  padding: 0 0.5rem;
-}
-
 .hiw-section-label {
   font-family: 'Permanent Marker', cursive;
   font-size: 2rem;
@@ -47,6 +41,7 @@
   letter-spacing: 0;
   display: inline-block;
   position: relative;
+  margin-bottom: 1.75rem;
 }
 
 /* Teal underline accent */
