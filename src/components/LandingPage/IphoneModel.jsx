@@ -3,8 +3,9 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, Environment, PerspectiveCamera, useTexture } from '@react-three/drei';
 import { motion } from 'framer-motion';
 import * as THREE from 'three';
-import ImmpressionGooglePlay from '../../assets/backgrounds/ImmpressionGooglePlay.png'
-import ImmpressionApple from '../../assets/backgrounds/ImmpressionApple.png'
+// import ImmpressionGooglePlay from '../../assets/backgrounds/ImmpressionGooglePlay.png'
+// import ImmpressionApple from '../../assets/backgrounds/ImmpressionApple.png'
+import ImmpressionHome from '../../assets/backgrounds/ImmpressionHome.png'
 
 /*
  * Shared mouse ref — lives outside the component so it persists across renders
@@ -21,74 +22,25 @@ if (typeof window !== 'undefined') {
 
 function IphoneScene({ onReady }) {
   const groupRef = useRef();
-  const secondPhoneRef = useRef();
+  // const secondPhoneRef = useRef();
 
   /* Target rotation for lerping — keeps motion silky */
   const targetRotation = useRef({ x: 0, y: -0.3 });
 
   const { scene } = useGLTF('/models/iphone_16.glb');
-  const { scene: infinixScene } = useGLTF('/models/Infinix_Hot_12.glb');
-  const logoTexture = useTexture('/Logo_T.png');
-  const googlePlayTexture = useTexture(ImmpressionGooglePlay);
-  const appleTexture = useTexture(ImmpressionApple);
+  // const { scene: infinixScene } = useGLTF('/models/Infinix_Hot_12.glb');
+  // const googlePlayTexture = useTexture(ImmpressionGooglePlay);
+  // const appleTexture = useTexture(ImmpressionApple);
+  const homeTexture = useTexture(ImmpressionHome);
 
-  googlePlayTexture.flipY = true;
-  if (googlePlayTexture.colorSpace !== THREE.SRGBColorSpace) {
-    googlePlayTexture.colorSpace = THREE.SRGBColorSpace;
+  homeTexture.flipY = true;
+  if (homeTexture.colorSpace !== THREE.SRGBColorSpace) {
+    homeTexture.colorSpace = THREE.SRGBColorSpace;
   }
-  googlePlayTexture.needsUpdate = true;
+  homeTexture.needsUpdate = true;
 
-  appleTexture.flipY = true;
-  if (appleTexture.colorSpace !== THREE.SRGBColorSpace) {
-    appleTexture.colorSpace = THREE.SRGBColorSpace;
-  }
-  appleTexture.needsUpdate = true;
-
-  const containedGooglePlayTexture = useMemo(() => {
-    const img = googlePlayTexture?.image;
-    if (!img || !img.width || !img.height) return null;
-
-    const screenW = 410;
-    const screenH = Math.round(screenW * (9.2 / 4.1));
-    const canvas = document.createElement('canvas');
-    canvas.width = screenW;
-    canvas.height = screenH;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return null;
-
-    const radiusPx = Math.round(0.45 * (screenW / 4.1));
-    const r = Math.max(2, Math.min(radiusPx, Math.floor(Math.min(screenW, screenH) / 8)));
-    const path = new Path2D();
-    const x = 0, y = 0, w = screenW, h = screenH;
-    path.moveTo(x + r, y);
-    path.lineTo(x + w - r, y);
-    path.quadraticCurveTo(x + w, y, x + w, y + r);
-    path.lineTo(x + w, y + h - r);
-    path.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-    path.lineTo(x + r, y + h);
-    path.quadraticCurveTo(x, y + h, x, y + h - r);
-    path.lineTo(x, y + r);
-    path.quadraticCurveTo(x, y, x + r, y);
-    ctx.clearRect(0, 0, screenW, screenH);
-    ctx.save();
-    ctx.clip(path);
-
-    const iw = img.width; const ih = img.height;
-    const scale = Math.min(screenW / iw, screenH / ih);
-    const dw = iw * scale; const dh = ih * scale;
-    const dx = (screenW - dw) / 2; const dy = (screenH - dh) / 2;
-    ctx.drawImage(img, dx, dy, dw, dh);
-    ctx.restore();
-
-    const tex = new THREE.CanvasTexture(canvas);
-    tex.flipY = true;
-    tex.colorSpace = THREE.SRGBColorSpace;
-    tex.needsUpdate = true;
-    return tex;
-  }, [googlePlayTexture?.image]);
-
-  const containedAppleTexture = useMemo(() => {
-    const img = appleTexture?.image;
+  const containedHomeTexture = useMemo(() => {
+    const img = homeTexture?.image;
     if (!img || !img.width || !img.height) return null;
 
     const screenW = 410;
@@ -127,7 +79,7 @@ function IphoneScene({ onReady }) {
     tex.colorSpace = THREE.SRGBColorSpace;
     tex.needsUpdate = true;
     return tex;
-  }, [appleTexture?.image]);
+  }, [homeTexture?.image]);
 
   const iphoneDepth = useMemo(() => {
     const clone = scene.clone(true);
@@ -150,48 +102,39 @@ function IphoneScene({ onReady }) {
     /* ── Main iPhone (groupRef) ── */
     if (groupRef.current) {
       if (mouse.isPointer) {
-        /*
-         * Pointer mode: rotate toward cursor.
-         * Max tilt: ±15° horizontally, ±10° vertically.
-         * Lerp factor 0.05 = smooth lag that feels physical.
-         */
-        targetRotation.current.y = -0.3 + mouse.x * 0.26;  // ~15°
-        targetRotation.current.x = -mouse.y * 0.17;         // ~10°
+        targetRotation.current.y = -0.3 + mouse.x * 0.26;
+        targetRotation.current.x = -mouse.y * 0.17;
 
         groupRef.current.rotation.y +=
           (targetRotation.current.y - groupRef.current.rotation.y) * 0.05;
         groupRef.current.rotation.x +=
           (targetRotation.current.x - groupRef.current.rotation.x) * 0.05;
       } else {
-        /* Mobile: keep the original idle float rotation */
         groupRef.current.rotation.y = -0.3;
         groupRef.current.rotation.x = 0;
       }
 
-      /* Idle float position stays the same regardless of device */
-      groupRef.current.position.x = 0.7 + Math.sin(time * 0.4) * 0.1;
+      groupRef.current.position.x = -0.5 + Math.sin(time * 0.4) * 0.1;
       groupRef.current.position.y = Math.cos(time * 0.5) * 0.18;
       groupRef.current.position.z = 0.35;
     }
 
-    /* ── Second phone (Infinix) — subtle follow, same pointer guard ── */
-    if (secondPhoneRef.current) {
-      const baseX = -3.9, baseY = -5, baseZ = -3.4;
-
-      if (mouse.isPointer) {
-        secondPhoneRef.current.rotation.y +=
-          (-0.25 + mouse.x * 0.15 - secondPhoneRef.current.rotation.y) * 0.04;
-        secondPhoneRef.current.rotation.x +=
-          (-mouse.y * 0.1 - secondPhoneRef.current.rotation.x) * 0.04;
-      } else {
-        secondPhoneRef.current.rotation.y = -0.25;
-        secondPhoneRef.current.rotation.x = 0;
-      }
-
-      secondPhoneRef.current.position.x = baseX + Math.sin(time * 0.5) * 0.12;
-      secondPhoneRef.current.position.y = baseY + Math.cos(time * 0.45) * 0.18;
-      secondPhoneRef.current.position.z = baseZ + Math.sin(time * 0.35) * 0.04;
-    }
+    /* ── Second phone (Android) — commented out ── */
+    // if (secondPhoneRef.current) {
+    //   const baseX = -3.9, baseY = -5, baseZ = -3.4;
+    //   if (mouse.isPointer) {
+    //     secondPhoneRef.current.rotation.y +=
+    //       (-0.25 + mouse.x * 0.15 - secondPhoneRef.current.rotation.y) * 0.04;
+    //     secondPhoneRef.current.rotation.x +=
+    //       (-mouse.y * 0.1 - secondPhoneRef.current.rotation.x) * 0.04;
+    //   } else {
+    //     secondPhoneRef.current.rotation.y = -0.25;
+    //     secondPhoneRef.current.rotation.x = 0;
+    //   }
+    //   secondPhoneRef.current.position.x = baseX + Math.sin(time * 0.5) * 0.12;
+    //   secondPhoneRef.current.position.y = baseY + Math.cos(time * 0.45) * 0.18;
+    //   secondPhoneRef.current.position.z = baseZ + Math.sin(time * 0.35) * 0.04;
+    // }
   });
 
   return (
@@ -204,7 +147,8 @@ function IphoneScene({ onReady }) {
       <Environment preset="studio" />
       <ReadySignal onReady={onReady} />
 
-      <group ref={secondPhoneRef} position={[-3.9, -5, -3.4]} rotation={[0, -0.25, 0]}>
+      {/* Android phone — commented out */}
+      {/* <group ref={secondPhoneRef} position={[-3.9, -5, -3.4]} rotation={[0, -0.25, 0]}>
         <primitive object={infinixScene.clone()} scale={60} position={[0, 0, 0]} />
         <mesh position={[0, 5.2, 0.3]} renderOrder={3}>
           <planeGeometry args={[4.15, 9.82]} />
@@ -219,7 +163,7 @@ function IphoneScene({ onReady }) {
             side={THREE.FrontSide}
           />
         </mesh>
-      </group>
+      </group> */}
 
       <group ref={groupRef} rotation={[0, -0.3, 0]}>
         <primitive object={iphoneDepth} scale={0.8} position={[0, 0, 0]} renderOrder={0} />
@@ -227,7 +171,7 @@ function IphoneScene({ onReady }) {
         <mesh position={[0, 0, 0.51]} renderOrder={3}>
           <planeGeometry args={[4.9, 11.4]} />
           <meshBasicMaterial
-            map={containedAppleTexture || appleTexture}
+            map={containedHomeTexture || homeTexture}
             transparent={true}
             depthWrite={false}
             depthTest={true}
@@ -259,11 +203,6 @@ const ReadySignal = ({ onReady }) => {
 };
 
 const IphoneModel = () => {
-  /*
-   * canvasReady: flips to true once IphoneScene signals it has rendered
-   * at least one frame. We use this to crossfade: spinner fades OUT,
-   * canvas fades IN — both happening at the same time via absolute positioning.
-   */
   const [canvasReady, setCanvasReady] = useState(false);
 
   useEffect(() => {
@@ -290,13 +229,12 @@ const IphoneModel = () => {
         style={{ position: 'absolute', inset: 0 }}
         animate={{ opacity: canvasReady ? 0 : 1 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
-        /* hide from pointer events once invisible so it doesn't block canvas */
         pointerEvents={canvasReady ? 'none' : 'auto'}
       >
         <div className="phone-loader-spinner" />
       </motion.div>
 
-      {/* Canvas — always mounted, fades in once scene has drawn its first frame */}
+      {/* Canvas — fades in once scene has drawn its first frame */}
       <motion.div
         style={{ width: '100%', height: '100%' }}
         animate={{ opacity: canvasReady ? 1 : 0 }}

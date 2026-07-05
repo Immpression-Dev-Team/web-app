@@ -190,11 +190,32 @@
 /* ── Responsive ── */
 @media (max-width: 900px) {
   .fa-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* carousel: show 2 cards on tablet */
+  .fa-track .fa-card { flex: 0 0 calc((100% - 24px) / 2); }
 }
 
 @media (max-width: 600px) {
-  .fa-section { padding: 56px 0 48px; }
-  .fa-inner { padding: 0 20px; }
+  .fa-section { padding: 48px 0 40px; }
+  .fa-inner { padding: 0 16px; }
+  .fa-heading { margin-bottom: 28px; }
   .fa-h2 { font-size: 1.5rem; }
+
+  /* grid: single column */
   .fa-grid { grid-template-columns: 1fr; gap: 16px; }
+
+  /* carousel: 1 card at a time, peek the next */
+  .fa-carousel-wrap { padding: 0 44px; }
+  .fa-track { gap: 12px; }
+  .fa-track .fa-card { flex: 0 0 100%; }
+
+  /* smaller arrows, tucked to edges */
+  .fa-arrow { width: 36px; height: 36px; padding: 6px; }
+  .fa-arrow-prev { left: -2px; }
+  .fa-arrow-next { right: -2px; }
+
+  /* tighten card body text */
+  .fa-card-body { padding: 12px 14px 14px; gap: 4px; }
+  .fa-card-title { font-size: 0.88rem; }
+  .fa-card-date  { font-size: 0.72rem; }
 }
