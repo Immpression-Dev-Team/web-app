@@ -114,7 +114,7 @@ function IphoneScene({ onReady }) {
         groupRef.current.rotation.x = 0;
       }
 
-      groupRef.current.position.x = 0 + Math.sin(time * 0.4) * 0.1;
+      groupRef.current.position.x = -0.5 + Math.sin(time * 0.4) * 0.1;
       groupRef.current.position.y = Math.cos(time * 0.5) * 0.18;
       groupRef.current.position.z = 0.35;
     }
