@@ -103,18 +103,7 @@ const HowItWorks = () => {
 
       <div className="hiw-container">
 
-        {/* Row 1 Col 1 — section label, top of section */}
-        <motion.div
-          className="hiw-heading-row"
-          initial={{ opacity: 0, y: -12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <span className="hiw-section-label">How It Works</span>
-        </motion.div>
-
-        {/* Row 2 Col 1 — title + subtitle */}
+        {/* Col 1 — label + title + subtitle */}
         <motion.div
           className="hiw-col hiw-col-text"
           initial={{ opacity: 0, x: -24 }}
@@ -122,7 +111,7 @@ const HowItWorks = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.75 }}
         >
-          <span className="hiw-eyebrow" style={{ display: 'none' }}>How It Works</span>
+          <span className="hiw-section-label">How It Works</span>
           <h2 className="hiw-title">
             <span className="hiw-title-line">Search.</span>
             <span className="hiw-title-line">Discover.</span>
