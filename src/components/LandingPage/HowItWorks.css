@@ -53,6 +53,8 @@
   flex-direction: column;
   align-self: center;
   position: relative;
+  margin-left: auto;
+  padding-right: 1rem;
 }
 
 .hiw-eyebrow {
