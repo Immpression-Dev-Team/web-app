@@ -21,6 +21,7 @@ const ArtworkDetail = () => {
 
   const id = extractId(artworkSlug);
   const [moreArtworks, setMoreArtworks] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     if (!id) {
@@ -152,15 +153,33 @@ const ArtworkDetail = () => {
         })}</script>
       </Helmet>
 
-      {/* Breadcrumb */}
+      {/* Breadcrumb + search on same row */}
       <div className="artwork-detail-breadcrumb">
-        <Link to="/marketplace" className="artwork-detail-back-link">
-          ← Marketplace
-        </Link>
-        <span className="artwork-detail-breadcrumb-sep">/</span>
-        <span className="artwork-detail-breadcrumb-artist">{artistName}</span>
-        <span className="artwork-detail-breadcrumb-sep">/</span>
-        <span className="artwork-detail-breadcrumb-name">{name}</span>
+        <div className="artwork-detail-breadcrumb-left">
+          <Link to="/marketplace" className="artwork-detail-back-link">
+            ← Marketplace
+          </Link>
+          <span className="artwork-detail-breadcrumb-sep">/</span>
+          <span className="artwork-detail-breadcrumb-artist">{artistName}</span>
+          <span className="artwork-detail-breadcrumb-sep">/</span>
+          <span className="artwork-detail-breadcrumb-name">{name}</span>
+        </div>
+        <form
+          className="artwork-detail-search-form"
+          onSubmit={e => { e.preventDefault(); if (searchQuery.trim()) navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`); }}
+        >
+          <svg className="artwork-detail-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input
+            className="artwork-detail-search-input"
+            type="text"
+            placeholder="Search artworks, artists…"
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+          />
+          <button type="submit" className="artwork-detail-search-btn">Search</button>
+        </form>
       </div>
 
       <div className="artwork-detail-inner">
@@ -259,19 +278,17 @@ const ArtworkDetail = () => {
                   href="https://apps.apple.com/app/immpression/id6739459806"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="artwork-detail-app-btn"
+                  className="artwork-detail-store-btn"
                 >
-                  <img src={appleIcon} alt="Apple App Store" className="artwork-detail-app-icon" />
-                  Download on App Store
+                  <img src={appleIcon} alt="Download on the App Store" className="artwork-detail-store-img" />
                 </a>
                 <a
                   href="https://play.google.com/store/apps/details?id=com.immpression.app"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="artwork-detail-app-btn secondary"
+                  className="artwork-detail-store-btn"
                 >
-                  <img src={googlePlayIcon} alt="Google Play Store" className="artwork-detail-app-icon" />
-                  Get on Google Play
+                  <img src={googlePlayIcon} alt="Get it on Google Play" className="artwork-detail-store-img" />
                 </a>
               </div>
             </div>
@@ -287,7 +304,7 @@ const ArtworkDetail = () => {
             transition={{ duration: 0.55, delay: 0.2 }}
           >
             <span className="artwork-detail-more-label">
-              More {category ? category : "artwork"}
+              More Artworks
             </span>
             <div className="artwork-detail-more-list">
               {moreArtworks.map((art) => {
