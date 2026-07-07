@@ -57,6 +57,7 @@
 
 .hero-left {
   max-width: 600px;
+  margin: 0 auto;
 }
 
 /* Eyebrow text (replaces badge bubble) */
