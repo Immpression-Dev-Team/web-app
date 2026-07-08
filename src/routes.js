@@ -16,6 +16,8 @@ import Marketplace from './components/Marketplace/Marketplace.jsx';
 import ArtworkDetail from './components/Marketplace/ArtworkDetail.jsx';
 import Search from './components/Search/Search.jsx';
 import Press from './components/Press/Press.jsx';
+import BlogList from './components/Blog/BlogList.jsx';
+import BlogPost from './components/Blog/BlogPost.jsx';
 import React from "react";
 
 // Function-based approach to return JSX elements
@@ -129,5 +131,15 @@ export const GuestNavigation = [
         name: "Press",
         path: "/press",
         element: React.createElement(Press),
+    },
+    {
+        name: "Blog",
+        path: "/blog",
+        element: React.createElement(BlogList),
+    },
+    {
+        name: "BlogPost",
+        path: "/blog/:slug",
+        element: React.createElement(BlogPost),
     },
 ];

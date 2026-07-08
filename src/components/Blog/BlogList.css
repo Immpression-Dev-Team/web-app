@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&family=Inter:wght@400;500;600&display=swap');
+
+.blog-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #fff;
+  color: #111;
+}
+
+/* ─── Hero ──────────────────────────────────────── */
+.blog-hero {
+  padding: 6rem 2rem 3.5rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  border-bottom: 1px solid #ebebeb;
+  margin-bottom: 3rem;
+}
+
+.blog-eyebrow {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #aaa;
+  margin: 0 0 0.75rem;
+}
+
+.blog-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 2.75rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #111;
+  margin: 0 0 0.75rem;
+}
+
+.blog-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: #888;
+  margin: 0;
+  max-width: 480px;
+}
+
+/* ─── Grid ──────────────────────────────────────── */
+.blog-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem 6rem;
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+/* ─── Card ──────────────────────────────────────── */
+.blog-card {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ebebeb;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.blog-card:hover {
+  border-color: #ccc;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+}
+
+.blog-card-img-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+.blog-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.blog-card:hover .blog-card-img {
+  transform: scale(1.04);
+}
+
+.blog-card-body {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
+}
+
+.blog-card-date {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #aaa;
+}
+
+.blog-card-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111;
+  line-height: 1.35;
+  margin: 0.1rem 0 0;
+}
+
+.blog-card-excerpt {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  color: #777;
+  line-height: 1.6;
+  margin: 0.25rem 0 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.blog-card-read {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #111;
+  margin-top: auto;
+  padding-top: 0.75rem;
+}
+
+/* ─── States ─────────────────────────────────────── */
+.blog-loading,
+.blog-empty {
+  text-align: center;
+  padding: 80px 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+/* ─── Responsive ─────────────────────────────────── */
+@media (max-width: 1024px) {
+  .blog-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .blog-hero { padding: 5.5rem 1.25rem 2.5rem; }
+  .blog-title { font-size: 2rem; }
+  .blog-inner { padding: 0 1.25rem 5rem; }
+  .blog-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+}
