@@ -109,14 +109,15 @@ export default function FeaturedArticles() {
     <section className="fa-section">
       <div className="fa-inner">
 
+        {/* ── Single top header ── */}
+        <div className="fa-heading">
+          <p className="fa-eyebrow">Immpression</p>
+          <h2 className="fa-h2">Blog</h2>
+        </div>
+
         {/* ── Blog posts (our own) ── */}
         {posts.length > 0 && (
           <div className="fa-blog-block">
-            <div className="fa-heading">
-              <p className="fa-eyebrow">From the Blog</p>
-              <h2 className="fa-h2">Latest Posts</h2>
-            </div>
-
             <div className={`fa-blog-grid fa-blog-grid--${Math.min(posts.length, 3)}`}>
               {posts.slice(0, 3).map((p, i) => (
                 <Link
@@ -152,10 +153,6 @@ export default function FeaturedArticles() {
         {/* ── Press / guest posts ── */}
         {articles.length > 0 && (
           <div className={posts.length > 0 ? "fa-press-block" : ""}>
-            <div className="fa-heading">
-              <p className="fa-eyebrow">Press &amp; Features</p>
-              <h2 className="fa-h2">As Seen In</h2>
-            </div>
             {isCarousel ? (
               <div className="fa-carousel-wrap">
                 <button className="fa-arrow fa-arrow-prev" onClick={handlePrev} aria-label="Previous">
