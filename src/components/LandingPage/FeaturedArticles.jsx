@@ -143,10 +143,6 @@ export default function FeaturedArticles() {
                 </Link>
               ))}
             </div>
-
-            <div className="fa-footer">
-              <Link to="/blog" className="fa-view-all">View all posts →</Link>
-            </div>
           </div>
         )}
 
@@ -166,9 +162,13 @@ export default function FeaturedArticles() {
             ) : (
               <div className="fa-grid">{pressCards}</div>
             )}
-            <div className="fa-footer">
-              <Link to="/press" className="fa-view-all">View all press →</Link>
-            </div>
+          </div>
+        )}
+
+        {/* ── Single footer link ── */}
+        {(posts.length > 0 || articles.length > 0) && (
+          <div className="fa-footer">
+            <Link to="/press" className="fa-view-all">View all posts →</Link>
           </div>
         )}
 

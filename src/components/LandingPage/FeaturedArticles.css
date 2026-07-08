@@ -168,11 +168,11 @@
 
 /* ── Blog block / press block spacing ── */
 .fa-blog-block {
-  margin-bottom: 56px;
+  margin-bottom: 28px;
 }
 
 .fa-press-block {
-  padding-top: 64px;
+  padding-top: 28px;
   border-top: 1px solid #ebebeb;
 }
 
