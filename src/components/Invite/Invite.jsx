@@ -118,6 +118,10 @@ export default function Invite() {
                 <span className="invite-role-emoji" aria-hidden="true">🖼️</span>
                 <span>I&apos;m an Art Lover</span>
               </button>
+              <button className="invite-role-card" onClick={() => handleRoleSelect("BOTH")}>
+                <span className="invite-role-emoji" aria-hidden="true">✨</span>
+                <span>Both</span>
+              </button>
             </div>
           </div>
         )}
