@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import {BrowserRouter as Router, Route, Routes, useLocation} from "react-router-dom";
 import { AuthProvider, useAuth } from "./state/AuthProvider.jsx";
 import { /*userStackScreen,*/ guestStackScreen } from "./utils/helpers.jsx";
 import Navbar from "./components/Navbar/Navbar.jsx";
@@ -7,6 +7,8 @@ import './styles/App.css'
 import PageNotFound from "./components/PageNotFound/PageNotFound.jsx";
 
 const AppContent = () => {
+    const location = useLocation();
+    const isInviteRoute = location.pathname.startsWith("/invite/");
 
     try {
         const {/*userData,*/ loading} = useAuth();
@@ -16,6 +18,16 @@ const AppContent = () => {
                 <div className="loading-container">
                     <p>Loading...</p>
                 </div>
+            );
+        }
+
+        // The invite funnel is a standalone page — no site navbar/footer chrome.
+        if (isInviteRoute) {
+            return (
+                <Routes>
+                    {guestStackScreen()}
+                    <Route path="*" element={<PageNotFound />} />
+                </Routes>
             );
         }
 

@@ -1,10 +1,48 @@
-.invite-wrapper {
-  min-height: 60vh;
+.invite-page {
+  min-height: 100vh;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4rem 1.5rem;
+  background: linear-gradient(180deg, #040e2e 0%, #0b1c4d 100%);
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.invite-card {
+  width: 100%;
+  max-width: 480px;
+  min-height: 100vh;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.invite-banner-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #040e2e;
+  flex-shrink: 0;
+}
+
+.invite-banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.invite-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  padding: 2rem 1.75rem 3rem;
+  gap: 0.5rem;
 }
 
 .invite-status {
@@ -12,29 +50,124 @@
   color: #64748b;
 }
 
-.invite-card h1 {
-  font-size: 2rem;
-  margin: 0 0 0.75rem;
+.invite-heading {
+  font-size: 1.6rem;
+  font-weight: 800;
   color: #040e2e;
+  margin: 0 0 0.5rem;
+  line-height: 1.25;
 }
 
-.invite-card p {
+.invite-question {
   font-size: 1.05rem;
   color: #475569;
   margin: 0 0 1.75rem;
 }
 
-.invite-cta {
+/* ── Step 1: role selection ── */
+.invite-role-options {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.invite-role-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 20px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0f172a;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, transform 0.1s;
+}
+.invite-role-card:hover {
+  border-color: #4781ff;
+  background: #eef4ff;
+}
+.invite-role-card:active {
+  transform: scale(0.98);
+}
+
+.invite-role-emoji {
+  font-size: 1.6rem;
+}
+
+/* ── Step 2: download ── */
+.invite-store-options {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+}
+
+.invite-store-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  line-height: 0;
+  opacity: 0.75;
+  transform: scale(0.94);
+  transition: opacity 0.15s, transform 0.15s;
+}
+.invite-store-btn:hover {
+  opacity: 1;
+}
+
+.invite-store-primary {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.invite-store-img {
+  height: 52px;
+  width: auto;
+  max-width: 220px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Show the detected platform's badge first */
+.invite-store-ios .invite-store-btn:first-child,
+.invite-store-android .invite-store-btn:last-child {
+  order: -1;
+}
+
+.invite-primary-btn {
   background: #4781ff;
   color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 12px 28px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: background 0.15s;
 }
-.invite-cta:hover {
+.invite-primary-btn:hover {
   background: #2f66e0;
+}
+
+/* ── Desktop: narrow centered card instead of full-bleed ── */
+@media (min-width: 640px) {
+  .invite-page {
+    padding: 3rem 1.5rem;
+  }
+  .invite-card {
+    min-height: auto;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  .invite-banner-wrap {
+    aspect-ratio: 16 / 9;
+  }
 }
