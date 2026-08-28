@@ -18,6 +18,7 @@ import Search from './components/Search/Search.jsx';
 import Press from './components/Press/Press.jsx';
 import BlogList from './components/Blog/BlogList.jsx';
 import BlogPost from './components/Blog/BlogPost.jsx';
+import Invite from './components/Invite/Invite.jsx';
 import React from "react";
 
 // Function-based approach to return JSX elements
@@ -141,5 +142,10 @@ export const GuestNavigation = [
         name: "BlogPost",
         path: "/blog/:slug",
         element: React.createElement(BlogPost),
+    },
+    {
+        name: "Invite",
+        path: "/invite/:code",
+        element: React.createElement(Invite),
     },
 ];

@@ -1,0 +1,40 @@
+.invite-wrapper {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1.5rem;
+  text-align: center;
+}
+
+.invite-status {
+  font-size: 1rem;
+  color: #64748b;
+}
+
+.invite-card h1 {
+  font-size: 2rem;
+  margin: 0 0 0.75rem;
+  color: #040e2e;
+}
+
+.invite-card p {
+  font-size: 1.05rem;
+  color: #475569;
+  margin: 0 0 1.75rem;
+}
+
+.invite-cta {
+  background: #4781ff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.invite-cta:hover {
+  background: #2f66e0;
+}
