@@ -1,8 +1,26 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { getPublicArtwork } from "../../API/publicDomainAPI";
+import { getPublicArtwork, getRelatedPublicArtworks, parseArtworkId } from "../../API/publicDomainAPI";
+import {
+  sanitizeText,
+  sanitizeYear,
+  sanitizeDescription,
+  sanitizeUrl,
+  buildDetailRows,
+  pickSecondaryDetail,
+} from "../../utils/publicDomainSanitize";
 import "./PublicArtDetail.css";
+
+// Fallback only — the backend now returns `institution` directly for every
+// source. Kept here in case older cached data is missing the field.
+const INSTITUTION_FALLBACK = {
+  met: "The Metropolitan Museum of Art",
+  chicago: "Art Institute of Chicago",
+  cleveland: "Cleveland Museum of Art",
+  wikimedia: "Wikimedia Commons",
+  rijksmuseum: "Rijksmuseum",
+};
 
 export default function PublicArtDetail() {
   const { source, id } = useParams();
@@ -10,11 +28,14 @@ export default function PublicArtDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [imgExpanded, setImgExpanded] = useState(false);
+  const [related, setRelated] = useState([]);
 
   useEffect(() => {
     setLoading(true);
     setError(false);
     setArtwork(null);
+    setRelated([]);
+
     getPublicArtwork(source, id).then(res => {
       if (res.success && res.data) {
         setArtwork(res.data);
@@ -22,6 +43,10 @@ export default function PublicArtDetail() {
         setError(true);
       }
       setLoading(false);
+    });
+
+    getRelatedPublicArtworks(source, id, 7).then(res => {
+      if (res.success) setRelated(res.data);
     });
   }, [source, id]);
 
@@ -47,21 +72,19 @@ export default function PublicArtDetail() {
     );
   }
 
-  const museumName = artwork.source === "chicago"
-    ? "Art Institute of Chicago"
-    : "The Metropolitan Museum of Art";
+  const title = sanitizeText(artwork.title) || "Untitled";
+  const artist = sanitizeText(artwork.artist);
+  const about = sanitizeDescription(artwork.description);
+  const details = buildDetailRows(artwork);
+  const museumName = sanitizeText(artwork.institution) || INSTITUTION_FALLBACK[artwork.source] || "Public Domain Collection";
+  const museumUrl = sanitizeUrl(artwork.sourceUrl);
+  const cleanYear = sanitizeYear(artwork.year);
+  const cleanMedium = sanitizeText(artwork.medium);
 
-  const museumUrl = artwork.sourceUrl || (artwork.source === "chicago"
-    ? "https://www.artic.edu"
-    : "https://www.metmuseum.org");
-
-  const metaTitle = artwork.artist
-    ? `${artwork.title} — ${artwork.artist} | Immpression`
-    : `${artwork.title} | Immpression`;
-
+  const metaTitle = artist ? `${title} — ${artist} | Immpression` : `${title} | Immpression`;
   const metaDescription = [
-    artwork.year && `${artwork.year}.`,
-    artwork.medium && `${artwork.medium}.`,
+    cleanYear && `${cleanYear}.`,
+    cleanMedium && `${cleanMedium}.`,
     `From ${museumName}. Public domain artwork on Immpression.`,
   ].filter(Boolean).join(" ");
 
@@ -78,7 +101,7 @@ export default function PublicArtDetail() {
 
       {imgExpanded && (
         <div className="art-detail-lightbox" onClick={() => setImgExpanded(false)}>
-          <img src={artwork.imageUrl} alt={artwork.title} className="art-detail-lightbox-img" />
+          <img src={artwork.imageUrl} alt={title} className="art-detail-lightbox-img" />
           <button className="art-detail-lightbox-close">✕</button>
         </div>
       )}
@@ -87,6 +110,7 @@ export default function PublicArtDetail() {
         <Link to="/explore" className="art-detail-back">← Back to Explore</Link>
 
         <div className="art-detail-layout">
+          {/* Image column */}
           <div className="art-detail-img-col">
             <div
               className="art-detail-img-wrap"
@@ -96,7 +120,7 @@ export default function PublicArtDetail() {
                 <>
                   <img
                     src={artwork.imageUrl}
-                    alt={artwork.title}
+                    alt={title}
                     className="art-detail-img"
                   />
                   <span className="art-detail-img-hint">Click to enlarge</span>
@@ -107,63 +131,82 @@ export default function PublicArtDetail() {
             </div>
           </div>
 
+          {/* Info column */}
           <div className="art-detail-info-col">
             <p className="art-detail-eyebrow">{museumName}</p>
-            <h1 className="art-detail-title">{artwork.title}</h1>
-            {artwork.artist && <p className="art-detail-artist">{artwork.artist}</p>}
+            <h1 className="art-detail-title">{title}</h1>
+            {artist && <p className="art-detail-artist">{artist}</p>}
 
-            <div className="art-detail-meta">
-              {artwork.year && (
-                <div className="art-detail-meta-row">
-                  <span className="art-detail-meta-label">Date</span>
-                  <span className="art-detail-meta-value">{artwork.year}</span>
+            {about && (
+              <div className="art-detail-section">
+                <span className="art-detail-section-label">About This Work</span>
+                <p className="art-detail-about">{about}</p>
+              </div>
+            )}
+
+            {details.length > 0 && (
+              <div className="art-detail-section">
+                <span className="art-detail-section-label">Details</span>
+                <div className="art-detail-specs">
+                  {details.map(row => (
+                    <div className="art-detail-spec" key={row.label}>
+                      <span className="art-detail-spec-key">{row.label}</span>
+                      <span className="art-detail-spec-val">{row.value}</span>
+                    </div>
+                  ))}
                 </div>
+              </div>
+            )}
+
+            <div className="art-detail-actions">
+              {museumUrl && (
+                <a
+                  href={museumUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="art-detail-museum-link"
+                >
+                  View at {museumName} →
+                </a>
               )}
-              {artwork.medium && (
-                <div className="art-detail-meta-row">
-                  <span className="art-detail-meta-label">Medium</span>
-                  <span className="art-detail-meta-value">{artwork.medium}</span>
-                </div>
-              )}
-              {artwork.dimensions && (
-                <div className="art-detail-meta-row">
-                  <span className="art-detail-meta-label">Dimensions</span>
-                  <span className="art-detail-meta-value">{artwork.dimensions}</span>
-                </div>
-              )}
-              {artwork.department && (
-                <div className="art-detail-meta-row">
-                  <span className="art-detail-meta-label">Department</span>
-                  <span className="art-detail-meta-value">{artwork.department}</span>
-                </div>
-              )}
-              {artwork.culture && (
-                <div className="art-detail-meta-row">
-                  <span className="art-detail-meta-label">Origin</span>
-                  <span className="art-detail-meta-value">{artwork.culture}</span>
-                </div>
-              )}
-              {artwork.style && (
-                <div className="art-detail-meta-row">
-                  <span className="art-detail-meta-label">Style</span>
-                  <span className="art-detail-meta-value">{artwork.style}</span>
-                </div>
-              )}
+
+              <p className="art-detail-pd-note">
+                This work is in the public domain and free to use.
+              </p>
             </div>
-
-            <a
-              href={museumUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="art-detail-museum-link"
-            >
-              View at {museumName} →
-            </a>
-
-            <p className="art-detail-pd-note">
-              This work is in the public domain and free to use.
-            </p>
           </div>
+
+          {/* More public domain art sidebar */}
+          {related.length > 0 && (
+            <div className="art-detail-more-col">
+              <span className="art-detail-more-label">More Public Domain Art</span>
+              <div className="art-detail-more-list">
+                {related.map(art => {
+                  const thumb = art.thumbnailUrl || art.imageUrl;
+                  if (!thumb) return null;
+                  const artTitle = sanitizeText(art.title) || "Untitled";
+                  const artArtist = sanitizeText(art.artist);
+                  const secondary = pickSecondaryDetail(art);
+                  return (
+                    <Link
+                      key={art.id}
+                      to={`/art/${art.source}/${parseArtworkId(art.id)}`}
+                      className="art-detail-more-card"
+                    >
+                      <div className="art-detail-more-img-wrap">
+                        <img src={thumb} alt={artTitle} loading="lazy" />
+                      </div>
+                      <div className="art-detail-more-info">
+                        {artArtist && <p className="art-detail-more-artist">{artArtist}</p>}
+                        <p className="art-detail-more-name">{artTitle}</p>
+                        {secondary && <p className="art-detail-more-secondary">{secondary}</p>}
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

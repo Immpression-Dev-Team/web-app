@@ -30,6 +30,17 @@ export async function getPublicArtwork(source, id) {
   }
 }
 
+export async function getRelatedPublicArtworks(source, id, limit = 7) {
+  try {
+    const res = await axios.get(`${API_URL}/public-art/${source}/${id}/related`, {
+      params: { limit },
+    });
+    return res.data;
+  } catch {
+    return { success: false, data: [] };
+  }
+}
+
 // Strips the "met:" / "chicago:" prefix the backend adds to IDs
 export function parseArtworkId(rawId) {
   const str = String(rawId);
