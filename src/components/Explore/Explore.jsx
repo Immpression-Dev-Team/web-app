@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { getPublicDomainFeatured, searchPublicDomainArt, parseArtworkId } from "../../API/publicDomainAPI";
 import "./Explore.css";
@@ -11,10 +11,16 @@ const SEARCH_TERMS = [
 ];
 
 export default function Explore() {
+  // Lets other pages (e.g. the public-domain artwork detail page's search
+  // bar) link straight into results here via /explore?q=... — same
+  // convention as the existing /search?q=... route.
+  const [searchParams] = useSearchParams();
+  const initialQuery = searchParams.get("q") || "";
+
   const [artworks, setArtworks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(initialQuery);
   const [searching, setSearching] = useState(false);
   const searchIndexRef = useRef(0);
   const isFetchingMoreRef = useRef(false);
@@ -23,10 +29,21 @@ export default function Explore() {
 
   useEffect(() => {
     (async () => {
+      if (initialQuery.trim()) {
+        setSearching(true);
+        const res = await searchPublicDomainArt(initialQuery.trim(), "all", 40);
+        if (res.success) setArtworks(res.data);
+        setSearching(false);
+        setLoading(false);
+        return;
+      }
       const res = await getPublicDomainFeatured();
       if (res.success) setArtworks(res.data);
       setLoading(false);
     })();
+    // Only reacts to the query the page was loaded with — typing in the
+    // search box afterward is handled by handleSearch below, not the URL.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchMore = useCallback(async () => {
