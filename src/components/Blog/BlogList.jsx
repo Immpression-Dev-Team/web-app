@@ -33,6 +33,9 @@ export default function BlogList() {
         <meta property="og:site_name" content="Immpression" />
         <meta property="og:image" content="https://www.immpression.art/Immpression_BannerTemp.png" />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Blog | Immpression" />
+        <meta name="twitter:description" content="Thoughts, stories, and insights from the Immpression team." />
+        <meta name="twitter:image" content="https://www.immpression.art/Immpression_BannerTemp.png" />
       </Helmet>
 
       <header className="blog-hero">

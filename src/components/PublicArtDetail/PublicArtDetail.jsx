@@ -88,16 +88,45 @@ export default function PublicArtDetail() {
     cleanMedium && `${cleanMedium}.`,
     `From ${museumName}. Public domain artwork on Immpression.`,
   ].filter(Boolean).join(" ");
+  const pageUrl = `https://www.immpression.art/art/${source}/${id}`;
 
   return (
     <div className="art-detail-wrapper">
       <Helmet>
         <title>{metaTitle}</title>
         <meta name="description" content={metaDescription} />
+        <link rel="canonical" href={pageUrl} />
         <meta property="og:title" content={metaTitle} />
         <meta property="og:description" content={metaDescription} />
         {artwork.imageUrl && <meta property="og:image" content={artwork.imageUrl} />}
+        <meta property="og:url" content={pageUrl} />
         <meta property="og:type" content="article" />
+        <meta property="og:site_name" content="Immpression" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={metaTitle} />
+        <meta name="twitter:description" content={metaDescription} />
+        {artwork.imageUrl && <meta name="twitter:image" content={artwork.imageUrl} />}
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "VisualArtwork",
+          "name": title,
+          ...(artist && { "creator": { "@type": "Person", "name": artist } }),
+          ...(cleanYear && { "dateCreated": cleanYear }),
+          ...(cleanMedium && { "artMedium": cleanMedium }),
+          ...(artwork.imageUrl && { "image": artwork.imageUrl }),
+          "url": pageUrl,
+          "creditText": museumName,
+          ...(museumUrl && { "isBasedOn": museumUrl }),
+        })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Immpression", "item": "https://www.immpression.art" },
+            { "@type": "ListItem", "position": 2, "name": "Explore", "item": "https://www.immpression.art/explore" },
+            { "@type": "ListItem", "position": 3, "name": title, "item": pageUrl },
+          ],
+        })}</script>
       </Helmet>
 
       {imgExpanded && (

@@ -36,6 +36,9 @@ export default function Press() {
         <meta property="og:site_name" content="Immpression" />
         <meta property="og:image" content="https://www.immpression.art/Immpression_BannerTemp.png" />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Blog &amp; Press | Immpression" />
+        <meta name="twitter:description" content="Blog posts, press coverage, and guest features from Immpression." />
+        <meta name="twitter:image" content="https://www.immpression.art/Immpression_BannerTemp.png" />
       </Helmet>
 
       <header className="press-hero">

@@ -68,6 +68,33 @@ const AboutUs = () => {
         <meta name="twitter:title" content="About Immpression" />
         <meta name="twitter:description" content="Built to give emerging artists real tools to reach real collectors." />
         <meta name="twitter:image" content="https://www.immpression.art/Immpression_UI_1.png" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "AboutPage",
+              "@id": "https://www.immpression.art/about#webpage",
+              "url": "https://www.immpression.art/about",
+              "name": "About Immpression",
+              "isPartOf": { "@id": "https://www.immpression.art/#website" },
+              "about": { "@id": "https://www.immpression.art/#organization" },
+              "description": "Immpression is an art search engine and marketplace built to give emerging artists real tools to reach real collectors."
+            },
+            {
+              "@type": "SoftwareApplication",
+              "@id": "https://www.immpression.art/#software",
+              "name": "Immpression",
+              "operatingSystem": "iOS, Android",
+              "applicationCategory": "LifestyleApplication",
+              "url": "https://www.immpression.art",
+              "sameAs": [
+                "https://apps.apple.com/app/id6756974604",
+                "https://play.google.com/store/apps/details?id=com.immpression.artapp"
+              ],
+              "publisher": { "@id": "https://www.immpression.art/#organization" }
+            }
+          ]
+        })}</script>
       </Helmet>
 
       {/* Hero */}

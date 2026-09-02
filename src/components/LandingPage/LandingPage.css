@@ -144,6 +144,26 @@
   max-width: 520px;
 }
 
+.hero-description {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.6;
+  margin-bottom: 1.75rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  max-width: 480px;
+}
+
+.hero-description-link {
+  color: #47EFAC;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.hero-description-link:hover {
+  color: #ffffff;
+}
+
 /* Hero Pills */
 .hero-pills {
   display: flex;

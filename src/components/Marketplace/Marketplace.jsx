@@ -107,6 +107,14 @@ const Marketplace = () => {
         <meta name="twitter:title" content="Buy Original Art | Immpression Marketplace" />
         <meta name="twitter:description" content="Browse and buy original artwork from emerging artists. Paintings, photography, sculptures, and more." />
         <meta name="twitter:image" content="https://www.immpression.art/Immpression_UI_3.png" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "name": "Immpression Marketplace",
+          "description": "Browse and buy original artwork from emerging artists on Immpression.",
+          "url": "https://www.immpression.art/marketplace",
+          "isPartOf": { "@id": "https://www.immpression.art/#website" },
+        })}</script>
       </Helmet>
 
       {/* Hero */}

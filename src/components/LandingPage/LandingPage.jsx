@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import "./LandingPage.css";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { API_URL } from "../../API_URL";
 import GooglePlay from '../../assets/headers/GooglePlay.png';
 import Apple from '../../assets/headers/Apple.png';
@@ -160,6 +160,7 @@ const LandingPage = () => {
               "@id": "https://www.immpression.art/#website",
               "url": "https://www.immpression.art",
               "name": "Immpression",
+              "alternateName": "Immpression Art",
               "description": "Art search engine and marketplace. Discover and buy original artwork from emerging artists.",
               "publisher": { "@id": "https://www.immpression.art/#organization" },
               "potentialAction": {
@@ -198,6 +199,12 @@ const LandingPage = () => {
             <motion.p className="hero-subtitle" {...fade(0.28)}>
               Search thousands of artworks, discover emerging artists, and buy
               original pieces directly from creators, all in one place.
+            </motion.p>
+
+            <motion.p className="hero-description" {...fade(0.4)}>
+              Immpression is an online art gallery and mobile app where artists
+              showcase and sell original art, and art lovers discover and buy
+              it. <Link to="/about" className="hero-description-link">Learn more about Immpression</Link>.
             </motion.p>
 
             <motion.div className="cta-buttons" {...fade(0.52)}>

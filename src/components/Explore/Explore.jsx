@@ -114,6 +114,14 @@ export default function Explore() {
         <meta name="twitter:title" content="Explore Public Domain Art | Immpression" />
         <meta name="twitter:description" content="Browse thousands of public domain masterpieces from the Met Museum and Art Institute of Chicago." />
         <meta name="twitter:image" content="https://www.immpression.art/Immpression_UI_2.png" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "name": "Explore Public Domain Art",
+          "description": "Browse thousands of public domain masterpieces on Immpression.",
+          "url": "https://www.immpression.art/explore",
+          "isPartOf": { "@id": "https://www.immpression.art/#website" },
+        })}</script>
       </Helmet>
 
       <section className="explore-hero">

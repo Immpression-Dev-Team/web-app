@@ -6,7 +6,7 @@ const LogoTitle = () => {
         <div className="logo-title">
             <img
                 src={logoImage}
-                alt="Logo Title"
+                alt="Immpression"
                 className="title"
             />
         </div>

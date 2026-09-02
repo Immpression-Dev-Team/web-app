@@ -66,6 +66,27 @@ export default function BlogPost() {
         <meta name="twitter:title" content={post.title} />
         <meta name="twitter:description" content={excerpt} />
         <meta name="twitter:image" content={post.coverImageUrl} />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          "headline": post.title,
+          "description": excerpt,
+          ...(post.coverImageUrl && { "image": post.coverImageUrl }),
+          "url": pageUrl,
+          ...((post.publishedAt || post.createdAt) && { "datePublished": post.publishedAt || post.createdAt }),
+          "author": { "@type": "Organization", "name": "Immpression" },
+          "publisher": { "@id": "https://www.immpression.art/#organization" },
+          "mainEntityOfPage": { "@type": "WebPage", "@id": pageUrl },
+        })}</script>
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Immpression", "item": "https://www.immpression.art" },
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.immpression.art/blog" },
+            { "@type": "ListItem", "position": 3, "name": post.title, "item": pageUrl },
+          ],
+        })}</script>
       </Helmet>
 
       {/* Breadcrumb */}

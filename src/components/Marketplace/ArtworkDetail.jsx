@@ -118,7 +118,7 @@ const ArtworkDetail = () => {
         <link rel="canonical" href={pageUrl} />
 
         {/* Open Graph */}
-        <meta property="og:type" content="og:product" />
+        <meta property="og:type" content="product" />
         <meta property="og:title" content={`${name} by ${artistName}`} />
         <meta property="og:description" content={metaDescription} />
         <meta property="og:image" content={imageLink} />
@@ -150,6 +150,16 @@ const ArtworkDetail = () => {
             "seller": { "@type": "Organization", "name": "Immpression" },
           },
           ...(category && { "category": category }),
+        })}</script>
+
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Immpression", "item": "https://www.immpression.art" },
+            { "@type": "ListItem", "position": 2, "name": "Marketplace", "item": "https://www.immpression.art/marketplace" },
+            { "@type": "ListItem", "position": 3, "name": name, "item": pageUrl },
+          ],
         })}</script>
       </Helmet>
 
@@ -275,7 +285,7 @@ const ArtworkDetail = () => {
               </p>
               <div className="artwork-detail-app-links">
                 <a
-                  href="https://apps.apple.com/app/immpression/id6739459806"
+                  href="https://apps.apple.com/app/id6756974604"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="artwork-detail-store-btn"
@@ -283,7 +293,7 @@ const ArtworkDetail = () => {
                   <img src={appleIcon} alt="Download on the App Store" className="artwork-detail-store-img" />
                 </a>
                 <a
-                  href="https://play.google.com/store/apps/details?id=com.immpression.app"
+                  href="https://play.google.com/store/apps/details?id=com.immpression.artapp"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="artwork-detail-store-btn"

@@ -58,6 +58,28 @@
     font-size: 1rem;
 }
 
+.footer-app-links {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.footer-app-link {
+    display: inline-flex;
+    line-height: 0;
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+}
+
+.footer-app-link:hover {
+    opacity: 1;
+}
+
+.footer-app-img {
+    height: 40px;
+    width: auto;
+}
+
 /* Social Links */
 .social-links {
     display: flex;

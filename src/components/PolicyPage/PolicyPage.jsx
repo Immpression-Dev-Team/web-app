@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import "./PolicyPage.css";
 
 const sections = [
@@ -68,6 +69,16 @@ const sections = [
 const PolicyPage = () => {
   return (
     <div className="policy-wrapper">
+      <Helmet>
+        <title>Privacy Policy | Immpression</title>
+        <meta name="description" content="How Immpression collects, uses, and protects your personal information." />
+        <link rel="canonical" href="https://www.immpression.art/policy" />
+        <meta property="og:title" content="Privacy Policy | Immpression" />
+        <meta property="og:description" content="How Immpression collects, uses, and protects your personal information." />
+        <meta property="og:url" content="https://www.immpression.art/policy" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Immpression" />
+      </Helmet>
       <div className="policy-container">
 
         <div className="policy-header">
