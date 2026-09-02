@@ -149,23 +149,6 @@
     font-size: 0.9rem;
 }
 
-.footer-badge {
-    display: inline-flex;
-    flex-shrink: 0;
-    line-height: 0;
-    opacity: 0.9;
-    transition: opacity 0.3s ease;
-}
-
-.footer-badge:hover {
-    opacity: 1;
-}
-
-.footer-badge img {
-    height: 40px;
-    width: auto;
-}
-
 .footer-bottom-links {
     display: flex;
     gap: 2rem;
@@ -258,10 +241,6 @@
     .copyright,
     .footer-bottom-link {
         font-size: 0.85rem;
-    }
-
-    .footer-badge img {
-        height: 34px;
     }
 }
 

@@ -52,20 +52,6 @@ const Footer = () => {
                     <div className="copyright">
                         &copy; {new Date().getFullYear()} Immpression. All rights reserved.
                     </div>
-                    <a
-                        href="https://launchbuff.com/products/immpression-s47lz1"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        title="Featured on LaunchBuff"
-                        className="footer-badge"
-                    >
-                        <img
-                            src="https://launchbuff.com/badge-featured-dark.svg"
-                            alt="Featured on LaunchBuff"
-                            width="256"
-                            height="80"
-                        />
-                    </a>
                     <div className="footer-bottom-links">
                         <Link to="/policy" className="footer-bottom-link">Privacy</Link>
                         <Link to="/terms" className="footer-bottom-link">Terms</Link>
