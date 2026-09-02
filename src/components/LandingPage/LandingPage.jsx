@@ -152,7 +152,10 @@ const LandingPage = () => {
               "email": "immpression.nyc@gmail.com",
               "sameAs": [
                 "https://play.google.com/store/apps/details?id=com.immpression.artapp",
-                "https://apps.apple.com/app/id6756974604"
+                "https://apps.apple.com/app/id6756974604",
+                "https://www.instagram.com/immpressionllc/",
+                "https://www.tiktok.com/@immpression",
+                "https://www.linkedin.com/company/impression.artwork"
               ]
             },
             {
