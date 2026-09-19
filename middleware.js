@@ -84,7 +84,15 @@ export default async function middleware(request) {
 
     return new Response(html, {
       status: 200,
-      headers: { "content-type": "text/html; charset=utf-8" },
+      headers: {
+        "content-type": "text/html; charset=utf-8",
+        // Force every crawler (Discord, iMessage, Facebook, etc.) to
+        // re-fetch on every share instead of reusing a stale cached
+        // preview from before this response existed.
+        "cache-control": "no-store, no-cache, must-revalidate, max-age=0",
+        "pragma": "no-cache",
+        "expires": "0",
+      },
     });
   } catch (err) {
     console.error("meta middleware error:", err);
