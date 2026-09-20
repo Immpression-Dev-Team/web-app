@@ -186,6 +186,12 @@ const Marketplace = () => {
       <section className="marketplace-grid-section">
         <div className="marketplace-grid-inner">
           <div className="marketplace-content">
+            {/* Reserved for a future left-rail feature — intentionally
+                empty. Keeping the track in the grid (rather than adding it
+                later) is what keeps the center column balanced now and
+                avoids a layout rewrite when real content lands here. */}
+            <div className="marketplace-rail-col marketplace-rail-col--left" aria-hidden="true" />
+
             <div className="marketplace-main">
               {loading ? (
                 <div className="marketplace-loading">
@@ -232,7 +238,7 @@ const Marketplace = () => {
               )}
             </div>
 
-            <div className="marketplace-rail-col">
+            <div className="marketplace-rail-col marketplace-rail-col--right">
               <MarketplaceRail />
             </div>
           </div>

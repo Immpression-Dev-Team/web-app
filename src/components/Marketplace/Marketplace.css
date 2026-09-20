@@ -6,6 +6,8 @@
   min-height: 100vh;
   background: #ffffff;
   color: #111;
+  --mp-rail-w: 300px;
+  --mp-main-max: 1040px;
 }
 
 /* ─── Hero ────────────────────────────────────── */
@@ -160,26 +162,43 @@
   padding: 2rem 2rem 6rem;
 }
 
+/* Wider than the hero/filters band above it on purpose: this is the one
+   section that needs room for the 3-column shell below. The hero and
+   filters stay at their original 1280px width. */
 .marketplace-grid-inner {
-  max-width: 1280px;
+  max-width: 1720px;
   margin: 0 auto;
 }
 
-/* ─── Content layout: art grid + sidebar rail ─── */
+/* ─── Content layout: reserved left rail | center artwork | right rail ───
+   The left track is kept in the grid (not added later) specifically so
+   the center column is genuinely balanced now, not just "art grid + right
+   sidebar" relabeled. Base/default here targets medium desktop, where the
+   left rail is collapsed; the >=1440px query below activates it. */
 .marketplace-content {
-  display: flex;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--mp-rail-w);
+  align-items: start;
   gap: 2.5rem;
 }
 
 .marketplace-main {
-  flex: 1;
   min-width: 0;
+  width: 100%;
+  max-width: var(--mp-main-max);
+  margin: 0 auto;
 }
 
 .marketplace-rail-col {
-  width: 320px;
-  flex-shrink: 0;
+  width: 100%;
+  min-width: 0;
+}
+
+.marketplace-rail-col--left {
+  display: none;
+}
+
+.marketplace-rail-col--right {
   position: sticky;
   top: 132px;
 }
@@ -188,6 +207,29 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
+}
+
+/* ─── Very large desktop: bring the reserved left rail online ───
+   Both side tracks are the same width, so the center column stays
+   genuinely centered in the viewport rather than pushed off by the
+   right rail alone. */
+@media (min-width: 1440px) {
+  .marketplace-content {
+    grid-template-columns: var(--mp-rail-w) minmax(0, 1fr) var(--mp-rail-w);
+  }
+
+  .marketplace-rail-col--left {
+    display: block;
+  }
+}
+
+/* Cards get tight once both the right rail (and eventually the left one)
+   are competing with the center column for space — drop a column before
+   that happens rather than shrinking cards past comfortable. */
+@media (max-width: 1300px) {
+  .marketplace-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 /* ─── States ──────────────────────────────────── */
@@ -283,19 +325,26 @@
 
 /* ─── Responsive ──────────────────────────────── */
 
-/* Tablet: rail drops below the grid, full width again */
+/* Tablet: side columns gone entirely, artwork is full-width primary
+   content, right rail drops below it. */
 @media (max-width: 1024px) {
   .marketplace-content {
-    flex-direction: column;
+    display: block;
   }
 
-  .marketplace-rail-col {
-    width: 100%;
+  .marketplace-main {
+    max-width: none;
+    margin: 0;
+  }
+
+  .marketplace-rail-col--left {
+    display: none;
+  }
+
+  .marketplace-rail-col--right {
     position: static;
-  }
-
-  .marketplace-grid {
-    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    margin-top: 3rem;
   }
 }
 
@@ -325,10 +374,6 @@
 
   .marketplace-grid-section {
     padding: 1.5rem 1.25rem 5rem;
-  }
-
-  .marketplace-content {
-    gap: 3rem;
   }
 
   .marketplace-grid {
