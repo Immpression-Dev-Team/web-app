@@ -5,16 +5,28 @@
    Permanent Marker stays reserved for "The Collection." and the CTA
    card headings — that's the original Immpression treatment and it's
    not being reinterpreted into a serif/editorial direction. */
+/* The whole page — hero and artwork section both — is one 3-column
+   grid: left rail | center | right rail. That's what lets the rail
+   panels start right at the navbar and run full-bleed to the viewport
+   edges, instead of only flanking the grid section (leaving a white
+   gap above them where the hero used to be a separate, narrower,
+   centered block). */
 .marketplace-wrapper {
   width: 100%;
   min-height: 100vh;
   background: #ffffff;
   color: #111;
+  display: grid;
+  grid-template-columns: var(--mp-left-w) minmax(0, 1fr) var(--mp-rail-w);
   --mp-left-w: 300px;
   --mp-rail-w: 300px;
   --mp-main-max: 1040px;
   --mp-panel-bg: #f5f7fa;
   --mp-panel-border: #e2e6ec;
+}
+
+.marketplace-main-col {
+  min-width: 0;
 }
 
 /* ─── Hero ────────────────────────────────────── */
@@ -75,32 +87,6 @@
   padding: 2rem 2rem 6rem;
 }
 
-/* Wider than the hero/filters band above it on purpose: this is the one
-   section that needs room for the 3-column shell below. The hero and
-   filters stay at their original 1280px width. */
-.marketplace-grid-inner {
-  max-width: 1780px;
-  margin: 0 auto;
-}
-
-/* ─── Content layout: left rail | center artwork | right rail ───
-   Left rail now carries real navigation/filtering (Discover, Browse by
-   Medium, etc.), so — unlike a purely reserved placeholder — it stays
-   visible and simply compresses on smaller desktops rather than
-   disappearing. Both rails are real width values (not minmax/1fr), so
-   the center track absorbs all the flex and stays genuinely centered. */
-/* align-items is left at its grid default (stretch, not start) on
-   purpose: the rails no longer use position: sticky (that's what
-   "start" was for), so stretching lets each rail's tinted background
-   run the full height of the row instead of stopping wherever its own
-   content ends — that's what was reading as a floating gray box
-   instead of a rail framing the artwork column. */
-.marketplace-content {
-  display: grid;
-  grid-template-columns: var(--mp-left-w) minmax(0, 1fr) var(--mp-rail-w);
-  gap: 2.5rem;
-}
-
 .marketplace-main {
   min-width: 0;
   width: 100%;
@@ -110,17 +96,17 @@
 
 /* No position: sticky here on purpose — left rail, main column, and
    right rail all scroll normally with the page. Only the navbar
-   (fixed, in Navbar.css) stays put while scrolling. */
-.marketplace-rail-col {
-  width: 100%;
-  min-width: 0;
-}
+   (fixed, in Navbar.css) stays put while scrolling.
 
-/* Rails read as quiet supporting panels — tinted off-white, divided
-   from the center by a hairline — so the white artwork column reads
-   as the primary canvas. */
-.marketplace-rail-col--left,
-.marketplace-rail-col--right {
+   Rails read as quiet supporting panels — tinted off-white, divided
+   from the center by a hairline — so the white center column reads as
+   the primary canvas. They're direct children of the wrapper's grid
+   (not nested cards inside the page), and the wrapper has no
+   max-width, so the panels run genuinely edge-to-edge and start right
+   at the navbar, top to bottom, alongside the hero as well as the
+   artwork grid — not just alongside the grid section. */
+.marketplace-rail-col {
+  min-width: 0;
   background: var(--mp-panel-bg);
   padding: 2.25rem 1.75rem;
 }
@@ -143,17 +129,15 @@
    column gets squeezed, and drop the grid to 3 columns since less
    width is available for it here than on large desktop. ─── */
 @media (max-width: 1400px) {
-  .marketplace-content {
+  .marketplace-wrapper {
     grid-template-columns: 230px minmax(0, 1fr) 280px;
-    gap: 2rem;
   }
 
   .marketplace-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  .marketplace-rail-col--left,
-  .marketplace-rail-col--right {
+  .marketplace-rail-col {
     padding: 1.75rem 1.25rem;
   }
 }
@@ -262,13 +246,16 @@
    Threshold is 1150 (not 1024) so the compressed medium-desktop tier
    above never has to squeeze the center column past ~230px cards. */
 @media (max-width: 1150px) {
-  .marketplace-content {
+  .marketplace-wrapper {
     display: flex;
     flex-direction: column;
   }
 
-  .marketplace-main {
+  .marketplace-main-col {
     order: 1;
+  }
+
+  .marketplace-main {
     max-width: none;
     margin: 0;
   }
@@ -280,13 +267,13 @@
   .marketplace-rail-col--right {
     order: 2;
     width: 100%;
-    margin-top: 3rem;
-    /* Horizontal padding drops to 0 here so the panel's content lines
-       up with the artwork grid above it instead of double-indenting
-       (the section already has its own side padding at this width). */
+    /* Horizontal padding now matches the grid section's own side
+       padding (2rem) so the panel's content lines up with the artwork
+       grid above it, since they're siblings rather than nested inside
+       the same section at this width. */
+    padding: 2.25rem 2rem 2rem;
     border-left: none;
     border-top: 1px solid var(--mp-panel-border);
-    padding: 2.25rem 0 0;
   }
 }
 
@@ -317,5 +304,9 @@
   .marketplace-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 0.75rem;
+  }
+
+  .marketplace-rail-col--right {
+    padding: 1.75rem 1.25rem 1.5rem;
   }
 }

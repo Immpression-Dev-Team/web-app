@@ -110,112 +110,110 @@ const Marketplace = () => {
         })}</script>
       </Helmet>
 
-      {/* Hero */}
-      <section className="marketplace-hero">
-        <div className="marketplace-hero-inner">
-          <motion.span
-            className="marketplace-eyebrow"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            Original Art for Sale
-          </motion.span>
-          <motion.h1
-            className="marketplace-title"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-          >
-            The Collection.
-          </motion.h1>
-          <motion.p
-            className="marketplace-subtitle"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.35 }}
-          >
-            Discover and own original works from emerging artists.
-            Every piece is one of a kind.
-          </motion.p>
-        </div>
-      </section>
+      <div className="marketplace-rail-col marketplace-rail-col--left">
+        <MarketplaceLeftRail
+          category={category}
+          setCategory={setCategory}
+          setSort={setSort}
+        />
+      </div>
 
-      {/* Grid */}
-      <section className="marketplace-grid-section">
-        <div className="marketplace-grid-inner">
-          <div className="marketplace-content">
-            <div className="marketplace-rail-col marketplace-rail-col--left">
-              <MarketplaceLeftRail
-                category={category}
-                setCategory={setCategory}
-                setSort={setSort}
-              />
-            </div>
-
-            <div className="marketplace-main">
-              <MarketplaceToolbar
-                count={!loading ? totalImages - soldImages : null}
-                loading={loading}
-                category={category}
-                setCategory={setCategory}
-                sort={sort}
-                setSort={setSort}
-                sortOptions={SORT_OPTIONS}
-                onOpenFilters={() => setFiltersOpen(true)}
-              />
-
-              {loading ? (
-                <div className="marketplace-loading">
-                  <div className="marketplace-spinner" />
-                  <p>Loading collection...</p>
-                </div>
-              ) : error ? (
-                <div className="marketplace-error">
-                  <p>{error}</p>
-                  <button className="marketplace-retry-btn" onClick={() => fetchArtworks(1, true)}>
-                    Try Again
-                  </button>
-                </div>
-              ) : artworks.length === 0 ? (
-                <div className="marketplace-empty">
-                  <span className="marketplace-empty-icon">✦</span>
-                  <p>No artworks found in this category yet.</p>
-                </div>
-              ) : (
-                <div className="marketplace-grid">
-                  {artworks.map((art, i) => (
-                    <motion.div
-                      key={art._id}
-                      initial={{ opacity: 0, y: 24 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.45, delay: Math.min(i * 0.04, 0.6) }}
-                    >
-                      <ArtCard artwork={art} />
-                    </motion.div>
-                  ))}
-                </div>
-              )}
-
-              {!loading && page < totalPages && (
-                <div className="marketplace-load-more">
-                  <button
-                    className="marketplace-load-btn"
-                    onClick={handleLoadMore}
-                    disabled={loadingMore}
-                  >
-                    {loadingMore ? "Loading..." : "Load More"}
-                  </button>
-                </div>
-              )}
-            </div>
-
-            <div className="marketplace-rail-col marketplace-rail-col--right">
-              <MarketplaceRail />
-            </div>
+      <div className="marketplace-main-col">
+        {/* Hero */}
+        <section className="marketplace-hero">
+          <div className="marketplace-hero-inner">
+            <motion.span
+              className="marketplace-eyebrow"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
+              Original Art for Sale
+            </motion.span>
+            <motion.h1
+              className="marketplace-title"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+            >
+              The Collection.
+            </motion.h1>
+            <motion.p
+              className="marketplace-subtitle"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.35 }}
+            >
+              Discover and own original works from emerging artists.
+              Every piece is one of a kind.
+            </motion.p>
           </div>
-        </div>
-      </section>
+        </section>
+
+        {/* Grid */}
+        <section className="marketplace-grid-section">
+          <div className="marketplace-main">
+            <MarketplaceToolbar
+              count={!loading ? totalImages - soldImages : null}
+              loading={loading}
+              category={category}
+              setCategory={setCategory}
+              sort={sort}
+              setSort={setSort}
+              sortOptions={SORT_OPTIONS}
+              onOpenFilters={() => setFiltersOpen(true)}
+            />
+
+            {loading ? (
+              <div className="marketplace-loading">
+                <div className="marketplace-spinner" />
+                <p>Loading collection...</p>
+              </div>
+            ) : error ? (
+              <div className="marketplace-error">
+                <p>{error}</p>
+                <button className="marketplace-retry-btn" onClick={() => fetchArtworks(1, true)}>
+                  Try Again
+                </button>
+              </div>
+            ) : artworks.length === 0 ? (
+              <div className="marketplace-empty">
+                <span className="marketplace-empty-icon">✦</span>
+                <p>No artworks found in this category yet.</p>
+              </div>
+            ) : (
+              <div className="marketplace-grid">
+                {artworks.map((art, i) => (
+                  <motion.div
+                    key={art._id}
+                    initial={{ opacity: 0, y: 24 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.45, delay: Math.min(i * 0.04, 0.6) }}
+                  >
+                    <ArtCard artwork={art} />
+                  </motion.div>
+                ))}
+              </div>
+            )}
+
+            {!loading && page < totalPages && (
+              <div className="marketplace-load-more">
+                <button
+                  className="marketplace-load-btn"
+                  onClick={handleLoadMore}
+                  disabled={loadingMore}
+                >
+                  {loadingMore ? "Loading..." : "Load More"}
+                </button>
+              </div>
+            )}
+          </div>
+        </section>
+      </div>
+
+      <div className="marketplace-rail-col marketplace-rail-col--right">
+        <MarketplaceRail />
+      </div>
 
       <MarketplaceFiltersDrawer
         open={filtersOpen}
