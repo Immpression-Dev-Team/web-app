@@ -6,6 +6,7 @@
   min-height: 100vh;
   background: #ffffff;
   color: #111;
+  --mp-left-w: 300px;
   --mp-rail-w: 300px;
   --mp-main-max: 1040px;
 }
@@ -166,18 +167,19 @@
    section that needs room for the 3-column shell below. The hero and
    filters stay at their original 1280px width. */
 .marketplace-grid-inner {
-  max-width: 1720px;
+  max-width: 1780px;
   margin: 0 auto;
 }
 
-/* ─── Content layout: reserved left rail | center artwork | right rail ───
-   The left track is kept in the grid (not added later) specifically so
-   the center column is genuinely balanced now, not just "art grid + right
-   sidebar" relabeled. Base/default here targets medium desktop, where the
-   left rail is collapsed; the >=1440px query below activates it. */
+/* ─── Content layout: left rail | center artwork | right rail ───
+   Left rail now carries real navigation/filtering (Discover, Browse by
+   Medium, etc.), so — unlike a purely reserved placeholder — it stays
+   visible and simply compresses on smaller desktops rather than
+   disappearing. Both rails are real width values (not minmax/1fr), so
+   the center track absorbs all the flex and stays genuinely centered. */
 .marketplace-content {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) var(--mp-rail-w);
+  grid-template-columns: var(--mp-left-w) minmax(0, 1fr) var(--mp-rail-w);
   align-items: start;
   gap: 2.5rem;
 }
@@ -194,10 +196,7 @@
   min-width: 0;
 }
 
-.marketplace-rail-col--left {
-  display: none;
-}
-
+.marketplace-rail-col--left,
 .marketplace-rail-col--right {
   position: sticky;
   top: 132px;
@@ -209,24 +208,15 @@
   gap: 1rem;
 }
 
-/* ─── Very large desktop: bring the reserved left rail online ───
-   Both side tracks are the same width, so the center column stays
-   genuinely centered in the viewport rather than pushed off by the
-   right rail alone. */
-@media (min-width: 1440px) {
+/* ─── Medium desktop: compress the left rail before the center
+   column gets squeezed, and drop the grid to 3 columns since less
+   width is available for it here than on large desktop. ─── */
+@media (max-width: 1400px) {
   .marketplace-content {
-    grid-template-columns: var(--mp-rail-w) minmax(0, 1fr) var(--mp-rail-w);
+    grid-template-columns: 230px minmax(0, 1fr) 280px;
+    gap: 2rem;
   }
 
-  .marketplace-rail-col--left {
-    display: block;
-  }
-}
-
-/* Cards get tight once both the right rail (and eventually the left one)
-   are competing with the center column for space — drop a column before
-   that happens rather than shrinking cards past comfortable. */
-@media (max-width: 1300px) {
   .marketplace-grid {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -325,22 +315,33 @@
 
 /* ─── Responsive ──────────────────────────────── */
 
-/* Tablet: side columns gone entirely, artwork is full-width primary
-   content, right rail drops below it. */
-@media (max-width: 1024px) {
+/* Tablet: side columns gone, artwork is full-width primary content.
+   Both rails drop below it — artwork first (order: 1), then left rail
+   content, then right rail, via flex `order` so DOM/tab order on desktop
+   (left, main, right) doesn't have to change to get "artwork first" here.
+   Threshold is 1150 (not 1024) so the compressed medium-desktop tier
+   above never has to squeeze the center column past ~230px cards. */
+@media (max-width: 1150px) {
   .marketplace-content {
-    display: block;
+    display: flex;
+    flex-direction: column;
   }
 
   .marketplace-main {
+    order: 1;
     max-width: none;
     margin: 0;
   }
 
   .marketplace-rail-col--left {
-    display: none;
+    order: 2;
   }
 
+  .marketplace-rail-col--right {
+    order: 3;
+  }
+
+  .marketplace-rail-col--left,
   .marketplace-rail-col--right {
     position: static;
     width: 100%;

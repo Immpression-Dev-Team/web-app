@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet-async";
 import { useSearchParams } from "react-router-dom";
 import ArtCard from "./ArtCard.jsx";
 import MarketplaceRail from "./MarketplaceRail/MarketplaceRail.jsx";
+import MarketplaceLeftRail from "./MarketplaceLeftRail/MarketplaceLeftRail.jsx";
 import "./Marketplace.css";
 import { API_URL } from "../../API_URL";
 
@@ -186,11 +187,13 @@ const Marketplace = () => {
       <section className="marketplace-grid-section">
         <div className="marketplace-grid-inner">
           <div className="marketplace-content">
-            {/* Reserved for a future left-rail feature — intentionally
-                empty. Keeping the track in the grid (rather than adding it
-                later) is what keeps the center column balanced now and
-                avoids a layout rewrite when real content lands here. */}
-            <div className="marketplace-rail-col marketplace-rail-col--left" aria-hidden="true" />
+            <div className="marketplace-rail-col marketplace-rail-col--left">
+              <MarketplaceLeftRail
+                category={category}
+                setCategory={setCategory}
+                setSort={setSort}
+              />
+            </div>
 
             <div className="marketplace-main">
               {loading ? (
