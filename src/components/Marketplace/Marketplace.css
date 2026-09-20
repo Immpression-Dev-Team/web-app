@@ -9,13 +9,13 @@
   --mp-left-w: 300px;
   --mp-rail-w: 300px;
   --mp-main-max: 1040px;
-  --mp-sticky-top: 80px;
 }
 
 /* ─── Hero ────────────────────────────────────── */
 /* overflow-x lives here (not on the wrapper) so it clips the entrance
-   animation without creating a scroll container that breaks the rail's
-   position: sticky further down the page. */
+   animation without creating a scroll container on an ancestor — an
+   element with non-visible overflow anywhere above the navbar would
+   silently break its position: sticky. */
 .marketplace-hero {
   padding: 7rem 2rem 2rem;
   border-bottom: 1px solid #ebebeb;
@@ -96,15 +96,12 @@
   margin: 0 auto;
 }
 
+/* No position: sticky here on purpose — left rail, main column, and
+   right rail all scroll normally with the page. Only the navbar
+   (fixed, in Navbar.css) stays put while scrolling. */
 .marketplace-rail-col {
   width: 100%;
   min-width: 0;
-}
-
-.marketplace-rail-col--left,
-.marketplace-rail-col--right {
-  position: sticky;
-  top: var(--mp-sticky-top);
 }
 
 .marketplace-grid {
@@ -248,7 +245,6 @@
 
   .marketplace-rail-col--right {
     order: 2;
-    position: static;
     width: 100%;
     margin-top: 3rem;
   }
