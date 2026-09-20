@@ -9,6 +9,7 @@
   --mp-left-w: 300px;
   --mp-rail-w: 300px;
   --mp-main-max: 1040px;
+  --mp-sticky-top: 80px;
 }
 
 /* ─── Hero ────────────────────────────────────── */
@@ -62,102 +63,6 @@
   align-self: flex-end;
 }
 
-/* ─── Filters ─────────────────────────────────── */
-.marketplace-filters-section {
-  padding: 0.9rem 2rem;
-  border-bottom: 1px solid #ebebeb;
-  position: sticky;
-  top: 64px;
-  background: #fff;
-  z-index: 10;
-}
-
-.marketplace-filters-inner {
-  max-width: 1280px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.marketplace-category-scroll {
-  display: flex;
-  gap: 0.35rem;
-  flex-wrap: wrap;
-}
-
-.marketplace-cat-btn {
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #999;
-  background: transparent;
-  border: 1px solid #e0e0e0;
-  padding: 0.35rem 0.85rem;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.18s ease;
-  white-space: nowrap;
-}
-
-.marketplace-cat-btn:hover {
-  color: #111;
-  border-color: #bbb;
-}
-
-.marketplace-cat-btn.active {
-  color: #111;
-  border-color: #111;
-  background: #111;
-  color: #fff;
-}
-
-.marketplace-sort-wrap {
-  flex-shrink: 0;
-}
-
-.marketplace-sort-select {
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #666;
-  background: #fff;
-  border: 1px solid #e0e0e0;
-  padding: 0.35rem 2rem 0.35rem 0.85rem;
-  border-radius: 4px;
-  cursor: pointer;
-  outline: none;
-  transition: border-color 0.18s ease;
-  appearance: none;
-  -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 0.65rem center;
-}
-
-.marketplace-sort-select:focus {
-  border-color: #111;
-}
-
-.marketplace-sort-select option {
-  background: #fff;
-  color: #111;
-}
-
-.marketplace-count {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.75rem;
-  color: #bbb;
-  margin: 0.5rem auto 0;
-  max-width: 1280px;
-}
-
 /* ─── Grid Section ────────────────────────────── */
 .marketplace-grid-section {
   padding: 2rem 2rem 6rem;
@@ -199,7 +104,7 @@
 .marketplace-rail-col--left,
 .marketplace-rail-col--right {
   position: sticky;
-  top: 132px;
+  top: var(--mp-sticky-top);
 }
 
 .marketplace-grid {
@@ -316,9 +221,13 @@
 /* ─── Responsive ──────────────────────────────── */
 
 /* Tablet: side columns gone, artwork is full-width primary content.
-   Both rails drop below it — artwork first (order: 1), then left rail
-   content, then right rail, via flex `order` so DOM/tab order on desktop
-   (left, main, right) doesn't have to change to get "artwork first" here.
+   The left rail (filtering) is no longer shown inline at all here — its
+   content moves into MarketplaceFiltersDrawer, opened via the toolbar's
+   "Filters" button, so filtering controls don't compete with artwork or
+   editorial content for space. The right rail (editorial/activity) still
+   drops below the grid, same as before — artwork first (order: 1), then
+   right rail (order: 2), via flex `order` so desktop DOM/tab order
+   (left, main, right) doesn't need to change to get "artwork first" here.
    Threshold is 1150 (not 1024) so the compressed medium-desktop tier
    above never has to squeeze the center column past ~230px cards. */
 @media (max-width: 1150px) {
@@ -334,15 +243,11 @@
   }
 
   .marketplace-rail-col--left {
+    display: none;
+  }
+
+  .marketplace-rail-col--right {
     order: 2;
-  }
-
-  .marketplace-rail-col--right {
-    order: 3;
-  }
-
-  .marketplace-rail-col--left,
-  .marketplace-rail-col--right {
     position: static;
     width: 100%;
     margin-top: 3rem;
@@ -367,10 +272,6 @@
 
   .marketplace-title {
     font-size: 2.4rem;
-  }
-
-  .marketplace-filters-section {
-    padding: 0.75rem 1.25rem;
   }
 
   .marketplace-grid-section {

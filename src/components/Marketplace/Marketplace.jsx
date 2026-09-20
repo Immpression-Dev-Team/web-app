@@ -5,20 +5,10 @@ import { useSearchParams } from "react-router-dom";
 import ArtCard from "./ArtCard.jsx";
 import MarketplaceRail from "./MarketplaceRail/MarketplaceRail.jsx";
 import MarketplaceLeftRail from "./MarketplaceLeftRail/MarketplaceLeftRail.jsx";
+import MarketplaceToolbar from "./MarketplaceToolbar/MarketplaceToolbar.jsx";
+import MarketplaceFiltersDrawer from "./MarketplaceFiltersDrawer/MarketplaceFiltersDrawer.jsx";
 import "./Marketplace.css";
 import { API_URL } from "../../API_URL";
-
-const CATEGORIES = [
-  "All",
-  "paintings",
-  "photography",
-  "graphic design",
-  "illustrations",
-  "sculptures",
-  "woodwork",
-  "graffiti",
-  "stencil",
-];
 
 const SORT_OPTIONS = [
   { value: "newest", label: "Newest" },
@@ -40,6 +30,7 @@ const Marketplace = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [totalImages, setTotalImages] = useState(0);
   const [soldImages, setSoldImages] = useState(0);
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   const LIMIT = 24;
 
@@ -150,39 +141,6 @@ const Marketplace = () => {
         </div>
       </section>
 
-      {/* Filters */}
-      <section className="marketplace-filters-section">
-        <div className="marketplace-filters-inner">
-          <div className="marketplace-category-scroll">
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat}
-                className={`marketplace-cat-btn ${category === cat ? "active" : ""}`}
-                onClick={() => setCategory(cat)}
-              >
-                {cat === "All" ? "All Work" : cat.charAt(0).toUpperCase() + cat.slice(1)}
-              </button>
-            ))}
-          </div>
-          <div className="marketplace-sort-wrap">
-            <select
-              className="marketplace-sort-select"
-              value={sort}
-              onChange={(e) => setSort(e.target.value)}
-            >
-              {SORT_OPTIONS.map((o) => (
-                <option key={o.value} value={o.value}>{o.label}</option>
-              ))}
-            </select>
-          </div>
-        </div>
-        {!loading && totalImages > 0 && (
-          <p className="marketplace-count">
-            {totalImages - soldImages} available{soldImages > 0 ? ` · ${soldImages} sold` : ""}
-          </p>
-        )}
-      </section>
-
       {/* Grid */}
       <section className="marketplace-grid-section">
         <div className="marketplace-grid-inner">
@@ -196,6 +154,17 @@ const Marketplace = () => {
             </div>
 
             <div className="marketplace-main">
+              <MarketplaceToolbar
+                count={!loading ? totalImages - soldImages : null}
+                loading={loading}
+                category={category}
+                setCategory={setCategory}
+                sort={sort}
+                setSort={setSort}
+                sortOptions={SORT_OPTIONS}
+                onOpenFilters={() => setFiltersOpen(true)}
+              />
+
               {loading ? (
                 <div className="marketplace-loading">
                   <div className="marketplace-spinner" />
@@ -247,6 +216,14 @@ const Marketplace = () => {
           </div>
         </div>
       </section>
+
+      <MarketplaceFiltersDrawer
+        open={filtersOpen}
+        onClose={() => setFiltersOpen(false)}
+        category={category}
+        setCategory={setCategory}
+        setSort={setSort}
+      />
 
     </div>
   );

@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@600;700&display=swap');
+
+.mp-drawer-root {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.mp-drawer-root.open {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.mp-drawer-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.mp-drawer-root.open .mp-drawer-backdrop {
+  opacity: 1;
+}
+
+.mp-drawer-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 320px;
+  max-width: 85vw;
+  background: #fff;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.12);
+  transform: translateX(-100%);
+  transition: transform 0.28s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.mp-drawer-root.open .mp-drawer-panel {
+  transform: translateX(0);
+}
+
+.mp-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid #ebebeb;
+  flex-shrink: 0;
+}
+
+.mp-drawer-title {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #111;
+}
+
+.mp-drawer-close {
+  font-size: 1.4rem;
+  line-height: 1;
+  color: #999;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.2rem 0.4rem;
+  transition: color 0.15s ease;
+}
+
+.mp-drawer-close:hover {
+  color: #111;
+}
+
+.mp-drawer-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex: 1;
+}
