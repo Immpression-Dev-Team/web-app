@@ -120,38 +120,3 @@
   text-align: right;
 }
 
-/* ─── Share / Save ─────────────────────────────── */
-.adr-action-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
-}
-
-.adr-action-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: #333;
-  background: #fff;
-  border: 1px solid #e0e0e0;
-  padding: 0.55rem 0.5rem;
-  cursor: pointer;
-  text-decoration: none;
-  transition: border-color 0.15s ease, color 0.15s ease;
-}
-
-.adr-action-btn:hover {
-  border-color: #072973;
-  color: #072973;
-}
-
-.adr-action-btn.active {
-  border-color: #072973;
-  background: #e9f0fb;
-  color: #072973;
-}

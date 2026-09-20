@@ -275,31 +275,6 @@
   border-bottom: 1px solid #ebebeb;
 }
 
-.artwork-detail-save-btn {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: #333;
-  background: #fff;
-  border: 1px solid #ccc;
-  padding: 0.55rem 1.2rem;
-  cursor: pointer;
-  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
-}
-
-.artwork-detail-save-btn:hover {
-  border-color: #072973;
-  color: #072973;
-}
-
-.artwork-detail-save-btn.active {
-  border-color: #072973;
-  background: #e9f0fb;
-  color: #072973;
-}
-
 .artwork-detail-views {
   font-family: 'Inter', sans-serif;
   font-size: 0.75rem;

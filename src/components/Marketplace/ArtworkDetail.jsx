@@ -10,7 +10,6 @@ import ArtworkDetailLeftRail from "./ArtworkDetailLeftRail/ArtworkDetailLeftRail
 import ArtworkDetailRightRail from "./ArtworkDetailRightRail/ArtworkDetailRightRail.jsx";
 import ArtworkArtistSection from "./ArtworkArtistSection.jsx";
 import ArtworkRelatedSection from "./ArtworkRelatedSection.jsx";
-import useSavedArtwork from "./useSavedArtwork.js";
 
 // Extract 24-char MongoDB hex ID from the end of the artwork slug
 const extractId = (artworkSlug = "") => artworkSlug.match(/[a-f0-9]{24}$/)?.[0];
@@ -30,7 +29,6 @@ const ArtworkDetail = () => {
 
   const id = extractId(artworkSlug);
   const [searchQuery, setSearchQuery] = useState("");
-  const [saved, toggleSaved] = useSavedArtwork(id);
 
   useEffect(() => {
     if (!id) {
@@ -201,9 +199,6 @@ const ArtworkDetail = () => {
           artwork={artwork}
           artist={artist}
           artistWorks={artistWorks}
-          saved={saved}
-          onToggleSave={toggleSaved}
-          pageUrl={pageUrl}
         />
       </div>
 
@@ -280,13 +275,6 @@ const ArtworkDetail = () => {
             </div>
 
             <div className="artwork-detail-primary-actions">
-              <button
-                type="button"
-                className={`artwork-detail-save-btn${saved ? " active" : ""}`}
-                onClick={toggleSaved}
-              >
-                {saved ? "Saved" : "Save"}
-              </button>
               <span className="artwork-detail-views">{(artwork.views ?? 0).toLocaleString()} view{artwork.views !== 1 ? "s" : ""}</span>
             </div>
 
