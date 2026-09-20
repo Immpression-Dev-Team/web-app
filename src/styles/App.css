@@ -8,7 +8,10 @@
   font-family: var(--primary-font), sans-serif;
 }
 
-html, body {
+/* overflow lives on html only (not body): body having its own explicit
+   overflow makes it a scroll container distinct from the viewport, which
+   silently breaks position: sticky for every descendant on the site. */
+html {
   width: 100%;
   min-height: 100%;
   overflow-x: hidden;
@@ -16,7 +19,9 @@ html, body {
 }
 
 body {
-  overflow-y: auto;
+  width: 100%;
+  min-height: 100%;
+  background: linear-gradient(to right, var(--primary-light-blue), var(--primary-dark-blue));
 }
 
 #root {

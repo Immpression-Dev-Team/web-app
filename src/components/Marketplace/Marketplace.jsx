@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import { useSearchParams } from "react-router-dom";
 import ArtCard from "./ArtCard.jsx";
+import MarketplaceRail from "./MarketplaceRail/MarketplaceRail.jsx";
 import "./Marketplace.css";
 import { API_URL } from "../../API_URL";
 
@@ -184,49 +185,57 @@ const Marketplace = () => {
       {/* Grid */}
       <section className="marketplace-grid-section">
         <div className="marketplace-grid-inner">
-          {loading ? (
-            <div className="marketplace-loading">
-              <div className="marketplace-spinner" />
-              <p>Loading collection...</p>
-            </div>
-          ) : error ? (
-            <div className="marketplace-error">
-              <p>{error}</p>
-              <button className="marketplace-retry-btn" onClick={() => fetchArtworks(1, true)}>
-                Try Again
-              </button>
-            </div>
-          ) : artworks.length === 0 ? (
-            <div className="marketplace-empty">
-              <span className="marketplace-empty-icon">✦</span>
-              <p>No artworks found in this category yet.</p>
-            </div>
-          ) : (
-            <div className="marketplace-grid">
-              {artworks.map((art, i) => (
-                <motion.div
-                  key={art._id}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.45, delay: Math.min(i * 0.04, 0.6) }}
-                >
-                  <ArtCard artwork={art} />
-                </motion.div>
-              ))}
-            </div>
-          )}
+          <div className="marketplace-content">
+            <div className="marketplace-main">
+              {loading ? (
+                <div className="marketplace-loading">
+                  <div className="marketplace-spinner" />
+                  <p>Loading collection...</p>
+                </div>
+              ) : error ? (
+                <div className="marketplace-error">
+                  <p>{error}</p>
+                  <button className="marketplace-retry-btn" onClick={() => fetchArtworks(1, true)}>
+                    Try Again
+                  </button>
+                </div>
+              ) : artworks.length === 0 ? (
+                <div className="marketplace-empty">
+                  <span className="marketplace-empty-icon">✦</span>
+                  <p>No artworks found in this category yet.</p>
+                </div>
+              ) : (
+                <div className="marketplace-grid">
+                  {artworks.map((art, i) => (
+                    <motion.div
+                      key={art._id}
+                      initial={{ opacity: 0, y: 24 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.45, delay: Math.min(i * 0.04, 0.6) }}
+                    >
+                      <ArtCard artwork={art} />
+                    </motion.div>
+                  ))}
+                </div>
+              )}
 
-          {!loading && page < totalPages && (
-            <div className="marketplace-load-more">
-              <button
-                className="marketplace-load-btn"
-                onClick={handleLoadMore}
-                disabled={loadingMore}
-              >
-                {loadingMore ? "Loading..." : "Load More"}
-              </button>
+              {!loading && page < totalPages && (
+                <div className="marketplace-load-more">
+                  <button
+                    className="marketplace-load-btn"
+                    onClick={handleLoadMore}
+                    disabled={loadingMore}
+                  >
+                    {loadingMore ? "Loading..." : "Load More"}
+                  </button>
+                </div>
+              )}
             </div>
-          )}
+
+            <div className="marketplace-rail-col">
+              <MarketplaceRail />
+            </div>
+          </div>
         </div>
       </section>
 

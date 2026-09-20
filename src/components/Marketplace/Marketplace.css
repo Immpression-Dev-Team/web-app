@@ -6,13 +6,16 @@
   min-height: 100vh;
   background: #ffffff;
   color: #111;
-  overflow-x: hidden;
 }
 
 /* ─── Hero ────────────────────────────────────── */
+/* overflow-x lives here (not on the wrapper) so it clips the entrance
+   animation without creating a scroll container that breaks the rail's
+   position: sticky further down the page. */
 .marketplace-hero {
   padding: 7rem 2rem 2rem;
   border-bottom: 1px solid #ebebeb;
+  overflow-x: hidden;
 }
 
 .marketplace-hero-inner {
@@ -162,9 +165,28 @@
   margin: 0 auto;
 }
 
+/* ─── Content layout: art grid + sidebar rail ─── */
+.marketplace-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 2.5rem;
+}
+
+.marketplace-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.marketplace-rail-col {
+  width: 320px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 132px;
+}
+
 .marketplace-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
 }
 
@@ -260,13 +282,18 @@
 }
 
 /* ─── Responsive ──────────────────────────────── */
-@media (max-width: 1200px) {
-  .marketplace-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
 
-@media (max-width: 900px) {
+/* Tablet: rail drops below the grid, full width again */
+@media (max-width: 1024px) {
+  .marketplace-content {
+    flex-direction: column;
+  }
+
+  .marketplace-rail-col {
+    width: 100%;
+    position: static;
+  }
+
   .marketplace-grid {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -298,6 +325,10 @@
 
   .marketplace-grid-section {
     padding: 1.5rem 1.25rem 5rem;
+  }
+
+  .marketplace-content {
+    gap: 3rem;
   }
 
   .marketplace-grid {
