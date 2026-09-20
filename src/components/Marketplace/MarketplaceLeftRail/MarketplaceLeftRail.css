@@ -19,11 +19,11 @@
 
 .mp-left-title {
   font-family: 'Inter', sans-serif;
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 2px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1.4px;
   text-transform: uppercase;
-  color: #111;
+  color: #0a0a0a;
   margin: 0 0 1.1rem;
 }
 
@@ -71,14 +71,14 @@
 }
 
 .mp-discover-item.active {
-  color: #111;
+  color: #0a0a0a;
   font-weight: 600;
-  border-left-color: #47efac;
-  background: #fafafa;
+  border-left-color: #072973;
+  background: #e9f0fb;
 }
 
 .mp-discover-item.active svg {
-  color: #1fae70;
+  color: #072973;
 }
 
 .mp-discover-label {

@@ -28,11 +28,11 @@
 
 .mp-rail-title {
   font-family: 'Inter', sans-serif;
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 2px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1.4px;
   text-transform: uppercase;
-  color: #111;
+  color: #0a0a0a;
   margin: 0;
 }
 

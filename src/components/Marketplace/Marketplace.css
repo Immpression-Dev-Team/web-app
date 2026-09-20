@@ -89,10 +89,15 @@
    visible and simply compresses on smaller desktops rather than
    disappearing. Both rails are real width values (not minmax/1fr), so
    the center track absorbs all the flex and stays genuinely centered. */
+/* align-items is left at its grid default (stretch, not start) on
+   purpose: the rails no longer use position: sticky (that's what
+   "start" was for), so stretching lets each rail's tinted background
+   run the full height of the row instead of stopping wherever its own
+   content ends — that's what was reading as a floating gray box
+   instead of a rail framing the artwork column. */
 .marketplace-content {
   display: grid;
   grid-template-columns: var(--mp-left-w) minmax(0, 1fr) var(--mp-rail-w);
-  align-items: start;
   gap: 2.5rem;
 }
 
