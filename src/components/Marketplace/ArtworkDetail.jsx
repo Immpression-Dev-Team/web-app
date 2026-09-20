@@ -6,6 +6,11 @@ import "./ArtworkDetail.css";
 import { API_URL } from "../../API_URL";
 import appleIcon from "../../assets/headers/Apple.png";
 import googlePlayIcon from "../../assets/headers/GooglePlay.png";
+import ArtworkDetailLeftRail from "./ArtworkDetailLeftRail/ArtworkDetailLeftRail.jsx";
+import ArtworkDetailRightRail from "./ArtworkDetailRightRail/ArtworkDetailRightRail.jsx";
+import ArtworkArtistSection from "./ArtworkArtistSection.jsx";
+import ArtworkRelatedSection from "./ArtworkRelatedSection.jsx";
+import useSavedArtwork from "./useSavedArtwork.js";
 
 // Extract 24-char MongoDB hex ID from the end of the artwork slug
 const extractId = (artworkSlug = "") => artworkSlug.match(/[a-f0-9]{24}$/)?.[0];
@@ -15,13 +20,17 @@ const ArtworkDetail = () => {
   const { artworkSlug } = useParams();
   const navigate = useNavigate();
   const [artwork, setArtwork] = useState(null);
+  const [artist, setArtist] = useState(null);
+  const [artistWorks, setArtistWorks] = useState([]);
+  const [relatedArtworks, setRelatedArtworks] = useState([]);
+  const [rightRailArtworks, setRightRailArtworks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const id = extractId(artworkSlug);
-  const [moreArtworks, setMoreArtworks] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [saved, toggleSaved] = useSavedArtwork(id);
 
   useEffect(() => {
     if (!id) {
@@ -34,18 +43,43 @@ const ArtworkDetail = () => {
       setLoading(true);
       setError("");
       setImageLoaded(false);
+      setArtist(null);
+      setArtistWorks([]);
       try {
         const res = await fetch(`${API_URL}/marketplace/${id}`);
         const data = await res.json();
         if (data.success) {
           setArtwork(data.image);
-          // Fetch more artworks from same category
-          const params = new URLSearchParams({ limit: 7, sort: "newest" });
+
+          // Same-category artworks, split between the right rail's compact
+          // list and the center "Related Artwork" grid so nothing repeats.
+          const params = new URLSearchParams({ limit: 10, sort: "newest" });
           if (data.image.category) params.append("category", data.image.category);
-          const moreRes = await fetch(`${API_URL}/marketplace?${params}`);
-          const moreData = await moreRes.json();
-          if (moreData.success) {
-            setMoreArtworks(moreData.images.filter((a) => a._id !== data.image._id).slice(0, 6));
+          fetch(`${API_URL}/marketplace?${params}`)
+            .then((r) => r.json())
+            .then((moreData) => {
+              if (!moreData.success) return;
+              const others = moreData.images.filter((a) => a._id !== data.image._id);
+              setRightRailArtworks(others.slice(0, 4));
+              setRelatedArtworks(others.slice(4, 9));
+            })
+            .catch(() => {});
+
+          // Artist profile + their other pieces (real endpoints, no
+          // fabricated follower counts or profile data).
+          if (data.image.userId) {
+            fetch(`${API_URL}/profile/${data.image.userId}`)
+              .then((r) => r.json())
+              .then((profileData) => { if (profileData.success) setArtist(profileData.user); })
+              .catch(() => {});
+
+            fetch(`${API_URL}/profile/${data.image.userId}/images`)
+              .then((r) => r.json())
+              .then((worksData) => {
+                if (!worksData.success) return;
+                setArtistWorks(worksData.images.filter((a) => a._id !== data.image._id).slice(0, 4));
+              })
+              .catch(() => {});
           }
         } else {
           setError(data.error || "Artwork not found.");
@@ -95,7 +129,6 @@ const ArtworkDetail = () => {
     weight,
     isSigned,
     isFramed,
-    views,
     createdAt,
     isSold,
   } = artwork;
@@ -163,185 +196,185 @@ const ArtworkDetail = () => {
         })}</script>
       </Helmet>
 
-      {/* Breadcrumb + search on same row */}
-      <div className="artwork-detail-breadcrumb">
-        <div className="artwork-detail-breadcrumb-left">
-          <Link to="/marketplace" className="artwork-detail-back-link">
-            ← Marketplace
-          </Link>
-          <span className="artwork-detail-breadcrumb-sep">/</span>
-          <span className="artwork-detail-breadcrumb-artist">{artistName}</span>
-          <span className="artwork-detail-breadcrumb-sep">/</span>
-          <span className="artwork-detail-breadcrumb-name">{name}</span>
-        </div>
-        <form
-          className="artwork-detail-search-form"
-          onSubmit={e => { e.preventDefault(); if (searchQuery.trim()) navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`); }}
-        >
-          <svg className="artwork-detail-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-          </svg>
-          <input
-            className="artwork-detail-search-input"
-            type="text"
-            placeholder="Search artworks, artists…"
-            value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
-          />
-          <button type="submit" className="artwork-detail-search-btn">Search</button>
-        </form>
+      <div className="artwork-detail-rail-col artwork-detail-rail-col--left">
+        <ArtworkDetailLeftRail
+          artwork={artwork}
+          artist={artist}
+          artistWorks={artistWorks}
+          saved={saved}
+          onToggleSave={toggleSaved}
+          pageUrl={pageUrl}
+        />
       </div>
 
-      <div className="artwork-detail-inner">
+      <div className="artwork-detail-main-col">
 
-        {/* Image */}
-        <motion.div
-          className="artwork-detail-image-col"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.55 }}
-        >
-          <div className={`artwork-detail-image-wrap ${imageLoaded ? "loaded" : ""}`}>
-            <img
-              src={imageLink}
-              alt={`${name} by ${artistName}`}
-              className="artwork-detail-image"
-              onLoad={() => setImageLoaded(true)}
-            />
-            {isSold && (
-              <div className="artwork-detail-sold-badge">Sold</div>
-            )}
+        {/* Breadcrumb + search on same row */}
+        <div className="artwork-detail-breadcrumb">
+          <div className="artwork-detail-breadcrumb-left">
+            <Link to="/marketplace" className="artwork-detail-back-link">
+              ← Marketplace
+            </Link>
+            <span className="artwork-detail-breadcrumb-sep">/</span>
+            <span className="artwork-detail-breadcrumb-artist">{artistName}</span>
+            <span className="artwork-detail-breadcrumb-sep">/</span>
+            <span className="artwork-detail-breadcrumb-name">{name}</span>
           </div>
-          {views !== undefined && (
-            <p className="artwork-detail-views">{views.toLocaleString()} view{views !== 1 ? "s" : ""}</p>
-          )}
-        </motion.div>
-
-        {/* Info */}
-        <motion.div
-          className="artwork-detail-info-col"
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.55, delay: 0.08 }}
-        >
-          {category && (
-            <span className="artwork-detail-category">{category}</span>
-          )}
-
-          <h1 className="artwork-detail-name">{name}</h1>
-          <p className="artwork-detail-artist">by {artistName}</p>
-
-          <div className="artwork-detail-price-row">
-            <span className="artwork-detail-price">${Number(price).toLocaleString()}</span>
-            {isSold && <span className="artwork-detail-sold-tag">Sold</span>}
-          </div>
-
-          {description && (
-            <div className="artwork-detail-section">
-              <span className="artwork-detail-section-label">About this piece</span>
-              <p className="artwork-detail-description">{description}</p>
-            </div>
-          )}
-
-          <div className="artwork-detail-section">
-            <span className="artwork-detail-section-label">Details</span>
-            <div className="artwork-detail-specs">
-              {dimensions?.height && dimensions?.width && (
-                <div className="artwork-detail-spec">
-                  <span className="artwork-detail-spec-key">Dimensions</span>
-                  <span className="artwork-detail-spec-val">
-                    {dimensions.height}" × {dimensions.width}"
-                    {dimensions.length ? ` × ${dimensions.length}"` : ""}
-                  </span>
-                </div>
-              )}
-              {weight && (
-                <div className="artwork-detail-spec">
-                  <span className="artwork-detail-spec-key">Weight</span>
-                  <span className="artwork-detail-spec-val">{weight} lbs</span>
-                </div>
-              )}
-              <div className="artwork-detail-spec">
-                <span className="artwork-detail-spec-key">Signed</span>
-                <span className="artwork-detail-spec-val">{isSigned ? "Yes" : "No"}</span>
-              </div>
-              <div className="artwork-detail-spec">
-                <span className="artwork-detail-spec-key">Framed</span>
-                <span className="artwork-detail-spec-val">{isFramed ? "Yes" : "No"}</span>
-              </div>
-              {listedDate && (
-                <div className="artwork-detail-spec">
-                  <span className="artwork-detail-spec-key">Listed</span>
-                  <span className="artwork-detail-spec-val">{listedDate}</span>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {!isSold && (
-            <div className="artwork-detail-cta-block">
-              <p className="artwork-detail-cta-note">
-                Purchase through the Immpression app.
-              </p>
-              <div className="artwork-detail-app-links">
-                <a
-                  href="https://apps.apple.com/app/id6756974604"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="artwork-detail-store-btn"
-                >
-                  <img src={appleIcon} alt="Download on the App Store" className="artwork-detail-store-img" />
-                </a>
-                <a
-                  href="https://play.google.com/store/apps/details?id=com.immpression.artapp"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="artwork-detail-store-btn"
-                >
-                  <img src={googlePlayIcon} alt="Get it on Google Play" className="artwork-detail-store-img" />
-                </a>
-              </div>
-            </div>
-          )}
-        </motion.div>
-
-        {/* More artwork sidebar */}
-        {moreArtworks.length > 0 && (
-          <motion.div
-            className="artwork-detail-more-col"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.55, delay: 0.2 }}
+          <form
+            className="artwork-detail-search-form"
+            onSubmit={e => { e.preventDefault(); if (searchQuery.trim()) navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`); }}
           >
-            <span className="artwork-detail-more-label">
-              More Artworks
-            </span>
-            <div className="artwork-detail-more-list">
-              {moreArtworks.map((art) => {
-                const artistSlug = slugify(art.artistName || "artist");
-                const artworkSlug = `${slugify(art.name || "artwork")}-${art._id}`;
-                return (
-                  <Link
-                    key={art._id}
-                    to={`/marketplace/${artistSlug}/${artworkSlug}`}
-                    className="artwork-detail-more-card"
-                  >
-                    <div className="artwork-detail-more-img-wrap">
-                      <img src={art.imageLink} alt={art.name} loading="lazy" />
-                    </div>
-                    <div className="artwork-detail-more-info">
-                      <p className="artwork-detail-more-artist">{art.artistName}</p>
-                      <p className="artwork-detail-more-name">{art.name}</p>
-                      <p className="artwork-detail-more-price">${Number(art.price).toLocaleString()}</p>
-                    </div>
-                  </Link>
-                );
-              })}
+            <svg className="artwork-detail-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input
+              className="artwork-detail-search-input"
+              type="text"
+              placeholder="Search artworks, artists…"
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+            />
+            <button type="submit" className="artwork-detail-search-btn">Search</button>
+          </form>
+        </div>
+
+        <div className="artwork-detail-inner">
+
+          {/* Image */}
+          <motion.div
+            className="artwork-detail-image-col"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.55 }}
+          >
+            <div className={`artwork-detail-image-wrap ${imageLoaded ? "loaded" : ""}`}>
+              <img
+                src={imageLink}
+                alt={`${name} by ${artistName}`}
+                className="artwork-detail-image"
+                onLoad={() => setImageLoaded(true)}
+              />
+              {isSold && (
+                <div className="artwork-detail-sold-badge">Sold</div>
+              )}
             </div>
           </motion.div>
-        )}
+
+          {/* Info */}
+          <motion.div
+            className="artwork-detail-info-col"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.55, delay: 0.08 }}
+          >
+            {category && (
+              <span className="artwork-detail-category">{category}</span>
+            )}
+
+            <h1 className="artwork-detail-name">{name}</h1>
+            <p className="artwork-detail-artist">by {artistName}</p>
+
+            <div className="artwork-detail-price-row">
+              <span className="artwork-detail-price">${Number(price).toLocaleString()}</span>
+              {isSold && <span className="artwork-detail-sold-tag">Sold</span>}
+            </div>
+
+            <div className="artwork-detail-primary-actions">
+              <button
+                type="button"
+                className={`artwork-detail-save-btn${saved ? " active" : ""}`}
+                onClick={toggleSaved}
+              >
+                {saved ? "Saved" : "Save"}
+              </button>
+              <span className="artwork-detail-views">{(artwork.views ?? 0).toLocaleString()} view{artwork.views !== 1 ? "s" : ""}</span>
+            </div>
+
+            {description && (
+              <div className="artwork-detail-section">
+                <span className="artwork-detail-section-label">About this piece</span>
+                <p className="artwork-detail-description">{description}</p>
+              </div>
+            )}
+
+            <div className="artwork-detail-section">
+              <span className="artwork-detail-section-label">Details</span>
+              <div className="artwork-detail-specs">
+                {dimensions?.height && dimensions?.width && (
+                  <div className="artwork-detail-spec">
+                    <span className="artwork-detail-spec-key">Dimensions</span>
+                    <span className="artwork-detail-spec-val">
+                      {dimensions.height}" × {dimensions.width}"
+                      {dimensions.length ? ` × ${dimensions.length}"` : ""}
+                    </span>
+                  </div>
+                )}
+                {weight && (
+                  <div className="artwork-detail-spec">
+                    <span className="artwork-detail-spec-key">Weight</span>
+                    <span className="artwork-detail-spec-val">{weight} lbs</span>
+                  </div>
+                )}
+                <div className="artwork-detail-spec">
+                  <span className="artwork-detail-spec-key">Signed</span>
+                  <span className="artwork-detail-spec-val">{isSigned ? "Yes" : "No"}</span>
+                </div>
+                <div className="artwork-detail-spec">
+                  <span className="artwork-detail-spec-key">Framed</span>
+                  <span className="artwork-detail-spec-val">{isFramed ? "Yes" : "No"}</span>
+                </div>
+                {listedDate && (
+                  <div className="artwork-detail-spec">
+                    <span className="artwork-detail-spec-key">Listed</span>
+                    <span className="artwork-detail-spec-val">{listedDate}</span>
+                  </div>
+                )}
+                <div className="artwork-detail-spec">
+                  <span className="artwork-detail-spec-key">Purchase method</span>
+                  <span className="artwork-detail-spec-val">Immpression app</span>
+                </div>
+              </div>
+            </div>
+
+            {!isSold && (
+              <div className="artwork-detail-cta-block">
+                <p className="artwork-detail-cta-note">
+                  Purchase through the Immpression app.
+                </p>
+                <div className="artwork-detail-app-links">
+                  <a
+                    href="https://apps.apple.com/app/id6756974604"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="artwork-detail-store-btn"
+                  >
+                    <img src={appleIcon} alt="Download on the App Store" className="artwork-detail-store-img" />
+                  </a>
+                  <a
+                    href="https://play.google.com/store/apps/details?id=com.immpression.artapp"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="artwork-detail-store-btn"
+                  >
+                    <img src={googlePlayIcon} alt="Get it on Google Play" className="artwork-detail-store-img" />
+                  </a>
+                </div>
+              </div>
+            )}
+          </motion.div>
+
+        </div>
+
+        <ArtworkArtistSection artistName={artistName} artist={artist} />
+
+        <ArtworkRelatedSection artworks={relatedArtworks} />
 
       </div>
+
+      <div className="artwork-detail-rail-col artwork-detail-rail-col--right">
+        <ArtworkDetailRightRail moreArtworks={rightRailArtworks} />
+      </div>
+
     </div>
   );
 };

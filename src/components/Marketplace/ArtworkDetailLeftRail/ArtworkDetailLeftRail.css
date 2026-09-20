@@ -1,0 +1,157 @@
+.adr-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1.1rem;
+}
+
+.adr-section-head .mp-left-title {
+  margin: 0;
+}
+
+/* ─── Artist Summary ───────────────────────────── */
+.adr-artist-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.adr-artist-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: #e5e9f0;
+}
+
+.adr-artist-body {
+  min-width: 0;
+}
+
+.adr-artist-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #111;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.adr-artist-type {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  color: #999;
+  margin: 0.1rem 0 0;
+  text-transform: capitalize;
+}
+
+.adr-artist-bio {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  color: #666;
+  line-height: 1.55;
+  margin: 0.85rem 0 0;
+}
+
+.adr-artist-meta {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  color: #aaa;
+  margin: 0.5rem 0 0;
+}
+
+.adr-view-profile-btn {
+  display: inline-block;
+  margin-top: 0.9rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #111;
+  background: transparent;
+  border: 1px solid #ccc;
+  padding: 0.45rem 0.9rem;
+  text-decoration: none;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.adr-view-profile-btn:hover {
+  border-color: #072973;
+  background: #fff;
+}
+
+/* ─── Piece Stats ──────────────────────────────── */
+.adr-stats-list {
+  margin: 0;
+}
+
+.adr-stats-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.adr-stats-row:last-child {
+  border-bottom: none;
+}
+
+.adr-stats-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  color: #888;
+  margin: 0;
+}
+
+.adr-stats-value {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #111;
+  margin: 0;
+  text-transform: capitalize;
+  text-align: right;
+}
+
+/* ─── Share / Save ─────────────────────────────── */
+.adr-action-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.adr-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #333;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  padding: 0.55rem 0.5rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.adr-action-btn:hover {
+  border-color: #072973;
+  color: #072973;
+}
+
+.adr-action-btn.active {
+  border-color: #072973;
+  background: #e9f0fb;
+  color: #072973;
+}

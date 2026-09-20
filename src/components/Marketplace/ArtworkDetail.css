@@ -1,17 +1,45 @@
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* ─── Wrapper ─────────────────────────────────── */
+/* ─── Wrapper: same 3-column shell as the Marketplace page ─────
+   left rail | center | right rail, spanning the whole page (no
+   max-width), so the tinted rails run edge-to-edge and touch the
+   navbar exactly like on /marketplace. */
 .artwork-detail-wrapper {
   width: 100%;
   min-height: 100vh;
   background: #ffffff;
   color: #111;
+  display: grid;
+  grid-template-columns: var(--adr-left-w) minmax(0, 1fr) var(--adr-right-w);
+  --adr-left-w: 300px;
+  --adr-right-w: 300px;
+  --adr-main-max: 1100px;
+  --adr-panel-bg: #f5f7fa;
+  --adr-panel-border: #e2e6ec;
+}
+
+.artwork-detail-main-col {
+  min-width: 0;
   padding: 5.5rem 2rem 6rem;
+}
+
+.artwork-detail-rail-col {
+  min-width: 0;
+  background: var(--adr-panel-bg);
+  padding: 2.25rem 1.75rem;
+}
+
+.artwork-detail-rail-col--left {
+  border-right: 1px solid var(--adr-panel-border);
+}
+
+.artwork-detail-rail-col--right {
+  border-left: 1px solid var(--adr-panel-border);
 }
 
 /* ─── Breadcrumb ──────────────────────────────── */
 .artwork-detail-breadcrumb {
-  max-width: 1280px;
+  max-width: var(--adr-main-max);
   margin: 0 auto 2rem;
   display: flex;
   align-items: center;
@@ -28,7 +56,7 @@
 }
 
 .artwork-detail-back-link {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 2px;
@@ -48,7 +76,7 @@
 }
 
 .artwork-detail-breadcrumb-artist {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 2px;
@@ -57,7 +85,7 @@
 }
 
 .artwork-detail-breadcrumb-name {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 2px;
@@ -71,14 +99,13 @@
 
 /* ─── Layout ──────────────────────────────────── */
 .artwork-detail-inner {
-  max-width: 1280px;
+  max-width: var(--adr-main-max);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr 320px;
+  grid-template-columns: 1fr 1fr;
   gap: 3rem;
   align-items: start;
 }
-
 
 .artwork-detail-search-form {
   display: flex;
@@ -87,22 +114,22 @@
   border: 1px solid rgba(0,0,0,0.10);
   border-radius: 9999px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.22), 0 1px 3px rgba(0,0,0,0.14);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10), 0 1px 3px rgba(0,0,0,0.06);
   transition: border-color 0.25s, box-shadow 0.25s;
   flex: 1;
+  max-width: 420px;
 }
 
 .artwork-detail-search-form:focus-within {
   border-color: rgba(0,0,0,0.18);
-  box-shadow: 0 3px 10px rgba(0,0,0,0.28), 0 1px 4px rgba(0,0,0,0.16);
 }
 
 .artwork-detail-search-icon {
   flex-shrink: 0;
-  width: 17px;
-  height: 17px;
+  width: 15px;
+  height: 15px;
   color: #aaa;
-  margin-left: 1rem;
+  margin-left: 0.9rem;
 }
 
 .artwork-detail-search-input {
@@ -110,8 +137,8 @@
   background: transparent;
   border: none;
   outline: none;
-  padding: 1rem 0.75rem;
-  font-size: 1rem;
+  padding: 0.6rem 0.6rem;
+  font-size: 0.82rem;
   font-family: 'Inter', sans-serif;
   color: #111;
 }
@@ -122,14 +149,14 @@
 
 .artwork-detail-search-btn {
   flex-shrink: 0;
-  background: #111;
+  background: #072973;
   color: #fff;
   border: none;
-  padding: 0.7rem 1.4rem;
-  margin: 4px;
+  padding: 0.5rem 1.1rem;
+  margin: 3px;
   border-radius: 9999px;
-  font-size: 0.9rem;
-  font-weight: 700;
+  font-size: 0.72rem;
+  font-weight: 600;
   font-family: 'Inter', sans-serif;
   letter-spacing: 0.3px;
   cursor: pointer;
@@ -137,15 +164,10 @@
 }
 
 .artwork-detail-search-btn:hover {
-  background: #333;
+  background: #0a3a99;
 }
 
 /* ─── Image column ────────────────────────────── */
-.artwork-detail-image-col {
-  position: sticky;
-  top: 5rem;
-}
-
 .artwork-detail-image-wrap {
   width: 100%;
   border-radius: 0;
@@ -172,7 +194,7 @@
   position: absolute;
   top: 0.75rem;
   right: 0.75rem;
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.6rem;
   font-weight: 600;
   letter-spacing: 2px;
@@ -181,15 +203,6 @@
   background: rgba(255, 255, 255, 0.9);
   border: 1px solid #ddd;
   padding: 0.25rem 0.65rem;
-  border-radius: 4px;
-}
-
-.artwork-detail-views {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.72rem;
-  color: #ccc;
-  margin: 0.65rem 0 0;
-  text-align: right;
 }
 
 /* ─── Info column ─────────────────────────────── */
@@ -201,7 +214,7 @@
 
 .artwork-detail-category {
   display: inline-block;
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.6rem;
   font-weight: 600;
   letter-spacing: 3px;
@@ -231,21 +244,19 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 2rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid #ebebeb;
+  margin-bottom: 1.25rem;
 }
 
 .artwork-detail-price {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 1.8rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   color: #111;
 }
 
 .artwork-detail-sold-tag {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.6rem;
   font-weight: 600;
   letter-spacing: 2px;
@@ -253,7 +264,46 @@
   color: #aaa;
   border: 1px solid #ddd;
   padding: 0.25rem 0.65rem;
-  border-radius: 4px;
+}
+
+.artwork-detail-primary-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #ebebeb;
+}
+
+.artwork-detail-save-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #333;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 0.55rem 1.2rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.artwork-detail-save-btn:hover {
+  border-color: #072973;
+  color: #072973;
+}
+
+.artwork-detail-save-btn.active {
+  border-color: #072973;
+  background: #e9f0fb;
+  color: #072973;
+}
+
+.artwork-detail-views {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  color: #aaa;
 }
 
 /* ─── Sections ────────────────────────────────── */
@@ -269,12 +319,12 @@
 
 .artwork-detail-section-label {
   display: block;
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.6rem;
-  font-weight: 600;
-  letter-spacing: 3px;
+  font-weight: 700;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  color: #bbb;
+  color: #999;
   margin-bottom: 0.75rem;
 }
 
@@ -300,18 +350,16 @@
 }
 
 .artwork-detail-spec-key {
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 0.63rem;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #bbb;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  color: #999;
 }
 
 .artwork-detail-spec-val {
   font-family: 'Inter', sans-serif;
-  font-size: 0.88rem;
-  color: #444;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #333;
 }
 
 /* ─── CTA ─────────────────────────────────────── */
@@ -343,7 +391,7 @@
 }
 
 .artwork-detail-store-img {
-  height: 52px;
+  height: 48px;
   width: auto;
   border-radius: 6px;
   display: block;
@@ -359,6 +407,7 @@
   min-height: 60vh;
   gap: 1rem;
   text-align: center;
+  grid-column: 1 / -1;
 }
 
 .artwork-detail-spinner {
@@ -383,7 +432,7 @@
 }
 
 .artwork-detail-back-btn {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 2.5px;
@@ -392,7 +441,6 @@
   background: transparent;
   border: 1px solid #ccc;
   padding: 0.55rem 1.25rem;
-  border-radius: 4px;
   cursor: pointer;
   transition: border-color 0.2s ease;
 }
@@ -401,144 +449,131 @@
   border-color: #111;
 }
 
-/* ─── More Artwork Sidebar ────────────────────── */
-.artwork-detail-more-col {
-  position: sticky;
-  top: 5rem;
-  border-left: 1px solid #f0f0f0;
-  padding-left: 2rem;
-}
-
-.artwork-detail-more-label {
-  display: block;
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: #999;
-  margin-bottom: 1rem;
-  padding-bottom: 0.75rem;
+/* ─── Artist strip (secondary, center column) ─── */
+.adr-artist-strip {
+  max-width: var(--adr-main-max);
+  margin: 3.5rem auto 0;
+  padding: 1.75rem 0;
+  border-top: 1px solid #ebebeb;
   border-bottom: 1px solid #ebebeb;
-}
-
-.artwork-detail-more-list {
   display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.artwork-detail-more-card {
-  display: flex;
-  gap: 1rem;
-  text-decoration: none;
   align-items: center;
-  padding: 0.75rem 0;
-  border-radius: 0;
-  border-bottom: 1px solid #f0f0f0;
-  transition: background 0.15s ease;
+  gap: 1.25rem;
 }
 
-.artwork-detail-more-card:last-child {
-  border-bottom: none;
-}
-
-.artwork-detail-more-card:hover {
-  background: #fafafa;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  margin-left: -0.5rem;
-  margin-right: -0.5rem;
-}
-
-.artwork-detail-more-img-wrap {
-  width: 80px;
-  height: 80px;
-  flex-shrink: 0;
-  border-radius: 0;
-  overflow: hidden;
-  background: #f5f5f5;
-}
-
-.artwork-detail-more-img-wrap img {
-  width: 100%;
-  height: 100%;
+.adr-artist-strip-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
   object-fit: cover;
-  display: block;
-  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  background: #e5e9f0;
 }
 
-.artwork-detail-more-card:hover .artwork-detail-more-img-wrap img {
-  transform: scale(1.07);
-}
-
-.artwork-detail-more-info {
+.adr-artist-strip-body {
   flex: 1;
   min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
 }
 
-.artwork-detail-more-artist {
-  font-family: 'Josefin Sans', sans-serif;
+.adr-artist-strip-label {
+  display: block;
+  font-family: 'Inter', sans-serif;
   font-size: 0.6rem;
-  font-weight: 600;
-  letter-spacing: 1.5px;
+  font-weight: 700;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  color: #aaa;
-  margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  color: #999;
+  margin-bottom: 0.3rem;
 }
 
-.artwork-detail-more-name {
+.adr-artist-strip-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111;
+  margin: 0;
+}
+
+.adr-artist-strip-bio {
   font-family: 'Inter', sans-serif;
   font-size: 0.82rem;
-  font-weight: 500;
-  color: #1a1a1a;
-  margin: 0;
-  line-height: 1.3;
+  color: #777;
+  line-height: 1.5;
+  margin: 0.35rem 0 0;
+  max-width: 640px;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
 
-.artwork-detail-more-price {
+/* ─── Related Artwork (center column, bottom) ─── */
+.adr-related-section {
+  max-width: var(--adr-main-max);
+  margin: 3rem auto 0;
+}
+
+.adr-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1.1rem;
+}
+
+.adr-related-title {
   font-family: 'Inter', sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: #111;
   margin: 0;
-  letter-spacing: -0.2px;
+}
+
+.adr-related-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
 }
 
 /* ─── Responsive ──────────────────────────────── */
-@media (max-width: 1100px) {
-  .artwork-detail-inner {
-    grid-template-columns: 1fr 1fr;
+
+/* Medium desktop: compress the rails before the center gets squeezed. */
+@media (max-width: 1400px) {
+  .artwork-detail-wrapper {
+    grid-template-columns: 230px minmax(0, 1fr) 280px;
   }
 
-  .artwork-detail-more-col {
-    grid-column: 1 / -1;
-    position: static;
+  .artwork-detail-rail-col {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .adr-related-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Tablet: rails stack below the center content, artwork first. */
+@media (max-width: 1150px) {
+  .artwork-detail-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .artwork-detail-main-col {
+    order: 1;
+    padding: 5.5rem 2rem 3rem;
+  }
+
+  .artwork-detail-rail-col--left {
+    order: 2;
+    border-right: none;
+    border-top: 1px solid var(--adr-panel-border);
+  }
+
+  .artwork-detail-rail-col--right {
+    order: 3;
     border-left: none;
-    border-top: 1px solid #f0f0f0;
-    padding-left: 0;
-    padding-top: 1.5rem;
-  }
-
-  .artwork-detail-more-list {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-  }
-
-  .artwork-detail-more-card {
-    flex: 1 1 180px;
-    max-width: 220px;
+    border-top: 1px solid var(--adr-panel-border);
   }
 }
 
@@ -548,18 +583,36 @@
     gap: 2rem;
   }
 
-  .artwork-detail-image-col {
-    position: static;
-  }
-
   .artwork-detail-name {
     font-size: 1.6rem;
   }
+
+  .adr-related-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .adr-artist-strip {
+    flex-wrap: wrap;
+  }
+
+  .adr-view-profile-btn {
+    margin-left: auto;
+  }
 }
 
-@media (max-width: 600px) {
-  .artwork-detail-wrapper {
-    padding: 5rem 1.25rem 5rem;
+@media (max-width: 640px) {
+  .artwork-detail-main-col {
+    padding: 5rem 1.25rem 3rem;
+  }
+
+  .artwork-detail-breadcrumb {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .artwork-detail-search-form {
+    max-width: 100%;
+    width: 100%;
   }
 
   .artwork-detail-name {
@@ -570,7 +623,8 @@
     font-size: 1.4rem;
   }
 
-  .artwork-detail-more-card {
-    max-width: 100%;
+  .adr-related-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
   }
 }
