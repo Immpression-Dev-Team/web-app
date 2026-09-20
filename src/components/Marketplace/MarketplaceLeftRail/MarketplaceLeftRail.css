@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Josefin+Sans:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600;700&display=swap');
 
 /* ─── Rail Container ──────────────────────────── */
 .mp-left-rail {
@@ -18,7 +18,7 @@
 }
 
 .mp-left-title {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 2px;
@@ -97,7 +97,7 @@
 
 .mp-soon-tag {
   flex-shrink: 0;
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.52rem;
   font-weight: 600;
   letter-spacing: 1px;
@@ -155,7 +155,7 @@
 }
 
 .mp-medium-count {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.7rem;
   font-weight: 600;
   color: #bbb;
@@ -203,7 +203,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.7rem;
   font-weight: 600;
   color: #999;
@@ -221,12 +221,13 @@
 }
 
 .mp-support-title {
-  font-family: 'Permanent Marker', cursive;
-  font-size: 1.25rem;
-  font-weight: 400;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.55rem;
+  font-weight: 600;
   color: #fff;
   margin: 0;
-  line-height: 1.25;
+  line-height: 1.2;
 }
 
 .mp-support-copy {
@@ -239,7 +240,7 @@
 
 .mp-support-btn {
   align-self: flex-start;
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 2px;
@@ -275,6 +276,6 @@
   }
 
   .mp-support-title {
-    font-size: 1.05rem;
+    font-size: 1.3rem;
   }
 }

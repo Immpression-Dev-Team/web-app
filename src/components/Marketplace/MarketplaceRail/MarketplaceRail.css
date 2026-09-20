@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Josefin+Sans:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600;700&display=swap');
 
 /* ─── Rail Container ──────────────────────────── */
 .mp-rail {
@@ -19,14 +19,15 @@
 
 .mp-rail-section-head {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
-  gap: 0.75rem;
+  gap: 0.4rem 0.75rem;
   margin-bottom: 1.1rem;
 }
 
 .mp-rail-title {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 2px;
@@ -36,7 +37,7 @@
 }
 
 .mp-rail-link {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.6rem;
   font-weight: 600;
   letter-spacing: 1px;
@@ -95,7 +96,7 @@
 }
 
 .mp-blog-rail-label {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.55rem;
   font-weight: 700;
   letter-spacing: 1.5px;
@@ -178,7 +179,7 @@
 }
 
 .mp-activity-time {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.6rem;
   font-weight: 600;
   letter-spacing: 0.5px;
@@ -200,7 +201,7 @@
 }
 
 .mp-sell-eyebrow {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.6rem;
   font-weight: 700;
   letter-spacing: 2px;
@@ -209,9 +210,10 @@
 }
 
 .mp-sell-title {
-  font-family: 'Permanent Marker', cursive;
-  font-size: 1.4rem;
-  font-weight: 400;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.7rem;
+  font-weight: 600;
   color: #fff;
   margin: 0;
   line-height: 1.15;
@@ -227,7 +229,7 @@
 
 .mp-sell-btn {
   align-self: flex-start;
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 2px;

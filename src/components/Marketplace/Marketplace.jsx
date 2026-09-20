@@ -127,7 +127,7 @@ const Marketplace = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
-            The Collection.
+            The Collection
           </motion.h1>
           <motion.p
             className="marketplace-subtitle"
@@ -135,8 +135,8 @@ const Marketplace = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.35 }}
           >
-            Discover and own original works from emerging artists.
-            Every piece is one of a kind.
+            Discover original works from emerging artists and collect
+            one-of-a-kind pieces.
           </motion.p>
         </div>
       </section>

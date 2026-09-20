@@ -1,6 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Josefin+Sans:wght@300;400;600&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600;700&display=swap');
 
 /* ─── Wrapper ─────────────────────────────────── */
+/* Two fonts, two jobs: Inter for every piece of UI (nav, labels, cards,
+   buttons, filters), Cormorant Garamond only for the handful of large
+   editorial display moments (hero title, CTA card headings). */
 .marketplace-wrapper {
   width: 100%;
   min-height: 100vh;
@@ -9,6 +12,8 @@
   --mp-left-w: 300px;
   --mp-rail-w: 300px;
   --mp-main-max: 1040px;
+  --mp-panel-bg: #f7f7f4;
+  --mp-panel-border: #e6e6e1;
 }
 
 /* ─── Hero ────────────────────────────────────── */
@@ -17,50 +22,47 @@
    element with non-visible overflow anywhere above the navbar would
    silently break its position: sticky. */
 .marketplace-hero {
-  padding: 7rem 2rem 2rem;
+  padding: 4.5rem 2rem 3rem;
   border-bottom: 1px solid #ebebeb;
   overflow-x: hidden;
 }
 
 .marketplace-hero-inner {
-  max-width: 1280px;
+  max-width: 620px;
   margin: 0 auto;
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 2rem;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.85rem;
 }
 
 .marketplace-eyebrow {
   display: inline-block;
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 0.65rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: #999;
-  margin-bottom: 0.6rem;
 }
 
 .marketplace-title {
-  font-family: 'Permanent Marker', cursive;
-  font-size: 3.2rem;
-  font-weight: 400;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.4rem;
+  font-weight: 500;
   color: #111;
-  line-height: 1.0;
+  line-height: 1.08;
   margin: 0;
 }
 
 .marketplace-subtitle {
   font-family: 'Inter', sans-serif;
-  font-size: 0.88rem;
-  color: #888;
+  font-size: 0.95rem;
+  color: #777;
   line-height: 1.6;
   margin: 0;
-  max-width: 300px;
-  text-align: right;
-  align-self: flex-end;
+  max-width: 440px;
 }
 
 /* ─── Grid Section ────────────────────────────── */
@@ -104,6 +106,23 @@
   min-width: 0;
 }
 
+/* Rails read as quiet supporting panels — tinted off-white, divided
+   from the center by a hairline — so the white artwork column reads
+   as the primary canvas. */
+.marketplace-rail-col--left,
+.marketplace-rail-col--right {
+  background: var(--mp-panel-bg);
+  padding: 2.25rem 1.75rem;
+}
+
+.marketplace-rail-col--left {
+  border-right: 1px solid var(--mp-panel-border);
+}
+
+.marketplace-rail-col--right {
+  border-left: 1px solid var(--mp-panel-border);
+}
+
 .marketplace-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -121,6 +140,11 @@
 
   .marketplace-grid {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .marketplace-rail-col--left,
+  .marketplace-rail-col--right {
+    padding: 1.75rem 1.25rem;
   }
 }
 
@@ -165,7 +189,7 @@
 }
 
 .marketplace-retry-btn {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 2.5px;
@@ -191,7 +215,7 @@
 }
 
 .marketplace-load-btn {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 3px;
@@ -247,27 +271,27 @@
     order: 2;
     width: 100%;
     margin-top: 3rem;
+    /* Horizontal padding drops to 0 here so the panel's content lines
+       up with the artwork grid above it instead of double-indenting
+       (the section already has its own side padding at this width). */
+    border-left: none;
+    border-top: 1px solid var(--mp-panel-border);
+    padding: 2.25rem 0 0;
   }
 }
 
 @media (max-width: 640px) {
   .marketplace-hero {
-    padding: 6rem 1.25rem 1.5rem;
-  }
-
-  .marketplace-hero-inner {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
+    padding: 3.5rem 1.25rem 2rem;
   }
 
   .marketplace-subtitle {
-    text-align: left;
     max-width: 100%;
+    font-size: 0.85rem;
   }
 
   .marketplace-title {
-    font-size: 2.4rem;
+    font-size: 2.5rem;
   }
 
   .marketplace-grid-section {

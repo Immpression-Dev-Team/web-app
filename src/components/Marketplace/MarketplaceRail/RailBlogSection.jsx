@@ -18,7 +18,7 @@ export default function RailBlogSection() {
     <div className="mp-rail-section">
       <div className="mp-rail-section-head">
         <h3 className="mp-rail-title">From Immpression</h3>
-        <Link to="/blog" className="mp-rail-link">View all stories</Link>
+        <Link to="/blog" className="mp-rail-link">View all</Link>
       </div>
       <ul className="mp-blog-rail-list">
         {posts.map((p) => (

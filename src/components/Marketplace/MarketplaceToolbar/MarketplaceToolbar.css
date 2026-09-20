@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 /* Static row, not sticky — it scrolls away with the artwork grid like
    any other content. Only the navbar stays fixed on this page. */
@@ -23,7 +23,7 @@
 }
 
 .mp-toolbar-count {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 1.5px;
@@ -43,7 +43,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.62rem;
   font-weight: 600;
   letter-spacing: 1px;
@@ -70,7 +70,7 @@
 .mp-toolbar-filters-btn {
   display: none;
   align-items: center;
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 1.5px;
@@ -96,7 +96,7 @@
 }
 
 .mp-toolbar-sort-label {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 1.5px;
@@ -105,7 +105,7 @@
 }
 
 .mp-toolbar-sort-select {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 1.5px;
