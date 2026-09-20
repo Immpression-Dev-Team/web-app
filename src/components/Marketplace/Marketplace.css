@@ -42,13 +42,11 @@
 }
 
 .marketplace-hero-inner {
-  max-width: 1280px;
-  margin: 0 auto;
+  max-width: 640px;
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 2rem;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
 }
 
 .marketplace-eyebrow {
@@ -59,7 +57,6 @@
   letter-spacing: 3px;
   text-transform: uppercase;
   color: #999;
-  margin-bottom: 0.6rem;
 }
 
 .marketplace-title {
@@ -77,9 +74,8 @@
   color: #888;
   line-height: 1.6;
   margin: 0;
-  max-width: 300px;
-  text-align: right;
-  align-self: flex-end;
+  max-width: 480px;
+  text-align: left;
 }
 
 /* ─── Grid Section ────────────────────────────── */
@@ -283,13 +279,10 @@
   }
 
   .marketplace-hero-inner {
-    flex-direction: column;
-    align-items: flex-start;
     gap: 0.5rem;
   }
 
   .marketplace-subtitle {
-    text-align: left;
     max-width: 100%;
   }
 
