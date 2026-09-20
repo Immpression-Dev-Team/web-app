@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Inter:wght@400;500;600;700&display=swap');
 
 /* ─── Rail Container ──────────────────────────── */
 .mp-left-rail {
@@ -221,13 +221,12 @@
 }
 
 .mp-support-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 1.55rem;
-  font-weight: 600;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.25rem;
+  font-weight: 400;
   color: #fff;
   margin: 0;
-  line-height: 1.2;
+  line-height: 1.25;
 }
 
 .mp-support-copy {
@@ -276,6 +275,6 @@
   }
 
   .mp-support-title {
-    font-size: 1.3rem;
+    font-size: 1.05rem;
   }
 }

@@ -1,9 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Inter:wght@400;500;600;700&display=swap');
 
 /* ─── Wrapper ─────────────────────────────────── */
-/* Two fonts, two jobs: Inter for every piece of UI (nav, labels, cards,
-   buttons, filters), Cormorant Garamond only for the handful of large
-   editorial display moments (hero title, CTA card headings). */
+/* Inter for every piece of UI (nav, labels, cards, buttons, filters).
+   Permanent Marker stays reserved for "The Collection." and the CTA
+   card headings — that's the original Immpression treatment and it's
+   not being reinterpreted into a serif/editorial direction. */
 .marketplace-wrapper {
   width: 100%;
   min-height: 100vh;
@@ -12,57 +13,61 @@
   --mp-left-w: 300px;
   --mp-rail-w: 300px;
   --mp-main-max: 1040px;
-  --mp-panel-bg: #f7f7f4;
-  --mp-panel-border: #e6e6e1;
+  --mp-panel-bg: #f5f7fa;
+  --mp-panel-border: #e2e6ec;
 }
 
 /* ─── Hero ────────────────────────────────────── */
-/* overflow-x lives here (not on the wrapper) so it clips the entrance
-   animation without creating a scroll container on an ancestor — an
-   element with non-visible overflow anywhere above the navbar would
-   silently break its position: sticky. */
+/* Same eyebrow / title / description row as the original page — just
+   tightened. overflow-x lives here (not on the wrapper) so it clips the
+   entrance animation without creating a scroll container on an
+   ancestor — an element with non-visible overflow anywhere above the
+   navbar would silently break its position: sticky. */
 .marketplace-hero {
-  padding: 4.5rem 2rem 3rem;
+  padding: 5rem 2rem 2.25rem;
   border-bottom: 1px solid #ebebeb;
   overflow-x: hidden;
 }
 
 .marketplace-hero-inner {
-  max-width: 620px;
+  max-width: 1280px;
   margin: 0 auto;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 0.85rem;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
 }
 
 .marketplace-eyebrow {
   display: inline-block;
   font-family: 'Inter', sans-serif;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: #999;
+  margin-bottom: 0.6rem;
 }
 
 .marketplace-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 3.4rem;
-  font-weight: 500;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 3.2rem;
+  font-weight: 400;
   color: #111;
-  line-height: 1.08;
+  line-height: 1.0;
   margin: 0;
 }
 
 .marketplace-subtitle {
   font-family: 'Inter', sans-serif;
-  font-size: 0.95rem;
-  color: #777;
+  font-size: 0.88rem;
+  color: #888;
   line-height: 1.6;
   margin: 0;
-  max-width: 440px;
+  max-width: 300px;
+  text-align: right;
+  align-self: flex-end;
 }
 
 /* ─── Grid Section ────────────────────────────── */
@@ -282,16 +287,22 @@
 
 @media (max-width: 640px) {
   .marketplace-hero {
-    padding: 3.5rem 1.25rem 2rem;
+    padding: 4.5rem 1.25rem 1.75rem;
+  }
+
+  .marketplace-hero-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
   }
 
   .marketplace-subtitle {
+    text-align: left;
     max-width: 100%;
-    font-size: 0.85rem;
   }
 
   .marketplace-title {
-    font-size: 2.5rem;
+    font-size: 2.4rem;
   }
 
   .marketplace-grid-section {
