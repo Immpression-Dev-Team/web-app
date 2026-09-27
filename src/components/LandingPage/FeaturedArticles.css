@@ -187,18 +187,55 @@
   grid-template-columns: 1fr;
 }
 
-/* 2 posts: featured large left, one smaller right */
+/* 2 posts: featured large left, one smaller right.
+   Fixed row height so the left/right columns always match exactly, no
+   matter how tall either card's content wants to be. */
 .fa-blog-grid--2 {
   grid-template-columns: 1.6fr 1fr;
+  height: 460px;
 }
 
-/* 3 posts: featured large left, two smaller stacked right */
+/* 3 posts: featured large left, two smaller stacked right — same fixed
+   total height, split into two equal rows for the stacked side cards. */
 .fa-blog-grid--3 {
   grid-template-columns: 1.6fr 1fr;
-  grid-template-rows: auto auto;
+  grid-template-rows: 1fr 1fr;
+  height: 460px;
 }
 .fa-blog-grid--3 .fa-blog-card--featured {
   grid-row: 1 / 3;
+}
+.fa-blog-grid--2 .fa-blog-card--featured,
+.fa-blog-grid--2 .fa-blog-card:not(.fa-blog-card--featured),
+.fa-blog-grid--3 .fa-blog-card--featured,
+.fa-blog-grid--3 .fa-blog-card:not(.fa-blog-card--featured) {
+  height: 100%;
+}
+
+/* The two stacked side cards (3-post case) split the same 460px row
+   between them — let the image absorb whatever space the (clamped) text
+   doesn't need, instead of the image's own aspect ratio setting the size. */
+.fa-blog-grid--3 .fa-blog-card:not(.fa-blog-card--featured) .fa-blog-img-wrap {
+  aspect-ratio: unset;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.fa-blog-grid--3 .fa-blog-card:not(.fa-blog-card--featured) .fa-blog-body {
+  flex: 0 0 auto;
+  padding: 10px 14px 8px;
+  gap: 3px;
+}
+.fa-blog-grid--3 .fa-blog-card:not(.fa-blog-card--featured) .fa-blog-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+/* No room for an excerpt at this height without either clipping it or
+   starving the image — the compact stacked cards show date/title/link
+   only, same as the featured card's excerpt-less siblings would. */
+.fa-blog-grid--3 .fa-blog-card:not(.fa-blog-card--featured) .fa-blog-excerpt {
+  display: none;
 }
 
 /* ── Blog card base ── */
@@ -347,13 +384,40 @@
   /* carousel: show 2 cards on tablet */
   .fa-track .fa-card { flex: 0 0 calc((100% - 24px) / 2); }
 
-  /* blog grid: stack on tablet */
+  /* blog grid: stack on tablet — drop the fixed desktop row height, every
+     card goes back to sizing itself from its own content. */
   .fa-blog-grid--2,
   .fa-blog-grid--3 {
     grid-template-columns: 1fr;
+    grid-template-rows: none;
+    height: auto;
   }
   .fa-blog-grid--3 .fa-blog-card--featured {
     grid-row: auto;
+  }
+  .fa-blog-grid--2 .fa-blog-card--featured,
+  .fa-blog-grid--2 .fa-blog-card:not(.fa-blog-card--featured),
+  .fa-blog-grid--3 .fa-blog-card--featured,
+  .fa-blog-grid--3 .fa-blog-card:not(.fa-blog-card--featured) {
+    height: auto;
+  }
+  .fa-blog-grid--3 .fa-blog-card:not(.fa-blog-card--featured) .fa-blog-img-wrap {
+    aspect-ratio: 16 / 9;
+    flex: 0 0 auto;
+  }
+  .fa-blog-grid--3 .fa-blog-card:not(.fa-blog-card--featured) .fa-blog-body {
+    flex: 1;
+    padding: 18px 18px 16px;
+    gap: 8px;
+  }
+  .fa-blog-grid--3 .fa-blog-card:not(.fa-blog-card--featured) .fa-blog-title {
+    display: block;
+    -webkit-line-clamp: unset;
+    overflow: visible;
+  }
+  .fa-blog-grid--3 .fa-blog-card:not(.fa-blog-card--featured) .fa-blog-excerpt {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
   }
   .fa-blog-card--featured {
     flex-direction: column;
@@ -362,6 +426,7 @@
   .fa-blog-card--featured .fa-blog-img-wrap,
   .fa-blog-grid--1 .fa-blog-card--featured .fa-blog-img-wrap {
     width: 100%;
+    height: auto;
     aspect-ratio: 16 / 9;
   }
   .fa-blog-card--featured .fa-blog-title { font-size: 1.15rem; }
