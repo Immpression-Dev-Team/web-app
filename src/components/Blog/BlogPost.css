@@ -5,17 +5,32 @@
   min-height: 100vh;
   background: #fff;
   color: #111;
-  padding-top: 5.5rem;
+  padding-top: 4rem;
 }
 
 /* ─── Breadcrumb ─────────────────────────────────── */
 .bp-breadcrumb {
-  max-width: 760px;
-  margin: 0 auto 2rem;
+  max-width: 1280px;
+  margin: 0 auto 1.75rem;
   padding: 0 2rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+/* ─── Two-column editorial layout ────────────────── */
+.bp-layout {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem 6rem;
+  display: grid;
+  grid-template-columns: 70% 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.bp-main {
+  min-width: 0;
 }
 
 .bp-back-link {
@@ -50,24 +65,28 @@
 
 /* ─── Hero image ─────────────────────────────────── */
 .bp-hero-wrap {
-  max-width: 1280px;
-  margin: 0 auto 3rem;
-  padding: 0 2rem;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 0;
+  background: #f5f5f5;
+  margin: 0 0 2rem;
 }
 
 .bp-hero-img {
   width: 100%;
-  max-height: 480px;
+  height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
-  background: #f5f5f5;
+  border-radius: 0;
 }
 
 /* ─── Article ────────────────────────────────────── */
-.bp-article {
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 0 2rem 6rem;
+.bp-article-header,
+.bp-body,
+.bp-footer {
+  max-width: 680px;
 }
 
 .bp-article-header {
@@ -216,6 +235,110 @@
 }
 .bp-footer-link:hover { color: #111; }
 
+/* ─── Sidebar: "More From Immpression" ───────────── */
+.bp-sidebar {
+  position: sticky;
+  top: 4.5rem;
+  min-width: 0;
+}
+
+.bp-sidebar-heading {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: #0a0a0a;
+  margin: 0 0 18px;
+  letter-spacing: 0;
+}
+
+.bp-sidebar-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+.bp-sidebar-card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.bp-sidebar-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.bp-sidebar-img-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #f3f3f3;
+}
+
+.bp-sidebar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.bp-sidebar-body {
+  padding: 12px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.bp-sidebar-date {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #47efac;
+}
+
+.bp-sidebar-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #0a0a0a;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.bp-sidebar-read {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 0.75rem;
+  color: #0a0a0a;
+  margin-top: 2px;
+  padding-bottom: 2px;
+  border-bottom: 2px solid #47efac;
+  align-self: flex-start;
+}
+
+.bp-sidebar-viewall {
+  display: inline-block;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 0.9rem;
+  color: #0a0a0a;
+  text-decoration: none;
+  border-bottom: 2px solid #47efac;
+  padding-bottom: 2px;
+  transition: color 0.15s, border-color 0.15s;
+}
+.bp-sidebar-viewall:hover {
+  color: #072973;
+  border-color: #072973;
+}
+
 /* ─── States ─────────────────────────────────────── */
 .bp-loading,
 .bp-error {
@@ -262,9 +385,24 @@
 .bp-back-btn:hover { border-color: #111; }
 
 /* ─── Responsive ─────────────────────────────────── */
+@media (max-width: 900px) {
+  .bp-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .bp-article-header,
+  .bp-body,
+  .bp-footer {
+    max-width: none;
+  }
+  .bp-sidebar {
+    position: static;
+    top: auto;
+  }
+}
+
 @media (max-width: 640px) {
-  .bp-hero-wrap { padding: 0 1.25rem; }
-  .bp-article { padding: 0 1.25rem 5rem; }
+  .bp-layout { padding: 0 1.25rem 5rem; }
   .bp-breadcrumb { padding: 0 1.25rem; }
   .bp-title { font-size: 1.65rem; }
 }

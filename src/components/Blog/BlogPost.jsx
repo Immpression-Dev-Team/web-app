@@ -14,6 +14,7 @@ export default function BlogPost() {
   const { slug } = useParams();
   const navigate = useNavigate();
   const [post, setPost] = useState(null);
+  const [otherPosts, setOtherPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -26,6 +27,19 @@ export default function BlogPost() {
       })
       .catch(() => setError("Could not load this post."))
       .finally(() => setLoading(false));
+  }, [slug]);
+
+  useEffect(() => {
+    fetch(`${API_URL}/api/blog`)
+      .then((r) => r.json())
+      .then((data) => {
+        if (!data.success) return;
+        const sorted = [...data.data].sort(
+          (a, b) => new Date(b.publishedAt || b.createdAt) - new Date(a.publishedAt || a.createdAt)
+        );
+        setOtherPosts(sorted.filter((p) => p.slug !== slug).slice(0, 3));
+      })
+      .catch(() => {});
   }, [slug]);
 
   if (loading) {
@@ -96,32 +110,59 @@ export default function BlogPost() {
         <span className="bp-breadcrumb-title">{post.title}</span>
       </div>
 
-      {/* Hero image */}
-      <div className="bp-hero-wrap">
-        <img src={post.coverImageUrl} alt={post.title} className="bp-hero-img" />
+      <div className="bp-layout">
+        {/* Article (left column) */}
+        <article className="bp-main">
+          <div className="bp-hero-wrap">
+            <img src={post.coverImageUrl} alt={post.title} className="bp-hero-img" />
+          </div>
+
+          <header className="bp-article-header">
+            {post.publishedAt && (
+              <time className="bp-date">
+                {new Date(post.publishedAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+              </time>
+            )}
+            <h1 className="bp-title">{post.title}</h1>
+          </header>
+
+          <div className="bp-body">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {post.body}
+            </ReactMarkdown>
+          </div>
+
+          <footer className="bp-footer">
+            <Link to="/blog" className="bp-footer-link">← Back to Blog</Link>
+          </footer>
+        </article>
+
+        {/* More from Immpression (right column) */}
+        {otherPosts.length > 0 && (
+          <aside className="bp-sidebar">
+            <h2 className="bp-sidebar-heading">More From Immpression</h2>
+            <div className="bp-sidebar-list">
+              {otherPosts.map((p) => (
+                <Link key={p._id} to={`/blog/${p.slug}`} className="bp-sidebar-card">
+                  <div className="bp-sidebar-img-wrap">
+                    <img src={p.coverImageUrl} alt={p.title} className="bp-sidebar-img" loading="lazy" />
+                  </div>
+                  <div className="bp-sidebar-body">
+                    {p.publishedAt && (
+                      <span className="bp-sidebar-date">
+                        {new Date(p.publishedAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+                      </span>
+                    )}
+                    <p className="bp-sidebar-title">{p.title}</p>
+                    <span className="bp-sidebar-read">Read post →</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+            <Link to="/blog" className="bp-sidebar-viewall">View all posts →</Link>
+          </aside>
+        )}
       </div>
-
-      {/* Article */}
-      <article className="bp-article">
-        <header className="bp-article-header">
-          {post.publishedAt && (
-            <time className="bp-date">
-              {new Date(post.publishedAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
-            </time>
-          )}
-          <h1 className="bp-title">{post.title}</h1>
-        </header>
-
-        <div className="bp-body">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
-            {post.body}
-          </ReactMarkdown>
-        </div>
-
-        <footer className="bp-footer">
-          <Link to="/blog" className="bp-footer-link">← Back to Blog</Link>
-        </footer>
-      </article>
     </div>
   );
 }
