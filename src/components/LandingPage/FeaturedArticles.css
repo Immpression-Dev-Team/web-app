@@ -218,18 +218,25 @@
   box-shadow: 0 16px 40px rgba(0,0,0,0.15), 0 4px 12px rgba(0,0,0,0.08);
 }
 
-/* ── Featured card: horizontal layout ── */
+/* ── Featured card: horizontal layout, fixed height so the source image's
+   aspect ratio (portrait/square/landscape) never dictates card size ── */
 .fa-blog-card--featured {
   flex-direction: row;
+  height: 460px;
 }
 .fa-blog-card--featured .fa-blog-img-wrap {
-  width: 58%;
+  width: 60%;
+  height: 100%;
   flex-shrink: 0;
   aspect-ratio: unset;
+}
+.fa-blog-card--featured .fa-blog-img {
+  object-position: center;
 }
 .fa-blog-card--featured .fa-blog-body {
   padding: 28px 28px 24px;
   justify-content: center;
+  overflow: hidden;
 }
 .fa-blog-card--featured .fa-blog-title {
   font-size: 1.45rem;
@@ -350,6 +357,7 @@
   }
   .fa-blog-card--featured {
     flex-direction: column;
+    height: auto;
   }
   .fa-blog-card--featured .fa-blog-img-wrap,
   .fa-blog-grid--1 .fa-blog-card--featured .fa-blog-img-wrap {
