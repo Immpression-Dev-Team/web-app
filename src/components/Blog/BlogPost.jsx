@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet-async";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { API_URL } from "../../API_URL";
+import BlogMarketplaceRail from "./BlogMarketplaceRail.jsx";
 import "./BlogPost.css";
 
 function stripMarkdown(md = "") {
@@ -15,6 +16,7 @@ export default function BlogPost() {
   const navigate = useNavigate();
   const [post, setPost] = useState(null);
   const [otherPosts, setOtherPosts] = useState([]);
+  const [marketplaceItems, setMarketplaceItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -41,6 +43,17 @@ export default function BlogPost() {
       })
       .catch(() => {});
   }, [slug]);
+
+  useEffect(() => {
+    const params = new URLSearchParams({ page: 1, limit: 6, sort: "newest" });
+    fetch(`${API_URL}/marketplace?${params}`)
+      .then((r) => r.json())
+      .then((data) => {
+        if (!data.success) return;
+        setMarketplaceItems(data.images.filter((img) => !img.isSold).slice(0, 2));
+      })
+      .catch(() => {});
+  }, []);
 
   if (loading) {
     return (
@@ -111,6 +124,9 @@ export default function BlogPost() {
       </div>
 
       <div className="bp-layout">
+        {/* Marketplace discovery rail (far left, desktop-only, wide viewports) */}
+        <BlogMarketplaceRail artworks={marketplaceItems} className="bp-marketplace-rail-desktop" />
+
         {/* Article (left column) */}
         <article className="bp-main">
           <div className="bp-hero-wrap">
@@ -135,6 +151,10 @@ export default function BlogPost() {
           <footer className="bp-footer">
             <Link to="/blog" className="bp-footer-link">← Back to Blog</Link>
           </footer>
+
+          {/* Compact fallback: same rail, shown between the article and the
+              "More From Immpression" sidebar on narrower/mobile viewports. */}
+          <BlogMarketplaceRail artworks={marketplaceItems} className="bp-marketplace-mobile" />
         </article>
 
         {/* More from Immpression (right column) */}

@@ -339,6 +339,139 @@
   border-color: #072973;
 }
 
+/* ─── Marketplace discovery rail ─────────────────── */
+.bp-mp-heading {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 0.92rem;
+  font-weight: 400;
+  color: #0a0a0a;
+  margin: 0 0 16px;
+}
+
+.bp-mp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+
+.bp-mp-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.bp-mp-img-wrap {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 0;
+  background: #f3f3f3;
+  margin-bottom: 8px;
+}
+
+.bp-mp-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.3s ease;
+}
+.bp-mp-img-wrap:hover .bp-mp-img { transform: scale(1.03); }
+
+.bp-mp-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #0a0a0a;
+  text-decoration: none;
+  line-height: 1.3;
+  margin-bottom: 2px;
+}
+.bp-mp-title:hover { color: #072973; }
+
+.bp-mp-artist {
+  font-size: 0.7rem;
+  color: #888;
+  margin-bottom: 4px;
+}
+
+.bp-mp-price {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #0a0a0a;
+  margin-bottom: 6px;
+}
+
+.bp-mp-view {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 0.7rem;
+  color: #0a0a0a;
+  text-decoration: none;
+  border-bottom: 2px solid #47efac;
+  padding-bottom: 1px;
+  align-self: flex-start;
+}
+.bp-mp-view:hover { color: #072973; border-color: #072973; }
+
+.bp-mp-explore {
+  display: inline-block;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 0.82rem;
+  color: #0a0a0a;
+  text-decoration: none;
+  border-bottom: 2px solid #47efac;
+  padding-bottom: 2px;
+  transition: color 0.15s, border-color 0.15s;
+}
+.bp-mp-explore:hover { color: #072973; border-color: #072973; }
+
+/* Desktop rail: a narrow, fixed-width 3rd column that only appears once
+   there's genuine surplus width so it never crowds the article/sidebar. */
+.bp-marketplace-rail-desktop {
+  display: none;
+}
+
+/* Compact fallback: shown by default, sits between the article footer and
+   the "More From Immpression" sidebar. */
+.bp-marketplace-mobile {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #ebebeb;
+  max-width: 680px;
+}
+.bp-marketplace-mobile .bp-mp-list {
+  flex-direction: row;
+  gap: 20px;
+}
+.bp-marketplace-mobile .bp-mp-item {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (min-width: 1400px) {
+  .bp-layout {
+    max-width: 1480px;
+    /* main:sidebar keeps the same ~70:30 split as the 2-column layout —
+       expressed in fr so it divides the space left after the fixed-width
+       rail, not the full row like a % column would. */
+    grid-template-columns: 200px 2.33fr 1fr;
+  }
+  .bp-marketplace-rail-desktop {
+    display: block;
+    position: sticky;
+    top: 4.5rem;
+    align-self: start;
+    margin-top: 3rem;
+    max-height: calc(100vh - 4.5rem - 2rem);
+    overflow: hidden;
+  }
+  .bp-marketplace-mobile {
+    display: none;
+  }
+}
+
 /* ─── States ─────────────────────────────────────── */
 .bp-loading,
 .bp-error {
