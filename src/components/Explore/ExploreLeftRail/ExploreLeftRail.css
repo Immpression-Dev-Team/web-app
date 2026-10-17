@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Inter:wght@400;500;600;700&display=swap');
+
+.ex-left-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+}
+
+.ex-left-section {
+  padding-bottom: 2.25rem;
+  border-bottom: 1px solid var(--ex-border, rgba(255, 255, 255, 0.08));
+}
+
+.ex-left-section:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.ex-left-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0 0 1.1rem;
+}
+
+/* ─── Museum list (same treatment as Marketplace's Discover nav) ─── */
+.ex-source-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.ex-source-item {
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.62);
+  background: transparent;
+  border: none;
+  border-left: 2px solid transparent;
+  padding: 0.5rem 0 0.5rem 0.65rem;
+  cursor: pointer;
+  text-align: left;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.ex-source-item:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.ex-source-item.active {
+  color: #fff;
+  font-weight: 600;
+  border-left-color: #47efac;
+  background: rgba(71, 239, 172, 0.08);
+}
+
+.ex-source-item:focus-visible,
+.ex-chip:focus-visible,
+.ex-shop-btn:focus-visible {
+  outline: 2px solid #47efac;
+  outline-offset: 2px;
+}
+
+/* ─── Chips ─── */
+.ex-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.ex-chip {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.35rem 0.7rem;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.ex-chip:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.ex-chip.active {
+  color: #040e2e;
+  background: #47efac;
+  border-color: #47efac;
+  font-weight: 600;
+}
+
+/* ─── Marketplace CTA ─── */
+.ex-shop-cta {
+  background: #040e2e;
+  border: 2px solid #47efac;
+  box-shadow: 4px 4px 0px #47efac;
+  padding: 1.5rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ex-shop-title {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: #fff;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.ex-shop-copy {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.55;
+  margin: 0.1rem 0 0.6rem;
+}
+
+.ex-shop-btn {
+  align-self: flex-start;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #040e2e;
+  background: #47efac;
+  padding: 0.65rem 1.4rem;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.ex-shop-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 2px 2px 0px #fff;
+}
+
+@media (max-width: 1400px) {
+  .ex-left-rail { gap: 1.75rem; }
+  .ex-left-section { padding-bottom: 1.75rem; }
+  .ex-shop-cta { padding: 1.25rem 1.1rem; }
+  .ex-shop-title { font-size: 1.05rem; }
+}

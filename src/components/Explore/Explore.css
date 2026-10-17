@@ -1,204 +1,210 @@
-@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Josefin+Sans:wght@300;400;600&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Inter:wght@400;500;600;700&display=swap');
 
+/* ─── Wrapper ─────────────────────────────────── */
+/* Same 3-column shell as Marketplace.css (left rail | center | right
+   rail, full-bleed panels starting at the navbar), but in Immpression's
+   dark blue so the public-domain side reads as clearly distinct from the
+   white, for-sale marketplace. Keep breakpoints in step with Marketplace. */
 .explore-wrapper {
   width: 100%;
   min-height: 100vh;
   background: linear-gradient(160deg, #040e2e 0%, #0a1f5c 45%, #060f2a 100%);
   color: #fff;
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr) 300px;
+  --ex-main-max: 1040px;
+  --ex-panel-bg: rgba(2, 8, 28, 0.45);
+  --ex-border: rgba(255, 255, 255, 0.08);
+  --ex-card-bg: rgba(10, 26, 72, 0.7);
+}
+
+.explore-main-col {
+  min-width: 0;
+}
+
+/* ─── Hero ────────────────────────────────────── */
+.explore-hero {
+  padding: 5rem 2rem 2.25rem;
+  border-bottom: 1px solid var(--ex-border);
   overflow-x: hidden;
 }
 
-/* ── Hero ─────────────────────────────────── */
-.explore-hero {
-  padding: 9rem 2rem 4rem;
-  text-align: center;
-}
-
 .explore-hero-inner {
-  max-width: 680px;
+  max-width: var(--ex-main-max);
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
 }
 
 .explore-eyebrow {
   display: inline-block;
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 0.72rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: #47EFAC;
-  margin-bottom: 1rem;
+  color: #47efac;
 }
 
 .explore-title {
   font-family: 'Permanent Marker', cursive;
-  font-size: 3.5rem;
+  font-size: 3.2rem;
+  font-weight: 400;
   color: #fff;
-  line-height: 1.1;
-  margin: 0 0 1rem;
+  line-height: 1.0;
+  margin: 0;
 }
 
 .explore-subtitle {
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 1.05rem;
-  color: rgba(255, 255, 255, 0.65);
-  margin-bottom: 2.25rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.62);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 480px;
 }
 
-/* ── Search ───────────────────────────────── */
+/* ─── Search ──────────────────────────────────── */
 .explore-search {
   position: relative;
-  max-width: 540px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: 520px;
+  margin-top: 0.9rem;
 }
 
 .explore-search-input {
   width: 100%;
-  padding: 0.9rem 3rem 0.9rem 1.4rem;
-  border-radius: 50px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.07);
+  padding: 0.8rem 2.75rem 0.8rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
   color: #fff;
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
   outline: none;
   box-sizing: border-box;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, background 0.2s;
 }
 
 .explore-search-input::placeholder {
-  color: rgba(255, 255, 255, 0.38);
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .explore-search-input:focus {
-  border-color: #47EFAC;
+  border-color: #47efac;
+  background: rgba(255, 255, 255, 0.09);
 }
 
 .explore-search-clear {
   position: absolute;
-  right: 1.1rem;
+  right: 0.5rem;
   top: 50%;
   transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
   background: none;
   border: none;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.5);
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   line-height: 1;
-  padding: 0;
 }
 
 .explore-search-clear:hover {
   color: #fff;
 }
 
-/* ── Grid ─────────────────────────────────── */
+.explore-search-clear:focus-visible,
+.explore-retry-btn:focus-visible {
+  outline: 2px solid #47efac;
+  outline-offset: 2px;
+}
+
+/* ─── Grid Section ────────────────────────────── */
 .explore-grid-section {
   padding: 2rem 2rem 6rem;
 }
 
-.explore-grid-inner {
-  max-width: 1200px;
+.explore-main {
+  min-width: 0;
+  width: 100%;
+  max-width: var(--ex-main-max);
   margin: 0 auto;
+}
+
+.explore-rail-col {
+  min-width: 0;
+  background: var(--ex-panel-bg);
+  padding: 2.25rem 1.75rem;
+  padding-top: 5rem;
+}
+
+.explore-rail-col--left {
+  border-right: 1px solid var(--ex-border);
+}
+
+.explore-rail-col--right {
+  border-left: 1px solid var(--ex-border);
 }
 
 .explore-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.25rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
 }
 
-@media (max-width: 1100px) {
-  .explore-grid { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 1400px) {
+  .explore-wrapper {
+    grid-template-columns: 230px minmax(0, 1fr) 280px;
+  }
+  .explore-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .explore-rail-col {
+    padding: 5rem 1.25rem 1.75rem;
+  }
 }
 
-@media (max-width: 768px) {
-  .explore-title { font-size: 2.4rem; }
-  .explore-grid { grid-template-columns: repeat(2, 1fr); }
-}
-
-@media (max-width: 480px) {
-  .explore-grid { grid-template-columns: 1fr; }
-}
-
-/* ── Card ─────────────────────────────────── */
-.explore-card {
-  text-decoration: none;
-  display: block;
-  border-radius: 8px;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: transform 0.2s, border-color 0.2s;
-}
-
-.explore-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(71, 239, 172, 0.4);
-}
-
-.explore-card-img-wrap {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 0.03);
-}
-
-.explore-card-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.3s;
-}
-
-.explore-card:hover .explore-card-img {
-  transform: scale(1.04);
-}
-
-.explore-card-info {
-  padding: 0.75rem 0.9rem;
-}
-
-.explore-card-title {
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #fff;
-  margin: 0 0 0.25rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.explore-card-artist {
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.48);
-  margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* ── States ───────────────────────────────── */
-.explore-loading {
+/* ─── States ──────────────────────────────────── */
+.explore-state {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  min-height: 40vh;
   gap: 1rem;
-  padding: 5rem 0;
-  color: rgba(255, 255, 255, 0.55);
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 0.9rem;
-  letter-spacing: 1px;
+  text-align: center;
 }
 
-.explore-empty {
-  text-align: center;
-  padding: 5rem 0;
-  color: rgba(255, 255, 255, 0.45);
-  font-family: 'Josefin Sans', sans-serif;
+.explore-state p {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0;
+}
+
+.explore-empty-icon {
+  font-size: 1.25rem;
+  color: #47efac;
+}
+
+.explore-retry-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #fff;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 0.5rem 1.25rem;
+  cursor: pointer;
+  transition: border-color 0.18s ease;
+}
+
+.explore-retry-btn:hover {
+  border-color: #47efac;
 }
 
 .explore-sentinel {
@@ -210,14 +216,56 @@
 }
 
 .explore-spinner {
-  width: 30px;
-  height: 30px;
-  border: 3px solid rgba(255, 255, 255, 0.1);
-  border-top-color: #47EFAC;
+  width: 28px;
+  height: 28px;
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  border-top-color: #47efac;
   border-radius: 50%;
-  animation: explore-spin 0.75s linear infinite;
+  animation: explore-spin 0.8s linear infinite;
 }
 
 @keyframes explore-spin {
   to { transform: rotate(360deg); }
+}
+
+/* ─── Responsive ──────────────────────────────── */
+/* Tablet: left rail moves into ExploreFiltersDrawer; right rail drops
+   below the grid — same as Marketplace at the same breakpoint. */
+@media (max-width: 1150px) {
+  .explore-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .explore-main-col { order: 1; }
+
+  .explore-main { max-width: none; margin: 0; }
+
+  .explore-rail-col--left { display: none; }
+
+  .explore-rail-col--right {
+    order: 2;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 2.25rem 2rem 2rem;
+    border-left: none;
+    border-top: 1px solid var(--ex-border);
+  }
+}
+
+@media (max-width: 640px) {
+  .explore-hero { padding: 4.5rem 1rem 1.75rem; }
+  .explore-hero-inner { gap: 0.5rem; }
+  .explore-subtitle { max-width: 100%; }
+  .explore-title { font-size: 2.4rem; }
+  .explore-search { max-width: none; }
+
+  .explore-grid-section { padding: 1.5rem 1rem 5rem; }
+
+  .explore-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .explore-rail-col--right { padding: 1.75rem 1rem 1.5rem; }
 }

@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Inter:wght@400;500;600;700&display=swap');
+
+.ex-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+}
+
+.ex-rail-section {
+  padding-bottom: 2.25rem;
+  border-bottom: 1px solid var(--ex-border, rgba(255, 255, 255, 0.08));
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ex-rail-section:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.ex-rail-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #47efac;
+}
+
+.ex-rail-title,
+.ex-rail-cta-title {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: #fff;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.ex-rail-heading {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0 0 0.5rem;
+}
+
+.ex-rail-copy {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.68);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.ex-rail-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ex-rail-list-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.ex-rail-list-item:last-child {
+  border-bottom: none;
+}
+
+.ex-rail-list-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.ex-rail-list-detail {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.ex-rail-cta {
+  background: rgba(71, 239, 172, 0.06);
+  border: 1px solid rgba(71, 239, 172, 0.25);
+  padding: 1.5rem 1.4rem;
+}
+
+.ex-rail-btn {
+  align-self: flex-start;
+  margin-top: 0.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #040e2e;
+  background: #47efac;
+  padding: 0.65rem 1.4rem;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.ex-rail-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 2px 2px 0px #fff;
+}
+
+.ex-rail-btn:focus-visible {
+  outline: 2px solid #47efac;
+  outline-offset: 2px;
+}
+
+@media (max-width: 1400px) {
+  .ex-rail { gap: 1.75rem; }
+  .ex-rail-section { padding-bottom: 1.75rem; }
+  .ex-rail-cta { padding: 1.25rem 1.1rem; }
+  .ex-rail-title,
+  .ex-rail-cta-title { font-size: 1.05rem; }
+}
