@@ -1,0 +1,24 @@
+.adsterra-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.adsterra-banner-label {
+  align-self: stretch;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #b0b0b0;
+  text-align: center;
+}
+
+.adsterra-banner-frame {
+  display: block;
+  border: 0;
+  max-width: none;
+  background: transparent;
+}

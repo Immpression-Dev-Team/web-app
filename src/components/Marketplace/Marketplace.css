@@ -132,7 +132,8 @@
    width is available for it here than on large desktop. ─── */
 @media (max-width: 1400px) {
   .marketplace-wrapper {
-    grid-template-columns: 230px minmax(0, 1fr) 280px;
+    /* Right rail stays 300px: it holds a 300px-wide ad (MarketplaceRail). */
+    grid-template-columns: 230px minmax(0, 1fr) 300px;
   }
 
   .marketplace-grid {
