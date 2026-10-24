@@ -1,11 +1,11 @@
-.adsterra-banner {
+.ad-frame {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.4rem;
 }
 
-.adsterra-banner-label {
+.ad-frame-label {
   align-self: stretch;
   font-family: 'Inter', sans-serif;
   font-size: 0.55rem;
@@ -16,7 +16,7 @@
   text-align: center;
 }
 
-.adsterra-banner-frame {
+.ad-frame-frame {
   display: block;
   border: 0;
   max-width: none;

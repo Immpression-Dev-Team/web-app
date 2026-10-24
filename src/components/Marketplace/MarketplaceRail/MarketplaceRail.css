@@ -21,13 +21,19 @@
    minus 1.75rem padding each side), so the ad bleeds into the rail's side
    padding and uses its full width. Marketplace.css keeps the right rail at
    300px at every desktop width for this. */
-.mp-rail-ad .adsterra-banner {
+.mp-rail-ad {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.mp-rail-ad .ad-frame {
   margin-left: -1.75rem;
   margin-right: -1.75rem;
 }
 
 @media (max-width: 1400px) {
-  .mp-rail-ad .adsterra-banner {
+  .mp-rail-ad .ad-frame {
     margin-left: -1.25rem;
     margin-right: -1.25rem;
   }
@@ -35,7 +41,7 @@
 
 /* Tablet/mobile: rail is full-width below the grid; no bleed needed. */
 @media (max-width: 1150px) {
-  .mp-rail-ad .adsterra-banner {
+  .mp-rail-ad .ad-frame {
     margin-left: 0;
     margin-right: 0;
   }
