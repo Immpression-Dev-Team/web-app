@@ -17,17 +17,17 @@ function getAdConfig() {
   return configPromise;
 }
 
-// Returns { key, src } for a placement that admins have switched on, else null.
+// True once the backend confirms admins have switched this placement on.
 export function useAdPlacement(network, placementId) {
-  const [placement, setPlacement] = useState(null);
+  const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
     getAdConfig().then((config) => {
-      if (!cancelled) setPlacement(config?.[network]?.[placementId] || null);
+      if (!cancelled) setEnabled(Boolean(config?.[network]?.[placementId]));
     });
     return () => { cancelled = true; };
   }, [network, placementId]);
 
-  return placement;
+  return enabled;
 }

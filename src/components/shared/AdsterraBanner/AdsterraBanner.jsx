@@ -19,7 +19,7 @@ const SANDBOX = [
   "allow-top-navigation-by-user-activation",
 ].join(" ");
 
-// `src` comes from the ad code pasted into the admin panel (Adsterra rotates
+// `src` comes from the ad code in constants/ads.js (Adsterra rotates
 // its ad domains). The values are embedded as JSON / an escaped attribute
 // so they can't break out of the generated document.
 export default function AdsterraBanner({ adKey, src, width, height, className = "" }) {

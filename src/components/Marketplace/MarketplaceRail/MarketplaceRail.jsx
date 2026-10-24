@@ -2,18 +2,19 @@ import RailBlogSection from "./RailBlogSection.jsx";
 import RailActivitySection from "./RailActivitySection.jsx";
 import RailSellCTA from "./RailSellCTA.jsx";
 import AdsterraBanner from "../../shared/AdsterraBanner/AdsterraBanner.jsx";
-import { AD_SLOT_SIZES } from "../../../constants/ads.js";
+import { AD_UNITS } from "../../../constants/ads.js";
 import { useAdPlacement } from "../../../API/adsAPI.js";
 import "./MarketplaceRail.css";
 
 export default function MarketplaceRail() {
-  const topAd = useAdPlacement("adsterra", "marketplaceRailTop");
+  const showTopAd = useAdPlacement("adsterra", "marketplaceRailTop");
+  const topAd = AD_UNITS.adsterra.marketplaceRailTop;
 
   return (
     <aside className="mp-rail" aria-label="Marketplace sidebar">
-      {topAd && (
+      {showTopAd && (
         <div className="mp-rail-section mp-rail-ad">
-          <AdsterraBanner adKey={topAd.key} src={topAd.src} {...AD_SLOT_SIZES.adsterra.marketplaceRailTop} />
+          <AdsterraBanner adKey={topAd.key} src={topAd.src} width={topAd.width} height={topAd.height} />
         </div>
       )}
       <RailBlogSection />
