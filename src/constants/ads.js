@@ -25,11 +25,26 @@ export const AD_UNITS = {
     },
   },
   hilltop: {
-    // Marketplace right rail, second slot (under the Adsterra banner)
+    // Marketplace right rail, second slot (under the Adsterra banner).
+    // Zone: marketplace-rail-300x250. String.raw keeps the snippet's
+    // backslashes exactly as HilltopAds gave them.
     marketplaceRailSecond: {
       width: 300,
       height: 250,
-      code: ``,
+      code: String.raw`
+<script>
+(function(kyakv){
+var d = document,
+    s = d.createElement('script'),
+    l = d.currentScript || d.scripts[d.scripts.length - 1];
+s.settings = kyakv || {};
+s.src = "\/\/quarrelsomebitter.com\/b\/XOV\/sUd.Gvlm0\/YfW\/cA\/tewmc9NugZGUwl_kbPsTVci1MNmDYgE1oOgD\/EGtrNpzyUY0iO\/DTUQ4\/NZQt";
+s.async = true;
+s.referrerPolicy = 'no-referrer-when-downgrade';
+l.parentNode.insertBefore(s, l);
+})({})
+</script>
+`,
     },
   },
 };
