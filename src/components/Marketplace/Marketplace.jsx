@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, Fragment } from "react";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import { useSearchParams } from "react-router-dom";
@@ -7,6 +7,10 @@ import MarketplaceRail from "./MarketplaceRail/MarketplaceRail.jsx";
 import MarketplaceLeftRail from "./MarketplaceLeftRail/MarketplaceLeftRail.jsx";
 import MarketplaceToolbar from "./MarketplaceToolbar/MarketplaceToolbar.jsx";
 import MarketplaceFiltersDrawer from "./MarketplaceFiltersDrawer/MarketplaceFiltersDrawer.jsx";
+import AdFrame from "../shared/AdFrame/AdFrame.jsx";
+import { AD_UNITS } from "../../constants/ads.js";
+import { useAdPlacement } from "../../API/adsAPI.js";
+import useMediaQuery from "../../utils/useMediaQuery.js";
 import "./Marketplace.css";
 import { API_URL } from "../../API_URL";
 
@@ -15,6 +19,15 @@ const SORT_OPTIONS = [
   { value: "oldest", label: "Oldest" },
   { value: "price_asc", label: "Price: Low to High" },
   { value: "price_desc", label: "Price: High to Low" },
+];
+
+// Phones (2-column grid, matches Marketplace.css): the right rail sits below
+// all the artwork, so its ads move inline into the grid instead — Adsterra
+// after the first 2 rows, HilltopAds after 2 more.
+const PHONE_QUERY = "(max-width: 640px)";
+const INLINE_ADS = [
+  { afterIndex: 3, network: "adsterra", placement: "marketplaceRailTop" },
+  { afterIndex: 7, network: "hilltop", placement: "marketplaceRailSecond" },
 ];
 
 const Marketplace = () => {
@@ -33,6 +46,24 @@ const Marketplace = () => {
   const [filtersOpen, setFiltersOpen] = useState(false);
 
   const LIMIT = 24;
+
+  const isPhone = useMediaQuery(PHONE_QUERY);
+  const adsterraOn = useAdPlacement("adsterra", "marketplaceRailTop");
+  const hilltopOn = useAdPlacement("hilltop", "marketplaceRailSecond");
+  const inlineAdOn = { adsterra: adsterraOn, hilltop: hilltopOn };
+
+  const inlineAdAfter = (index) => {
+    if (!isPhone) return null;
+    const slot = INLINE_ADS.find((a) => a.afterIndex === index);
+    if (!slot || !inlineAdOn[slot.network]) return null;
+    const unit = AD_UNITS[slot.network][slot.placement];
+    if (!unit.code.trim()) return null;
+    return (
+      <div className="marketplace-grid-ad">
+        <AdFrame {...unit} />
+      </div>
+    );
+  };
 
   const fetchArtworks = useCallback(async (newPage = 1, reset = true) => {
     if (reset) setLoading(true);
@@ -184,14 +215,16 @@ const Marketplace = () => {
             ) : (
               <div className="marketplace-grid">
                 {artworks.map((art, i) => (
-                  <motion.div
-                    key={art._id}
-                    initial={{ opacity: 0, y: 24 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.45, delay: Math.min(i * 0.04, 0.6) }}
-                  >
-                    <ArtCard artwork={art} />
-                  </motion.div>
+                  <Fragment key={art._id}>
+                    <motion.div
+                      initial={{ opacity: 0, y: 24 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.45, delay: Math.min(i * 0.04, 0.6) }}
+                    >
+                      <ArtCard artwork={art} />
+                    </motion.div>
+                    {inlineAdAfter(i)}
+                  </Fragment>
                 ))}
               </div>
             )}
@@ -212,7 +245,7 @@ const Marketplace = () => {
       </div>
 
       <div className="marketplace-rail-col marketplace-rail-col--right">
-        <MarketplaceRail />
+        <MarketplaceRail showAds={!isPhone} />
       </div>
 
       <MarketplaceFiltersDrawer

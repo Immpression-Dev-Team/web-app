@@ -9,9 +9,13 @@ import "./MarketplaceRail.css";
 const ADSTERRA_TOP = AD_UNITS.adsterra.marketplaceRailTop;
 const HILLTOP_SECOND = AD_UNITS.hilltop.marketplaceRailSecond;
 
-export default function MarketplaceRail() {
-  const showAdsterra = useAdPlacement("adsterra", "marketplaceRailTop") && ADSTERRA_TOP.code.trim();
-  const showHilltop = useAdPlacement("hilltop", "marketplaceRailSecond") && HILLTOP_SECOND.code.trim();
+// showAds is false on phones, where Marketplace shows these same ad units
+// inline in the artwork grid instead (so each ad only loads once).
+export default function MarketplaceRail({ showAds = true }) {
+  const adsterraOn = useAdPlacement("adsterra", "marketplaceRailTop") && ADSTERRA_TOP.code.trim();
+  const hilltopOn = useAdPlacement("hilltop", "marketplaceRailSecond") && HILLTOP_SECOND.code.trim();
+  const showAdsterra = showAds && adsterraOn;
+  const showHilltop = showAds && hilltopOn;
 
   return (
     <aside className="mp-rail" aria-label="Marketplace sidebar">
