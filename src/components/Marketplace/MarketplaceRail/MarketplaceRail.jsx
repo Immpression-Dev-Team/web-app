@@ -15,13 +15,17 @@ export default function MarketplaceRail() {
 
   return (
     <aside className="mp-rail" aria-label="Marketplace sidebar">
-      {(showAdsterra || showHilltop) && (
+      {showAdsterra && (
         <div className="mp-rail-section mp-rail-ad">
-          {showAdsterra && <AdFrame {...ADSTERRA_TOP} />}
-          {showHilltop && <AdFrame {...HILLTOP_SECOND} />}
+          <AdFrame {...ADSTERRA_TOP} />
         </div>
       )}
       <RailBlogSection />
+      {showHilltop && (
+        <div className="mp-rail-section mp-rail-ad">
+          <AdFrame {...HILLTOP_SECOND} />
+        </div>
+      )}
       <RailActivitySection />
       <RailSellCTA />
     </aside>

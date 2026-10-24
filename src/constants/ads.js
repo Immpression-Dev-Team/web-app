@@ -25,7 +25,7 @@ export const AD_UNITS = {
     },
   },
   hilltop: {
-    // Marketplace right rail, second slot (under the Adsterra banner).
+    // Marketplace right rail, second slot (below "From Immpression").
     // Zone: marketplace-rail-300x250. String.raw keeps the snippet's
     // backslashes exactly as HilltopAds gave them.
     marketplaceRailSecond: {
