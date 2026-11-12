@@ -1,5 +1,8 @@
 import { useEffect } from "react";
-import MarketplaceLeftRail from "../MarketplaceLeftRail/MarketplaceLeftRail.jsx";
+import DiscoverNav from "../MarketplaceLeftRail/DiscoverNav.jsx";
+import MediumList from "../MarketplaceLeftRail/MediumList.jsx";
+import PriceRangeCard from "../MarketplaceLeftRail/PriceRangeCard.jsx";
+import "../MarketplaceLeftRail/MarketplaceLeftRail.css";
 import "./MarketplaceFiltersDrawer.css";
 
 export default function MarketplaceFiltersDrawer({ open, onClose, category, setCategory, setSort }) {
@@ -14,8 +17,8 @@ export default function MarketplaceFiltersDrawer({ open, onClose, category, setC
     };
   }, [open, onClose]);
 
-  // Selecting a filter inside the drawer is a complete action on mobile —
-  // apply it and close, rather than making the user close it separately.
+  // The marketplace's only filter UI (the page has no side rail). Selecting
+  // a filter is a complete action — apply it and close, rather than making the user close it separately.
   const handleSetCategory = (value) => {
     setCategory(value);
     onClose();
@@ -37,11 +40,11 @@ export default function MarketplaceFiltersDrawer({ open, onClose, category, setC
           </button>
         </div>
         <div className="mp-drawer-body">
-          <MarketplaceLeftRail
-            category={category}
-            setCategory={handleSetCategory}
-            setSort={handleSetSort}
-          />
+          <div className="mp-left-rail">
+            <DiscoverNav setCategory={handleSetCategory} setSort={handleSetSort} />
+            <MediumList category={category} setCategory={handleSetCategory} />
+            <PriceRangeCard />
+          </div>
         </div>
       </div>
     </div>

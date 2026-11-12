@@ -4,7 +4,6 @@ import { Helmet } from "react-helmet-async";
 import { useSearchParams } from "react-router-dom";
 import ArtCard from "./ArtCard.jsx";
 import MarketplaceRail from "./MarketplaceRail/MarketplaceRail.jsx";
-import MarketplaceLeftRail from "./MarketplaceLeftRail/MarketplaceLeftRail.jsx";
 import MarketplaceToolbar from "./MarketplaceToolbar/MarketplaceToolbar.jsx";
 import MarketplaceFiltersDrawer from "./MarketplaceFiltersDrawer/MarketplaceFiltersDrawer.jsx";
 import MarketplaceFeatured from "./MarketplaceFeatured/MarketplaceFeatured.jsx";
@@ -142,38 +141,31 @@ const Marketplace = () => {
         })}</script>
       </Helmet>
 
-      <div className="marketplace-rail-col marketplace-rail-col--left">
-        <MarketplaceLeftRail
-          category={category}
-          setCategory={setCategory}
-          setSort={setSort}
-        />
-      </div>
+      {/* Hero: compact page heading, then the admin-curated featured artworks */}
+      <section className="marketplace-hero">
+        <div className="marketplace-hero-inner">
+          <motion.div
+            className="marketplace-hero-head"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            <div className="marketplace-hero-heading">
+              <span className="marketplace-eyebrow">Original Art for Sale</span>
+              <h1 className="marketplace-title">The Collection.</h1>
+            </div>
+            <p className="marketplace-subtitle">
+              Discover and own original works from emerging artists.
+              Every piece is one of a kind.
+            </p>
+          </motion.div>
+          <MarketplaceFeatured />
+        </div>
+      </section>
 
-      <div className="marketplace-main-col">
-        {/* Hero: compact page heading, then the admin-curated featured artworks */}
-        <section className="marketplace-hero">
-          <div className="marketplace-hero-inner">
-            <motion.div
-              className="marketplace-hero-head"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              <div className="marketplace-hero-heading">
-                <span className="marketplace-eyebrow">Original Art for Sale</span>
-                <h1 className="marketplace-title">The Collection.</h1>
-              </div>
-              <p className="marketplace-subtitle">
-                Discover and own original works from emerging artists.
-                Every piece is one of a kind.
-              </p>
-            </motion.div>
-            <MarketplaceFeatured />
-          </div>
-        </section>
-
-        {/* Grid */}
+      {/* Listings with the editorial/ad column beside them (below them on
+          tablet and phone). Filters live in the drawer, opened from the toolbar. */}
+      <div className="marketplace-body">
         <section className="marketplace-grid-section">
           <div className="marketplace-main">
             <MarketplaceToolbar
@@ -234,10 +226,10 @@ const Marketplace = () => {
             )}
           </div>
         </section>
-      </div>
 
-      <div className="marketplace-rail-col marketplace-rail-col--right">
-        <MarketplaceRail showAds={!isPhone} />
+        <div className="marketplace-rail-col">
+          <MarketplaceRail showAds={!isPhone} />
+        </div>
       </div>
 
       <MarketplaceFiltersDrawer

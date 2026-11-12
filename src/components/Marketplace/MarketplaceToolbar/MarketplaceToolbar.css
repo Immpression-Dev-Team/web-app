@@ -68,7 +68,7 @@
 }
 
 .mp-toolbar-filters-btn {
-  display: none;
+  display: inline-flex;
   align-items: center;
   font-family: 'Inter', sans-serif;
   font-size: 0.65rem;
@@ -131,14 +131,6 @@
 .mp-toolbar-sort-select option {
   background: #fff;
   color: #111;
-}
-
-/* Filters button only makes sense once the left rail is no longer
-   inline — matches the breakpoint where Marketplace.css hides it. */
-@media (max-width: 1150px) {
-  .mp-toolbar-filters-btn {
-    display: inline-flex;
-  }
 }
 
 @media (max-width: 640px) {

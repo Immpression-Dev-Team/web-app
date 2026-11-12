@@ -1,16 +1,15 @@
 /* ─── Featured hero ───────────────────────────────
-   Desktop/tablet: one large tile on the left half, the next four in a
-   2×2 grid on the right half. Built on a 4-col × 2-row grid with a fixed
-   2:1 aspect ratio, so every tile is cropped (object-fit: cover) rather
-   than stretched, and the hero's height follows its width instead of the
-   artwork's proportions. */
+   Desktop/tablet: a wide landscape band — one large tile across ~52% of
+   the width, the next four in a 2×2 grid across the rest. The height is
+   fixed (scaling with the viewport between 300px and 440px), so every
+   tile is cropped (object-fit: cover) rather than stretched and the hero
+   never grows taller as the page gets wider. */
 .mp-feat {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 52fr) minmax(0, 24fr) minmax(0, 24fr);
   grid-template-rows: repeat(2, minmax(0, 1fr));
   gap: 8px;
-  aspect-ratio: 2 / 1;
-  max-height: 560px;
+  height: clamp(300px, 31vw, 440px);
   width: 100%;
 }
 
@@ -27,21 +26,24 @@
 }
 
 .mp-feat-tile--lead {
-  grid-column: 1 / 3;
+  grid-column: 1;
   grid-row: 1 / 3;
 }
 
-/* Fewer than five: the lead tile keeps the left half and the rest share
-   the right half. */
+/* Fewer than five: the lead tile keeps its column and the rest share the
+   remaining width. */
 .mp-feat--n1 .mp-feat-tile--lead { grid-column: 1 / -1; }
-.mp-feat--n2 .mp-feat-tile:nth-child(2) { grid-column: 3 / 5; grid-row: 1 / 3; }
-.mp-feat--n3 .mp-feat-tile:nth-child(n + 2) { grid-column: 3 / 5; }
-.mp-feat--n4 .mp-feat-tile:nth-child(2) { grid-column: 3 / 5; }
+.mp-feat--n2 .mp-feat-tile:nth-child(2) { grid-column: 2 / 4; grid-row: 1 / 3; }
+.mp-feat--n3 .mp-feat-tile:nth-child(n + 2) { grid-column: 2 / 4; }
+.mp-feat--n4 .mp-feat-tile:nth-child(2) { grid-column: 2 / 4; }
 
 .mp-feat-tile img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Slightly above center: keeps faces, skylines and subjects in frame
+     more often than a dead-center crop of a wide band. */
+  object-position: center 40%;
   display: block;
   transition: transform 0.5s ease;
 }
@@ -135,8 +137,7 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-rows: none;
     grid-auto-rows: auto;
-    aspect-ratio: auto;
-    max-height: none;
+    height: auto;
     gap: 6px;
   }
 

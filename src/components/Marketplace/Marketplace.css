@@ -3,55 +3,42 @@
 /* ─── Wrapper ─────────────────────────────────── */
 /* Inter for every piece of UI (nav, labels, cards, buttons, filters).
    Permanent Marker stays reserved for "The Collection." and the CTA
-   card headings — that's the original Immpression treatment and it's
-   not being reinterpreted into a serif/editorial direction. */
-/* The whole page — hero and artwork section both — is one 3-column
-   grid: left rail | center | right rail. That's what lets the rail
-   panels start right at the navbar and run full-bleed to the viewport
-   edges, instead of only flanking the grid section (leaving a white
-   gap above them where the hero used to be a separate, narrower,
-   centered block). */
+   card headings — the original Immpression treatment.
+
+   One centered column: compact heading, full-width featured hero, then
+   the listings with the editorial/ad column beside them. No permanent
+   side rails — filters open in MarketplaceFiltersDrawer from the
+   toolbar, so nothing narrows the hero. */
 .marketplace-wrapper {
   width: 100%;
   min-height: 100vh;
   background: #ffffff;
   color: #111;
-  display: grid;
-  grid-template-columns: var(--mp-left-w) minmax(0, 1fr) var(--mp-rail-w);
-  --mp-left-w: 300px;
+  --mp-gutter: 2rem;
   --mp-rail-w: 300px;
-  --mp-main-max: 1040px;
-  --mp-panel-bg: #f5f7fa;
-  --mp-panel-border: #e2e6ec;
-}
-
-.marketplace-main-col {
-  min-width: 0;
 }
 
 /* ─── Hero ────────────────────────────────────── */
-/* Same eyebrow / title / description row as the original page — just
-   tightened. overflow-x lives here (not on the wrapper) so it clips the
-   entrance animation without creating a scroll container on an
-   ancestor — an element with non-visible overflow anywhere above the
-   navbar would silently break its position: sticky. */
+/* overflow-x lives here (not on the
+   wrapper) so it clips the entrance animation without making an
+   ancestor of the navbar a scroll container, which would break its
+   position: sticky. */
+.marketplace-hero,
+.marketplace-body {
+  box-sizing: border-box;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
 .marketplace-hero {
-  padding: 4.75rem 2rem 1.75rem;
-  border-bottom: 1px solid #ebebeb;
+  padding: 2.25rem var(--mp-gutter) 0;
   overflow-x: hidden;
 }
 
-/* max-width + auto margin matches .marketplace-main below (the
-   artwork grid wrapper) exactly, so the hero text's left edge lines
-   up with the first card's left edge at any viewport width — both
-   sections share the same 2rem side padding, so as the shared center
-   column narrows, both centered boxes narrow the same way together. */
 .marketplace-hero-inner {
-  max-width: var(--mp-main-max);
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1rem;
 }
 
 /* Heading and subtitle share one compact row so the featured artwork
@@ -99,41 +86,26 @@
   text-align: left;
 }
 
-/* ─── Grid Section ────────────────────────────── */
-.marketplace-grid-section {
-  padding: 2rem 2rem 6rem;
+/* ─── Listings + editorial column ─────────────── */
+.marketplace-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--mp-rail-w);
+  gap: 2.5rem;
+  align-items: start;
+  padding: 1.5rem var(--mp-gutter) 6rem;
 }
 
+.marketplace-grid-section,
 .marketplace-main {
   min-width: 0;
-  width: 100%;
-  max-width: var(--mp-main-max);
-  margin: 0 auto;
 }
 
-/* No position: sticky here on purpose — left rail, main column, and
-   right rail all scroll normally with the page. Only the navbar
-   (fixed, in Navbar.css) stays put while scrolling.
-
-   Rails read as quiet supporting panels — tinted off-white, divided
-   from the center by a hairline — so the white center column reads as
-   the primary canvas. They're direct children of the wrapper's grid
-   (not nested cards inside the page), and the wrapper has no
-   max-width, so the panels run genuinely edge-to-edge and start right
-   at the navbar, top to bottom, alongside the hero as well as the
-   artwork grid — not just alongside the grid section. */
+/* Ads, "From Immpression", activity, sell CTA (MarketplaceRail). Exactly
+   the 300px the banners need; no panel chrome, so it reads as part of
+   the page rather than a sidebar. */
 .marketplace-rail-col {
   min-width: 0;
-  background: var(--mp-panel-bg);
-  padding: 2.25rem 1.75rem;
-}
-
-.marketplace-rail-col--left {
-  border-right: 1px solid var(--mp-panel-border);
-}
-
-.marketplace-rail-col--right {
-  border-left: 1px solid var(--mp-panel-border);
+  padding-top: 0.85rem;
 }
 
 .marketplace-grid {
@@ -163,21 +135,9 @@
   padding: 0.75rem 0;
 }
 
-/* ─── Medium desktop: compress the left rail before the center
-   column gets squeezed, and drop the grid to 3 columns since less
-   width is available for it here than on large desktop. ─── */
-@media (max-width: 1400px) {
-  .marketplace-wrapper {
-    /* Right rail stays 300px: it holds a 300px-wide ad (MarketplaceRail). */
-    grid-template-columns: 230px minmax(0, 1fr) 300px;
-  }
-
+@media (max-width: 1300px) {
   .marketplace-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .marketplace-rail-col {
-    padding: 1.75rem 1.25rem;
   }
 }
 
@@ -274,52 +234,27 @@
 
 /* ─── Responsive ──────────────────────────────── */
 
-/* Tablet: side columns gone, artwork is full-width primary content.
-   The left rail (filtering) is no longer shown inline at all here — its
-   content moves into MarketplaceFiltersDrawer, opened via the toolbar's
-   "Filters" button, so filtering controls don't compete with artwork or
-   editorial content for space. The right rail (editorial/activity) still
-   drops below the grid, same as before — artwork first (order: 1), then
-   right rail (order: 2), via flex `order` so desktop DOM/tab order
-   (left, main, right) doesn't need to change to get "artwork first" here.
-   Threshold is 1150 (not 1024) so the compressed medium-desktop tier
-   above never has to squeeze the center column past ~230px cards. */
-@media (max-width: 1150px) {
-  .marketplace-wrapper {
-    display: flex;
-    flex-direction: column;
+/* Tablet: listings take the full width and the editorial/ad column
+   drops below them. */
+@media (max-width: 1024px) {
+  .marketplace-body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
   }
 
-  .marketplace-main-col {
-    order: 1;
-  }
-
-  .marketplace-main,
-  .marketplace-hero-inner {
-    max-width: none;
-    margin: 0;
-  }
-
-  .marketplace-rail-col--left {
-    display: none;
-  }
-
-  .marketplace-rail-col--right {
-    order: 2;
-    width: 100%;
-    /* Horizontal padding now matches the grid section's own side
-       padding (2rem) so the panel's content lines up with the artwork
-       grid above it, since they're siblings rather than nested inside
-       the same section at this width. */
-    padding: 2.25rem 2rem 2rem;
-    border-left: none;
-    border-top: 1px solid var(--mp-panel-border);
+  .marketplace-rail-col {
+    padding-top: 2rem;
+    border-top: 1px solid #ebebeb;
   }
 }
 
 @media (max-width: 640px) {
+  .marketplace-wrapper {
+    --mp-gutter: 1.25rem;
+  }
+
   .marketplace-hero {
-    padding: 4.25rem 1.25rem 1.25rem;
+    padding-top: 1.75rem;
   }
 
   .marketplace-hero-inner {
@@ -334,16 +269,13 @@
     font-size: 1.6rem;
   }
 
-  .marketplace-grid-section {
-    padding: 1.5rem 1.25rem 5rem;
+  .marketplace-body {
+    padding-top: 1rem;
+    padding-bottom: 4rem;
   }
 
   .marketplace-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.75rem;
-  }
-
-  .marketplace-rail-col--right {
-    padding: 1.75rem 1.25rem 1.5rem;
   }
 }
