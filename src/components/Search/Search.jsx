@@ -137,7 +137,7 @@ export default function Search() {
                   <h2 className="search-section-title">From Our Artists</h2>
                   <p className="search-section-sub">Original works for sale</p>
                 </div>
-                <Link to={`/marketplace?q=${encodeURIComponent(searchedQ)}`} className="search-section-link">
+                <Link to={`/?q=${encodeURIComponent(searchedQ)}`} className="search-section-link">
                   Browse all →
                 </Link>
               </div>

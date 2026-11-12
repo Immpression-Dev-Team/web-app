@@ -121,12 +121,12 @@ const LandingPage = () => {
   return (
     <div className="landing-wrapper">
       <Helmet>
-        <title>Immpression — Art Search Engine &amp; Marketplace</title>
+        <title>Flashback — The Original Immpression Home Page</title>
         <meta name="description" content="Immpression is an art search engine and marketplace for discovering and buying original artwork from emerging artists. Artists keep 90% of every sale." />
-        <link rel="canonical" href="https://www.immpression.art" />
+        <link rel="canonical" href="https://www.immpression.art/flashback" />
         <meta property="og:title" content="Immpression — Art Search Engine &amp; Marketplace" />
         <meta property="og:description" content="Discover and buy original artwork from emerging artists. Artists keep 90% of every sale." />
-        <meta property="og:url" content="https://www.immpression.art" />
+        <meta property="og:url" content="https://www.immpression.art/flashback" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Immpression" />
         <meta property="og:image" content="https://www.immpression.art/Immpression_UI_1.png" />
@@ -136,56 +136,6 @@ const LandingPage = () => {
         <meta name="twitter:title" content="Immpression — Art Search Engine &amp; Marketplace" />
         <meta name="twitter:description" content="Discover and buy original artwork from emerging artists." />
         <meta name="twitter:image" content="https://www.immpression.art/Immpression_UI_1.png" />
-        <script type="application/ld+json">{JSON.stringify({
-          "@context": "https://schema.org",
-          "@graph": [
-            {
-              "@type": "Organization",
-              "@id": "https://www.immpression.art/#organization",
-              "name": "Immpression",
-              "url": "https://www.immpression.art",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://www.immpression.art/Logo_T.png"
-              },
-              "description": "Immpression is an art search engine and marketplace for discovering and buying original artwork from emerging artists.",
-              "email": "immpression.nyc@gmail.com",
-              "sameAs": [
-                "https://play.google.com/store/apps/details?id=com.immpression.artapp",
-                "https://apps.apple.com/app/id6756974604",
-                "https://www.instagram.com/immpressionllc/",
-                "https://www.tiktok.com/@immpression",
-                "https://www.linkedin.com/company/impression.artwork"
-              ]
-            },
-            {
-              "@type": "WebSite",
-              "@id": "https://www.immpression.art/#website",
-              "url": "https://www.immpression.art",
-              "name": "Immpression",
-              "alternateName": "Immpression Art",
-              "description": "Art search engine and marketplace. Discover and buy original artwork from emerging artists.",
-              "publisher": { "@id": "https://www.immpression.art/#organization" },
-              "potentialAction": {
-                "@type": "SearchAction",
-                "target": {
-                  "@type": "EntryPoint",
-                  "urlTemplate": "https://www.immpression.art/search?q={search_term_string}"
-                },
-                "query-input": "required name=search_term_string"
-              }
-            },
-            {
-              "@type": "WebPage",
-              "@id": "https://www.immpression.art/#webpage",
-              "url": "https://www.immpression.art",
-              "name": "Immpression — Art Search Engine & Marketplace",
-              "isPartOf": { "@id": "https://www.immpression.art/#website" },
-              "about": { "@id": "https://www.immpression.art/#organization" },
-              "description": "Immpression is an art search engine and marketplace for discovering and buying original artwork from emerging artists. Artists keep 90% of every sale."
-            }
-          ]
-        })}</script>
       </Helmet>
 
       <section className="hero-section">

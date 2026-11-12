@@ -16,9 +16,9 @@ const SELL_URL =
 // Links that collapse into the "More" menu on phones. New Arrivals and How
 // It Works point at anchors the Navbar scrolls to (see useHashScroll).
 const SECONDARY_LINKS = [
-  { to: "/marketplace?sort=newest#listings", label: "New Arrivals", icon: SparkleIcon },
+  { to: "/?sort=newest#listings", label: "New Arrivals", icon: SparkleIcon },
   { to: "/blog", label: "Artist Stories", icon: BookIcon },
-  { to: "/#how-it-works", label: "How It Works", icon: InfoIcon },
+  { to: "/flashback#how-it-works", label: "How It Works", icon: InfoIcon },
 ];
 
 // Secondary bar under the main navbar on /marketplace pages: shopping

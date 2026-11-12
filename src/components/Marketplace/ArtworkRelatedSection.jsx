@@ -9,7 +9,7 @@ export default function ArtworkRelatedSection({ artworks }) {
     <section className="adr-related-section">
       <div className="adr-section-head">
         <h2 className="adr-related-title">Related Artwork</h2>
-        <Link to="/marketplace" className="mp-rail-link">View all</Link>
+        <Link to="/" className="mp-rail-link">View all</Link>
       </div>
       <div className="adr-related-grid">
         {artworks.map((art, i) => (

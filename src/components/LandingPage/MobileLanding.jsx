@@ -175,7 +175,7 @@ export default function MobileLanding({ searchQuery, setSearchQuery, onSearch })
           <div className="mlp-section-head">
             <h2 className="mlp-section-title">Featured Artwork</h2>
             <Link
-              to={featured.type === "marketplace" ? "/marketplace" : "/explore"}
+              to={featured.type === "marketplace" ? "/" : "/explore"}
               className="mlp-see-all"
             >
               See all →

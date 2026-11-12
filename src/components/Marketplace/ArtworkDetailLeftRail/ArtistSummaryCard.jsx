@@ -27,7 +27,7 @@ export default function ArtistSummaryCard({ artistName, artist }) {
       )}
 
       <Link
-        to={`/marketplace?q=${encodeURIComponent(artistName)}`}
+        to={`/?q=${encodeURIComponent(artistName)}`}
         className="adr-view-profile-btn"
       >
         View Profile

@@ -29,7 +29,7 @@ export default function BlogMarketplaceRail({ artworks, className = "" }) {
           );
         })}
       </div>
-      <Link to="/marketplace" className="bp-mp-explore">Explore marketplace →</Link>
+      <Link to="/" className="bp-mp-explore">Explore marketplace →</Link>
     </div>
   );
 }

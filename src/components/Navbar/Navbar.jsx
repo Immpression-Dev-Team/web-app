@@ -13,9 +13,10 @@ export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const { /*userData, logout*/ } = useAuth();
     const location = useLocation();
-    // Marketplace pages get the shopping-style navbar: search in the
+    // Marketplace pages (home + artwork pages) get the shopping-style navbar: search in the
     // center, cleaner link type (Navbar.css, .navbar-container--market).
-    const isMarketplace = /^\/marketplace(\/|$)/.test(location.pathname);
+    const isMarketplace =
+        location.pathname === "/" || /^\/marketplace(\/|$)/.test(location.pathname);
     useHashScroll();
 
     const handleToggleNavItems = () => {
@@ -52,7 +53,7 @@ export default function Navbar() {
                 {/* Desktop Navigation */}
                 <div className="nav-items-desktop">
                     <Link to="/explore" className="nav-item">Explore</Link>
-                    <Link to="/marketplace" className="nav-item">Marketplace</Link>
+                    <Link to="/" className="nav-item">Marketplace</Link>
                     <Link to="/about" className="nav-item">About</Link>
                     <Link to="/contact" className="nav-item">Contact</Link>
                 </div>
@@ -80,7 +81,7 @@ export default function Navbar() {
                 </div>
                 <div className="mobile-nav-items">
                     <Link to="/explore" className="nav-item" onClick={closeMenu}>Explore Art</Link>
-                    <Link to="/marketplace" className="nav-item" onClick={closeMenu}>Marketplace</Link>
+                    <Link to="/" className="nav-item" onClick={closeMenu}>Marketplace</Link>
                     <Link to="/about" className="nav-item" onClick={closeMenu}>About Us</Link>
                     <Link to="/contact" className="nav-item" onClick={closeMenu}>Contact</Link>
                     <div className="mobile-nav-actions">

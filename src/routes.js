@@ -13,6 +13,7 @@ import ThankYou from './components/ThankYou/ThankYou.jsx';
 import Explore from './components/Explore/Explore.jsx';
 import PublicArtDetail from './components/PublicArtDetail/PublicArtDetail.jsx';
 import Marketplace from './components/Marketplace/Marketplace.jsx';
+import MarketplaceRedirect from './components/Marketplace/MarketplaceRedirect.jsx';
 import ArtworkDetail from './components/Marketplace/ArtworkDetail.jsx';
 import Search from './components/Search/Search.jsx';
 import Press from './components/Press/Press.jsx';
@@ -63,9 +64,16 @@ const createElement = (Component) => React.createElement(Component);
 // ];
 
 export const GuestNavigation = [
+    // The marketplace is the home page; the previous landing page lives on
+    // at /flashback (linked from the footer).
     {
-        name: 'LandingPage',
-        path: '/',
+        name: "Marketplace",
+        path: "/",
+        element: createElement(Marketplace),
+    },
+    {
+        name: 'Flashback',
+        path: '/flashback',
         element: createElement(LandingPage),
     },
     // {
@@ -114,9 +122,9 @@ export const GuestNavigation = [
         element: createElement(PublicArtDetail),
     },
     {
-        name: "Marketplace",
+        name: "Marketplace (old URL)",
         path: "/marketplace",
-        element: createElement(Marketplace),
+        element: createElement(MarketplaceRedirect),
     },
     {
         name: "Artwork Detail",

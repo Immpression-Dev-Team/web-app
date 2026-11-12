@@ -129,12 +129,12 @@ const Marketplace = () => {
     <div className="marketplace-wrapper">
 
       <Helmet>
-        <title>Buy Original Art | Immpression Marketplace</title>
+        <title>Immpression — Buy Original Art from Emerging Artists</title>
         <meta name="description" content="Browse and buy original artwork from emerging artists on Immpression. Paintings, photography, sculptures, graffiti and more — all one of a kind." />
-        <link rel="canonical" href="https://www.immpression.art/marketplace" />
+        <link rel="canonical" href="https://www.immpression.art/" />
         <meta property="og:title" content="Buy Original Art | Immpression Marketplace" />
         <meta property="og:description" content="Browse and buy original artwork from emerging artists. Paintings, photography, sculptures, graffiti and more." />
-        <meta property="og:url" content="https://www.immpression.art/marketplace" />
+        <meta property="og:url" content="https://www.immpression.art/" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Immpression" />
         <meta property="og:image" content="https://www.immpression.art/Immpression_UI_3.png" />
@@ -142,13 +142,56 @@ const Marketplace = () => {
         <meta name="twitter:title" content="Buy Original Art | Immpression Marketplace" />
         <meta name="twitter:description" content="Browse and buy original artwork from emerging artists. Paintings, photography, sculptures, and more." />
         <meta name="twitter:image" content="https://www.immpression.art/Immpression_UI_3.png" />
+        {/* Home page: carries the site-wide Organization / WebSite data. */}
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "CollectionPage",
-          "name": "Immpression Marketplace",
-          "description": "Browse and buy original artwork from emerging artists on Immpression.",
-          "url": "https://www.immpression.art/marketplace",
-          "isPartOf": { "@id": "https://www.immpression.art/#website" },
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://www.immpression.art/#organization",
+              "name": "Immpression",
+              "url": "https://www.immpression.art",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.immpression.art/Logo_T.png"
+              },
+              "description": "Immpression is an art search engine and marketplace for discovering and buying original artwork from emerging artists.",
+              "email": "immpression.nyc@gmail.com",
+              "sameAs": [
+                "https://play.google.com/store/apps/details?id=com.immpression.artapp",
+                "https://apps.apple.com/app/id6756974604",
+                "https://www.instagram.com/immpressionllc/",
+                "https://www.tiktok.com/@immpression",
+                "https://www.linkedin.com/company/impression.artwork"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://www.immpression.art/#website",
+              "url": "https://www.immpression.art",
+              "name": "Immpression",
+              "alternateName": "Immpression Art",
+              "description": "Art search engine and marketplace. Discover and buy original artwork from emerging artists.",
+              "publisher": { "@id": "https://www.immpression.art/#organization" },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://www.immpression.art/search?q={search_term_string}"
+                },
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "CollectionPage",
+              "@id": "https://www.immpression.art/#webpage",
+              "url": "https://www.immpression.art/",
+              "name": "Immpression Marketplace",
+              "description": "Browse and buy original artwork from emerging artists on Immpression.",
+              "isPartOf": { "@id": "https://www.immpression.art/#website" },
+              "about": { "@id": "https://www.immpression.art/#organization" }
+            }
+          ]
         })}</script>
       </Helmet>
 

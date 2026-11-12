@@ -53,7 +53,7 @@ export default function ExploreLeftRail({ query, source, setSource, applyQuery }
         <p className="ex-shop-copy">
           Love the classics? Discover one-of-a-kind work from today&rsquo;s emerging artists.
         </p>
-        <Link to="/marketplace" className="ex-shop-btn">Shop Original Art</Link>
+        <Link to="/" className="ex-shop-btn">Shop Original Art</Link>
       </div>
     </aside>
   );

@@ -108,7 +108,7 @@ const ArtworkDetail = () => {
       <div className="artwork-detail-wrapper">
         <div className="artwork-detail-error">
           <p>{error || "Artwork not found."}</p>
-          <button className="artwork-detail-back-btn" onClick={() => navigate("/marketplace")}>
+          <button className="artwork-detail-back-btn" onClick={() => navigate("/")}>
             Back to Marketplace
           </button>
         </div>
@@ -188,7 +188,7 @@ const ArtworkDetail = () => {
           "@type": "BreadcrumbList",
           "itemListElement": [
             { "@type": "ListItem", "position": 1, "name": "Immpression", "item": "https://www.immpression.art" },
-            { "@type": "ListItem", "position": 2, "name": "Marketplace", "item": "https://www.immpression.art/marketplace" },
+            { "@type": "ListItem", "position": 2, "name": "Marketplace", "item": "https://www.immpression.art/" },
             { "@type": "ListItem", "position": 3, "name": name, "item": pageUrl },
           ],
         })}</script>
@@ -207,7 +207,7 @@ const ArtworkDetail = () => {
         {/* Breadcrumb + search on same row */}
         <div className="artwork-detail-breadcrumb">
           <div className="artwork-detail-breadcrumb-left">
-            <Link to="/marketplace" className="artwork-detail-back-link">
+            <Link to="/" className="artwork-detail-back-link">
               ← Marketplace
             </Link>
             <span className="artwork-detail-breadcrumb-sep">/</span>

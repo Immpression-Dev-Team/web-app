@@ -9,7 +9,7 @@ export default function MoreArtworksList({ artworks }) {
     <div className="mp-rail-section">
       <div className="mp-rail-section-head">
         <h3 className="mp-rail-title">More Artworks</h3>
-        <Link to="/marketplace" className="mp-rail-link">View all</Link>
+        <Link to="/" className="mp-rail-link">View all</Link>
       </div>
       <ul className="mp-blog-rail-list">
         {artworks.map((art) => {

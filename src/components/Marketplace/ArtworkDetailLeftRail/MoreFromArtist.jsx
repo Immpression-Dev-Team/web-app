@@ -9,7 +9,7 @@ export default function MoreFromArtist({ artistName, artworks }) {
     <div className="mp-left-section">
       <div className="adr-section-head">
         <h3 className="mp-left-title">More From This Artist</h3>
-        <Link to={`/marketplace?q=${encodeURIComponent(artistName)}`} className="mp-rail-link">
+        <Link to={`/?q=${encodeURIComponent(artistName)}`} className="mp-rail-link">
           View all
         </Link>
       </div>

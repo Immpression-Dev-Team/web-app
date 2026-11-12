@@ -14,7 +14,7 @@ export default function ArtworkArtistSection({ artistName, artist }) {
         {artist?.bio && <p className="adr-artist-strip-bio">{artist.bio}</p>}
       </div>
       <Link
-        to={`/marketplace?q=${encodeURIComponent(artistName)}`}
+        to={`/?q=${encodeURIComponent(artistName)}`}
         className="adr-view-profile-btn"
       >
         View Profile
