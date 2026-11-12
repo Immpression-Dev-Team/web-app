@@ -1,7 +1,7 @@
 /* ─── Featured hero ───────────────────────────────
    Desktop/tablet: a wide landscape band — one large tile across ~52% of
    the width, the next four in a 2×2 grid across the rest. The height is
-   fixed (scaling with the viewport between 300px and 440px), so every
+   fixed (scaling with the viewport between 240px and 370px), so every
    tile is cropped (object-fit: cover) rather than stretched and the hero
    never grows taller as the page gets wider. */
 .mp-feat {
@@ -9,7 +9,7 @@
   grid-template-columns: minmax(0, 52fr) minmax(0, 24fr) minmax(0, 24fr);
   grid-template-rows: repeat(2, minmax(0, 1fr));
   gap: 8px;
-  height: clamp(300px, 31vw, 440px);
+  height: clamp(240px, 25vw, 370px);
   width: 100%;
 }
 
@@ -143,12 +143,12 @@
   .mp-feat .mp-feat-tile {
     grid-column: auto;
     grid-row: auto;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 4 / 3;
   }
 
   .mp-feat .mp-feat-tile--lead {
     grid-column: 1 / -1;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 16 / 10;
   }
 
   /* An odd number of small tiles: the last one fills the row. */

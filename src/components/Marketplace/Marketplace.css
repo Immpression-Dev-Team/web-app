@@ -46,7 +46,7 @@
   grid-template-columns: minmax(0, 1fr) var(--mp-rail-w);
   gap: 2.5rem;
   align-items: start;
-  padding: 1.5rem var(--mp-gutter) 6rem;
+  padding: 1rem var(--mp-gutter) 6rem;
 }
 
 .marketplace-grid-section,
@@ -212,7 +212,7 @@
   }
 
   .marketplace-body {
-    padding-top: 1rem;
+    padding-top: 0.75rem;
     padding-bottom: 4rem;
   }
 
