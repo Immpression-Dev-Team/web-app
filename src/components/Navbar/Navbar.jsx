@@ -1,6 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
 import LogoTitle from "../LogoTitle/LogoTitle.jsx";
 import NavbarSearch from "./NavbarSearch.jsx";
+import MarketplaceSubnav from "./MarketplaceSubnav.jsx";
+import useHashScroll from "../../utils/useHashScroll.js";
 import headerImage from "../../assets/headers/Immpression_white.png";
 import "./Navbar.css";
 import { useAuth } from "../../state/AuthProvider.jsx";
@@ -14,6 +16,7 @@ export default function Navbar() {
     // Marketplace pages get the shopping-style navbar: search in the
     // center, cleaner link type (Navbar.css, .navbar-container--market).
     const isMarketplace = /^\/marketplace(\/|$)/.test(location.pathname);
+    useHashScroll();
 
     const handleToggleNavItems = () => {
         setShowNavItems(!showNavItems);
@@ -65,7 +68,9 @@ export default function Navbar() {
                     <span className="hamburger-line"></span>
                 </button>
             </div>
-            
+
+            {isMarketplace && <MarketplaceSubnav />}
+
             {/* Mobile Navigation Overlay */}
             <div className={`nav-overlay ${showNavItems ? "show" : ""}`} onClick={closeMenu}></div>
             <div className={`nav-items-mobile ${showNavItems ? "show" : ""}`}>

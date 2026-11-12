@@ -98,7 +98,7 @@ function SprayCluster() {
 
 const HowItWorks = () => {
   return (
-    <section className="hiw-section">
+    <section className="hiw-section" id="how-it-works">
       {/* Subtle background accent glow */}
       <div className="hiw-bg-glow" aria-hidden="true" />
 

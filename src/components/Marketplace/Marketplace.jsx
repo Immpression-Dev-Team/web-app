@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, Fragment } from "react";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import ArtCard from "./ArtCard.jsx";
 import MarketplaceRail from "./MarketplaceRail/MarketplaceRail.jsx";
 import MarketplaceToolbar from "./MarketplaceToolbar/MarketplaceToolbar.jsx";
@@ -32,6 +32,7 @@ const INLINE_ADS = [
 
 const Marketplace = () => {
   const [searchParams] = useSearchParams();
+  const location = useLocation();
   const [artworks, setArtworks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
@@ -104,6 +105,16 @@ const Marketplace = () => {
     setSearch(q);
   }, [searchParams]);
 
+  // ?sort=… (e.g. the navbar's "New Arrivals" link) shows all artwork in
+  // that order. Keyed on location.key so clicking the link again re-applies it.
+  useEffect(() => {
+    const sortParam = new URLSearchParams(location.search).get("sort");
+    if (SORT_OPTIONS.some((o) => o.value === sortParam)) {
+      setSort(sortParam);
+      setCategory("All");
+    }
+  }, [location.key, location.search]);
+
   useEffect(() => {
     fetchArtworks(1, true);
   }, [fetchArtworks]);
@@ -151,7 +162,7 @@ const Marketplace = () => {
       {/* Listings with the editorial/ad column beside them (below them on
           tablet and phone). Filters live in the drawer, opened from the toolbar. */}
       <div className="marketplace-body">
-        <section className="marketplace-grid-section">
+        <section className="marketplace-grid-section" id="listings">
           <div className="marketplace-main">
             <MarketplaceToolbar
               count={!loading ? totalImages - soldImages : null}
