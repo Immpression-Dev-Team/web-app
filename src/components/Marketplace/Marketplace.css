@@ -56,16 +56,28 @@
 
 /* Ads, "From Immpression", activity, sell CTA (MarketplaceRail). Exactly
    the 300px the banners need; no panel chrome, so it reads as part of
-   the page rather than a sidebar. */
+   the page rather than a sidebar. Starts level with the filter toolbar,
+   and its sections sit closer together than on the artwork page rail. */
 .marketplace-rail-col {
   min-width: 0;
-  padding-top: 0.85rem;
+}
+
+.marketplace-rail-col .mp-rail {
+  gap: 1.5rem;
+}
+
+.marketplace-rail-col .mp-rail-section {
+  padding-bottom: 1.5rem;
+}
+
+.marketplace-rail-col .mp-rail-ad {
+  gap: 0;
 }
 
 .marketplace-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1rem;
+  gap: 1.75rem 1rem;
 }
 
 /* Each grid cell (the animation wrapper) is a flex box so the card inside
@@ -86,10 +98,14 @@
 .marketplace-grid > .marketplace-grid-ad {
   grid-column: 1 / -1;
   justify-content: center;
+  border-top: 1px solid #ebebeb;
+  border-bottom: 1px solid #ebebeb;
   padding: 0.75rem 0;
 }
 
-@media (max-width: 1300px) {
+/* Four columns down to 1200px wide; three on smaller laptops and
+   tablets (the ad column moves below the grid at 1024px). */
+@media (max-width: 1200px) {
   .marketplace-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -218,6 +234,6 @@
 
   .marketplace-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.75rem;
+    gap: 1.25rem 0.75rem;
   }
 }
