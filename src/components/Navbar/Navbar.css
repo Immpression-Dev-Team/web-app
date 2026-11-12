@@ -367,3 +367,145 @@
 }
 
 /* Consistent white navbar across all pages */
+
+/* ─── Marketplace navbar ──────────────────────────
+   Shopping-style layout on /marketplace pages: logo | wide search | links.
+   One grid, so the single search box (NavbarSearch) just moves between
+   breakpoints — center column on desktop/tablet, its own full-width row
+   under the logo on phones — and can never overlap the logo or links. */
+.navbar-container--market .navbar {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas: "logo search links";
+    column-gap: 2rem;
+    padding: 0.45rem 2rem;
+}
+
+.navbar-container--market .logo-and-title { grid-area: logo; }
+.navbar-container--market .nav-search { grid-area: search; }
+.navbar-container--market .nav-items-desktop,
+.navbar-container--market .menu-button { grid-area: links; justify-self: end; }
+
+.navbar-container--market .nav-items-desktop {
+    gap: 1.6rem;
+}
+
+.navbar-container--market .nav-items-desktop .nav-item {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    color: rgba(255, 255, 255, 0.78);
+    white-space: nowrap;
+}
+
+.navbar-container--market .nav-items-desktop .nav-item:hover {
+    color: #ffffff;
+}
+
+.navbar-container--market .mobile-nav-items .nav-item {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+/* Search box: light input, teal button flush on the right. */
+.nav-search {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    max-width: 680px;
+    justify-self: center;
+    height: 40px;
+    background: #ffffff;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nav-search:focus-within {
+    border-color: #47EFAC;
+    box-shadow: 0 0 0 3px rgba(71, 239, 172, 0.25);
+}
+
+.nav-search-input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 0 0.9rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.92rem;
+    color: #0b1530;
+}
+
+.nav-search-input::placeholder {
+    color: #8a93a6;
+}
+
+/* Hide the browser's own clear (×) button; the box stays minimal. */
+.nav-search-input::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+}
+
+.nav-search-btn {
+    flex-shrink: 0;
+    width: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: #47EFAC;
+    color: #040e2e;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.nav-search-btn:hover {
+    background: #3bd99a;
+}
+
+.nav-search-btn:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: -4px;
+}
+
+/* Tablet: links collapse into the menu button (rule above at 968px); the
+   search keeps the center column and simply shrinks. */
+@media (max-width: 968px) {
+    .navbar-container--market .navbar {
+        column-gap: 1.25rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-container--market .navbar {
+        padding: 0.4rem 1.5rem;
+    }
+}
+
+/* Phones: logo + menu on the first row, full-width search underneath. */
+@media (max-width: 640px) {
+    .navbar-container--market .navbar {
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-areas:
+            "logo links"
+            "search search";
+        row-gap: 0.45rem;
+        padding: 0.4rem 1rem 0.6rem;
+    }
+
+    .navbar-container--market .nav-search {
+        max-width: none;
+    }
+
+    /* The page content clears the taller two-row navbar. */
+    .navbar-container--market ~ .content {
+        padding-top: 110px;
+    }
+}

@@ -11,6 +11,7 @@ import ArtMosaic from './ArtMosaic';
 import HowItWorks from './HowItWorks';
 import FeaturedArticles from './FeaturedArticles';
 import MobileLanding from './MobileLanding';
+import searchPath from "../../utils/searchPath.js";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -108,8 +109,7 @@ const LandingPage = () => {
    */
   const handleSearch = (e) => {
     e.preventDefault();
-    const q = searchQuery.trim();
-    navigate(q ? `/search?q=${encodeURIComponent(q)}` : "/search");
+    navigate(searchPath(searchQuery));
   };
 
   const fade = (delay) => ({

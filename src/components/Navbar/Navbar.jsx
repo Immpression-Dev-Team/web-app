@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import LogoTitle from "../LogoTitle/LogoTitle.jsx";
+import NavbarSearch from "./NavbarSearch.jsx";
 import headerImage from "../../assets/headers/Immpression_white.png";
 import "./Navbar.css";
 import { useAuth } from "../../state/AuthProvider.jsx";
@@ -10,6 +11,9 @@ export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const { /*userData, logout*/ } = useAuth();
     const location = useLocation();
+    // Marketplace pages get the shopping-style navbar: search in the
+    // center, cleaner link type (Navbar.css, .navbar-container--market).
+    const isMarketplace = /^\/marketplace(\/|$)/.test(location.pathname);
 
     const handleToggleNavItems = () => {
         setShowNavItems(!showNavItems);
@@ -33,13 +37,15 @@ export default function Navbar() {
     }, [location]);
 
     return (
-        <nav className={`navbar-container ${isScrolled ? 'scrolled' : ''}`}>
+        <nav className={`navbar-container ${isScrolled ? 'scrolled' : ''}${isMarketplace ? ' navbar-container--market' : ''}`}>
             <div className="navbar">
                 <Link to="/" className="logo-and-title" onClick={closeMenu}>
                     <LogoTitle />
                     <img src={headerImage} alt="Immpression Logo" className="logo" />
                 </Link>
-                
+
+                {isMarketplace && <NavbarSearch />}
+
                 {/* Desktop Navigation */}
                 <div className="nav-items-desktop">
                     <Link to="/explore" className="nav-item">Explore</Link>
