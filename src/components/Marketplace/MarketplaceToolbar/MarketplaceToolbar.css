@@ -1,39 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
-/* Static block, not sticky — it scrolls away with the artwork grid. Row 1:
-   category pills + More Filters. Row 2: count/reset + sort. */
+/* Static block, not sticky — it scrolls away with the artwork grid.
+   Wide screens: one compact row — category pills | count | sort | More
+   Filters. Narrower: pills + More Filters, then count + sort. */
 .mp-toolbar {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  padding-bottom: 0.9rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto auto;
+  grid-template-areas: "pills status sort more";
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  padding-bottom: 0.75rem;
   border-bottom: 1px solid #ebebeb;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   font-family: 'Inter', sans-serif;
   --mp-blue: #1d4ed8;
   --mp-blue-soft: #eaf0ff;
   --mp-line: #dfe3ea;
 }
 
-.mp-toolbar-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  min-width: 0;
-}
+.mp-toolbar-pills { grid-area: pills; }
+.mp-toolbar-status { grid-area: status; }
+.mp-toolbar-select { grid-area: sort; }
+.mp-toolbar-more { grid-area: more; }
 
-/* Pills stay on one line; on narrow screens they scroll sideways inside
-   this strip (not the page), with a soft fade hinting at more. */
+/* Pills stay on one line and scroll sideways inside this strip (never
+   the page) if they don't fit. */
 .mp-toolbar-pills {
   display: flex;
-  gap: 0.5rem;
-  flex: 1;
+  gap: 0.375rem;
   min-width: 0;
   overflow-x: auto;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
-  padding: 2px 0;
 }
 
 .mp-toolbar-pills::-webkit-scrollbar {
@@ -43,22 +41,22 @@
 .mp-pill,
 .mp-toolbar-more,
 .mp-toolbar-select {
-  height: 36px;
+  height: 32px;
   font-family: 'Inter', sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 500;
   letter-spacing: 0;
   color: #1f2533;
   background: #fff;
   border: 1px solid var(--mp-line);
-  border-radius: 999px;
+  border-radius: 0;
   cursor: pointer;
   transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
 .mp-pill {
   flex-shrink: 0;
-  padding: 0 1rem;
+  padding: 0 0.8rem;
   white-space: nowrap;
 }
 
@@ -83,11 +81,10 @@
 }
 
 .mp-toolbar-more {
-  flex-shrink: 0;
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  padding: 0 1rem;
+  gap: 0.4rem;
+  padding: 0 0.8rem;
   white-space: nowrap;
 }
 
@@ -95,28 +92,21 @@
   border-color: #1f2533;
 }
 
-/* Row 2 */
-.mp-toolbar-row--meta {
-  flex-wrap: wrap;
-  row-gap: 0.5rem;
-}
-
 .mp-toolbar-status {
   display: flex;
   align-items: center;
-  gap: 0.9rem;
-  min-width: 0;
+  gap: 0.6rem;
+  white-space: nowrap;
 }
 
 .mp-toolbar-count {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: #6b7280;
-  white-space: nowrap;
 }
 
 .mp-toolbar-reset {
   font-family: 'Inter', sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 500;
   color: var(--mp-blue);
   background: none;
@@ -125,30 +115,16 @@
   cursor: pointer;
   text-decoration: underline;
   text-underline-offset: 3px;
-  white-space: nowrap;
-}
-
-.mp-toolbar-sort {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex-shrink: 0;
-}
-
-.mp-toolbar-sort-label {
-  font-size: 0.85rem;
-  color: #6b7280;
-  white-space: nowrap;
 }
 
 .mp-toolbar-select {
-  padding: 0 2.1rem 0 0.95rem;
+  padding: 0 1.9rem 0 0.75rem;
   outline: none;
   appearance: none;
   -webkit-appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236b7280' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 0.85rem center;
+  background-position: right 0.7rem center;
 }
 
 .mp-toolbar-select:hover {
@@ -160,8 +136,24 @@
   color: #111;
 }
 
-/* Phones: pills scroll inside their strip; More Filters shrinks to its
-   icon so it's always reachable without scrolling. */
+/* Narrower listings column: two tight rows so the pills keep room. The
+   middle track lets the (wider) sort select span under More Filters
+   without widening that column and squeezing the pills. */
+@media (max-width: 1300px) {
+  .mp-toolbar {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    grid-template-areas:
+      "pills pills more"
+      "status sort sort";
+  }
+
+  .mp-toolbar-select {
+    justify-self: end;
+  }
+}
+
+/* Phones: pills scroll with a fade hinting at more; More Filters shrinks
+   to its icon so it's always reachable without scrolling. */
 @media (max-width: 640px) {
   .mp-toolbar-pills {
     -webkit-mask-image: linear-gradient(to right, #000 85%, transparent);
@@ -169,7 +161,7 @@
   }
 
   .mp-toolbar-more {
-    width: 36px;
+    width: 32px;
     padding: 0;
     justify-content: center;
   }
@@ -181,9 +173,5 @@
     overflow: hidden;
     clip: rect(0 0 0 0);
     white-space: nowrap;
-  }
-
-  .mp-toolbar-sort-label {
-    display: none;
   }
 }

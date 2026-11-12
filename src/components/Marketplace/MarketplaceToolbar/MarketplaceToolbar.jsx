@@ -32,58 +32,51 @@ export default function MarketplaceToolbar({
 
   return (
     <div className="mp-toolbar">
-      <div className="mp-toolbar-row">
-        <div className="mp-toolbar-pills" role="group" aria-label="Filter by category">
-          {pills.map((f) => {
-            const active = f.value === category;
-            return (
-              <button
-                key={f.value}
-                type="button"
-                className={`mp-pill${active ? " mp-pill--active" : ""}`}
-                aria-pressed={active}
-                onClick={() => setCategory(f.value)}
-              >
-                {f.label}
-              </button>
-            );
-          })}
-        </div>
-
-        <button type="button" className="mp-toolbar-more" onClick={onOpenFilters}>
-          <SlidersIcon />
-          <span className="mp-toolbar-more-label">More Filters</span>
-        </button>
-      </div>
-
-      <div className="mp-toolbar-row mp-toolbar-row--meta">
-        <div className="mp-toolbar-status">
-          {!loading && count != null && (
-            <span className="mp-toolbar-count">
-              {count} artwork{count === 1 ? "" : "s"}
-            </span>
-          )}
-          {isFiltered && (
-            <button type="button" className="mp-toolbar-reset" onClick={() => setCategory("All")}>
-              Reset filters
+      <div className="mp-toolbar-pills" role="group" aria-label="Filter by category">
+        {pills.map((f) => {
+          const active = f.value === category;
+          return (
+            <button
+              key={f.value}
+              type="button"
+              className={`mp-pill${active ? " mp-pill--active" : ""}`}
+              aria-pressed={active}
+              onClick={() => setCategory(f.value)}
+            >
+              {f.label}
             </button>
-          )}
-        </div>
-
-        <div className="mp-toolbar-sort">
-          <label className="mp-toolbar-sort-label" htmlFor="mp-sort-select">Sort by</label>
-          <select
-            id="mp-sort-select"
-            className="mp-toolbar-select"
-            value={sort}
-            onChange={(e) => setSort(e.target.value)}
-          >
-            {sortOptions.map((o) => (
-              <option key={o.value} value={o.value}>{o.label}</option>
-            ))}
-          </select>
-        </div>
+          );
+        })}
       </div>
+
+      <div className="mp-toolbar-status">
+        {!loading && count != null && (
+          <span className="mp-toolbar-count">
+            {count} artwork{count === 1 ? "" : "s"}
+          </span>
+        )}
+        {isFiltered && (
+          <button type="button" className="mp-toolbar-reset" onClick={() => setCategory("All")}>
+            Reset
+          </button>
+        )}
+      </div>
+
+      <select
+        className="mp-toolbar-select"
+        aria-label="Sort by"
+        value={sort}
+        onChange={(e) => setSort(e.target.value)}
+      >
+        {sortOptions.map((o) => (
+          <option key={o.value} value={o.value}>{o.label}</option>
+        ))}
+      </select>
+
+      <button type="button" className="mp-toolbar-more" onClick={onOpenFilters}>
+        <SlidersIcon />
+        <span className="mp-toolbar-more-label">More Filters</span>
+      </button>
     </div>
   );
 }
