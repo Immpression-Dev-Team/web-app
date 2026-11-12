@@ -36,7 +36,7 @@
    ancestor — an element with non-visible overflow anywhere above the
    navbar would silently break its position: sticky. */
 .marketplace-hero {
-  padding: 5rem 2rem 2.25rem;
+  padding: 4.75rem 2rem 1.75rem;
   border-bottom: 1px solid #ebebeb;
   overflow-x: hidden;
 }
@@ -51,8 +51,23 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 0.6rem;
+  gap: 1.25rem;
+}
+
+/* Heading and subtitle share one compact row so the featured artwork
+   below stays the focus of the hero. */
+.marketplace-hero-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.5rem 2rem;
+  flex-wrap: wrap;
+}
+
+.marketplace-hero-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
 }
 
 .marketplace-eyebrow {
@@ -67,7 +82,7 @@
 
 .marketplace-title {
   font-family: 'Permanent Marker', cursive;
-  font-size: 3.2rem;
+  font-size: 1.9rem;
   font-weight: 400;
   color: #111;
   line-height: 1.0;
@@ -76,11 +91,11 @@
 
 .marketplace-subtitle {
   font-family: 'Inter', sans-serif;
-  font-size: 0.88rem;
+  font-size: 0.82rem;
   color: #888;
-  line-height: 1.6;
+  line-height: 1.5;
   margin: 0;
-  max-width: 480px;
+  max-width: 380px;
   text-align: left;
 }
 
@@ -279,7 +294,8 @@
     order: 1;
   }
 
-  .marketplace-main {
+  .marketplace-main,
+  .marketplace-hero-inner {
     max-width: none;
     margin: 0;
   }
@@ -303,11 +319,11 @@
 
 @media (max-width: 640px) {
   .marketplace-hero {
-    padding: 4.5rem 1.25rem 1.75rem;
+    padding: 4.25rem 1.25rem 1.25rem;
   }
 
   .marketplace-hero-inner {
-    gap: 0.5rem;
+    gap: 0.9rem;
   }
 
   .marketplace-subtitle {
@@ -315,7 +331,7 @@
   }
 
   .marketplace-title {
-    font-size: 2.4rem;
+    font-size: 1.6rem;
   }
 
   .marketplace-grid-section {

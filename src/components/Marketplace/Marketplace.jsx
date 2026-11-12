@@ -7,6 +7,7 @@ import MarketplaceRail from "./MarketplaceRail/MarketplaceRail.jsx";
 import MarketplaceLeftRail from "./MarketplaceLeftRail/MarketplaceLeftRail.jsx";
 import MarketplaceToolbar from "./MarketplaceToolbar/MarketplaceToolbar.jsx";
 import MarketplaceFiltersDrawer from "./MarketplaceFiltersDrawer/MarketplaceFiltersDrawer.jsx";
+import MarketplaceFeatured from "./MarketplaceFeatured/MarketplaceFeatured.jsx";
 import AdFrame from "../shared/AdFrame/AdFrame.jsx";
 import { AD_UNITS } from "../../constants/ads.js";
 import { useAdPlacement } from "../../API/adsAPI.js";
@@ -150,34 +151,25 @@ const Marketplace = () => {
       </div>
 
       <div className="marketplace-main-col">
-        {/* Hero */}
+        {/* Hero: compact page heading, then the admin-curated featured artworks */}
         <section className="marketplace-hero">
           <div className="marketplace-hero-inner">
-            <motion.span
-              className="marketplace-eyebrow"
-              initial={{ opacity: 0, y: 20 }}
+            <motion.div
+              className="marketplace-hero-head"
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
             >
-              Original Art for Sale
-            </motion.span>
-            <motion.h1
-              className="marketplace-title"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-            >
-              The Collection.
-            </motion.h1>
-            <motion.p
-              className="marketplace-subtitle"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.35 }}
-            >
-              Discover and own original works from emerging artists.
-              Every piece is one of a kind.
-            </motion.p>
+              <div className="marketplace-hero-heading">
+                <span className="marketplace-eyebrow">Original Art for Sale</span>
+                <h1 className="marketplace-title">The Collection.</h1>
+              </div>
+              <p className="marketplace-subtitle">
+                Discover and own original works from emerging artists.
+                Every piece is one of a kind.
+              </p>
+            </motion.div>
+            <MarketplaceFeatured />
           </div>
         </section>
 
