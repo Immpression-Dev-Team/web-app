@@ -141,26 +141,11 @@ const Marketplace = () => {
         })}</script>
       </Helmet>
 
-      {/* Hero: compact page heading, then the admin-curated featured artworks */}
+      {/* Hero: the admin-curated featured artworks. The page heading is
+          kept for screen readers and search engines but not shown. */}
       <section className="marketplace-hero">
-        <div className="marketplace-hero-inner">
-          <motion.div
-            className="marketplace-hero-head"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            <div className="marketplace-hero-heading">
-              <span className="marketplace-eyebrow">Original Art for Sale</span>
-              <h1 className="marketplace-title">The Collection.</h1>
-            </div>
-            <p className="marketplace-subtitle">
-              Discover and own original works from emerging artists.
-              Every piece is one of a kind.
-            </p>
-          </motion.div>
-          <MarketplaceFeatured />
-        </div>
+        <h1 className="marketplace-title-hidden">Original Art for Sale — The Collection</h1>
+        <MarketplaceFeatured />
       </section>
 
       {/* Listings with the editorial/ad column beside them (below them on

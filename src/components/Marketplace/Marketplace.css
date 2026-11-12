@@ -2,10 +2,7 @@
 
 /* ─── Wrapper ─────────────────────────────────── */
 /* Inter for every piece of UI (nav, labels, cards, buttons, filters).
-   Permanent Marker stays reserved for "The Collection." and the CTA
-   card headings — the original Immpression treatment.
-
-   One centered column: compact heading, full-width featured hero, then
+   One centered column: full-width featured hero, then
    the listings with the editorial/ad column beside them. No permanent
    side rails — filters open in MarketplaceFiltersDrawer from the
    toolbar, so nothing narrows the hero. */
@@ -19,10 +16,6 @@
 }
 
 /* ─── Hero ────────────────────────────────────── */
-/* overflow-x lives here (not on the
-   wrapper) so it clips the entrance animation without making an
-   ancestor of the navbar a scroll container, which would break its
-   position: sticky. */
 .marketplace-hero,
 .marketplace-body {
   box-sizing: border-box;
@@ -31,59 +24,20 @@
 }
 
 .marketplace-hero {
-  padding: 2.25rem var(--mp-gutter) 0;
-  overflow-x: hidden;
+  padding: 1.75rem var(--mp-gutter) 0;
 }
 
-.marketplace-hero-inner {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-/* Heading and subtitle share one compact row so the featured artwork
-   below stays the focus of the hero. */
-.marketplace-hero-head {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 0.5rem 2rem;
-  flex-wrap: wrap;
-}
-
-.marketplace-hero-heading {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-
-.marketplace-eyebrow {
-  display: inline-block;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: #999;
-}
-
-.marketplace-title {
-  font-family: 'Permanent Marker', cursive;
-  font-size: 1.9rem;
-  font-weight: 400;
-  color: #111;
-  line-height: 1.0;
-  margin: 0;
-}
-
-.marketplace-subtitle {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.82rem;
-  color: #888;
-  line-height: 1.5;
-  margin: 0;
-  max-width: 380px;
-  text-align: left;
+/* Visually hidden page heading (screen readers / SEO only). */
+.marketplace-title-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* ─── Listings + editorial column ─────────────── */
@@ -254,19 +208,7 @@
   }
 
   .marketplace-hero {
-    padding-top: 1.75rem;
-  }
-
-  .marketplace-hero-inner {
-    gap: 0.9rem;
-  }
-
-  .marketplace-subtitle {
-    max-width: 100%;
-  }
-
-  .marketplace-title {
-    font-size: 1.6rem;
+    padding-top: 1.25rem;
   }
 
   .marketplace-body {
