@@ -1,11 +1,10 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import "./ArtworkDetail.css";
 import { API_URL } from "../../API_URL";
-import appleIcon from "../../assets/headers/Apple.png";
-import googlePlayIcon from "../../assets/headers/GooglePlay.png";
 import ArtworkArtistPanel from "./ArtworkArtistPanel.jsx";
+import PurchaseModal from "./PurchaseModal/PurchaseModal.jsx";
 import ArtworkRelatedSection from "./ArtworkRelatedSection.jsx";
 import { pickMoreArtwork, pickDiscoverArt } from "./artworkRecommendations.js";
 import RailBlogSection from "./MarketplaceRail/RailBlogSection.jsx";
@@ -14,15 +13,6 @@ import "./MarketplaceRail/MarketplaceRail.css";
 // Extract 24-char MongoDB hex ID from the end of the artwork slug
 const extractId = (artworkSlug = "") => artworkSlug.match(/[a-f0-9]{24}$/)?.[0];
 const slugify = (str) => str.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-
-const APP_STORE_URL = "https://apps.apple.com/app/id6756974604";
-const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.immpression.artapp";
-// "Get on the App" opens the store for the visitor's phone (App Store
-// everywhere but Android); both store badges sit beside it.
-const APP_URL =
-  typeof navigator !== "undefined" && /android/i.test(navigator.userAgent)
-    ? PLAY_STORE_URL
-    : APP_STORE_URL;
 
 const ArtworkDetail = () => {
   const { artworkSlug } = useParams();
@@ -39,6 +29,8 @@ const ArtworkDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [purchaseOpen, setPurchaseOpen] = useState(false);
+  const closePurchase = useCallback(() => setPurchaseOpen(false), []);
 
   const id = extractId(artworkSlug);
 
@@ -53,6 +45,7 @@ const ArtworkDetail = () => {
       setLoading(true);
       setError("");
       setImageLoaded(false);
+      setPurchaseOpen(false);
       setArtist(null);
       setArtistWorks([]);
       setArtistWorksLoaded(false);
@@ -288,24 +281,32 @@ const ArtworkDetail = () => {
 
           {description && <p className="adp-description">{description}</p>}
 
-          {/* Purchases happen in the mobile app; there is no web checkout. */}
+          {/* Purchases happen in the mobile app; the popup hands off to it.
+              There is no web checkout. */}
           <div className="adp-buy">
-            <a href={APP_URL} target="_blank" rel="noopener noreferrer" className="adp-btn adp-btn--primary">
-              Get on the App
-            </a>
+            {isSold ? (
+              <button type="button" className="adp-btn adp-btn--primary adp-buy-btn" disabled>
+                Sold
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="adp-btn adp-btn--primary adp-buy-btn"
+                aria-haspopup="dialog"
+                onClick={() => setPurchaseOpen(true)}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M6 7h12l-1 13H7L6 7z" />
+                  <path d="M9 7V6a3 3 0 0 1 6 0v1" />
+                </svg>
+                Purchase Artwork
+              </button>
+            )}
             <p className="adp-buy-note">
               {isSold
                 ? "This piece has sold. Find more original work in the Immpression app."
                 : "Purchases are completed securely in the Immpression app."}
             </p>
-            <div className="adp-store-links">
-              <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer" className="adp-store-btn">
-                <img src={appleIcon} alt="Download on the App Store" />
-              </a>
-              <a href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer" className="adp-store-btn">
-                <img src={googlePlayIcon} alt="Get it on Google Play" />
-              </a>
-            </div>
           </div>
 
           <section className="adp-block">
@@ -333,6 +334,10 @@ const ArtworkDetail = () => {
       <ArtworkRelatedSection artworks={moreArtwork} />
 
       <RailBlogSection className="adp-section adp-blog" limit={4} />
+
+      {!isSold && (
+        <PurchaseModal open={purchaseOpen} onClose={closePurchase} artwork={artwork} />
+      )}
 
     </div>
   );

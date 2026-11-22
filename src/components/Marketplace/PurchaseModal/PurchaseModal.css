@@ -1,0 +1,334 @@
+/* ─── Purchase popup ──────────────────────────────
+   Artwork on the left, "Make it yours." hand-off to the app on the right.
+   Stacks into a bottom sheet on phones. */
+.pm-overlay {
+  --pm-navy: #0b1f4d;
+  --pm-ink: #111827;
+  --pm-muted: #6b7280;
+  --pm-line: #e5e7eb;
+  --pm-mint: #47EFAC;
+
+  position: fixed;
+  inset: 0;
+  z-index: 1300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(6, 14, 38, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  font-family: 'Inter', sans-serif;
+}
+
+.pm-dialog {
+  position: relative;
+  width: 100%;
+  max-width: 940px;
+  max-height: calc(100vh - 3rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  overflow: hidden;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 30px 80px -20px rgba(6, 14, 38, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.pm-close {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  z-index: 1;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--pm-ink);
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--pm-line);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.pm-close:hover {
+  background: #f3f4f6;
+}
+
+/* Artwork, whole and uncropped, on a soft mat. */
+.pm-art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  padding: 2.25rem;
+  background: linear-gradient(160deg, #f8fafc 0%, #eef2f7 100%);
+}
+
+.pm-art img {
+  display: block;
+  max-width: 100%;
+  max-height: min(70vh, 560px);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  box-shadow: 0 18px 40px -12px rgba(11, 31, 77, 0.35);
+}
+
+.pm-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2.25rem 2.25rem 2rem;
+  overflow-y: auto;
+}
+
+.pm-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pm-brand-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+}
+
+.pm-brand-wordmark {
+  height: 20px;
+  width: auto;
+}
+
+.pm-title {
+  margin: 0.4rem 0 0;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--pm-navy);
+}
+
+.pm-subtitle {
+  margin: -0.35rem 0 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: #4b5563;
+}
+
+/* The piece being bought, with a mint accent rule. */
+.pm-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--pm-line);
+  border-left: 3px solid var(--pm-mint);
+  border-radius: 10px;
+  background: #fbfcfd;
+}
+
+.pm-summary-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.pm-summary-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--pm-ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pm-summary-artist {
+  font-size: 0.82rem;
+  color: var(--pm-muted);
+}
+
+.pm-summary-price {
+  flex-shrink: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--pm-ink);
+}
+
+.pm-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-decoration: none;
+  background: var(--pm-navy);
+  border-radius: 10px;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pm-primary svg {
+  transition: transform 0.2s ease;
+}
+
+.pm-primary:hover {
+  background: #132e6e;
+  box-shadow: 0 8px 20px -8px rgba(11, 31, 77, 0.6), inset 0 -3px 0 var(--pm-mint);
+}
+
+.pm-primary:hover svg {
+  transform: translateX(3px);
+}
+
+.pm-primary:focus-visible,
+.pm-close:focus-visible,
+.pm-stores a:focus-visible,
+.pm-store-single a:focus-visible {
+  outline: 2px solid var(--pm-mint);
+  outline-offset: 3px;
+}
+
+.pm-availability {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: -0.35rem 0 0;
+  font-size: 0.8rem;
+  color: var(--pm-muted);
+}
+
+.pm-dot {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--pm-mint);
+  box-shadow: 0 0 0 3px rgba(71, 239, 172, 0.22);
+}
+
+/* Desktop: QR code + both stores. */
+.pm-handoff {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.35rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid #f1f3f6;
+}
+
+.pm-qr {
+  flex-shrink: 0;
+  padding: 0.4rem;
+  border: 1px solid var(--pm-line);
+  border-radius: 10px;
+  background: #ffffff;
+  line-height: 0;
+}
+
+.pm-handoff-side {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-width: 0;
+}
+
+.pm-handoff-title {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--pm-ink);
+}
+
+.pm-stores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.pm-stores img {
+  display: block;
+  height: 34px;
+  width: auto;
+}
+
+/* Phones: the one store that matches the device. */
+.pm-store-single {
+  display: flex;
+  justify-content: center;
+}
+
+.pm-store-single img {
+  display: block;
+  height: 48px;
+  width: auto;
+}
+
+.pm-stores a:hover img,
+.pm-store-single a:hover img {
+  opacity: 0.85;
+}
+
+/* Tablets / small laptops: tighter padding. */
+@media (max-width: 900px) {
+  .pm-art {
+    padding: 1.5rem;
+  }
+
+  .pm-body {
+    padding: 1.75rem 1.5rem 1.5rem;
+  }
+
+  .pm-title {
+    font-size: 1.7rem;
+  }
+}
+
+/* Phones: stacked bottom sheet — artwork on top, actions below. */
+@media (max-width: 720px) {
+  .pm-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .pm-dialog {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    max-height: 92vh;
+    border-radius: 18px 18px 0 0;
+  }
+
+  .pm-art {
+    padding: 1.25rem;
+  }
+
+  .pm-art img {
+    max-height: 30vh;
+  }
+
+  .pm-body {
+    gap: 0.85rem;
+    padding: 1.25rem 1.25rem calc(1.25rem + env(safe-area-inset-bottom));
+  }
+
+  .pm-title {
+    font-size: 1.5rem;
+    margin-top: 0;
+  }
+
+  .pm-handoff {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pm-primary,
+  .pm-primary svg {
+    transition: none;
+  }
+}

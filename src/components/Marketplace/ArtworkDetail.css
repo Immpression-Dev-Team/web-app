@@ -236,20 +236,26 @@
   color: var(--adp-muted);
 }
 
-.adp-store-links {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
+/* "Purchase Artwork" (opens PurchaseModal). */
+.adp-buy-btn {
+  gap: 0.55rem;
+  width: 100%;
+  height: 50px;
+  font-size: 1rem;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.adp-store-btn img {
-  display: block;
-  height: 38px;
-  width: auto;
+.adp-buy-btn:not(:disabled):hover {
+  transform: translateY(-1px);
 }
 
-.adp-store-btn:hover img {
-  opacity: 0.85;
+.adp-buy-btn:disabled,
+.adp-buy-btn:disabled:hover {
+  color: #6b7280;
+  background: #f3f4f6;
+  border-color: var(--adp-line);
+  box-shadow: none;
+  cursor: not-allowed;
 }
 
 /* Buttons */

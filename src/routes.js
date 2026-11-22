@@ -20,6 +20,7 @@ import Press from './components/Press/Press.jsx';
 import BlogList from './components/Blog/BlogList.jsx';
 import BlogPost from './components/Blog/BlogPost.jsx';
 import Invite from './components/Invite/Invite.jsx';
+import GetApp from './components/GetApp/GetApp.jsx';
 import React from "react";
 
 // Function-based approach to return JSX elements
@@ -130,6 +131,11 @@ export const GuestNavigation = [
         name: "Artwork Detail",
         path: "/marketplace/:artistSlug/:artworkSlug",
         element: React.createElement(ArtworkDetail),
+    },
+    {
+        name: "Get the App",
+        path: "/get-app",
+        element: React.createElement(GetApp),
     },
     {
         name: "Search",
