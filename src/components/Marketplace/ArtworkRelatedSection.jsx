@@ -12,7 +12,7 @@ export default function ArtworkRelatedSection({ artworks }) {
         <h2 className="adp-section-title">Related Artwork</h2>
         <Link to="/" className="adp-link">View all</Link>
       </div>
-      <div className="adp-related-grid">
+      <div className="adp-related-grid" style={{ "--adp-count": artworks.length }}>
         {artworks.map((art) => (
           <ArtCard key={art._id} artwork={art} />
         ))}

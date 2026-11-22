@@ -511,15 +511,15 @@
   color: var(--adp-ink);
 }
 
-/* ─── Sections below the product ─── */
+/* ─── Sections below the product ───
+   Related artwork and blog posts span the page's full content width (same
+   container as the product row): heading far left, "View all" far right.
+   Cards keep a capped size and the row is centered, so 3 items sit in the
+   middle instead of leaving a gap on the right. Item counts come in as
+   --adp-count (ArtworkRelatedSection) / --rail-count (RailBlogSection). */
 .adp-section {
   margin-top: 2.25rem;
-}
-
-/* Blog posts stay at the home page's listing width instead of stretching
-   across the page. */
-.adp-blog.mp-rail-section {
-  max-width: 1040px;
+  width: 100%;
 }
 
 .adp-section-head,
@@ -558,23 +558,20 @@
   color: var(--adp-mint-ink);
 }
 
+/* Related Artwork: up to 4 square-thumbnail cards, max 320px each. */
 .adp-related-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1.25rem 0.9rem;
-}
-
-/* Square thumbnails keep this row compact and secondary to the artwork. */
-.adp-related {
-  max-width: 960px;
+  grid-template-columns: repeat(var(--adp-count, 4), minmax(0, 320px));
+  justify-content: center;
+  gap: 1.5rem 1rem;
 }
 
 .adp-related .art-card-image-wrap {
   aspect-ratio: 1 / 1;
 }
 
-/* "From Immpression" (RailBlogSection) as a row of compact horizontal
-   cards, kept visually secondary to the artwork. */
+/* From Immpression (RailBlogSection): up to 4 compact horizontal cards,
+   max 330px each, equal heights. */
 .adp-blog.mp-rail-section {
   padding-bottom: 0;
   border-bottom: none;
@@ -582,11 +579,18 @@
 
 .adp-blog .mp-blog-rail-list {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(var(--rail-count, 4), minmax(0, 330px));
+  justify-content: center;
   gap: 1rem;
 }
 
+.adp-blog .mp-blog-rail-list > li {
+  display: flex;
+}
+
 .adp-blog .mp-blog-rail-item {
+  flex: 1;
+  min-width: 0;
   align-items: center;
   padding: 0.6rem;
   border: 1px solid var(--adp-line);
@@ -633,9 +637,10 @@
   }
 }
 
+/* Tablets: 2 per row. */
 @media (max-width: 1024px) {
   .adp-related-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 320px));
   }
 
   .adp-blog .mp-blog-rail-list {
@@ -688,9 +693,16 @@
   }
 }
 
+/* Phones: 2 artworks per row, 1 on very narrow screens. */
 @media (max-width: 640px) {
   .adp-related-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.25rem 0.75rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .adp-related-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

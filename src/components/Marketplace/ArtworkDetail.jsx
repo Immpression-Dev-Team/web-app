@@ -302,7 +302,7 @@ const ArtworkDetail = () => {
 
       <ArtworkRelatedSection artworks={relatedArtworks} />
 
-      <RailBlogSection className="adp-section adp-blog" />
+      <RailBlogSection className="adp-section adp-blog" limit={4} />
 
     </div>
   );

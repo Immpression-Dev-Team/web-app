@@ -3,16 +3,17 @@ import { Link } from "react-router-dom";
 import { API_URL } from "../../../API_URL";
 
 // className lets other pages lay the same list out differently (the artwork
-// page shows it as a horizontal row).
-export default function RailBlogSection({ className = "" }) {
+// page shows it as a horizontal row); limit sets how many posts to show, and
+// the list exposes the count as --rail-count for those layouts.
+export default function RailBlogSection({ className = "", limit = 3 }) {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     fetch(`${API_URL}/api/blog`)
       .then((r) => r.json())
-      .then((data) => { if (data.success) setPosts(data.data.slice(0, 3)); })
+      .then((data) => { if (data.success) setPosts(data.data.slice(0, limit)); })
       .catch(() => {});
-  }, []);
+  }, [limit]);
 
   if (!posts.length) return null;
 
@@ -22,7 +23,7 @@ export default function RailBlogSection({ className = "" }) {
         <h3 className="mp-rail-title">From Immpression</h3>
         <Link to="/blog" className="mp-rail-link">View all</Link>
       </div>
-      <ul className="mp-blog-rail-list">
+      <ul className="mp-blog-rail-list" style={{ "--rail-count": posts.length }}>
         {posts.map((p) => (
           <li key={p._id}>
             <Link to={`/blog/${p.slug}`} className="mp-blog-rail-item">
