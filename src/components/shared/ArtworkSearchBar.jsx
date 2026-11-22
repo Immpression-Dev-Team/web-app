@@ -3,13 +3,11 @@
    here are optional strings with defaults. */
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./ArtworkSearchBar.css";
 
-// Same search bar markup/behavior as the Marketplace artwork detail page
-// (see components/Marketplace/ArtworkDetail.jsx) — reused here rather than
-// duplicated. It intentionally renders with the same `artwork-detail-search-*`
-// class names so it inherits that page's existing CSS (all component CSS is
-// bundled globally in this app), then an optional `className` adds page-specific
-// color overrides on top without touching the Marketplace styles.
+// Pill search bar (base styles in ArtworkSearchBar.css; the
+// `artwork-detail-search-*` class names are historical). An optional
+// `className` adds page-specific color overrides on top.
 export default function ArtworkSearchBar({
   destination = "/search",
   placeholder = "Search artworks, artists…",

@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { API_URL } from "../../../API_URL";
 
-export default function RailBlogSection() {
+// className lets other pages lay the same list out differently (the artwork
+// page shows it as a horizontal row).
+export default function RailBlogSection({ className = "" }) {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -15,7 +17,7 @@ export default function RailBlogSection() {
   if (!posts.length) return null;
 
   return (
-    <div className="mp-rail-section">
+    <div className={`mp-rail-section ${className}`.trim()}>
       <div className="mp-rail-section-head">
         <h3 className="mp-rail-title">From Immpression</h3>
         <Link to="/blog" className="mp-rail-link">View all</Link>
