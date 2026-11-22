@@ -262,16 +262,18 @@ const ArtworkDetail = () => {
             <span>{favorites.toLocaleString()} favorite{favorites === 1 ? "" : "s"}</span>
           </p>
 
+          {description && <p className="adp-description">{description}</p>}
+
           {/* Purchases happen in the mobile app; there is no web checkout. */}
           <div className="adp-buy">
-            <p className="adp-buy-note">
-              {isSold
-                ? "This piece has sold. Find more original work in the Immpression app."
-                : "Buy this artwork in the Immpression app."}
-            </p>
             <a href={APP_URL} target="_blank" rel="noopener noreferrer" className="adp-btn adp-btn--primary">
               Get on the App
             </a>
+            <p className="adp-buy-note">
+              {isSold
+                ? "This piece has sold. Find more original work in the Immpression app."
+                : "Purchases are completed securely in the Immpression app."}
+            </p>
             <div className="adp-store-links">
               <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer" className="adp-store-btn">
                 <img src={appleIcon} alt="Download on the App Store" />
@@ -281,13 +283,6 @@ const ArtworkDetail = () => {
               </a>
             </div>
           </div>
-
-          {description && (
-            <section className="adp-block">
-              <h2 className="adp-block-title">About this piece</h2>
-              <p className="adp-description">{description}</p>
-            </section>
-          )}
 
           <section className="adp-block">
             <h2 className="adp-block-title">Details</h2>
@@ -302,7 +297,7 @@ const ArtworkDetail = () => {
           </section>
         </div>
 
-        <ArtworkArtistPanel artistName={artistName} artist={artist} artworks={artistWorks} />
+        <ArtworkArtistPanel key={artwork._id} artistName={artistName} artist={artist} artworks={artistWorks} />
       </div>
 
       <ArtworkRelatedSection artworks={relatedArtworks} />

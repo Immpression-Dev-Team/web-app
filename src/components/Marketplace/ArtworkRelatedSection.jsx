@@ -7,7 +7,7 @@ export default function ArtworkRelatedSection({ artworks }) {
   if (!artworks.length) return null;
 
   return (
-    <section className="adp-section">
+    <section className="adp-section adp-related">
       <div className="adp-section-head">
         <h2 className="adp-section-title">Related Artwork</h2>
         <Link to="/" className="adp-link">View all</Link>

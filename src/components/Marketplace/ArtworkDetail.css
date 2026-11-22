@@ -89,8 +89,8 @@
 /* ─── Product ─── */
 .adp-product {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) 300px;
-  gap: 2.5rem;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) 290px;
+  gap: 2.25rem;
   align-items: start;
 }
 
@@ -106,7 +106,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.25rem;
+  padding: 1rem;
   background: var(--adp-soft);
   border: 1px solid #eef0f3;
 }
@@ -114,11 +114,11 @@
 .adp-image {
   display: block;
   max-width: 100%;
-  max-height: min(72vh, 680px);
+  max-height: min(66vh, 620px);
   width: auto;
   height: auto;
   object-fit: contain;
-  box-shadow: 0 6px 24px rgba(11, 31, 77, 0.12);
+  box-shadow: 0 4px 18px rgba(11, 31, 77, 0.1);
   opacity: 0;
   transition: opacity 0.35s ease;
 }
@@ -155,7 +155,7 @@
 }
 
 .adp-title {
-  font-size: 2rem;
+  font-size: 2.15rem;
   font-weight: 700;
   line-height: 1.2;
   color: var(--adp-navy);
@@ -189,7 +189,7 @@
 }
 
 .adp-price {
-  font-size: 1.9rem;
+  font-size: 2rem;
   font-weight: 700;
   color: var(--adp-ink);
   line-height: 1;
@@ -222,21 +222,18 @@
   color: var(--adp-muted);
 }
 
-/* Purchase box */
+/* Purchase actions (no container). */
 .adp-buy {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  margin-top: 1.25rem;
-  padding: 1rem;
-  background: var(--adp-soft);
-  border: 1px solid var(--adp-line);
+  gap: 0.6rem;
+  margin-top: 1.4rem;
 }
 
 .adp-buy-note {
   margin: 0;
-  font-size: 0.85rem;
-  color: #374151;
+  font-size: 0.8rem;
+  color: var(--adp-muted);
 }
 
 .adp-store-links {
@@ -301,54 +298,54 @@
   outline-offset: 2px;
 }
 
-/* Description + details */
+/* Description (right under price) + details */
+.adp-description {
+  margin: 1.1rem 0 0;
+  font-size: 0.93rem;
+  line-height: 1.65;
+  color: #374151;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
 .adp-block {
   margin-top: 1.5rem;
-  padding-top: 1.25rem;
+  padding-top: 1.1rem;
   border-top: 1px solid #eef0f3;
 }
 
 .adp-block-title {
-  margin: 0 0 0.6rem;
+  margin: 0 0 0.5rem;
   font-size: 0.95rem;
   font-weight: 600;
   color: var(--adp-navy);
-}
-
-.adp-description {
-  margin: 0;
-  font-size: 0.92rem;
-  line-height: 1.7;
-  color: #374151;
-  white-space: pre-line;
-  overflow-wrap: anywhere;
 }
 
 .adp-specs {
   margin: 0;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: 1.5rem;
+  column-gap: 1.25rem;
 }
 
 .adp-spec {
   display: flex;
-  justify-content: space-between;
-  gap: 0.75rem;
-  padding: 0.55rem 0;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0.5rem 0;
   border-bottom: 1px solid #f1f3f6;
-  font-size: 0.85rem;
 }
 
 .adp-spec dt {
+  font-size: 0.72rem;
   color: var(--adp-muted);
 }
 
 .adp-spec dd {
   margin: 0;
+  font-size: 0.88rem;
   font-weight: 500;
   color: var(--adp-ink);
-  text-align: right;
 }
 
 /* ─── Artist column ─── */
@@ -362,11 +359,11 @@
 .adp-card {
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
-  padding: 1.1rem;
+  gap: 0.9rem;
+  padding: 1.25rem;
   background: #ffffff;
-  border: 1px solid var(--adp-line);
-  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+  border: 1px solid #eceef2;
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.05), 0 6px 16px -8px rgba(16, 24, 40, 0.08);
 }
 
 .adp-card-head {
@@ -374,10 +371,19 @@
   align-items: baseline;
   justify-content: space-between;
   gap: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #f1f3f6;
+}
+
+.adp-card-head .adp-card-title {
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 .adp-card-title {
   margin: 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #f1f3f6;
   font-size: 0.95rem;
   font-weight: 600;
   color: var(--adp-navy);
@@ -403,8 +409,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--adp-navy);
+  background: #e8eef9;
+  border: 1px solid #d6e0f3;
 }
 
 .adp-artist-body {
@@ -457,8 +466,8 @@
 }
 
 .adp-more-thumb {
-  width: 56px;
-  height: 56px;
+  width: 52px;
+  height: 52px;
   flex-shrink: 0;
   overflow: hidden;
   background: #f3f4f6;
@@ -504,7 +513,13 @@
 
 /* ─── Sections below the product ─── */
 .adp-section {
-  margin-top: 3rem;
+  margin-top: 2.25rem;
+}
+
+/* Blog posts stay at the home page's listing width instead of stretching
+   across the page. */
+.adp-blog.mp-rail-section {
+  max-width: 1040px;
 }
 
 .adp-section-head,
@@ -513,7 +528,7 @@
   align-items: baseline;
   justify-content: space-between;
   gap: 1rem;
-  margin-bottom: 1.1rem;
+  margin-bottom: 0.9rem;
 }
 
 .adp-section-title,
@@ -546,7 +561,16 @@
 .adp-related-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1.75rem 1rem;
+  gap: 1.25rem 0.9rem;
+}
+
+/* Square thumbnails keep this row compact and secondary to the artwork. */
+.adp-related {
+  max-width: 960px;
+}
+
+.adp-related .art-card-image-wrap {
+  aspect-ratio: 1 / 1;
 }
 
 /* "From Immpression" (RailBlogSection) as a row of compact horizontal
@@ -564,7 +588,7 @@
 
 .adp-blog .mp-blog-rail-item {
   align-items: center;
-  padding: 0.75rem;
+  padding: 0.6rem;
   border: 1px solid var(--adp-line);
   background: #ffffff;
   transition: border-color 0.2s ease;
@@ -575,8 +599,8 @@
 }
 
 .adp-blog .mp-blog-rail-img-wrap {
-  width: 88px;
-  height: 66px;
+  width: 72px;
+  height: 54px;
   border: none;
 }
 
@@ -585,6 +609,7 @@
 }
 
 .adp-blog .mp-blog-rail-headline {
+  font-size: 0.8rem;
   color: var(--adp-ink);
 }
 
@@ -648,10 +673,6 @@
 
   .adp-price {
     font-size: 1.6rem;
-  }
-
-  .adp-specs {
-    grid-template-columns: minmax(0, 1fr);
   }
 
   .adp-aside {
