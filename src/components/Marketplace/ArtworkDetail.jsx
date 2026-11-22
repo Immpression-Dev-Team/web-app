@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import "./ArtworkDetail.css";
@@ -7,6 +7,7 @@ import appleIcon from "../../assets/headers/Apple.png";
 import googlePlayIcon from "../../assets/headers/GooglePlay.png";
 import ArtworkArtistPanel from "./ArtworkArtistPanel.jsx";
 import ArtworkRelatedSection from "./ArtworkRelatedSection.jsx";
+import { pickMoreArtwork, pickDiscoverArt } from "./artworkRecommendations.js";
 import RailBlogSection from "./MarketplaceRail/RailBlogSection.jsx";
 import "./MarketplaceRail/MarketplaceRail.css";
 
@@ -29,7 +30,12 @@ const ArtworkDetail = () => {
   const [artwork, setArtwork] = useState(null);
   const [artist, setArtist] = useState(null);
   const [artistWorks, setArtistWorks] = useState([]);
-  const [relatedArtworks, setRelatedArtworks] = useState([]);
+  // False until the artist's other pieces have loaded, so the sidebar
+  // doesn't flash "Discover More Art" for artists who do have more.
+  const [artistWorksLoaded, setArtistWorksLoaded] = useState(false);
+  // Listings for recommendations: same category + newest marketplace-wide.
+  const [sameCategory, setSameCategory] = useState([]);
+  const [marketplace, setMarketplace] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -49,23 +55,25 @@ const ArtworkDetail = () => {
       setImageLoaded(false);
       setArtist(null);
       setArtistWorks([]);
+      setArtistWorksLoaded(false);
+      setSameCategory([]);
+      setMarketplace([]);
       try {
         const res = await fetch(`${API_URL}/marketplace/${id}`);
         const data = await res.json();
         if (data.success) {
           setArtwork(data.image);
 
-          // Same-category artworks for the "Related Artwork" row.
-          const params = new URLSearchParams({ limit: 10, sort: "newest" });
-          if (data.image.category) params.append("category", data.image.category);
-          fetch(`${API_URL}/marketplace?${params}`)
-            .then((r) => r.json())
-            .then((moreData) => {
-              if (!moreData.success) return;
-              const others = moreData.images.filter((a) => a._id !== data.image._id);
-              setRelatedArtworks(others.slice(0, 4));
-            })
-            .catch(() => {});
+          // Recommendation pools (see artworkRecommendations.js).
+          const listings = (params) =>
+            fetch(`${API_URL}/marketplace?${new URLSearchParams({ sort: "newest", ...params })}`)
+              .then((r) => r.json())
+              .then((d) => (d.success ? d.images : []))
+              .catch(() => []);
+          if (data.image.category) {
+            listings({ limit: 12, category: data.image.category }).then(setSameCategory);
+          }
+          listings({ limit: 24 }).then(setMarketplace);
 
           // Artist profile + their other pieces (real endpoints, no
           // fabricated follower counts or profile data).
@@ -81,7 +89,10 @@ const ArtworkDetail = () => {
                 if (!worksData.success) return;
                 setArtistWorks(worksData.images.filter((a) => a._id !== data.image._id).slice(0, 3));
               })
-              .catch(() => {});
+              .catch(() => {})
+              .finally(() => setArtistWorksLoaded(true));
+          } else {
+            setArtistWorksLoaded(true);
           }
         } else {
           setError(data.error || "Artwork not found.");
@@ -95,6 +106,19 @@ const ArtworkDetail = () => {
 
     fetchArtwork();
   }, [id]);
+
+  const moreArtwork = useMemo(
+    () => (artwork ? pickMoreArtwork(artwork, sameCategory, marketplace) : []),
+    [artwork, sameCategory, marketplace],
+  );
+  // Artist has nothing else listed: the sidebar suggests marketplace art.
+  const discoverArt = useMemo(
+    () =>
+      artwork && artistWorksLoaded && artistWorks.length === 0
+        ? pickDiscoverArt(artwork, marketplace, moreArtwork)
+        : [],
+    [artwork, artistWorksLoaded, artistWorks, marketplace, moreArtwork],
+  );
 
   if (loading) {
     return (
@@ -297,10 +321,16 @@ const ArtworkDetail = () => {
           </section>
         </div>
 
-        <ArtworkArtistPanel key={artwork._id} artistName={artistName} artist={artist} artworks={artistWorks} />
+        <ArtworkArtistPanel
+          key={artwork._id}
+          artistName={artistName}
+          artist={artist}
+          artistWorks={artistWorks}
+          discoverArt={discoverArt}
+        />
       </div>
 
-      <ArtworkRelatedSection artworks={relatedArtworks} />
+      <ArtworkRelatedSection artworks={moreArtwork} />
 
       <RailBlogSection className="adp-section adp-blog" limit={4} />
 
