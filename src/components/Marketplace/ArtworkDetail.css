@@ -570,8 +570,8 @@
 /* ─── Artist column ─── */
 
 /* "About the Artist" card (reference: Immpression Artist Profile Card):
-   rounded white card, mint brushstroke heading, painted scribble and
-   crown doodles, mint-rimmed avatar | navy divider | name + type, bio,
+   rounded white card, mint brushstroke heading, painted scribble,
+   mint-rimmed avatar | navy divider | name + type, bio,
    then the View Profile artwork button. */
 .adp-card.adp-artist-card {
   position: relative;
@@ -617,28 +617,6 @@
   opacity: 0.55;
 }
 
-/* Bio with the doodled crown beside it (only shown when there's a bio). */
-.adp-artist-bio-row {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.adp-artist-crown {
-  flex-shrink: 0;
-  width: 24px;
-  height: 20px;
-  transform: rotate(-8deg);
-}
-
-.adp-artist-crown path {
-  fill: none;
-  stroke: #f5c33b;
-  stroke-width: 2.6;
-  stroke-linejoin: round;
-  stroke-linecap: round;
-}
-
 .adp-artist-card .adp-artist {
   gap: 0.95rem;
   padding: 0.15rem 0 0 0.35rem;
@@ -679,8 +657,6 @@
 }
 
 .adp-artist-card .adp-artist-bio {
-  flex: 1;
-  min-width: 0;
   font-size: 0.92rem;
   line-height: 1.45;
   color: var(--adp-ink);

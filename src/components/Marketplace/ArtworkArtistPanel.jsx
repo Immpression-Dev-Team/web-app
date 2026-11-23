@@ -56,14 +56,7 @@ export default function ArtworkArtistPanel({ artistName, artist, artistWorks, di
             {artist?.artistType && <p className="adp-artist-type">{artist.artistType}</p>}
           </div>
         </div>
-        {artist?.bio && (
-          <div className="adp-artist-bio-row">
-            <p className="adp-artist-bio">{artist.bio}</p>
-            <svg className="adp-artist-crown" viewBox="0 0 40 32" aria-hidden="true">
-              <path d="M5 26 L3 9 L13 17 L20 4 L27 17 L37 9 L34 26 C 25 23, 14 23, 5 26 Z" />
-            </svg>
-          </div>
-        )}
+        {artist?.bio && <p className="adp-artist-bio">{artist.bio}</p>}
         {/* Button face is the supplied brushstroke artwork
             (assets/view-profile-button.webp). */}
         <Link to={profileLink} className="adp-profile-btn" aria-label="View profile">
