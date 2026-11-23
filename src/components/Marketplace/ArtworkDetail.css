@@ -148,9 +148,6 @@
   display: flex;
   flex-direction: column;
   min-width: 0;
-  /* Inset by the image frame's padding + border so the card's top and
-     bottom line up with the artwork image itself, not its mat. */
-  margin: calc(1rem + 1px) 0;
   padding: 0.85rem 1.15rem 0.95rem;
   background: #ffffff;
   border: 1px solid #edf0f4;
@@ -670,6 +667,10 @@
 /* "More Artwork" public domain card (reference: More Artwork — Timeless
    Classics). Shares the About the Artist card's shell, heading and
    scribble. */
+.adp-aside > .adp-card:last-child {
+  flex: 1;
+}
+
 .adp-card.adp-pd-card {
   position: relative;
   gap: 0.6rem;
@@ -788,10 +789,12 @@
   border-radius: 0;
 }
 
+/* Stretches with the product row so the artist column's top and bottom
+   line up with the artwork container and the info card; the last card
+   takes up any spare height. */
 .adp-aside {
   display: flex;
   flex-direction: column;
-  align-self: start;
   gap: 1rem;
   min-width: 0;
 }
