@@ -55,8 +55,6 @@
 
 /* ─── Image ─── */
 .art-detail-img-col {
-  position: sticky;
-  top: 112px;
   min-width: 0;
 }
 
@@ -674,10 +672,6 @@
   .art-detail-layout {
     grid-template-columns: minmax(0, 1fr);
     gap: 1.75rem;
-  }
-
-  .art-detail-img-col {
-    position: static;
   }
 
   .art-detail-title {
