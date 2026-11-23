@@ -483,6 +483,37 @@
   text-transform: capitalize;
 }
 
+/* "View Profile": the supplied brushstroke artwork as the link's face. */
+.adp-profile-btn {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  transition: transform 0.15s ease;
+}
+
+.adp-profile-btn img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.adp-profile-btn:hover {
+  transform: translateY(-2px);
+}
+
+.adp-profile-btn:active {
+  transform: translateY(1px);
+}
+
+.adp-profile-btn:focus-visible {
+  outline: 2px solid var(--adp-navy);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .adp-profile-btn { transition: none; }
+}
+
 .adp-artist-bio {
   margin: 0;
   font-size: 0.85rem;

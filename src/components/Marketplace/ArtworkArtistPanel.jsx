@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import viewProfileArt from "../../assets/view-profile-button.webp";
 
 const slugify = (str) => str.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
@@ -48,7 +49,11 @@ export default function ArtworkArtistPanel({ artistName, artist, artistWorks, di
           </div>
         </div>
         {artist?.bio && <p className="adp-artist-bio">{artist.bio}</p>}
-        <Link to={profileLink} className="adp-btn adp-btn--outline">View Profile</Link>
+        {/* Button face is the supplied brushstroke artwork
+            (assets/view-profile-button.webp). */}
+        <Link to={profileLink} className="adp-profile-btn" aria-label="View profile">
+          <img src={viewProfileArt} alt="" width="753" height="164" />
+        </Link>
       </section>
 
       {list.artworks.length > 0 && (
