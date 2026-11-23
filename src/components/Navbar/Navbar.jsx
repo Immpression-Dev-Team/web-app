@@ -13,10 +13,11 @@ export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const { /*userData, logout*/ } = useAuth();
     const location = useLocation();
-    // Marketplace pages (home + artwork pages) get the shopping-style navbar: search in the
-    // center, cleaner link type (Navbar.css, .navbar-container--market).
+    // Marketplace pages (home, marketplace artwork pages and public domain
+    // artwork pages) get the shopping-style navbar: search in the center,
+    // cleaner link type (Navbar.css, .navbar-container--market).
     const isMarketplace =
-        location.pathname === "/" || /^\/marketplace(\/|$)/.test(location.pathname);
+        location.pathname === "/" || /^\/(marketplace|art)(\/|$)/.test(location.pathname);
     useHashScroll();
 
     const handleToggleNavItems = () => {

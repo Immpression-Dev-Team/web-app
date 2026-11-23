@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { getPublicArtwork, getRelatedPublicArtworks, parseArtworkId } from "../../API/publicDomainAPI";
-import ArtworkSearchBar from "../shared/ArtworkSearchBar";
 import {
   sanitizeText,
   sanitizeYear,
@@ -139,11 +138,6 @@ export default function PublicArtDetail() {
       <div className="art-detail-inner">
         <div className="art-detail-top-row">
           <Link to="/explore" className="art-detail-back">← Back to Explore</Link>
-          <ArtworkSearchBar
-            destination="/explore"
-            placeholder="Search artworks, artists…"
-            className="art-detail-search-form--dark"
-          />
         </div>
 
         <div className="art-detail-layout">
