@@ -10,6 +10,10 @@ import {
   buildDetailRows,
   pickSecondaryDetail,
 } from "../../utils/publicDomainSanitize";
+import {
+  CalendarIcon, FrameIcon, LayersIcon, PenIcon, RulerIcon,
+} from "../Marketplace/ArtworkInfoIcons.jsx";
+import buyNowArt from "../../assets/buy-now-button.webp";
 import "./PublicArtDetail.css";
 
 // Fallback only — the backend now returns `institution` directly for every
@@ -22,6 +26,21 @@ const INSTITUTION_FALLBACK = {
   rijksmuseum: "Rijksmuseum",
 };
 
+// Icon per detail row (rows come from buildDetailRows; unknown labels fall
+// back to the layers icon).
+const DETAIL_ICONS = {
+  Date: CalendarIcon,
+  Medium: PenIcon,
+  Dimensions: RulerIcon,
+  Culture: LayersIcon,
+  Period: CalendarIcon,
+  Department: FrameIcon,
+  Classification: FrameIcon,
+  "Museum / Collection": LayersIcon,
+  "Credit Line": PenIcon,
+  License: FrameIcon,
+};
+
 export default function PublicArtDetail() {
   const { source, id } = useParams();
   const [artwork, setArtwork] = useState(null);
@@ -29,12 +48,17 @@ export default function PublicArtDetail() {
   const [error, setError] = useState(false);
   const [imgExpanded, setImgExpanded] = useState(false);
   const [related, setRelated] = useState([]);
+  const [aboutOpen, setAboutOpen] = useState(false);
+  // Sidebar rows whose thumbnail failed to load are hidden.
+  const [failedThumbs, setFailedThumbs] = useState(() => new Set());
 
   useEffect(() => {
     setLoading(true);
     setError(false);
     setArtwork(null);
     setRelated([]);
+    setAboutOpen(false);
+    setFailedThumbs(new Set());
 
     getPublicArtwork(source, id).then(res => {
       if (res.success && res.data) {
@@ -45,10 +69,19 @@ export default function PublicArtDetail() {
       setLoading(false);
     });
 
+    // The Met serves its images behind a bot check, so they can't load on our
+    // pages; leave Met pieces out of the sidebar until that changes.
     getRelatedPublicArtworks(source, id, 7).then(res => {
-      if (res.success) setRelated(res.data);
+      if (res.success) setRelated(res.data.filter((art) => art.source !== "met"));
     });
   }, [source, id]);
+
+  useEffect(() => {
+    if (!imgExpanded) return;
+    const onKey = (e) => { if (e.key === "Escape") setImgExpanded(false); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [imgExpanded]);
 
   if (loading) {
     return (
@@ -75,7 +108,14 @@ export default function PublicArtDetail() {
   const title = sanitizeText(artwork.title) || "Untitled";
   const artist = sanitizeText(artwork.artist);
   const about = sanitizeDescription(artwork.description);
-  const details = buildDetailRows(artwork);
+  // Everything on these pages is public domain, so License is always true.
+  const details = [...buildDetailRows(artwork), { label: "License", value: "Public Domain" }];
+  // Long descriptions (some Wikimedia captions run for paragraphs) start
+  // clamped with a Read more toggle.
+  const longAbout = (about || "").length > 320;
+  const visibleRelated = related.filter(
+    (art) => (art.thumbnailUrl || art.imageUrl) && !failedThumbs.has(art.id),
+  );
   const museumName = sanitizeText(artwork.institution) || INSTITUTION_FALLBACK[artwork.source] || "Public Domain Collection";
   const museumUrl = sanitizeUrl(artwork.sourceUrl);
   const cleanYear = sanitizeYear(artwork.year);
@@ -136,87 +176,133 @@ export default function PublicArtDetail() {
       )}
 
       <div className="art-detail-inner">
-        <div className="art-detail-top-row">
-          <Link to="/explore" className="art-detail-back">← Back to Explore</Link>
-        </div>
+        <Link to="/explore" className="art-detail-back">← Back to Explore</Link>
 
         <div className="art-detail-layout">
           {/* Image column */}
           <div className="art-detail-img-col">
-            <div
-              className="art-detail-img-wrap"
-              onClick={() => artwork.imageUrl && setImgExpanded(true)}
-            >
-              {artwork.imageUrl ? (
-                <>
-                  <img
-                    src={artwork.imageUrl}
-                    alt={title}
-                    className="art-detail-img"
-                  />
-                  <span className="art-detail-img-hint">Click to enlarge</span>
-                </>
-              ) : (
+            {artwork.imageUrl ? (
+              <button
+                type="button"
+                className="art-detail-img-wrap"
+                onClick={() => setImgExpanded(true)}
+                aria-label={`Enlarge ${title}`}
+              >
+                <img src={artwork.imageUrl} alt={title} className="art-detail-img" />
+                <span className="art-detail-img-hint">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="7" />
+                    <path d="M21 21l-4.3-4.3" />
+                  </svg>
+                  Click to enlarge
+                </span>
+              </button>
+            ) : (
+              <div className="art-detail-img-wrap art-detail-img-wrap--empty">
                 <div className="art-detail-no-img">No image available</div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
 
           {/* Info column */}
           <div className="art-detail-info-col">
-            <p className="art-detail-eyebrow">{museumName}</p>
-            <h1 className="art-detail-title">{title}</h1>
+            <span className="art-detail-source">{museumName}</span>
+            <h1 className="art-detail-title">
+              {title}
+              <svg className="art-detail-title-swoosh" viewBox="0 0 200 14" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M3 10.5 C 45 3.5, 110 2.5, 197 4.5" />
+              </svg>
+            </h1>
             {artist && <p className="art-detail-artist">{artist}</p>}
 
-            {about && (
-              <div className="art-detail-section">
-                <span className="art-detail-section-label">About This Work</span>
-                <p className="art-detail-about">{about}</p>
+            {/* Purchasing public domain art isn't live yet: no price, and the
+                Buy Now artwork is shown disabled with "Coming Soon". */}
+            <div className="art-detail-buy-card">
+              <div className="art-detail-buy-status">
+                <span className="art-detail-soon">Coming Soon</span>
+                <span className="art-detail-soon-note">Purchasing public domain art isn&apos;t available yet.</span>
               </div>
+              <div className="art-detail-buy-art" aria-disabled="true" title="Coming soon">
+                <img src={buyNowArt} alt="" width="1100" height="195" />
+                <span className="art-detail-buy-tag">Coming Soon</span>
+              </div>
+            </div>
+
+            {about && (
+              <blockquote className="art-detail-quote">
+                <span className="art-detail-quote-mark" aria-hidden="true">&ldquo;</span>
+                <div className="art-detail-about-wrap">
+                  <p className={`art-detail-about${longAbout && !aboutOpen ? " art-detail-about--clamped" : ""}`}>
+                    {about}
+                  </p>
+                  {longAbout && (
+                    <button
+                      type="button"
+                      className="art-detail-about-toggle"
+                      aria-expanded={aboutOpen}
+                      onClick={() => setAboutOpen((open) => !open)}
+                    >
+                      {aboutOpen ? "Show less" : "Read more"}
+                    </button>
+                  )}
+                </div>
+              </blockquote>
             )}
 
             {details.length > 0 && (
-              <div className="art-detail-section">
-                <span className="art-detail-section-label">Details</span>
-                <div className="art-detail-specs">
-                  {details.map(row => (
-                    <div className="art-detail-spec" key={row.label}>
-                      <span className="art-detail-spec-key">{row.label}</span>
-                      <span className="art-detail-spec-val">{row.value}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <section className="art-detail-details">
+                <h2 className="art-detail-details-title">
+                  <span className="art-detail-details-icon"><LayersIcon /></span>
+                  Artwork Details
+                </h2>
+                <dl className="art-detail-specs">
+                  {details.map((row) => {
+                    const Icon = DETAIL_ICONS[row.label] || LayersIcon;
+                    return (
+                      <div
+                        className={`art-detail-spec${String(row.value).length > 36 ? " art-detail-spec--wide" : ""}`}
+                        key={row.label}
+                      >
+                        <span className="art-detail-spec-icon"><Icon /></span>
+                        <div className="art-detail-spec-text">
+                          <dt>{row.label}</dt>
+                          <dd>{row.value}</dd>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </dl>
+              </section>
             )}
 
-            <div className="art-detail-actions">
-              {museumUrl && (
-                <a
-                  href={museumUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="art-detail-museum-link"
-                >
-                  View at {museumName} →
-                </a>
-              )}
-
-              <p className="art-detail-pd-note">
-                This work is in the public domain and free to use.
-              </p>
-            </div>
+            {museumUrl && (
+              <a
+                href={museumUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="art-detail-museum-link"
+              >
+                View at {museumName}
+                <span aria-hidden="true">→</span>
+              </a>
+            )}
+            <p className="art-detail-pd-note">
+              This work is in the public domain and free to use.
+            </p>
           </div>
 
           {/* More public domain art sidebar */}
-          {related.length > 0 && (
-            <div className="art-detail-more-col">
-              <span className="art-detail-more-label">More Public Domain Art</span>
+          {visibleRelated.length > 0 && (
+            <aside className="art-detail-more-col">
+              <svg className="art-detail-more-scribble" viewBox="0 0 160 70" aria-hidden="true">
+                <path d="M6 64 C 40 34, 92 12, 156 6" />
+                <path d="M34 66 C 70 42, 112 24, 154 18" />
+              </svg>
+              <h2 className="art-detail-more-label">More Public Domain Art</h2>
               <div className="art-detail-more-list">
-                {related.map(art => {
+                {visibleRelated.map((art) => {
                   const thumb = art.thumbnailUrl || art.imageUrl;
-                  if (!thumb) return null;
                   const artTitle = sanitizeText(art.title) || "Untitled";
-                  const artArtist = sanitizeText(art.artist);
                   const secondary = pickSecondaryDetail(art);
                   return (
                     <Link
@@ -225,18 +311,28 @@ export default function PublicArtDetail() {
                       className="art-detail-more-card"
                     >
                       <div className="art-detail-more-img-wrap">
-                        <img src={thumb} alt={artTitle} loading="lazy" />
+                        <img
+                          src={thumb}
+                          alt={artTitle}
+                          loading="lazy"
+                          referrerPolicy="no-referrer"
+                          onError={() => setFailedThumbs((prev) => new Set(prev).add(art.id))}
+                        />
                       </div>
                       <div className="art-detail-more-info">
-                        {artArtist && <p className="art-detail-more-artist">{artArtist}</p>}
                         <p className="art-detail-more-name">{artTitle}</p>
                         {secondary && <p className="art-detail-more-secondary">{secondary}</p>}
                       </div>
+                      <span className="art-detail-more-go" aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M5 12h14M13 6l6 6-6 6" />
+                        </svg>
+                      </span>
                     </Link>
                   );
                 })}
               </div>
-            </div>
+            </aside>
           )}
         </div>
       </div>
