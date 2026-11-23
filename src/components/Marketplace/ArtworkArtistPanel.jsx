@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import viewProfileArt from "../../assets/view-profile-button.webp";
+import PublicArtSuggestions from "./PublicArtSuggestions.jsx";
 
 const slugify = (str) => str.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
@@ -13,16 +14,13 @@ const initials = (name = "") =>
     .map((part) => part[0].toUpperCase())
     .join("") || "?";
 
-// Right column of the artwork page: "About the Artist" card, then a compact
-// list — up to three more of the artist's pieces, or, when they have
-// nothing else listed, "Discover More Art" from the marketplace. Profile
-// links go to the marketplace filtered to the artist (the web app has no
-// artist profile pages).
-export default function ArtworkArtistPanel({ artistName, artist, artistWorks, discoverArt }) {
+// Right column of the artwork page: "About the Artist" card, then up to
+// three more of the artist's pieces — or, when they have nothing else
+// listed, "More Artwork" public domain suggestions. Profile links go to the
+// marketplace filtered to the artist (the web app has no artist profile
+// pages).
+export default function ArtworkArtistPanel({ artistName, artist, artistWorks, artistWorksLoaded, artworkId }) {
   const profileLink = `/?q=${encodeURIComponent(artistName || "")}`;
-  const list = artistWorks.length > 0
-    ? { title: "More from this Artist", link: profileLink, artworks: artistWorks }
-    : { title: "Discover More Art", link: "/", artworks: discoverArt };
   const [photoFailed, setPhotoFailed] = useState(false);
   const photo = !photoFailed && artist?.profilePictureLink;
 
@@ -64,14 +62,14 @@ export default function ArtworkArtistPanel({ artistName, artist, artistWorks, di
         </Link>
       </section>
 
-      {list.artworks.length > 0 && (
+      {artistWorks.length > 0 && (
         <section className="adp-card">
           <div className="adp-card-head">
-            <h2 className="adp-card-title">{list.title}</h2>
-            <Link to={list.link} className="adp-link">View all</Link>
+            <h2 className="adp-card-title">More from this Artist</h2>
+            <Link to={profileLink} className="adp-link">View all</Link>
           </div>
           <ul className="adp-more-list">
-            {list.artworks.map((art) => (
+            {artistWorks.map((art) => (
               <li key={art._id}>
                 <Link
                   to={`/marketplace/${slugify(art.artistName || "artist")}/${slugify(art.name || "artwork")}-${art._id}`}
@@ -92,6 +90,8 @@ export default function ArtworkArtistPanel({ artistName, artist, artistWorks, di
           </ul>
         </section>
       )}
+
+      {artistWorksLoaded && artistWorks.length === 0 && <PublicArtSuggestions seed={artworkId} />}
     </aside>
   );
 }

@@ -7,7 +7,7 @@ import ArtworkArtistPanel from "./ArtworkArtistPanel.jsx";
 import PurchaseModal from "./PurchaseModal/PurchaseModal.jsx";
 import buyNowArt from "../../assets/buy-now-button.webp";
 import ArtworkRelatedSection from "./ArtworkRelatedSection.jsx";
-import { pickMoreArtwork, pickDiscoverArt } from "./artworkRecommendations.js";
+import { pickMoreArtwork } from "./artworkRecommendations.js";
 import RailBlogSection from "./MarketplaceRail/RailBlogSection.jsx";
 import {
   EyeIcon, HeartIcon, LayersIcon, PenIcon, FrameIcon, CalendarIcon, PhoneIcon, RulerIcon, WeightIcon,
@@ -107,14 +107,6 @@ const ArtworkDetail = () => {
   const moreArtwork = useMemo(
     () => (artwork ? pickMoreArtwork(artwork, sameCategory, marketplace) : []),
     [artwork, sameCategory, marketplace],
-  );
-  // Artist has nothing else listed: the sidebar suggests marketplace art.
-  const discoverArt = useMemo(
-    () =>
-      artwork && artistWorksLoaded && artistWorks.length === 0
-        ? pickDiscoverArt(artwork, marketplace, moreArtwork)
-        : [],
-    [artwork, artistWorksLoaded, artistWorks, marketplace, moreArtwork],
   );
 
   if (loading) {
@@ -360,7 +352,8 @@ const ArtworkDetail = () => {
           artistName={artistName}
           artist={artist}
           artistWorks={artistWorks}
-          discoverArt={discoverArt}
+          artistWorksLoaded={artistWorksLoaded}
+          artworkId={artwork._id}
         />
       </div>
 

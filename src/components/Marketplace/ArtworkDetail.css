@@ -667,6 +667,148 @@
   margin-top: 0.1rem;
 }
 
+/* "More Artwork" public domain card (reference: More Artwork — Timeless
+   Classics). Shares the About the Artist card's shell, heading and
+   scribble. */
+.adp-card.adp-pd-card {
+  position: relative;
+  gap: 0.6rem;
+  padding: 1.05rem 1.15rem 0.6rem;
+  overflow: hidden;
+  border: 1px solid #eef0f4;
+  border-radius: 18px;
+  box-shadow: 0 2px 4px rgba(16, 24, 40, 0.03), 0 14px 30px -16px rgba(11, 31, 77, 0.28);
+}
+
+.adp-pd-head {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.adp-pd-head .adp-artist-heading {
+  margin-left: 0;
+}
+
+.adp-pd-icon {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  fill: none;
+  stroke: #12a46b;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.adp-pd-sub {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #4b5563;
+}
+
+.adp-pd-list {
+  list-style: none;
+  margin: 0.15rem 0 0;
+  padding: 0;
+}
+
+.adp-pd-list li + li .adp-pd-body {
+  /* Hairline between rows, starting after the thumbnail as in the
+     reference. */
+  box-shadow: inset 0 1px 0 #eef0f4;
+}
+
+.adp-pd-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.adp-pd-thumb {
+  position: relative;
+  flex-shrink: 0;
+  width: 78px;
+  height: 62px;
+  margin: 0.45rem 0;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #eef0f4;
+  box-shadow: -4px 0 0 0 var(--adp-mint);
+}
+
+.adp-pd-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.adp-pd-item:hover .adp-pd-thumb img {
+  transform: scale(1.06);
+}
+
+.adp-pd-body {
+  flex: 1;
+  min-width: 0;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.15rem;
+}
+
+.adp-pd-title {
+  font-size: 0.92rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--adp-navy);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.adp-pd-artist {
+  font-size: 0.8rem;
+  color: #6b7280;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adp-pd-go {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--adp-navy);
+  background: rgba(71, 239, 172, 0.28);
+  border-radius: 50%;
+  box-shadow: 0 4px 10px -4px rgba(18, 164, 107, 0.5);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.adp-pd-item:hover .adp-pd-go {
+  transform: translateX(2px);
+  background: rgba(71, 239, 172, 0.5);
+}
+
+.adp-pd-item:hover .adp-pd-title {
+  color: var(--adp-mint-ink);
+}
+
+.adp-pd-item:focus-visible {
+  outline: 2px solid var(--adp-navy);
+  outline-offset: 3px;
+  border-radius: 10px;
+}
+
 .adp-aside {
   display: flex;
   flex-direction: column;
