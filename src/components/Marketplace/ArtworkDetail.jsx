@@ -289,56 +289,23 @@ const ArtworkDetail = () => {
                 Sold
               </button>
             ) : (
-              // Brand CTA: wordmark lettering, a hand-painted mint swoosh and
-              // brush edge on the navbar's navy (see .adp-cta in the CSS).
+              // Misregistered print: a navy block printed slightly off a
+              // mint one, the way screen prints slip between passes. Pressing
+              // it snaps the print into register. (.adp-cta in the CSS.)
               <button
                 type="button"
                 className="adp-cta"
                 aria-haspopup="dialog"
-                aria-label="Make it yours: purchase this artwork"
                 onClick={() => setPurchaseOpen(true)}
               >
-                <span className="adp-cta-label">
-                  Make It Yours
-                  <svg className="adp-cta-swoosh" viewBox="0 0 220 16" preserveAspectRatio="none" aria-hidden="true">
-                    <path d="M3 10 C 38 4, 72 13, 110 8 S 178 3, 217 9" pathLength="1" />
-                  </svg>
-                </span>
-                <svg className="adp-cta-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M4 12h15M13 6l6 6-6 6" />
-                </svg>
+                <span className="adp-cta-label">Buy Now</span>
               </button>
             )}
             <p className="adp-buy-note">
               {isSold
                 ? "This piece has sold. Find more original work in the Immpression app."
-                : "Secure purchase in the Immpression app"}
+                : "Checkout happens in the Immpression app, on iOS and Android."}
             </p>
-            {!isSold && (
-              <ul className="adp-assurances">
-                <li>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <rect x="7" y="2.5" width="10" height="19" rx="2" />
-                    <path d="M11 18h2" />
-                  </svg>
-                  Bought in the app
-                </li>
-                <li>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z" />
-                    <path d="M9 12l2 2 4-4" />
-                  </svg>
-                  Secure checkout
-                </li>
-                <li>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <rect x="3.5" y="4.5" width="17" height="15" rx="1" />
-                    <path d="M3.5 15l5-5 4 4 3-3 5 5" />
-                  </svg>
-                  Original artwork
-                </li>
-              </ul>
-            )}
           </div>
 
           <section className="adp-block">

@@ -236,148 +236,54 @@
   color: var(--adp-muted);
 }
 
-/* ─── "Make It Yours" (opens PurchaseModal) ───
-   Signature CTA in the navbar's navy: Permanent Marker lettering like the
-   wordmark, a hand-painted mint swoosh under it, a ragged mint brush edge
-   on the left, and faint painted streaks for texture. */
+/* ─── "Buy Now" (opens PurchaseModal) ───
+   A misregistered screen print: flat navy block, flat mint block printed
+   a few px off underneath, and the same slip on the marker lettering.
+   Hover nudges the print toward register; pressing lands it exactly. */
 .adp-cta {
-  position: relative;
+  --slip: 6px;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
-  width: 100%;
-  height: 58px;
-  padding: 0 1.5rem;
-  overflow: hidden;
+  width: calc(100% - var(--slip));
+  height: 56px;
+  margin-bottom: var(--slip);
   color: #ffffff;
+  background: #0b1f4d;
   border: none;
-  border-radius: 4px;
+  border-radius: 0;
+  box-shadow: var(--slip) var(--slip) 0 #47EFAC;
   cursor: pointer;
-  background:
-    repeating-linear-gradient(
-      -12deg,
-      rgba(255, 255, 255, 0.025) 0 2px,
-      transparent 2px 9px
-    ),
-    radial-gradient(120% 140% at 0% 0%, rgba(71, 239, 172, 0.12), transparent 55%),
-    linear-gradient(100deg, #0b1f4d 0%, #071436 100%);
-  box-shadow: 0 10px 24px -14px rgba(7, 20, 54, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-/* Ragged brush edge. */
-.adp-cta::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 9px;
-  background: #47EFAC;
-  clip-path: polygon(0 0, 70% 0, 100% 8%, 55% 18%, 90% 31%, 60% 46%, 100% 60%, 62% 74%, 88% 87%, 58% 100%, 0 100%);
-  opacity: 0.95;
+  transition: transform 0.12s ease-out, box-shadow 0.12s ease-out;
 }
 
 .adp-cta-label {
-  position: relative;
   font-family: 'Permanent Marker', cursive;
-  font-size: 1.4rem;
+  font-size: 1.45rem;
   font-weight: 400;
   line-height: 1;
-  letter-spacing: 0.5px;
-  transform: rotate(-1.5deg);
-}
-
-.adp-cta-swoosh {
-  position: absolute;
-  left: -6%;
-  bottom: -11px;
-  width: 112%;
-  height: 12px;
-  overflow: visible;
-}
-
-.adp-cta-swoosh path {
-  fill: none;
-  stroke: #47EFAC;
-  stroke-width: 3.2;
-  stroke-linecap: round;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 0;
-}
-
-.adp-cta-arrow {
-  flex-shrink: 0;
-  color: #47EFAC;
-  transition: transform 0.2s ease;
+  letter-spacing: 0.04em;
+  text-shadow: 2px 2px 0 rgba(71, 239, 172, 0.75);
 }
 
 .adp-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 16px 30px -14px rgba(7, 20, 54, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-}
-
-/* The swoosh repaints itself on hover. */
-.adp-cta:hover .adp-cta-swoosh path {
-  animation: adp-swoosh 0.55s ease-out;
-}
-
-.adp-cta:hover .adp-cta-arrow {
-  transform: translateX(4px);
+  transform: translate(2px, 2px);
+  box-shadow: calc(var(--slip) - 2px) calc(var(--slip) - 2px) 0 #47EFAC;
 }
 
 .adp-cta:active {
-  transform: translateY(0);
+  transform: translate(var(--slip), var(--slip));
+  box-shadow: 0 0 0 #47EFAC;
 }
 
 .adp-cta:focus-visible {
-  outline: 2px solid #47EFAC;
-  outline-offset: 3px;
-}
-
-@keyframes adp-swoosh {
-  from { stroke-dashoffset: 1; }
-  to { stroke-dashoffset: 0; }
+  outline: 2px solid #0b1f4d;
+  outline-offset: 4px;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .adp-cta,
-  .adp-cta-arrow { transition: none; }
-  .adp-cta:hover .adp-cta-swoosh path { animation: none; }
-}
-
-/* Small reassurance row under the CTA. */
-.adp-assurances {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem 1.1rem;
-  margin: 0.1rem 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.adp-assurances li {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.78rem;
-  font-weight: 500;
-  color: #374151;
-}
-
-.adp-assurances svg {
-  color: var(--adp-mint-ink);
-}
-
-@media (max-width: 760px) {
-  .adp-cta {
-    height: 56px;
-  }
-
-  .adp-cta-label {
-    font-size: 1.3rem;
-  }
+  .adp-cta { transition: none; }
 }
 
 /* Sold state keeps the plain disabled button. */
