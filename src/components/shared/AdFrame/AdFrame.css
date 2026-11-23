@@ -22,3 +22,13 @@
   max-width: none;
   background: transparent;
 }
+
+/* Responsive units (autoHeight): full container width, height follows the ad. */
+.ad-frame--auto {
+  align-items: stretch;
+  width: 100%;
+}
+
+.ad-frame--auto .ad-frame-frame {
+  width: 100%;
+}

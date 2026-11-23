@@ -23,6 +23,17 @@ export const AD_UNITS = {
 <script src="https://bicea.org/22/87149336fd93cfa1c66a0948efbff05a"></script>
 `,
     },
+    // Native banner in the home page art grid (spans the grid; responsive,
+    // so AdFrame sizes it to its content — `height` is the space reserved
+    // while it loads).
+    marketplaceNative: {
+      autoHeight: true,
+      height: 260,
+      code: `
+<script async fetchpriority="high" data-cfasync="false" src="https://bicea.org/21/c139438686ec4e19a2880c37ecdf298b"></script>
+<div id="container-c139438686ec4e19a2880c37ecdf298b"></div>
+`,
+    },
   },
   hilltop: {
     // Marketplace right rail, second slot (below "From Immpression").

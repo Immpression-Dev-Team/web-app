@@ -21,13 +21,18 @@ const SORT_OPTIONS = [
   { value: "price_desc", label: "Price: High to Low" },
 ];
 
-// Phones (2-column grid, matches Marketplace.css): the right rail sits below
-// all the artwork, so its ads move inline into the grid instead — Adsterra
-// after the first 2 rows, HilltopAds after 2 more.
+// Ads inside the art grid, placed after a given row (column counts match
+// Marketplace.css: 4, 3 at <=1200px, 2 on phones).
+// - Phones: the right rail sits below all the artwork, so its two banners
+//   move inline (after rows 2 and 4).
+// - Everywhere: the Adsterra native banner spans the grid after row 3
+//   (row 6 on phones, below the moved banners).
 const PHONE_QUERY = "(max-width: 640px)";
+const THREE_COL_QUERY = "(max-width: 1200px)";
 const INLINE_ADS = [
-  { afterIndex: 3, network: "adsterra", placement: "marketplaceRailTop" },
-  { afterIndex: 7, network: "hilltop", placement: "marketplaceRailSecond" },
+  { afterRow: 2, phoneOnly: true, network: "adsterra", placement: "marketplaceRailTop" },
+  { afterRow: 4, phoneOnly: true, network: "hilltop", placement: "marketplaceRailSecond" },
+  { afterRow: 3, phoneAfterRow: 6, network: "adsterra", placement: "marketplaceNative" },
 ];
 
 const Marketplace = () => {
@@ -49,21 +54,37 @@ const Marketplace = () => {
   const LIMIT = 24;
 
   const isPhone = useMediaQuery(PHONE_QUERY);
-  const adsterraOn = useAdPlacement("adsterra", "marketplaceRailTop");
+  const isThreeCol = useMediaQuery(THREE_COL_QUERY);
+  const columns = isPhone ? 2 : isThreeCol ? 3 : 4;
+  const adsterraRailOn = useAdPlacement("adsterra", "marketplaceRailTop");
+  const adsterraNativeOn = useAdPlacement("adsterra", "marketplaceNative");
   const hilltopOn = useAdPlacement("hilltop", "marketplaceRailSecond");
-  const inlineAdOn = { adsterra: adsterraOn, hilltop: hilltopOn };
+  const placementOn = {
+    "adsterra/marketplaceRailTop": adsterraRailOn,
+    "adsterra/marketplaceNative": adsterraNativeOn,
+    "hilltop/marketplaceRailSecond": hilltopOn,
+  };
 
   const inlineAdAfter = (index) => {
-    if (!isPhone) return null;
-    const slot = INLINE_ADS.find((a) => a.afterIndex === index);
-    if (!slot || !inlineAdOn[slot.network]) return null;
-    const unit = AD_UNITS[slot.network][slot.placement];
-    if (!unit.code.trim()) return null;
-    return (
-      <div className="marketplace-grid-ad">
-        <AdFrame {...unit} />
-      </div>
-    );
+    // Ads only go at the end of a row.
+    if ((index + 1) % columns !== 0) return null;
+    const row = (index + 1) / columns;
+    return INLINE_ADS.filter((slot) => {
+      if (slot.phoneOnly && !isPhone) return false;
+      const afterRow = isPhone && slot.phoneAfterRow ? slot.phoneAfterRow : slot.afterRow;
+      return afterRow === row && placementOn[`${slot.network}/${slot.placement}`];
+    }).map((slot) => {
+      const unit = AD_UNITS[slot.network][slot.placement];
+      if (!unit.code.trim()) return null;
+      return (
+        <div
+          key={slot.placement}
+          className={`marketplace-grid-ad${unit.autoHeight ? " marketplace-grid-ad--wide" : ""}`}
+        >
+          <AdFrame {...unit} />
+        </div>
+      );
+    });
   };
 
   const fetchArtworks = useCallback(async (newPage = 1, reset = true) => {
