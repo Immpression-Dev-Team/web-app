@@ -67,7 +67,7 @@ export default function PublicArtDetail() {
       if (res.success && res.data) {
         setArtwork(res.data);
         // Varied recommendations (see utils/diversePublicArt).
-        getDiversePublicArt(res.data, 5)
+        getDiversePublicArt(res.data, 6)
           .then((picks) => { if (!cancelled) setRelated(picks); })
           .catch(() => {});
       } else {

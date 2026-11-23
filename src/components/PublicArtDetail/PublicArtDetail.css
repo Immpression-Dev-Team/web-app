@@ -14,7 +14,7 @@
   --pd-wash: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 60' preserveAspectRatio='none'%3E%3Cg fill='%2347EFAC'%3E%3Cpath opacity='.4' d='M30 52 C80 30 140 12 198 6 L196 18 C140 24 90 40 50 58 Z'/%3E%3Cpath opacity='.25' d='M70 58 C110 44 160 32 199 28 L198 36 C160 40 120 50 95 60 Z'/%3E%3C/g%3E%3C/svg%3E");
 
   width: 100%;
-  min-height: 100vh;
+  /* No full-screen min-height: the footer follows the content directly. */
   background: #ffffff;
   color: var(--pd-ink);
   font-family: 'Inter', sans-serif;
@@ -29,7 +29,7 @@
 .art-detail-inner {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 1.25rem 2rem 5rem;
+  padding: 1.25rem 2rem 2.5rem;
 }
 
 .art-detail-back {
@@ -48,8 +48,8 @@
 /* ─── Layout ─── */
 .art-detail-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr) 360px;
-  gap: 2.75rem;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr) 350px;
+  gap: 2.5rem;
   align-items: start;
 }
 
@@ -117,7 +117,7 @@
 /* "About Public Domain Art" under the image: compact note with a mint
    rule and brushstroke heading. */
 .art-detail-pd-about {
-  margin-top: 1.5rem;
+  margin-top: 1.1rem;
   padding: 0.2rem 0 0.2rem 1rem;
   border-left: 3px solid var(--pd-mint);
 }
@@ -225,7 +225,7 @@
 }
 
 .art-detail-artist {
-  margin: 0.9rem 0 0;
+  margin: 0.6rem 0 0;
   font-size: 1.15rem;
   color: #374151;
   white-space: pre-line;
@@ -238,8 +238,8 @@
   display: flex;
   align-items: center;
   gap: 1.25rem;
-  margin-top: 1.4rem;
-  padding: 1.1rem 1.25rem;
+  margin-top: 1rem;
+  padding: 0.9rem 1.1rem;
   background: #ffffff;
   border: 1px solid var(--pd-line);
   border-radius: 4px;
@@ -314,7 +314,7 @@
 .art-detail-quote {
   display: flex;
   gap: 0.75rem;
-  margin: 1.4rem 0 0;
+  margin: 1rem 0 0;
   padding: 0;
 }
 
@@ -358,18 +358,18 @@
 
 .art-detail-about {
   margin: 0;
-  font-size: 1.02rem;
+  font-size: 0.98rem;
   font-style: italic;
   font-weight: 500;
-  line-height: 1.55;
+  line-height: 1.5;
   color: var(--pd-navy);
   overflow-wrap: anywhere;
 }
 
 /* Artwork Details card */
 .art-detail-details {
-  margin-top: 1.4rem;
-  padding: 1.1rem 1.3rem 0.4rem;
+  margin-top: 1rem;
+  padding: 0.85rem 1.1rem 0.25rem;
   background: #ffffff var(--pd-wash) right top / 46% 52px no-repeat;
   border: 1px solid var(--pd-line);
   border-radius: 4px;
@@ -380,9 +380,9 @@
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  margin: 0 0 0.35rem;
+  margin: 0 0 0.15rem;
   font-family: 'Permanent Marker', cursive;
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 400;
   color: var(--pd-navy);
 }
@@ -407,15 +407,15 @@
 .art-detail-spec {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
+  gap: 0.7rem;
   min-width: 0;
-  padding: 0.65rem 0;
+  padding: 0.45rem 0;
 }
 
 .art-detail-spec-icon {
   flex-shrink: 0;
-  width: 44px;
-  height: 44px;
+  width: 38px;
+  height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -429,15 +429,15 @@
 }
 
 .art-detail-spec dt {
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   color: var(--pd-muted);
 }
 
 .art-detail-spec dd {
-  margin: 0.1rem 0 0;
-  font-size: 0.98rem;
+  margin: 0.05rem 0 0;
+  font-size: 0.92rem;
   font-weight: 700;
-  line-height: 1.35;
+  line-height: 1.3;
   color: var(--pd-navy);
   overflow-wrap: break-word;
 }
@@ -448,9 +448,9 @@
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  margin-top: 1.4rem;
-  padding: 0.85rem 1.6rem;
-  font-size: 1rem;
+  margin-top: 1rem;
+  padding: 0.65rem 1.35rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--pd-navy);
   text-decoration: none;
@@ -466,7 +466,7 @@
 }
 
 .art-detail-pd-note {
-  margin: 1.1rem 0 0;
+  margin: 0.6rem 0 0;
   font-size: 0.85rem;
   color: var(--pd-muted);
 }
@@ -521,7 +521,7 @@
   display: flex;
   align-items: center;
   gap: 0.9rem;
-  padding: 0.75rem 0;
+  padding: 0.8rem 0;
   text-decoration: none;
   color: inherit;
   border-bottom: 1px solid var(--pd-line);
@@ -533,8 +533,8 @@
 
 .art-detail-more-img-wrap {
   flex-shrink: 0;
-  width: 72px;
-  height: 72px;
+  width: 84px;
+  height: 84px;
   overflow: hidden;
   background: #eef0f4;
   border-radius: 2px;
@@ -666,7 +666,7 @@
 /* Phones: one column. */
 @media (max-width: 800px) {
   .art-detail-inner {
-    padding: 1rem 1.25rem 4rem;
+    padding: 1rem 1.25rem 2.5rem;
   }
 
   .art-detail-layout {
