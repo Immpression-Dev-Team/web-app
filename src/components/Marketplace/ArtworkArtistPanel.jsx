@@ -28,8 +28,15 @@ export default function ArtworkArtistPanel({ artistName, artist, artistWorks, di
 
   return (
     <aside className="adp-aside" aria-label="About the artist">
-      <section className="adp-card">
-        <h2 className="adp-card-title">About the Artist</h2>
+      <section className="adp-card adp-artist-card">
+        {/* Painted accent: mint scribble (top right). */}
+        <svg className="adp-artist-scribble" viewBox="0 0 160 70" aria-hidden="true">
+          <path d="M6 64 C 40 34, 92 12, 156 6" />
+          <path d="M34 66 C 70 42, 112 24, 154 18" />
+          <path d="M72 60 C 98 46, 126 34, 152 28" />
+        </svg>
+
+        <h2 className="adp-artist-heading">About the Artist</h2>
         <div className="adp-artist">
           {photo ? (
             <img
@@ -43,12 +50,20 @@ export default function ArtworkArtistPanel({ artistName, artist, artistWorks, di
               {initials(artistName)}
             </span>
           )}
+          <span className="adp-artist-divider" aria-hidden="true" />
           <div className="adp-artist-body">
             <p className="adp-artist-name">{artistName}</p>
             {artist?.artistType && <p className="adp-artist-type">{artist.artistType}</p>}
           </div>
         </div>
-        {artist?.bio && <p className="adp-artist-bio">{artist.bio}</p>}
+        {artist?.bio && (
+          <div className="adp-artist-bio-row">
+            <p className="adp-artist-bio">{artist.bio}</p>
+            <svg className="adp-artist-crown" viewBox="0 0 40 32" aria-hidden="true">
+              <path d="M5 26 L3 9 L13 17 L20 4 L27 17 L37 9 L34 26 C 25 23, 14 23, 5 26 Z" />
+            </svg>
+          </div>
+        )}
         {/* Button face is the supplied brushstroke artwork
             (assets/view-profile-button.webp). */}
         <Link to={profileLink} className="adp-profile-btn" aria-label="View profile">

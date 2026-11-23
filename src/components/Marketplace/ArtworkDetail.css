@@ -568,6 +568,129 @@
 }
 
 /* ─── Artist column ─── */
+
+/* "About the Artist" card (reference: Immpression Artist Profile Card):
+   rounded white card, mint brushstroke heading, painted scribble and
+   crown doodles, mint-rimmed avatar | navy divider | name + type, bio,
+   then the View Profile artwork button. */
+.adp-card.adp-artist-card {
+  position: relative;
+  gap: 0.85rem;
+  padding: 1.05rem 1.15rem 1.15rem;
+  overflow: hidden;
+  border: 1px solid #eef0f4;
+  border-radius: 18px;
+  box-shadow: 0 2px 4px rgba(16, 24, 40, 0.03), 0 14px 30px -16px rgba(11, 31, 77, 0.28);
+}
+
+.adp-artist-heading {
+  position: relative;
+  align-self: flex-start;
+  margin: 0 0 0 -0.4rem;
+  padding: 0.3rem 1.3rem 0.4rem 0.95rem;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--adp-navy);
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath fill='%2347EFAC' fill-opacity='.85' d='M7 9 C45 3 120 5 194 4 L188 12 L199 17 L189 23 L197 30 C140 37 70 38 5 34 L11 27 L2 21 L10 15 Z'/%3E%3Cpath fill='%2347EFAC' opacity='.5' d='M14 34 L150 35 L148 39 L18 39 Z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+}
+
+.adp-artist-scribble {
+  position: absolute;
+  top: 0.2rem;
+  right: -0.4rem;
+  width: 112px;
+  height: 50px;
+  pointer-events: none;
+}
+
+.adp-artist-scribble path {
+  fill: none;
+  stroke: var(--adp-mint);
+  stroke-width: 5;
+  stroke-linecap: round;
+  opacity: 0.7;
+}
+
+.adp-artist-scribble path + path {
+  stroke-width: 3.5;
+  opacity: 0.55;
+}
+
+/* Bio with the doodled crown beside it (only shown when there's a bio). */
+.adp-artist-bio-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.adp-artist-crown {
+  flex-shrink: 0;
+  width: 24px;
+  height: 20px;
+  transform: rotate(-8deg);
+}
+
+.adp-artist-crown path {
+  fill: none;
+  stroke: #f5c33b;
+  stroke-width: 2.6;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.adp-artist-card .adp-artist {
+  gap: 0.95rem;
+  padding: 0.15rem 0 0 0.35rem;
+}
+
+/* Avatar with a hand-painted mint arc around its lower left. */
+.adp-artist-card .adp-artist-avatar {
+  width: 76px;
+  height: 76px;
+  box-shadow: -3px 3px 0 0 var(--adp-mint);
+  border: 2px solid #ffffff;
+}
+
+.adp-artist-card .adp-artist-avatar--empty {
+  font-size: 1.4rem;
+}
+
+.adp-artist-divider {
+  align-self: stretch;
+  width: 2px;
+  margin: 0.4rem 0;
+  border-radius: 2px;
+  background: var(--adp-navy);
+}
+
+.adp-artist-card .adp-artist-name {
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--adp-navy);
+}
+
+.adp-artist-card .adp-artist-type {
+  margin-top: 0.15rem;
+  font-size: 1rem;
+  color: #6b7280;
+}
+
+.adp-artist-card .adp-artist-bio {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--adp-ink);
+}
+
+.adp-artist-card .adp-profile-btn {
+  max-width: none;
+  margin-top: 0.1rem;
+}
+
 .adp-aside {
   display: flex;
   flex-direction: column;
