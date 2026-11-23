@@ -89,20 +89,21 @@
 /* ─── Product ─── */
 .adp-product {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) 290px;
-  gap: 2.25rem;
-  align-items: start;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr) 300px;
+  gap: 2rem;
+  align-items: stretch;
 }
 
-/* Image: shown whole at its own proportions (contain, never cropped),
-   on a soft mat; stays in view while the details scroll on desktop. */
+/* Image: shown whole at its own proportions (contain, never cropped), on a
+   soft mat that stretches to the info card's height. */
 .adp-media {
-  position: sticky;
-  top: 112px;
+  display: flex;
+  min-width: 0;
 }
 
 .adp-image-frame {
   position: relative;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -139,74 +140,138 @@
   border: 1px solid var(--adp-line);
 }
 
-/* ─── Details ─── */
+/* ─── Info card ───
+   White card: brushstroke category, big title with a mint swoosh, artist
+   line, price card + view/favorite badges, quoted description, Buy Now,
+   and the Artwork Details card. */
 .adp-info {
   display: flex;
   flex-direction: column;
   min-width: 0;
+  padding: 1.1rem 1.4rem 1.25rem;
+  background: #ffffff;
+  border: 1px solid #edf0f4;
+  border-radius: 16px;
+  box-shadow: 0 2px 4px rgba(16, 24, 40, 0.03), 0 14px 32px -18px rgba(11, 31, 77, 0.25);
 }
 
 .adp-category {
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--adp-mint-ink);
+  align-self: flex-start;
+  padding: 0.3rem 1.4rem 0.35rem 1.1rem;
+  margin-left: -0.35rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--adp-navy);
   text-transform: capitalize;
-  margin-bottom: 0.4rem;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath fill='%2347EFAC' d='M7 9 C45 3 120 5 194 4 L188 12 L199 17 L189 23 L197 30 C140 37 70 38 5 34 L11 27 L2 21 L10 15 Z'/%3E%3Cpath fill='%2347EFAC' opacity='.55' d='M150 2 L199 1 L196 5 L160 6 Z M172 34 L199 33 L194 38 L176 38 Z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
 }
 
 .adp-title {
-  font-size: 2.15rem;
-  font-weight: 700;
-  line-height: 1.2;
+  position: relative;
+  align-self: flex-start;
+  margin: 0.3rem 0 0;
+  padding-bottom: 0.45rem;
+  font-size: 2.45rem;
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
   color: var(--adp-navy);
-  margin: 0;
   overflow-wrap: anywhere;
 }
 
+/* Hand-drawn mint swoosh under the end of the title. */
+.adp-title-swoosh {
+  position: absolute;
+  right: 0;
+  bottom: -0.1rem;
+  width: min(48%, 200px);
+  height: 12px;
+  overflow: visible;
+}
+
+.adp-title-swoosh path {
+  fill: none;
+  stroke: var(--adp-mint);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
 .adp-artist-line {
-  margin: 0.45rem 0 0;
-  font-size: 0.95rem;
-  color: var(--adp-muted);
+  margin: 0.55rem 0 0;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--adp-ink);
 }
 
 .adp-artist-line a {
   color: var(--adp-navy);
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: none;
 }
 
 .adp-artist-line a:hover {
   color: var(--adp-mint-ink);
-  text-decoration: underline;
-  text-underline-offset: 3px;
 }
 
+/* Price card + stacked badges */
 .adp-price-row {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1.5rem;
   margin-top: 1.1rem;
 }
 
+.adp-price-card {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 0.95rem 1.4rem;
+  background: #ffffff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 60' preserveAspectRatio='none'%3E%3Cg fill='%2347EFAC'%3E%3Cpath opacity='.16' d='M30 52 C80 30 140 12 198 6 L196 18 C140 24 90 40 50 58 Z'/%3E%3Cpath opacity='.11' d='M70 58 C110 44 160 32 199 28 L198 36 C160 40 120 50 95 60 Z'/%3E%3Cpath opacity='.09' d='M110 30 C140 20 175 12 199 10 L199 15 C175 17 145 25 120 34 Z'/%3E%3C/g%3E%3C/svg%3E") right bottom / 34% 85% no-repeat;
+  border: 1px solid #eef0f4;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px -12px rgba(11, 31, 77, 0.3);
+}
+
 .adp-price {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--adp-ink);
+  font-size: 2.6rem;
+  font-weight: 800;
   line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--adp-ink);
 }
 
 .adp-price--sold {
   color: #9ca3af;
   text-decoration: line-through;
-  text-decoration-thickness: 2px;
+  text-decoration-thickness: 3px;
+}
+
+.adp-price-divider {
+  align-self: stretch;
+  width: 1px;
+  background: #e5e7eb;
 }
 
 .adp-status {
-  font-size: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 1rem;
+  font-size: 1rem;
   font-weight: 600;
-  padding: 0.3rem 0.6rem;
   color: #0c6b48;
-  background: rgba(71, 239, 172, 0.18);
+  background: rgba(71, 239, 172, 0.22);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.adp-status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #12a46b;
 }
 
 .adp-status--sold {
@@ -214,12 +279,50 @@
   background: #f3f4f6;
 }
 
-.adp-stats {
+.adp-status--sold .adp-status-dot {
+  background: #9ca3af;
+}
+
+.adp-badges {
   display: flex;
+  flex-direction: column;
   gap: 0.5rem;
-  margin: 0.6rem 0 0;
-  font-size: 0.82rem;
-  color: var(--adp-muted);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.adp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 1.1rem 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--adp-navy);
+  background: #f1f4f8;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* Quoted description */
+.adp-quote {
+  position: relative;
+  display: flex;
+  gap: 0.65rem;
+  margin: 1.2rem 0 0;
+  padding: 0.2rem 0.5rem 0.2rem 1rem;
+  border-left: 3px solid var(--adp-mint);
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 60' preserveAspectRatio='none'%3E%3Cg fill='%2347EFAC'%3E%3Cpath opacity='.16' d='M30 52 C80 30 140 12 198 6 L196 18 C140 24 90 40 50 58 Z'/%3E%3Cpath opacity='.11' d='M70 58 C110 44 160 32 199 28 L198 36 C160 40 120 50 95 60 Z'/%3E%3Cpath opacity='.09' d='M110 30 C140 20 175 12 199 10 L199 15 C175 17 145 25 120 34 Z'/%3E%3C/g%3E%3C/svg%3E") right bottom / 38% 70% no-repeat;
+}
+
+.adp-quote-mark {
+  flex-shrink: 0;
+  font-family: Georgia, serif;
+  font-size: 2.6rem;
+  font-weight: 700;
+  line-height: 0.8;
+  color: var(--adp-mint);
 }
 
 /* Purchase actions (no container). */
@@ -232,8 +335,9 @@
 
 .adp-buy-note {
   margin: 0;
-  font-size: 0.8rem;
-  color: var(--adp-muted);
+  font-size: 0.85rem;
+  text-align: center;
+  color: #4b5563;
 }
 
 /* ─── "Buy Now" (opens PurchaseModal) ───
@@ -344,60 +448,114 @@
   outline-offset: 2px;
 }
 
-/* Description (right under price) + details */
 .adp-description {
-  margin: 1.1rem 0 0;
-  font-size: 0.93rem;
-  line-height: 1.65;
-  color: #374151;
+  margin: 0;
+  font-size: 1.12rem;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--adp-navy);
   white-space: pre-line;
   overflow-wrap: anywhere;
 }
 
-.adp-block {
-  margin-top: 1.5rem;
-  padding-top: 1.1rem;
-  border-top: 1px solid #eef0f3;
+/* Artwork Details card */
+.adp-details {
+  margin-top: 1.1rem;
+  padding: 1rem 1.4rem 0.6rem;
+  background: #ffffff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath fill='%2347EFAC' fill-opacity='.45' d='M7 9 C45 3 120 5 194 4 L188 12 L199 17 L189 23 L197 30 C140 37 70 38 5 34 L11 27 L2 21 L10 15 Z'/%3E%3Cpath fill='%2347EFAC' fill-opacity='.45' opacity='.55' d='M150 2 L199 1 L196 5 L160 6 Z M172 34 L199 33 L194 38 L176 38 Z'/%3E%3C/svg%3E") right 0.6rem top 0.4rem / 110px 30px no-repeat;
+  border: 1px solid #eef0f4;
+  border-radius: 14px;
+  box-shadow: 0 10px 24px -16px rgba(11, 31, 77, 0.3);
 }
 
-.adp-block-title {
-  margin: 0 0 0.5rem;
-  font-size: 0.95rem;
-  font-weight: 600;
+.adp-details-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 0.35rem;
+  font-size: 1.25rem;
+  font-weight: 800;
   color: var(--adp-navy);
+}
+
+.adp-details-icon {
+  display: flex;
+  color: #12a46b;
+}
+
+.adp-details-rule {
+  flex: 1;
+  max-width: 160px;
+  height: 2px;
+  margin-left: 0.75rem;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--adp-mint), rgba(71, 239, 172, 0));
 }
 
 .adp-specs {
   margin: 0;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: 1.25rem;
 }
 
 .adp-spec {
   display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #f1f3f6;
+  align-items: center;
+  gap: 0.85rem;
+  min-width: 0;
+  padding: 0.75rem 0.5rem 0.75rem 0;
+  border-bottom: 1px solid #eef0f4;
+}
+
+/* Column divider and no rule under the last row. */
+.adp-spec:nth-child(odd) {
+  border-right: 1px solid #eef0f4;
+}
+
+.adp-spec:nth-child(even) {
+  padding-left: 1.4rem;
+}
+
+.adp-spec:nth-last-child(-n + 2):nth-child(odd),
+.adp-spec:last-child {
+  border-bottom: none;
+}
+
+.adp-spec-icon {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #12a46b;
+  background: rgba(71, 239, 172, 0.16);
+  border-radius: 10px;
+}
+
+.adp-spec-text {
+  min-width: 0;
 }
 
 .adp-spec dt {
-  font-size: 0.72rem;
-  color: var(--adp-muted);
+  font-size: 0.9rem;
+  color: #4b5563;
 }
 
 .adp-spec dd {
-  margin: 0;
-  font-size: 0.88rem;
-  font-weight: 500;
-  color: var(--adp-ink);
+  margin: 0.1rem 0 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--adp-navy);
+  overflow-wrap: break-word;
 }
 
 /* ─── Artist column ─── */
 .adp-aside {
   display: flex;
   flex-direction: column;
+  align-self: start;
   gap: 1rem;
   min-width: 0;
 }
@@ -737,8 +895,39 @@
     gap: 1.5rem;
   }
 
-  .adp-media {
-    position: static;
+  .adp-info {
+    padding: 1rem 1rem 1.1rem;
+  }
+
+  .adp-price-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .adp-badges {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .adp-specs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .adp-spec:nth-child(odd) {
+    border-right: none;
+  }
+
+  .adp-spec:nth-child(even) {
+    padding-left: 0;
+  }
+
+  .adp-spec:nth-last-child(-n + 2):nth-child(odd) {
+    border-bottom: 1px solid #eef0f4;
+  }
+
+  .adp-details {
+    padding: 0.9rem 1rem 0.4rem;
   }
 
   .adp-image-frame {
@@ -750,11 +939,11 @@
   }
 
   .adp-title {
-    font-size: 1.6rem;
+    font-size: 1.9rem;
   }
 
   .adp-price {
-    font-size: 1.6rem;
+    font-size: 2.1rem;
   }
 
   .adp-aside {

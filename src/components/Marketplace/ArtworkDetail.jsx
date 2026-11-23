@@ -9,6 +9,9 @@ import buyNowArt from "../../assets/buy-now-button.webp";
 import ArtworkRelatedSection from "./ArtworkRelatedSection.jsx";
 import { pickMoreArtwork, pickDiscoverArt } from "./artworkRecommendations.js";
 import RailBlogSection from "./MarketplaceRail/RailBlogSection.jsx";
+import {
+  EyeIcon, HeartIcon, LayersIcon, PenIcon, FrameIcon, CalendarIcon, PhoneIcon, RulerIcon, WeightIcon,
+} from "./ArtworkInfoIcons.jsx";
 import "./MarketplaceRail/MarketplaceRail.css";
 
 // Extract 24-char MongoDB hex ID from the end of the artwork slug
@@ -165,12 +168,13 @@ const ArtworkDetail = () => {
     dimensions?.height && dimensions?.width && {
       label: "Dimensions",
       value: `${dimensions.height}" × ${dimensions.width}"${dimensions.length ? ` × ${dimensions.length}"` : ""}`,
+      Icon: RulerIcon,
     },
-    weight && { label: "Weight", value: `${weight} lbs` },
-    { label: "Signed", value: isSigned ? "Yes" : "No" },
-    { label: "Framed", value: isFramed ? "Yes" : "No" },
-    listedDate && { label: "Listed", value: listedDate },
-    { label: "Purchase method", value: "Immpression app" },
+    weight && { label: "Weight", value: `${weight} lbs`, Icon: WeightIcon },
+    { label: "Signed", value: isSigned ? "Yes" : "No", Icon: PenIcon },
+    { label: "Framed", value: isFramed ? "Yes" : "No", Icon: FrameIcon },
+    listedDate && { label: "Listed", value: listedDate, Icon: CalendarIcon },
+    { label: "Purchase method", value: "Immpression app", Icon: PhoneIcon },
   ].filter(Boolean);
 
   const pageUrl = `https://www.immpression.art/marketplace/${slugify(artistName || "artist")}/${slugify(name || "artwork")}-${artwork._id}`;
@@ -260,27 +264,45 @@ const ArtworkDetail = () => {
 
         <div className="adp-info">
           {category && <span className="adp-category">{category}</span>}
-          <h1 className="adp-title">{name}</h1>
+          <h1 className="adp-title">
+            {name}
+            <svg className="adp-title-swoosh" viewBox="0 0 200 14" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M3 10.5 C 45 3.5, 110 2.5, 197 4.5" />
+            </svg>
+          </h1>
           <p className="adp-artist-line">
             by <Link to={`/?q=${encodeURIComponent(artistName || "")}`}>{artistName}</Link>
           </p>
 
           <div className="adp-price-row">
-            <span className={`adp-price${isSold ? " adp-price--sold" : ""}`}>
-              ${Number(price).toLocaleString()}
-            </span>
-            <span className={`adp-status${isSold ? " adp-status--sold" : ""}`}>
-              {isSold ? "Sold" : "Available"}
-            </span>
+            <div className="adp-price-card">
+              <span className={`adp-price${isSold ? " adp-price--sold" : ""}`}>
+                ${Number(price).toLocaleString()}
+              </span>
+              <span className="adp-price-divider" aria-hidden="true" />
+              <span className={`adp-status${isSold ? " adp-status--sold" : ""}`}>
+                <span className="adp-status-dot" aria-hidden="true" />
+                {isSold ? "Sold" : "Available"}
+              </span>
+            </div>
+            <ul className="adp-badges">
+              <li className="adp-badge">
+                <EyeIcon />
+                {views.toLocaleString()} view{views === 1 ? "" : "s"}
+              </li>
+              <li className="adp-badge">
+                <HeartIcon />
+                {favorites.toLocaleString()} favorite{favorites === 1 ? "" : "s"}
+              </li>
+            </ul>
           </div>
 
-          <p className="adp-stats">
-            <span>{views.toLocaleString()} view{views === 1 ? "" : "s"}</span>
-            <span aria-hidden="true">·</span>
-            <span>{favorites.toLocaleString()} favorite{favorites === 1 ? "" : "s"}</span>
-          </p>
-
-          {description && <p className="adp-description">{description}</p>}
+          {description && (
+            <blockquote className="adp-quote">
+              <span className="adp-quote-mark" aria-hidden="true">&ldquo;</span>
+              <p className="adp-description">{description}</p>
+            </blockquote>
+          )}
 
           {/* Purchases happen in the mobile app; the popup hands off to it.
               There is no web checkout. */}
@@ -310,13 +332,20 @@ const ArtworkDetail = () => {
             </p>
           </div>
 
-          <section className="adp-block">
-            <h2 className="adp-block-title">Details</h2>
+          <section className="adp-details">
+            <h2 className="adp-details-title">
+              <span className="adp-details-icon"><LayersIcon /></span>
+              Artwork Details
+              <span className="adp-details-rule" aria-hidden="true" />
+            </h2>
             <dl className="adp-specs">
-              {specs.map((spec) => (
-                <div className="adp-spec" key={spec.label}>
-                  <dt>{spec.label}</dt>
-                  <dd>{spec.value}</dd>
+              {specs.map(({ label, value, Icon }) => (
+                <div className="adp-spec" key={label}>
+                  <span className="adp-spec-icon"><Icon /></span>
+                  <div className="adp-spec-text">
+                    <dt>{label}</dt>
+                    <dd>{value}</dd>
+                  </div>
                 </div>
               ))}
             </dl>
