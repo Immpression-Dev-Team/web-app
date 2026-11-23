@@ -680,27 +680,6 @@
   box-shadow: 0 2px 4px rgba(16, 24, 40, 0.03), 0 14px 30px -16px rgba(11, 31, 77, 0.28);
 }
 
-.adp-pd-head {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.adp-pd-head .adp-artist-heading {
-  margin-left: 0;
-}
-
-.adp-pd-icon {
-  flex-shrink: 0;
-  width: 30px;
-  height: 30px;
-  fill: none;
-  stroke: #12a46b;
-  stroke-width: 1.9;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
 .adp-pd-sub {
   margin: 0;
   font-size: 0.85rem;

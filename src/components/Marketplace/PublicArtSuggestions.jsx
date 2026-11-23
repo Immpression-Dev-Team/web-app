@@ -63,15 +63,7 @@ export default function PublicArtSuggestions({ seed }) {
         <path d="M72 60 C 98 46, 126 34, 152 28" />
       </svg>
 
-      <div className="adp-pd-head">
-        <svg className="adp-pd-icon" viewBox="0 0 24 24" aria-hidden="true">
-          <rect x="6" y="6" width="15" height="13" rx="2" />
-          <path d="M3 15V5a2 2 0 0 1 2-2h11" />
-          <circle cx="11" cy="10.5" r="1.6" />
-          <path d="M21 16l-4.5-4.5L9 19" />
-        </svg>
-        <h2 className="adp-artist-heading">More Artwork</h2>
-      </div>
+      <h2 className="adp-artist-heading">More Artwork</h2>
       <p className="adp-pd-sub">Discover and buy timeless public domain art.</p>
 
       <ul className="adp-pd-list">
