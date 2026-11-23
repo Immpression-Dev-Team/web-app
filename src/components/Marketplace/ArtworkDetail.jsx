@@ -5,6 +5,7 @@ import "./ArtworkDetail.css";
 import { API_URL } from "../../API_URL";
 import ArtworkArtistPanel from "./ArtworkArtistPanel.jsx";
 import PurchaseModal from "./PurchaseModal/PurchaseModal.jsx";
+import buyNowArt from "../../assets/buy-now-button.webp";
 import ArtworkRelatedSection from "./ArtworkRelatedSection.jsx";
 import { pickMoreArtwork, pickDiscoverArt } from "./artworkRecommendations.js";
 import RailBlogSection from "./MarketplaceRail/RailBlogSection.jsx";
@@ -289,16 +290,17 @@ const ArtworkDetail = () => {
                 Sold
               </button>
             ) : (
-              // Misregistered print: a navy block printed slightly off a
-              // mint one, the way screen prints slip between passes. Pressing
-              // it snaps the print into register. (.adp-cta in the CSS.)
+              // The button art is the supplied design itself
+              // (assets/buy-now-button.webp, cut from "Mint Brushstroke Buy
+              // Now Button.png"), so it matches exactly and scales as one image.
               <button
                 type="button"
                 className="adp-cta"
                 aria-haspopup="dialog"
+                aria-label="Buy now"
                 onClick={() => setPurchaseOpen(true)}
               >
-                <span className="adp-cta-label">Buy Now</span>
+                <img src={buyNowArt} alt="" className="adp-cta-art" width="1100" height="195" />
               </button>
             )}
             <p className="adp-buy-note">

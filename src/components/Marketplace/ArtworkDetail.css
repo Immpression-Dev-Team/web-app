@@ -237,44 +237,34 @@
 }
 
 /* ─── "Buy Now" (opens PurchaseModal) ───
-   A misregistered screen print: flat navy block, flat mint block printed
-   a few px off underneath, and the same slip on the marker lettering.
-   Hover nudges the print toward register; pressing lands it exactly. */
+   The button face is the supplied brushstroke artwork; the button itself
+   is just a transparent, full-width hit area around it. */
 .adp-cta {
-  --slip: 6px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: calc(100% - var(--slip));
-  height: 56px;
-  margin-bottom: var(--slip);
-  color: #ffffff;
-  background: #0b1f4d;
+  display: block;
+  width: 100%;
+  padding: 0;
+  background: none;
   border: none;
-  border-radius: 0;
-  box-shadow: var(--slip) var(--slip) 0 #47EFAC;
   cursor: pointer;
-  transition: transform 0.12s ease-out, box-shadow 0.12s ease-out;
+  transition: transform 0.15s ease, filter 0.15s ease;
 }
 
-.adp-cta-label {
-  font-family: 'Permanent Marker', cursive;
-  font-size: 1.45rem;
-  font-weight: 400;
-  line-height: 1;
-  letter-spacing: 0.04em;
-  text-shadow: 2px 2px 0 rgba(71, 239, 172, 0.75);
+.adp-cta-art {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
 }
 
 .adp-cta:hover {
-  transform: translate(2px, 2px);
-  box-shadow: calc(var(--slip) - 2px) calc(var(--slip) - 2px) 0 #47EFAC;
+  transform: translateY(-2px);
+  filter: brightness(1.08) drop-shadow(0 6px 10px rgba(11, 31, 77, 0.22));
 }
 
 .adp-cta:active {
-  transform: translate(var(--slip), var(--slip));
-  box-shadow: 0 0 0 #47EFAC;
+  transform: translateY(1px);
+  filter: brightness(0.97);
 }
 
 .adp-cta:focus-visible {
