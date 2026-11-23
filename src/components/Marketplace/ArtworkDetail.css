@@ -154,7 +154,7 @@
   padding: 0.85rem 1.15rem 0.95rem;
   background: #ffffff;
   border: 1px solid #edf0f4;
-  border-radius: 16px;
+  border-radius: 0;
   box-shadow: 0 2px 4px rgba(16, 24, 40, 0.03), 0 14px 32px -18px rgba(11, 31, 77, 0.25);
 }
 
@@ -233,7 +233,7 @@
   padding: 0.7rem 1.1rem;
   background: #ffffff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 60' preserveAspectRatio='none'%3E%3Cg fill='%2347EFAC'%3E%3Cpath opacity='.16' d='M30 52 C80 30 140 12 198 6 L196 18 C140 24 90 40 50 58 Z'/%3E%3Cpath opacity='.11' d='M70 58 C110 44 160 32 199 28 L198 36 C160 40 120 50 95 60 Z'/%3E%3Cpath opacity='.09' d='M110 30 C140 20 175 12 199 10 L199 15 C175 17 145 25 120 34 Z'/%3E%3C/g%3E%3C/svg%3E") right bottom / 34% 85% no-repeat;
   border: 1px solid #eef0f4;
-  border-radius: 12px;
+  border-radius: 0;
   box-shadow: 0 8px 20px -12px rgba(11, 31, 77, 0.3);
 }
 
@@ -266,7 +266,7 @@
   font-weight: 600;
   color: #0c6b48;
   background: rgba(71, 239, 172, 0.22);
-  border-radius: 999px;
+  border-radius: 0;
   white-space: nowrap;
 }
 
@@ -304,7 +304,7 @@
   font-weight: 600;
   color: var(--adp-navy);
   background: #f1f4f8;
-  border-radius: 999px;
+  border-radius: 0;
   white-space: nowrap;
 }
 
@@ -474,7 +474,7 @@
   padding: 0.75rem 1.1rem 0.35rem;
   background: #ffffff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath fill='%2347EFAC' fill-opacity='.45' d='M7 9 C45 3 120 5 194 4 L188 12 L199 17 L189 23 L197 30 C140 37 70 38 5 34 L11 27 L2 21 L10 15 Z'/%3E%3Cpath fill='%2347EFAC' fill-opacity='.45' opacity='.55' d='M150 2 L199 1 L196 5 L160 6 Z M172 34 L199 33 L194 38 L176 38 Z'/%3E%3C/svg%3E") right 0.6rem top 0.4rem / 110px 30px no-repeat;
   border: 1px solid #eef0f4;
-  border-radius: 14px;
+  border-radius: 0;
   box-shadow: 0 10px 24px -16px rgba(11, 31, 77, 0.3);
 }
 
@@ -540,7 +540,7 @@
   justify-content: center;
   color: #12a46b;
   background: rgba(71, 239, 172, 0.16);
-  border-radius: 10px;
+  border-radius: 0;
 }
 
 .adp-spec-icon svg,
@@ -579,7 +579,7 @@
   padding: 1.05rem 1.15rem 1.15rem;
   overflow: hidden;
   border: 1px solid #eef0f4;
-  border-radius: 18px;
+  border-radius: 0;
   box-shadow: 0 2px 4px rgba(16, 24, 40, 0.03), 0 14px 30px -16px rgba(11, 31, 77, 0.28);
 }
 
@@ -676,7 +676,7 @@
   padding: 1.05rem 1.15rem 0.6rem;
   overflow: hidden;
   border: 1px solid #eef0f4;
-  border-radius: 18px;
+  border-radius: 0;
   box-shadow: 0 2px 4px rgba(16, 24, 40, 0.03), 0 14px 30px -16px rgba(11, 31, 77, 0.28);
 }
 
@@ -712,7 +712,7 @@
   width: 78px;
   height: 62px;
   margin: 0.45rem 0;
-  border-radius: 10px;
+  border-radius: 0;
   overflow: hidden;
   background: #eef0f4;
   box-shadow: -4px 0 0 0 var(--adp-mint);
@@ -785,7 +785,7 @@
 .adp-pd-item:focus-visible {
   outline: 2px solid var(--adp-navy);
   outline-offset: 3px;
-  border-radius: 10px;
+  border-radius: 0;
 }
 
 .adp-aside {
