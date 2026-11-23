@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { getPublicArtwork, getRelatedPublicArtworks, parseArtworkId } from "../../API/publicDomainAPI";
+import { getPublicArtwork, parseArtworkId } from "../../API/publicDomainAPI";
+import { getDiversePublicArt, isPublicDomain } from "../../utils/diversePublicArt";
 import {
   sanitizeText,
   sanitizeYear,
@@ -60,20 +61,21 @@ export default function PublicArtDetail() {
     setAboutOpen(false);
     setFailedThumbs(new Set());
 
+    let cancelled = false;
     getPublicArtwork(source, id).then(res => {
+      if (cancelled) return;
       if (res.success && res.data) {
         setArtwork(res.data);
+        // Varied recommendations (see utils/diversePublicArt).
+        getDiversePublicArt(res.data, 5)
+          .then((picks) => { if (!cancelled) setRelated(picks); })
+          .catch(() => {});
       } else {
         setError(true);
       }
       setLoading(false);
     });
-
-    // The Met serves its images behind a bot check, so they can't load on our
-    // pages; leave Met pieces out of the sidebar until that changes.
-    getRelatedPublicArtworks(source, id, 7).then(res => {
-      if (res.success) setRelated(res.data.filter((art) => art.source !== "met"));
-    });
+    return () => { cancelled = true; };
   }, [source, id]);
 
   useEffect(() => {
@@ -108,8 +110,11 @@ export default function PublicArtDetail() {
   const title = sanitizeText(artwork.title) || "Untitled";
   const artist = sanitizeText(artwork.artist);
   const about = sanitizeDescription(artwork.description);
-  // Everything on these pages is public domain, so License is always true.
-  const details = [...buildDetailRows(artwork), { label: "License", value: "Public Domain" }];
+  // Museum pieces are public domain (their APIs are queried that way);
+  // Wikimedia files carry their own license, which may be Creative Commons.
+  const publicDomain = isPublicDomain(artwork);
+  const licenseLabel = artwork.license || "Public Domain";
+  const details = [...buildDetailRows(artwork), { label: "License", value: licenseLabel }];
   // Long descriptions (some Wikimedia captions run for paragraphs) start
   // clamped with a Read more toggle.
   const longAbout = (about || "").length > 320;
@@ -202,6 +207,29 @@ export default function PublicArtDetail() {
                 <div className="art-detail-no-img">No image available</div>
               </div>
             )}
+
+            <section className="art-detail-pd-about">
+              <h2 className="art-detail-pd-about-title">About Public Domain Art</h2>
+              {publicDomain ? (
+                <p>
+                  This artwork is in the public domain: its copyright has expired or
+                  been waived, so the original image is free for anyone to view,
+                  download and use.
+                </p>
+              ) : (
+                <p>
+                  This image isn&apos;t public domain: it&apos;s shared under a{" "}
+                  {licenseLabel} license, so reuse has conditions (such as crediting
+                  the author). Check the terms on {museumName} before using it.
+                </p>
+              )}
+              <p>
+                Immpression will offer products featuring public domain artwork
+                that you can buy through our app. They aren&apos;t available
+                yet. When they are, you&apos;ll be paying for the product, not
+                for the artwork itself.
+              </p>
+            </section>
           </div>
 
           {/* Info column */}
@@ -287,7 +315,9 @@ export default function PublicArtDetail() {
               </a>
             )}
             <p className="art-detail-pd-note">
-              This work is in the public domain and free to use.
+              {publicDomain
+                ? "This work is in the public domain and free to use."
+                : `Shared under ${licenseLabel}. See ${museumName} for reuse terms.`}
             </p>
           </div>
 
