@@ -297,6 +297,7 @@ const ArtworkDetail = () => {
             </ul>
           </div>
 
+          {description && <span className="adp-gap" aria-hidden="true" />}
           {description && (
             <blockquote className="adp-quote">
               <span className="adp-quote-mark" aria-hidden="true">&ldquo;</span>
@@ -304,6 +305,7 @@ const ArtworkDetail = () => {
             </blockquote>
           )}
 
+          <span className="adp-gap" aria-hidden="true" />
           {/* Purchases happen in the mobile app; the popup hands off to it.
               There is no web checkout. */}
           <div className="adp-buy">
@@ -332,6 +334,7 @@ const ArtworkDetail = () => {
             </p>
           </div>
 
+          <span className="adp-gap" aria-hidden="true" />
           <section className="adp-details">
             <h2 className="adp-details-title">
               <span className="adp-details-icon"><LayersIcon /></span>
